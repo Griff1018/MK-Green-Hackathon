@@ -145,3 +145,49 @@ def explain(result: dict, scenario: str, snapshot: dict, lang: str, use_llm: boo
     except llm.LLMError as e:
         base["note"] = f"Model unavailable ({e}); showing the standard explanation."
         return base
+
+
+# ---------- resume wording ------------------------------------------------------
+POLISH_SYSTEM = (
+    "You improve the wording of a resume for a job seeker. Keep every fact exactly as given: do not add "
+    "employers, numbers, tools, results or achievements that are not in the input. Use short, active "
+    "bullet points. Return JSON only."
+)
+POLISH_SHAPE = '{"summary": "<improved summary>", "bullets": ["<improved bullet, same order as the input>"]}'
+
+
+def _content_words(s: str) -> set:
+    return {w for w in re.findall(r"[a-z]{4,}", s.lower())}
+
+
+def polish(summary: str, bullets: list, role_title: str) -> dict:
+    base = {"summary": summary, "bullets": bullets, "method": "none", "model": None, "note": ""}
+    if not llm.status()["available"]:
+        base["note"] = "No language model connected; your text is unchanged."
+        return base
+    try:
+        out = llm.run_json(f"Target role: {role_title}\n\nInput:\n" +
+                           json.dumps({"summary": summary, "bullets": bullets}, ensure_ascii=False),
+                           POLISH_SHAPE, POLISH_SYSTEM)
+    except llm.LLMError as e:
+        base["note"] = f"Model unavailable ({e}); your text is unchanged."
+        return base
+    src = summary + " " + " ".join(bullets) + " " + role_title
+    allowed = _numbers(src)
+    new_summary = str(out.get("summary", "")).strip() or summary
+    new_bullets = [str(b).strip() for b in out.get("bullets", [])]
+    if len(new_bullets) != len(bullets):
+        new_bullets = bullets
+    kept_summary = summary if (_numbers(new_summary) - allowed) else new_summary
+    kept, rejected = [], 0
+    for old, new in zip(bullets, new_bullets):
+        overlap = len(_content_words(new) & _content_words(old)) / max(1, len(_content_words(old)))
+        if (_numbers(new) - allowed) or overlap < 0.3 or len(new) > 2 * max(40, len(old)):
+            kept.append(old)
+            rejected += 1
+        else:
+            kept.append(new)
+    note = "Wording improved. Check every line before you use it."
+    if rejected or kept_summary == summary:
+        note += f" {rejected} line(s) kept as written because the new wording changed the facts."
+    return {"summary": kept_summary, "bullets": kept, "method": "llm", "model": llm.status()["model"], "note": note}

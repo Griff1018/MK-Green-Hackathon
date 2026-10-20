@@ -1,0 +1,19 @@
+Muhammad Hafiz Example
+hafiz.sample@example.com | 011-2345 6789
+
+Education
+Diploma in Electrical Engineering, Politeknik Sample, 2026
+
+Experience
+Part-time Sales Assistant, Sample Hardware, 2024 - Present
+- Serve customers and recommend electrical parts
+- Help with stock counts
+Practical training
+- Wiring and circuit practicals in the polytechnic workshop
+- Help classmates fix laptops and install software
+
+Skills
+Electrical wiring, troubleshooting, customer service
+
+Languages
+Malay, English

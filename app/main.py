@@ -11,15 +11,15 @@ from contextlib import asynccontextmanager
 from datetime import date
 
 import httpx
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import assist, config, db, engine, llm
+from . import advice, assist, config, cv, db, engine, llm
 from .config import ROOT, SEED_DIR
-from .data import (CATALOGUE, CATALOGUE_META, CLUSTERS, ESCO_META, ILO_META, OCCUPATIONS, ROLE, ROLES,
-                   SAMPLES, SDG_META, exposure)
+from .data import (CATALOGUE, CATALOGUE_META, CLUSTER, CLUSTERS, COUNTRIES, ESCO_META, ILO_META, OCCUPATIONS,
+                   ROLE, ROLES, SAMPLES, SDG_META, exposure)
 
 ESCO_API = "https://ec.europa.eu/esco/api"
 BOOTSTRAP = SEED_DIR / "snapshots_bootstrap.json"
@@ -41,7 +41,7 @@ async def lifespan(_app: FastAPI):
     yield
 
 
-app = FastAPI(title="Workforce Futures Engine", version="0.1.0", lifespan=lifespan)
+app = FastAPI(title="Workforce Futures Engine", version="0.2.0", lifespan=lifespan)
 
 
 def load_snapshot(snapshot_id: int | None) -> dict:
@@ -56,7 +56,17 @@ def load_snapshot(snapshot_id: int | None) -> dict:
     return {**snap["payload"], "id": snap["id"], "created_at": snap["created_at"]}
 
 
-def snapshot_info(s: dict) -> dict:
+def previous_of(snap: dict) -> dict | None:
+    """The newest snapshot taken on an earlier date, used to show what changed."""
+    for s in db.list_snapshots(50):
+        if s["as_of"] < snap["as_of"]:
+            return load_snapshot(s["id"])
+    return None
+
+
+def snapshot_info(s: dict | None) -> dict | None:
+    if not s:
+        return None
     return {"id": s["id"], "as_of": s["as_of"], "created_at": s["created_at"], "sources": s["sources"]}
 
 
@@ -65,11 +75,15 @@ class Profile(BaseModel):
     skills: dict[str, int] = Field(default_factory=dict)
     interests: list[str] = Field(default_factory=list)
     hours: int = Field(5, ge=1, le=40)
+    country: str = "MY"
+    budget: str = "free"
+    age_band: str | None = None
+    situation: str | None = None
 
 
 class AnalyzeIn(Profile):
     snapshot_id: int | None = None
-    compare_id: int | None = None
+    compare: bool = False
 
 
 class PathwayIn(Profile):
@@ -91,6 +105,17 @@ class ExplainIn(Profile):
     use_model: bool = False
 
 
+class AdviceIn(Profile):
+    role: str | None = None
+    path_hours: int | None = None
+
+
+class PolishIn(BaseModel):
+    role: str
+    summary: str = Field("", max_length=1200)
+    bullets: list[str] = Field(default_factory=list, max_length=30)
+
+
 # ---------- read-only data ------------------------------------------------------------
 @app.get("/api/health")
 def health() -> dict:
@@ -106,17 +131,25 @@ def meta() -> dict:
             "esco": {k: r["esco"][k] for k in ("uri", "title", "code", "description")},
             "esco_essential": r["esco"]["essential"],
             "isco": r["isco"], "exposure": r["exposure"], "req": r["req_list"],
+            "ladder": [{"stage": s["stage"], "title": s["title"], "isco": s["isco"],
+                        "exposure": s["exposure"], "esco_uri": s["esco"]["uri"]} for s in r["stages"]],
             "sdg": engine.sdg_links(r["id"]),
         })
     return {
-        "clusters": [{k: c[k] for k in ("id", "label", "kind", "ai")} for c in CLUSTERS],
+        "clusters": [{k: c[k] for k in ("id", "label", "kind", "ai")} | {"sdg": c.get("sdg", [])} for c in CLUSTERS],
         "roles": roles,
         "scenarios": {k: {"label": v["label"], "note": v["note"], "weights": v["w"], "amp": v["amp"]}
                       for k, v in engine.SCENARIOS.items()},
         "levels": engine.LEVELS,
         "samples": SAMPLES,
+        "countries": {k: {"name": v["name"], "currency": v["currency"], "budgets": v["budgets"]}
+                      for k, v in COUNTRIES.items()},
+        "age_bands": advice.AGE_BANDS,
+        "situations": advice.SITUATIONS,
         "snapshots": db.list_snapshots(20),
         "catalogue": {"items": CATALOGUE, **CATALOGUE_META},
+        "sdg_targets": {t: engine.sdg_target(t) for c in CLUSTERS for t in c.get("sdg", [])}
+                       | {l["target"]: engine.sdg_target(l["target"]) for r in ROLES for l in engine.sdg_links(r["id"])},
         "sources": {"ilo": ILO_META, "esco": ESCO_META, "sdg": SDG_META},
         "llm": llm.status(),
     }
@@ -126,6 +159,25 @@ def meta() -> dict:
 def snapshot(snapshot_id: int) -> dict:
     s = load_snapshot(snapshot_id)
     return {**snapshot_info(s), "signals": engine.signal_table(s)}
+
+
+@app.get("/api/updates")
+def updates() -> dict:
+    """Today's check: what moved since the previous trend snapshot, and which new tools are rising."""
+    snap = load_snapshot(None)
+    prev = previous_of(snap)
+    moved = []
+    if prev:
+        for cid in CLUSTER:
+            a = prev["clusters"].get(cid, {}).get("demand_change")
+            b = snap["clusters"].get(cid, {}).get("demand_change")
+            if a is not None and b is not None and abs(b - a) >= 0.1:
+                moved.append({"cluster": cid, "before": a, "after": b})
+    moved.sort(key=lambda x: -abs(x["after"] - x["before"]))
+    tech = [{"cluster": cid, **w} for cid in CLUSTER for w in engine.new_tech(cid, snap)]
+    tech.sort(key=lambda x: -x["change"])
+    return {"checked_on": date.today().isoformat(), "snapshot": snapshot_info(snap),
+            "previous": snapshot_info(prev), "moved": moved[:8], "new_tech": tech[:8]}
 
 
 def _occupation_hit(title: str, code: str, uri: str, essential: list[str]) -> dict:
@@ -165,10 +217,12 @@ def occupation_search(q: str) -> dict:
 @app.post("/api/analyze")
 def analyze(body: AnalyzeIn) -> dict:
     snap = load_snapshot(body.snapshot_id)
-    compare = load_snapshot(body.compare_id) if body.compare_id else None
+    compare = previous_of(snap) if body.compare else None
     res = engine.analyze(body.skills, body.interests, snap, compare)
-    return {"snapshot": snapshot_info(snap), "compare": snapshot_info(compare) if compare else None,
-            "signals": engine.signal_table(snap), **res}
+    local = COUNTRIES.get(body.country, COUNTRIES["OTHER"])
+    return {"snapshot": snapshot_info(snap), "compare": snapshot_info(compare),
+            "signals": engine.signal_table(snap), "local_demand": local["local_demand"],
+            "local_demand_source": local["local_demand_source"], **res}
 
 
 @app.post("/api/pathway")
@@ -178,13 +232,29 @@ def pathway(body: PathwayIn) -> dict:
     if body.scenario not in engine.SCENARIOS:
         raise HTTPException(400, "Unknown scenario")
     snap = load_snapshot(body.snapshot_id)
-    p = engine.pathway(body.skills, body.role, body.hours, snap, body.scenario, body.interests)
+    p = engine.career_path(body.skills, body.role, body.hours, snap, previous_of(snap), body.scenario,
+                           body.budget, body.country)
     return {**p, "sdg": engine.sdg_links(body.role), "snapshot": snapshot_info(snap)}
+
+
+@app.post("/api/advice")
+def get_advice(body: AdviceIn) -> dict:
+    return advice.advice(engine.clean_skills(body.skills), body.country, body.age_band, body.situation,
+                         body.budget, body.hours, body.role if body.role in ROLE else None, body.path_hours)
 
 
 @app.post("/api/extract")
 def extract(body: ExtractIn) -> dict:
     return assist.extract(body.text, body.use_model)
+
+
+@app.post("/api/cv")
+async def cv_import(file: UploadFile = File(...), use_model: bool = Form(False)) -> dict:
+    data = await file.read(cv.MAX_BYTES + 1)
+    try:
+        return cv.parse(file.filename or "cv.txt", data, use_model)
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
 
 
 @app.post("/api/explain")
@@ -194,6 +264,13 @@ def explain(body: ExplainIn) -> dict:
     snap = load_snapshot(body.snapshot_id)
     res = engine.evaluate(ROLE[body.role], engine.clean_skills(body.skills), body.interests, body.scenario, snap)
     return assist.explain(res, body.scenario, snap, body.lang, body.use_model)
+
+
+@app.post("/api/resume/polish")
+def resume_polish(body: PolishIn) -> dict:
+    if body.role not in ROLE:
+        raise HTTPException(400, "Unknown role")
+    return assist.polish(body.summary, body.bullets, ROLE[body.role]["title"])
 
 
 # ---------- admin -----------------------------------------------------------------------
