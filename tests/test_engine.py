@@ -143,6 +143,7 @@ def test_model_failure_falls_back(monkeypatch):
 def client(tmp_path_factory):
     import os
     os.environ["DATABASE_URL"] = f"sqlite:///{tmp_path_factory.mktemp('db') / 'test.db'}"
+    os.environ["TEST_ACCOUNTS"] = "tina:Tina,tom:Tom"
     import importlib
     from app import config, db
     importlib.reload(config)
@@ -188,3 +189,38 @@ def test_updates_and_advice(client):
     adv = client.post("/api/advice", json={"skills": PERSONA["skills"], "country": "MY", "budget": "free",
                                            "situation": "switcher", "age_band": "45-54"}).json()
     assert adv["tips"] and adv["side_income"] and adv["funding"]
+
+
+def test_pages_are_revalidated_but_api_is_not(client):
+    assert client.get("/").headers.get("cache-control") == "no-cache"
+    assert client.get("/static/app.js").headers.get("cache-control") == "no-cache"
+    assert client.get("/api/health").headers.get("cache-control") is None
+
+
+def test_tester_accounts_start_with_the_setup(client):
+    accts = {a["id"]: a for a in client.get("/api/accounts").json()["accounts"]}
+    assert accts["tina"]["kind"] == "tester" and not accts["tina"]["onboarded"]
+    token = client.post("/api/accounts/tina/signin").json()["token"]
+    me = client.get("/api/me", headers={"Authorization": f"Bearer {token}"}).json()
+    assert me["data"]["onboarded"] is False and me["data"]["profile"]["skills"] == {}
+    assert client.post("/api/accounts/nobody/signin").status_code == 404
+
+
+def test_profile_saves_to_database_and_needs_a_session(client):
+    assert client.get("/api/me").status_code == 401
+    token = client.post("/api/accounts/tom/signin").json()["token"]
+    h = {"Authorization": f"Bearer {token}"}
+    data = client.get("/api/me", headers=h).json()["data"]
+    data["onboarded"], data["role"] = True, "dba"
+    assert client.put("/api/me", headers=h, json={"data": data}).status_code == 200
+    other = client.post("/api/accounts/tom/signin").json()["token"]   # a second device sees the same profile
+    assert client.get("/api/me", headers={"Authorization": f"Bearer {other}"}).json()["data"]["role"] == "dba"
+    assert client.put("/api/me", headers=h, json={"data": {"x": "y" * 400_000}}).status_code == 413
+    client.post("/api/signout", headers=h)
+    assert client.get("/api/me", headers=h).status_code == 401
+
+
+def test_sample_accounts_start_with_sample_data(client):
+    r = client.post("/api/accounts/sample-meiling/signin").json()
+    me = client.get("/api/me", headers={"Authorization": f"Bearer {r['token']}"}).json()
+    assert me["kind"] == "sample" and me["data"]["profile"]["skills"]

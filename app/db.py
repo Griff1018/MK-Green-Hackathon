@@ -1,4 +1,4 @@
-"""Trend snapshots live in a database so they survive redeploys.
+"""Trend snapshots and user accounts live in a database so they survive redeploys.
 
 Locally this is SQLite (data/app.db). On Replit, add a PostgreSQL database and
 DATABASE_URL is set automatically; nothing else changes.
@@ -29,6 +29,23 @@ snapshots = Table(
     Column("as_of", String(10), nullable=False, index=True),
     Column("created_at", String(32), nullable=False),
     Column("payload", Text, nullable=False),
+)
+
+users = Table(
+    "users", meta,
+    Column("id", String(40), primary_key=True),
+    Column("name", String(80), nullable=False),
+    Column("kind", String(10), nullable=False),          # "tester" or "sample"
+    Column("data", Text, nullable=False),                 # profile, progress and settings (JSON)
+    Column("created_at", String(32), nullable=False),
+    Column("updated_at", String(32), nullable=False),
+)
+
+sessions = Table(
+    "sessions", meta,
+    Column("token_hash", String(64), primary_key=True),   # only a hash of the token is stored
+    Column("user_id", String(40), nullable=False, index=True),
+    Column("expires_at", String(32), nullable=False),
 )
 
 

@@ -16,7 +16,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import advice, assist, config, cv, db, engine, llm
+from . import accounts, advice, assist, config, cv, db, engine, llm
 from .config import ROOT, SEED_DIR
 from .data import (CATALOGUE, CATALOGUE_META, CLUSTER, CLUSTERS, COUNTRIES, ESCO_META, ILO_META, OCCUPATIONS,
                    ROLE, ROLES, SAMPLES, SDG_META, exposure)
@@ -38,6 +38,7 @@ def bootstrap_snapshots() -> None:
 async def lifespan(_app: FastAPI):
     db.init()
     bootstrap_snapshots()
+    accounts.ensure_accounts()
     yield
 
 
@@ -114,6 +115,60 @@ class PolishIn(BaseModel):
     role: str
     summary: str = Field("", max_length=1200)
     bullets: list[str] = Field(default_factory=list, max_length=30)
+
+
+# ---------- accounts ------------------------------------------------------------------
+class SaveIn(BaseModel):
+    data: dict
+
+
+def _token(authorization: str) -> str | None:
+    return authorization[7:] if authorization.startswith("Bearer ") else None
+
+
+def _auth(authorization: str) -> dict:
+    try:
+        return accounts.user_for(_token(authorization))
+    except accounts.AuthError as e:
+        raise HTTPException(e.status, str(e)) from e
+
+
+@app.get("/api/accounts")
+def account_list() -> dict:
+    return {"accounts": accounts.list_accounts()}
+
+
+@app.post("/api/accounts/{uid}/signin")
+def account_sign_in(uid: str) -> dict:
+    try:
+        return accounts.sign_in(uid)
+    except accounts.AuthError as e:
+        raise HTTPException(e.status, str(e)) from e
+
+
+@app.get("/api/me")
+def me(authorization: str = Header("")) -> dict:
+    return _auth(authorization)
+
+
+@app.put("/api/me")
+def me_save(body: SaveIn, authorization: str = Header("")) -> dict:
+    u = _auth(authorization)
+    try:
+        return {"saved_at": accounts.save_data(u["id"], body.data)}
+    except accounts.AuthError as e:
+        raise HTTPException(e.status, str(e)) from e
+
+
+@app.post("/api/me/reset")
+def me_reset(authorization: str = Header("")) -> dict:
+    return {"data": accounts.reset_data(_auth(authorization)["id"])}
+
+
+@app.post("/api/signout")
+def sign_out(authorization: str = Header("")) -> dict:
+    accounts.sign_out(_token(authorization))
+    return {"ok": True}
 
 
 # ---------- read-only data ------------------------------------------------------------
@@ -304,6 +359,16 @@ def admin_refresh_status() -> dict:
 
 
 # ---------- web app ----------------------------------------------------------------------
+@app.middleware("http")
+async def revalidate_pages(request, call_next):
+    """Make browsers check for a newer page and script on every load, so an old cached
+    page is never paired with a newer script after a redeploy."""
+    response = await call_next(request)
+    if not request.url.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 STATIC = ROOT / "static"
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
 

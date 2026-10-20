@@ -34,3 +34,11 @@ LLM_MAX_PARALLEL = int(os.environ.get("LLM_MAX_PARALLEL", "2"))
 ADZUNA_APP_ID = os.environ.get("ADZUNA_APP_ID", "")
 ADZUNA_APP_KEY = os.environ.get("ADZUNA_APP_KEY", "")
 ADZUNA_COUNTRY = os.environ.get("ADZUNA_COUNTRY", "sg")
+
+# Tester accounts created at start-up, as "id:Display name" pairs separated by commas.
+# Kept out of the repository: set it in .env locally or in Replit Secrets.
+TEST_ACCOUNTS: list[tuple[str, str]] = []
+for _item in os.environ.get("TEST_ACCOUNTS", "").split(","):
+    _uid, _, _name = _item.strip().partition(":")
+    if _uid:
+        TEST_ACCOUNTS.append((_uid.strip().lower(), (_name or _uid).strip()))

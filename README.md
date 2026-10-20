@@ -2,12 +2,16 @@
 
 From who you are today to where you can be in the AI era.
 
-A web app for the **SDC Hackathon 2026, Domain 1: Aiversecity Future-Ready Workforce**. It takes a person through four steps:
+A web app for the **SDC Hackathon 2026, Domain 1: Aiversecity Future-Ready Workforce**.
 
-1. **About you**: import a CV (PDF, Word or text), describe your work, or start from a sample person. Set your country, age band, situation, budget and weekly hours.
-2. **Careers**: careers ranked by fit, demand trends and AI exposure, under three future scenarios, with advice for your situation and budget.
-3. **Path**: a step-by-step map from entry level to the top of the career (for example AI-enabled executive assistant → office manager → chief operating officer), rechecked against the latest trend data.
-4. **Resume**: unlocks when you finish a stage, and lists only what you have completed.
+- **Sign in** to a personal account stored in the database by choosing it from a list (prototype: no password). Tester accounts, set with `TEST_ACCOUNTS`, start with an empty profile and go straight into the setup. The synthetic sample people are shared for demos.
+- **About you** is a short setup that asks one thing per screen: how you want things explained (Simple or Detailed), country, age band and situation, time and budget, your experience (import a CV, write a few lines, or skip), your skills, and your interests. You can run it again at any time from the account menu.
+- **Home** is your dashboard: your next step, your career ladder, progress, today's trend check, resume status and advice.
+- **Careers** ranks careers by fit, demand trends and AI exposure, under three possible futures.
+- **Path** is a step-by-step map from entry level to the top of the career (for example AI-enabled executive assistant → office manager → chief operating officer), rechecked against the latest trend data.
+- **Resume** unlocks when you finish a stage and lists only what you completed.
+
+**Simple mode** is for first-time career planners. It turns numbers into plain words: "Great fit" instead of a score, "AI impact: high" instead of an exposure index, "more jobs want this" instead of a percentage change. Every banner has a **?** button that explains it in the chosen style. Detailed mode keeps the numbers and sources.
 
 HR managers and career centres get a team or cohort view. The app supports career decisions. It never makes hiring, selection or eligibility decisions.
 
@@ -27,7 +31,10 @@ Also included: local job search links, funding schemes and critical-occupation n
 ### Fairness and privacy
 
 - Age band and situation are optional and only shape cost and time advice. A test checks that they never change career matches.
-- The profile, CV details and progress stay in the browser (localStorage). The server does not store CVs; contact details are removed before any text reaches the model.
+- Accounts, profiles, CV details and progress are stored in the database (SQLite locally, PostgreSQL on Replit). Session tokens are stored only as SHA-256 hashes.
+- Sign-in has no password, so anyone with the link can open any account. Share the link only with testers.
+- Testers should enter only information they are happy to store. For the competition demo, use the synthetic sample people and CVs.
+- A production version would use a proper identity provider and a consent and data-deletion flow under Malaysia's PDPA. The server does not store CVs; contact details are removed before any text reaches the model.
 - Demos use the synthetic sample CVs in `static/samples/`. Domain 1 forbids real CVs in the competition demo.
 
 ## How it works
@@ -80,6 +87,8 @@ python -m ingest.refresh --as-of 2026-07-20  # rebuild a past snapshot
 python -m ingest.build_seed                  # re-download ESCO, ILO and SDG seed data
 python -m ingest.check_catalogue             # check every course link
 python -m ingest.make_sample_cvs             # rebuild the synthetic sample CVs
+python -m ingest.manage_accounts list        # accounts and setup status
+python -m ingest.manage_accounts reset-profile chew  # blank profile; setup runs again
 python -m pytest -q                          # tests
 ```
 
@@ -89,6 +98,7 @@ python -m pytest -q                          # tests
 2. In **Tools → Database**, add a PostgreSQL database. Replit sets `DATABASE_URL`.
 3. In **Secrets**, add:
    - `ADMIN_TOKEN`: any long random string (protects `POST /api/admin/refresh`)
+   - `TEST_ACCOUNTS`: tester accounts to create, for example `alice:Alice,bob:Bob`. Kept out of the repository on purpose.
    - `CODEBUDDY_API_KEY`: from your WorkBuddy/CodeBuddy profile page, to enable the model (optional). For the China edition also set `CODEBUDDY_INTERNET_ENVIRONMENT=internal`.
    - `CODEBUDDY_MODEL`: optional, default `deepseek-v4.1-flash`
    - `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`: optional job-ads source
@@ -101,6 +111,10 @@ Keep the deployment URL: it is the Replit proof for the Technical & Tools Declar
 
 | Method | Path | Purpose |
 |---|---|---|
+| GET | `/api/accounts` | Accounts for the sign-in list |
+| POST | `/api/accounts/{id}/signin` | Sign in; returns a session token |
+| GET / PUT | `/api/me` | Load or save the signed-in account's profile (Bearer token) |
+| POST | `/api/signout` | End the session |
 | GET | `/api/meta` | Roles, skill clusters, scenarios, samples, snapshots, sources, model status |
 | POST | `/api/analyze` | Rankings for all scenarios; with `compare_id`, what changed |
 | POST | `/api/pathway` | Career path across all stages (budget- and country-aware) |
