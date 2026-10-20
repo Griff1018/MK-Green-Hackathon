@@ -16,7 +16,7 @@
      "Ask HN: Who is hiring? (February 2026)"
     ],
     "posts_current": 1452,
-    "posts_previous": 1514
+    "posts_previous": 1513
    },
    "arxiv": {
     "name": "arXiv API (paper abstracts)",
@@ -33,12 +33,12 @@
   },
   "clusters": {
    "excel": {
-    "demand_change": 0.241,
+    "demand_change": 0.2404,
     "research_change": null,
     "n": 60
    },
    "dataentry": {
-    "demand_change": -0.0287,
+    "demand_change": -0.0289,
     "research_change": null,
     "n": 15
    },
@@ -58,7 +58,7 @@
     "n": 2
    },
    "customer": {
-    "demand_change": -0.018,
+    "demand_change": -0.0186,
     "research_change": null,
     "n": 124
    },
@@ -68,67 +68,67 @@
     "n": 1
    },
    "stakeholder": {
-    "demand_change": 0.0157,
+    "demand_change": 0.0155,
     "research_change": null,
     "n": 18
    },
    "problem": {
-    "demand_change": 0.0047,
+    "demand_change": 0.0046,
     "research_change": null,
     "n": 4
    },
    "coaching": {
-    "demand_change": 0.0703,
+    "demand_change": 0.0701,
     "research_change": null,
     "n": 7
    },
    "sql": {
-    "demand_change": -0.2381,
+    "demand_change": -0.2385,
     "research_change": null,
     "n": 465
    },
    "python": {
-    "demand_change": -0.122,
+    "demand_change": -0.1225,
     "research_change": null,
     "n": 512
    },
    "dataviz": {
-    "demand_change": 0.1065,
+    "demand_change": 0.106,
     "research_change": null,
     "n": 53
    },
    "dataquality": {
-    "demand_change": 0.0954,
+    "demand_change": 0.0949,
     "research_change": null,
     "n": 69
    },
    "genai": {
-    "demand_change": -0.056,
-    "research_change": -0.0639,
+    "demand_change": -0.0566,
+    "research_change": -0.0636,
     "n": 304
    },
    "processmap": {
-    "demand_change": -0.1765,
+    "demand_change": -0.1769,
     "research_change": 0.5891,
     "n": 151
    },
    "mlds": {
-    "demand_change": -0.1476,
+    "demand_change": -0.148,
     "research_change": -0.0417,
     "n": 143
    },
    "cyber": {
-    "demand_change": -0.0111,
+    "demand_change": -0.0117,
     "research_change": null,
     "n": 220
    },
    "networking": {
-    "demand_change": -0.0938,
+    "demand_change": -0.0943,
     "research_change": null,
     "n": 206
    },
    "helpdesk": {
-    "demand_change": 0.0326,
+    "demand_change": 0.0321,
     "research_change": null,
     "n": 98
    },
@@ -148,7 +148,7 @@
     "n": 22
    },
    "esg": {
-    "demand_change": 0.0894,
+    "demand_change": 0.089,
     "research_change": null,
     "n": 36
    },
@@ -168,15 +168,169 @@
     "n": 8
    },
    "electrical": {
-    "demand_change": -0.1061,
+    "demand_change": -0.1062,
     "research_change": null,
     "n": 11
    },
    "energyaudit": {
-    "demand_change": 0.0068,
+    "demand_change": 0.0067,
     "research_change": null,
     "n": 6
+   },
+   "leadership": {
+    "demand_change": -0.0202,
+    "research_change": null,
+    "n": 477
+   },
+   "strategy": {
+    "demand_change": 0.1193,
+    "research_change": null,
+    "n": 151
    }
+  },
+  "watch": {
+   "sql": [
+    {
+     "term": "dbt",
+     "cur": 20,
+     "prev": 9,
+     "change": 0.2949
+    },
+    {
+     "term": "Snowflake",
+     "cur": 16,
+     "prev": 15,
+     "change": 0.0561
+    }
+   ],
+   "python": [
+    {
+     "term": "FastAPI",
+     "cur": 20,
+     "prev": 40,
+     "change": -0.3181
+    },
+    {
+     "term": "Rust",
+     "cur": 85,
+     "prev": 97,
+     "change": -0.0745
+    }
+   ],
+   "dataviz": [
+    {
+     "term": "Looker",
+     "cur": 2,
+     "prev": 2,
+     "change": 0.0046
+    }
+   ],
+   "dataquality": [
+    {
+     "term": "data contracts",
+     "cur": 16,
+     "prev": 5,
+     "change": 0.2471
+    }
+   ],
+   "genai": [
+    {
+     "term": "AI agent",
+     "cur": 166,
+     "prev": 194,
+     "change": -0.1
+    },
+    {
+     "term": "MCP",
+     "cur": 19,
+     "prev": 10,
+     "change": 0.2949
+    },
+    {
+     "term": "RAG",
+     "cur": 33,
+     "prev": 29,
+     "change": 0.1245
+    }
+   ],
+   "processmap": [
+    {
+     "term": "n8n",
+     "cur": 4,
+     "prev": 7,
+     "change": -0.1062
+    },
+    {
+     "term": "agentic",
+     "cur": 95,
+     "prev": 80,
+     "change": 0.2023
+    }
+   ],
+   "mlds": [
+    {
+     "term": "vector database",
+     "cur": 5,
+     "prev": 6,
+     "change": -0.0345
+    },
+    {
+     "term": "LLMOps",
+     "cur": 3,
+     "prev": 2,
+     "change": 0.0748
+    }
+   ],
+   "cyber": [
+    {
+     "term": "zero trust",
+     "cur": 5,
+     "prev": 2,
+     "change": 0.1135
+    },
+    {
+     "term": "SOC 2",
+     "cur": 4,
+     "prev": 3,
+     "change": 0.0701
+    }
+   ],
+   "networking": [
+    {
+     "term": "Kubernetes",
+     "cur": 59,
+     "prev": 87,
+     "change": -0.2429
+    },
+    {
+     "term": "Terraform",
+     "cur": 50,
+     "prev": 67,
+     "change": -0.1766
+    }
+   ],
+   "esg": [
+    {
+     "term": "CSRD",
+     "cur": 0,
+     "prev": 0,
+     "change": 0.0
+    },
+    {
+     "term": "ISSB",
+     "cur": 0,
+     "prev": 0,
+     "change": 0.0
+    }
+   ],
+   "solar": [
+    {
+     "term": "battery storage",
+     "cur": 2,
+     "prev": 5,
+     "change": -0.1071
+    }
+   ]
   },
   "raw": {
    "hn": {
@@ -185,14 +339,14 @@
      "prev": 26,
      "cur_share": 0.0234,
      "prev_share": 0.0172,
-     "change": 0.241
+     "change": 0.2404
     },
     "dataentry": {
      "cur": 7,
      "prev": 8,
      "cur_share": 0.0048,
      "prev_share": 0.0053,
-     "change": -0.0287
+     "change": -0.0289
     },
     "bookkeeping": {
      "cur": 2,
@@ -213,7 +367,7 @@
      "prev": 64,
      "cur_share": 0.0413,
      "prev_share": 0.0423,
-     "change": -0.018
+     "change": -0.0186
     },
     "languages": {
      "cur": 1,
@@ -227,91 +381,91 @@
      "prev": 9,
      "cur_share": 0.0062,
      "prev_share": 0.0059,
-     "change": 0.0157
+     "change": 0.0155
     },
     "problem": {
      "cur": 2,
      "prev": 2,
      "cur_share": 0.0014,
      "prev_share": 0.0013,
-     "change": 0.0047
+     "change": 0.0046
     },
     "coaching": {
      "cur": 4,
      "prev": 3,
      "cur_share": 0.0028,
      "prev_share": 0.002,
-     "change": 0.0703
+     "change": 0.0701
     },
     "sql": {
      "cur": 194,
      "prev": 271,
      "cur_share": 0.1336,
-     "prev_share": 0.179,
-     "change": -0.2381
+     "prev_share": 0.1791,
+     "change": -0.2385
     },
     "python": {
      "cur": 233,
      "prev": 279,
      "cur_share": 0.1605,
-     "prev_share": 0.1843,
-     "change": -0.122
+     "prev_share": 0.1844,
+     "change": -0.1225
     },
     "dataviz": {
      "cur": 28,
      "prev": 25,
      "cur_share": 0.0193,
      "prev_share": 0.0165,
-     "change": 0.1065
+     "change": 0.106
     },
     "dataquality": {
      "cur": 36,
      "prev": 33,
      "cur_share": 0.0248,
      "prev_share": 0.0218,
-     "change": 0.0954
+     "change": 0.0949
     },
     "genai": {
      "cur": 144,
      "prev": 160,
      "cur_share": 0.0992,
-     "prev_share": 0.1057,
-     "change": -0.056
+     "prev_share": 0.1058,
+     "change": -0.0566
     },
     "processmap": {
      "cur": 65,
      "prev": 86,
      "cur_share": 0.0448,
      "prev_share": 0.0568,
-     "change": -0.1765
+     "change": -0.1769
     },
     "mlds": {
      "cur": 63,
      "prev": 80,
      "cur_share": 0.0434,
-     "prev_share": 0.0528,
-     "change": -0.1476
+     "prev_share": 0.0529,
+     "change": -0.148
     },
     "cyber": {
      "cur": 107,
      "prev": 113,
      "cur_share": 0.0737,
-     "prev_share": 0.0746,
-     "change": -0.0111
+     "prev_share": 0.0747,
+     "change": -0.0117
     },
     "networking": {
      "cur": 95,
      "prev": 111,
      "cur_share": 0.0654,
-     "prev_share": 0.0733,
-     "change": -0.0938
+     "prev_share": 0.0734,
+     "change": -0.0943
     },
     "helpdesk": {
      "cur": 49,
      "prev": 49,
      "cur_share": 0.0337,
      "prev_share": 0.0324,
-     "change": 0.0326
+     "change": 0.0321
     },
     "digimarketing": {
      "cur": 22,
@@ -339,7 +493,7 @@
      "prev": 17,
      "cur_share": 0.0131,
      "prev_share": 0.0112,
-     "change": 0.0894
+     "change": 0.089
     },
     "ghg": {
      "cur": 1,
@@ -360,22 +514,180 @@
      "prev": 7,
      "cur_share": 0.0028,
      "prev_share": 0.0046,
-     "change": -0.1061
+     "change": -0.1062
     },
     "energyaudit": {
      "cur": 3,
      "prev": 3,
      "cur_share": 0.0021,
      "prev_share": 0.002,
-     "change": 0.0068
+     "change": 0.0067
+    },
+    "leadership": {
+     "cur": 231,
+     "prev": 246,
+     "cur_share": 0.1591,
+     "prev_share": 0.1626,
+     "change": -0.0202
+    },
+    "strategy": {
+     "cur": 79,
+     "prev": 72,
+     "cur_share": 0.0544,
+     "prev_share": 0.0476,
+     "change": 0.1193
+    },
+    "_watch": {
+     "sql": [
+      {
+       "term": "dbt",
+       "cur": 20,
+       "prev": 9,
+       "change": 0.2949
+      },
+      {
+       "term": "Snowflake",
+       "cur": 16,
+       "prev": 15,
+       "change": 0.0561
+      }
+     ],
+     "python": [
+      {
+       "term": "FastAPI",
+       "cur": 20,
+       "prev": 40,
+       "change": -0.3181
+      },
+      {
+       "term": "Rust",
+       "cur": 85,
+       "prev": 97,
+       "change": -0.0745
+      }
+     ],
+     "dataviz": [
+      {
+       "term": "Looker",
+       "cur": 2,
+       "prev": 2,
+       "change": 0.0046
+      }
+     ],
+     "dataquality": [
+      {
+       "term": "data contracts",
+       "cur": 16,
+       "prev": 5,
+       "change": 0.2471
+      }
+     ],
+     "genai": [
+      {
+       "term": "AI agent",
+       "cur": 166,
+       "prev": 194,
+       "change": -0.1
+      },
+      {
+       "term": "MCP",
+       "cur": 19,
+       "prev": 10,
+       "change": 0.2949
+      },
+      {
+       "term": "RAG",
+       "cur": 33,
+       "prev": 29,
+       "change": 0.1245
+      }
+     ],
+     "processmap": [
+      {
+       "term": "n8n",
+       "cur": 4,
+       "prev": 7,
+       "change": -0.1062
+      },
+      {
+       "term": "agentic",
+       "cur": 95,
+       "prev": 80,
+       "change": 0.2023
+      }
+     ],
+     "mlds": [
+      {
+       "term": "vector database",
+       "cur": 5,
+       "prev": 6,
+       "change": -0.0345
+      },
+      {
+       "term": "LLMOps",
+       "cur": 3,
+       "prev": 2,
+       "change": 0.0748
+      }
+     ],
+     "cyber": [
+      {
+       "term": "zero trust",
+       "cur": 5,
+       "prev": 2,
+       "change": 0.1135
+      },
+      {
+       "term": "SOC 2",
+       "cur": 4,
+       "prev": 3,
+       "change": 0.0701
+      }
+     ],
+     "networking": [
+      {
+       "term": "Kubernetes",
+       "cur": 59,
+       "prev": 87,
+       "change": -0.2429
+      },
+      {
+       "term": "Terraform",
+       "cur": 50,
+       "prev": 67,
+       "change": -0.1766
+      }
+     ],
+     "esg": [
+      {
+       "term": "CSRD",
+       "cur": 0,
+       "prev": 0,
+       "change": 0.0
+      },
+      {
+       "term": "ISSB",
+       "cur": 0,
+       "prev": 0,
+       "change": 0.0
+      }
+     ],
+     "solar": [
+      {
+       "term": "battery storage",
+       "cur": 2,
+       "prev": 5,
+       "change": -0.1071
+      }
+     ]
     }
    },
    "arxiv": {
     "genai": {
      "term": "large language model",
      "cur": 7769,
-     "prev": 8300,
-     "change": -0.0639
+     "prev": 8298,
+     "change": -0.0636
     },
     "processmap": {
      "term": "LLM agents",
@@ -409,7 +721,7 @@
      "Ask HN: Who is hiring? (June 2026)",
      "Ask HN: Who is hiring? (May 2026)"
     ],
-    "posts_current": 1160,
+    "posts_current": 1159,
     "posts_previous": 1452
    },
    "arxiv": {
@@ -427,12 +739,12 @@
   },
   "clusters": {
    "excel": {
-    "demand_change": -0.213,
+    "demand_change": -0.2126,
     "research_change": null,
     "n": 52
    },
    "dataentry": {
-    "demand_change": 0.0216,
+    "demand_change": 0.0219,
     "research_change": null,
     "n": 13
    },
@@ -447,12 +759,12 @@
     "n": 0
    },
    "scheduling": {
-    "demand_change": 0.0137,
+    "demand_change": 0.0138,
     "research_change": null,
     "n": 2
    },
    "customer": {
-    "demand_change": 0.0999,
+    "demand_change": 0.1007,
     "research_change": null,
     "n": 114
    },
@@ -462,72 +774,72 @@
     "n": 1
    },
    "stakeholder": {
-    "demand_change": -0.0954,
+    "demand_change": -0.0952,
     "research_change": null,
     "n": 14
    },
    "problem": {
-    "demand_change": 0.0276,
+    "demand_change": 0.0277,
     "research_change": null,
     "n": 4
    },
    "coaching": {
-    "demand_change": 0.1257,
+    "demand_change": 0.126,
     "research_change": null,
     "n": 9
    },
    "sql": {
-    "demand_change": 0.2094,
+    "demand_change": 0.2104,
     "research_change": null,
     "n": 384
    },
    "python": {
-    "demand_change": 0.0897,
+    "demand_change": 0.0906,
     "research_change": null,
     "n": 437
    },
    "dataviz": {
-    "demand_change": -0.2406,
+    "demand_change": -0.2403,
     "research_change": null,
     "n": 41
    },
    "dataquality": {
-    "demand_change": -0.0873,
+    "demand_change": -0.0868,
     "research_change": null,
     "n": 61
    },
    "genai": {
-    "demand_change": 0.0543,
-    "research_change": -0.0989,
+    "demand_change": 0.0551,
+    "research_change": -0.0744,
     "n": 266
    },
    "processmap": {
-    "demand_change": 0.0318,
-    "research_change": 0.1574,
+    "demand_change": 0.0325,
+    "research_change": 0.204,
     "n": 119
    },
    "mlds": {
-    "demand_change": 0.1703,
+    "demand_change": 0.1711,
     "research_change": -0.115,
     "n": 124
    },
    "cyber": {
-    "demand_change": 0.2725,
+    "demand_change": 0.2735,
     "research_change": null,
     "n": 219
    },
    "networking": {
-    "demand_change": -0.0212,
+    "demand_change": -0.0205,
     "research_change": null,
     "n": 169
    },
    "helpdesk": {
-    "demand_change": 0.1524,
+    "demand_change": 0.1532,
     "research_change": null,
     "n": 96
    },
    "digimarketing": {
-    "demand_change": 0.3304,
+    "demand_change": 0.3312,
     "research_change": null,
     "n": 49
    },
@@ -542,7 +854,7 @@
     "n": 10
    },
    "esg": {
-    "demand_change": -0.1366,
+    "demand_change": -0.1363,
     "research_change": null,
     "n": 30
    },
@@ -570,7 +882,161 @@
     "demand_change": 0.1135,
     "research_change": null,
     "n": 7
+   },
+   "leadership": {
+    "demand_change": 0.0436,
+    "research_change": null,
+    "n": 424
+   },
+   "strategy": {
+    "demand_change": -0.1042,
+    "research_change": null,
+    "n": 134
    }
+  },
+  "watch": {
+   "sql": [
+    {
+     "term": "dbt",
+     "cur": 5,
+     "prev": 20,
+     "change": -0.2727
+    },
+    {
+     "term": "Snowflake",
+     "cur": 18,
+     "prev": 16,
+     "change": 0.2155
+    }
+   ],
+   "python": [
+    {
+     "term": "FastAPI",
+     "cur": 22,
+     "prev": 20,
+     "change": 0.219
+    },
+    {
+     "term": "Rust",
+     "cur": 67,
+     "prev": 85,
+     "change": -0.0104
+    }
+   ],
+   "dataviz": [
+    {
+     "term": "Looker",
+     "cur": 2,
+     "prev": 2,
+     "change": 0.0277
+    }
+   ],
+   "dataquality": [
+    {
+     "term": "data contracts",
+     "cur": 11,
+     "prev": 16,
+     "change": -0.0651
+    }
+   ],
+   "genai": [
+    {
+     "term": "AI agent",
+     "cur": 159,
+     "prev": 166,
+     "change": 0.1829
+    },
+    {
+     "term": "MCP",
+     "cur": 28,
+     "prev": 19,
+     "change": 0.3662
+    },
+    {
+     "term": "RAG",
+     "cur": 24,
+     "prev": 33,
+     "change": -0.058
+    }
+   ],
+   "processmap": [
+    {
+     "term": "n8n",
+     "cur": 3,
+     "prev": 4,
+     "change": -0.011
+    },
+    {
+     "term": "agentic",
+     "cur": 81,
+     "prev": 95,
+     "change": 0.0582
+    }
+   ],
+   "mlds": [
+    {
+     "term": "vector database",
+     "cur": 7,
+     "prev": 5,
+     "change": 0.1714
+    },
+    {
+     "term": "LLMOps",
+     "cur": 1,
+     "prev": 3,
+     "change": -0.0654
+    }
+   ],
+   "cyber": [
+    {
+     "term": "zero trust",
+     "cur": 4,
+     "prev": 5,
+     "change": 0.0005
+    },
+    {
+     "term": "SOC 2",
+     "cur": 8,
+     "prev": 4,
+     "change": 0.1714
+    }
+   ],
+   "networking": [
+    {
+     "term": "Kubernetes",
+     "cur": 56,
+     "prev": 59,
+     "change": 0.1496
+    },
+    {
+     "term": "Terraform",
+     "cur": 47,
+     "prev": 50,
+     "change": 0.1353
+    }
+   ],
+   "esg": [
+    {
+     "term": "CSRD",
+     "cur": 0,
+     "prev": 0,
+     "change": 0.0
+    },
+    {
+     "term": "ISSB",
+     "cur": 0,
+     "prev": 0,
+     "change": 0.0
+    }
+   ],
+   "solar": [
+    {
+     "term": "battery storage",
+     "cur": 0,
+     "prev": 2,
+     "change": -0.0375
+    }
+   ]
   },
   "raw": {
    "hn": {
@@ -579,14 +1045,14 @@
      "prev": 34,
      "cur_share": 0.0155,
      "prev_share": 0.0234,
-     "change": -0.213
+     "change": -0.2126
     },
     "dataentry": {
      "cur": 6,
      "prev": 7,
      "cur_share": 0.0052,
      "prev_share": 0.0048,
-     "change": 0.0216
+     "change": 0.0219
     },
     "bookkeeping": {
      "cur": 0,
@@ -600,14 +1066,14 @@
      "prev": 1,
      "cur_share": 0.0009,
      "prev_share": 0.0007,
-     "change": 0.0137
+     "change": 0.0138
     },
     "customer": {
      "cur": 54,
      "prev": 60,
      "cur_share": 0.0466,
      "prev_share": 0.0413,
-     "change": 0.0999
+     "change": 0.1007
     },
     "languages": {
      "cur": 0,
@@ -621,98 +1087,98 @@
      "prev": 9,
      "cur_share": 0.0043,
      "prev_share": 0.0062,
-     "change": -0.0954
+     "change": -0.0952
     },
     "problem": {
      "cur": 2,
      "prev": 2,
      "cur_share": 0.0017,
      "prev_share": 0.0014,
-     "change": 0.0276
+     "change": 0.0277
     },
     "coaching": {
      "cur": 5,
      "prev": 4,
      "cur_share": 0.0043,
      "prev_share": 0.0028,
-     "change": 0.1257
+     "change": 0.126
     },
     "sql": {
      "cur": 190,
      "prev": 194,
-     "cur_share": 0.1638,
+     "cur_share": 0.1639,
      "prev_share": 0.1336,
-     "change": 0.2094
+     "change": 0.2104
     },
     "python": {
      "cur": 204,
      "prev": 233,
-     "cur_share": 0.1759,
+     "cur_share": 0.176,
      "prev_share": 0.1605,
-     "change": 0.0897
+     "change": 0.0906
     },
     "dataviz": {
      "cur": 13,
      "prev": 28,
      "cur_share": 0.0112,
      "prev_share": 0.0193,
-     "change": -0.2406
+     "change": -0.2403
     },
     "dataquality": {
      "cur": 25,
      "prev": 36,
      "cur_share": 0.0216,
      "prev_share": 0.0248,
-     "change": -0.0873
+     "change": -0.0868
     },
     "genai": {
      "cur": 122,
      "prev": 144,
-     "cur_share": 0.1052,
+     "cur_share": 0.1053,
      "prev_share": 0.0992,
-     "change": 0.0543
+     "change": 0.0551
     },
     "processmap": {
      "cur": 54,
      "prev": 65,
      "cur_share": 0.0466,
      "prev_share": 0.0448,
-     "change": 0.0318
+     "change": 0.0325
     },
     "mlds": {
      "cur": 61,
      "prev": 63,
      "cur_share": 0.0526,
      "prev_share": 0.0434,
-     "change": 0.1703
+     "change": 0.1711
     },
     "cyber": {
      "cur": 112,
      "prev": 107,
      "cur_share": 0.0966,
      "prev_share": 0.0737,
-     "change": 0.2725
+     "change": 0.2735
     },
     "networking": {
      "cur": 74,
      "prev": 95,
      "cur_share": 0.0638,
      "prev_share": 0.0654,
-     "change": -0.0212
+     "change": -0.0205
     },
     "helpdesk": {
      "cur": 47,
      "prev": 49,
-     "cur_share": 0.0405,
+     "cur_share": 0.0406,
      "prev_share": 0.0337,
-     "change": 0.1524
+     "change": 0.1532
     },
     "digimarketing": {
      "cur": 27,
      "prev": 22,
      "cur_share": 0.0233,
      "prev_share": 0.0152,
-     "change": 0.3304
+     "change": 0.3312
     },
     "content": {
      "cur": 3,
@@ -733,7 +1199,7 @@
      "prev": 19,
      "cur_share": 0.0095,
      "prev_share": 0.0131,
-     "change": -0.1366
+     "change": -0.1363
     },
     "ghg": {
      "cur": 0,
@@ -745,7 +1211,7 @@
     "solar": {
      "cur": 4,
      "prev": 2,
-     "cur_share": 0.0034,
+     "cur_share": 0.0035,
      "prev_share": 0.0014,
      "change": 0.1
     },
@@ -759,23 +1225,181 @@
     "energyaudit": {
      "cur": 4,
      "prev": 3,
-     "cur_share": 0.0034,
+     "cur_share": 0.0035,
      "prev_share": 0.0021,
      "change": 0.1135
+    },
+    "leadership": {
+     "cur": 193,
+     "prev": 231,
+     "cur_share": 0.1665,
+     "prev_share": 0.1591,
+     "change": 0.0436
+    },
+    "strategy": {
+     "cur": 55,
+     "prev": 79,
+     "cur_share": 0.0475,
+     "prev_share": 0.0544,
+     "change": -0.1042
+    },
+    "_watch": {
+     "sql": [
+      {
+       "term": "dbt",
+       "cur": 5,
+       "prev": 20,
+       "change": -0.2727
+      },
+      {
+       "term": "Snowflake",
+       "cur": 18,
+       "prev": 16,
+       "change": 0.2155
+      }
+     ],
+     "python": [
+      {
+       "term": "FastAPI",
+       "cur": 22,
+       "prev": 20,
+       "change": 0.219
+      },
+      {
+       "term": "Rust",
+       "cur": 67,
+       "prev": 85,
+       "change": -0.0104
+      }
+     ],
+     "dataviz": [
+      {
+       "term": "Looker",
+       "cur": 2,
+       "prev": 2,
+       "change": 0.0277
+      }
+     ],
+     "dataquality": [
+      {
+       "term": "data contracts",
+       "cur": 11,
+       "prev": 16,
+       "change": -0.0651
+      }
+     ],
+     "genai": [
+      {
+       "term": "AI agent",
+       "cur": 159,
+       "prev": 166,
+       "change": 0.1829
+      },
+      {
+       "term": "MCP",
+       "cur": 28,
+       "prev": 19,
+       "change": 0.3662
+      },
+      {
+       "term": "RAG",
+       "cur": 24,
+       "prev": 33,
+       "change": -0.058
+      }
+     ],
+     "processmap": [
+      {
+       "term": "n8n",
+       "cur": 3,
+       "prev": 4,
+       "change": -0.011
+      },
+      {
+       "term": "agentic",
+       "cur": 81,
+       "prev": 95,
+       "change": 0.0582
+      }
+     ],
+     "mlds": [
+      {
+       "term": "vector database",
+       "cur": 7,
+       "prev": 5,
+       "change": 0.1714
+      },
+      {
+       "term": "LLMOps",
+       "cur": 1,
+       "prev": 3,
+       "change": -0.0654
+      }
+     ],
+     "cyber": [
+      {
+       "term": "zero trust",
+       "cur": 4,
+       "prev": 5,
+       "change": 0.0005
+      },
+      {
+       "term": "SOC 2",
+       "cur": 8,
+       "prev": 4,
+       "change": 0.1714
+      }
+     ],
+     "networking": [
+      {
+       "term": "Kubernetes",
+       "cur": 56,
+       "prev": 59,
+       "change": 0.1496
+      },
+      {
+       "term": "Terraform",
+       "cur": 47,
+       "prev": 50,
+       "change": 0.1353
+      }
+     ],
+     "esg": [
+      {
+       "term": "CSRD",
+       "cur": 0,
+       "prev": 0,
+       "change": 0.0
+      },
+      {
+       "term": "ISSB",
+       "cur": 0,
+       "prev": 0,
+       "change": 0.0
+      }
+     ],
+     "solar": [
+      {
+       "term": "battery storage",
+       "cur": 0,
+       "prev": 2,
+       "change": -0.0375
+      }
+     ]
     }
    },
    "arxiv": {
     "genai": {
      "term": "large language model",
-     "cur": 6951,
+     "cur": 7141,
      "prev": 7716,
-     "change": -0.0989
+     "change": -0.0744
     },
     "processmap": {
      "term": "LLM agents",
-     "cur": 1155,
+     "cur": 1202,
      "prev": 996,
-     "change": 0.1574
+     "change": 0.204
     },
     "mlds": {
      "term": "machine learning operations",

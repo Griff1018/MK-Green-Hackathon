@@ -72,7 +72,7 @@ def fetch_hn(client: httpx.Client, as_of: date) -> tuple[dict, dict]:
         raise RuntimeError("Not enough 'Who is hiring' threads before this date")
     cur_t, prev_t = threads[:3], threads[3:6]
     jobs = [(t["id"], None) for t in threads]
-    jobs += [(t["id"], term) for c in CLUSTERS for term in c["hn"] for t in threads]
+    jobs += [(t["id"], term) for c in CLUSTERS for term in c["hn"] + c.get("watch", []) for t in threads]
     with ThreadPoolExecutor(max_workers=8) as pool:
         counts = dict(zip(jobs, pool.map(lambda j: hn_count(client, *j), jobs)))
     totals = {t["id"]: counts[(t["id"], None)] for t in threads}
@@ -88,6 +88,17 @@ def fetch_hn(client: httpx.Client, as_of: date) -> tuple[dict, dict]:
         out[c["id"]] = {"cur": cur_n, "prev": prev_n, "cur_share": round(cur_share, 4),
                         "prev_share": round(prev_share, 4),
                         "change": round(shrunk_change(cur_share, prev_share, cur_n + prev_n), 4)}
+    posts_cur = sum(totals[t["id"]] for t in cur_t)
+    posts_prev = sum(totals[t["id"]] for t in prev_t)
+    watch = {}
+    for c in CLUSTERS:
+        for term in c.get("watch", []):
+            cur_n = sum(counts[(t["id"], term)] for t in cur_t)
+            prev_n = sum(counts[(t["id"], term)] for t in prev_t)
+            watch.setdefault(c["id"], []).append({
+                "term": term, "cur": cur_n, "prev": prev_n,
+                "change": round(shrunk_change(cur_n / max(1, posts_cur), prev_n / max(1, posts_prev), cur_n + prev_n), 4)})
+    out["_watch"] = watch
     meta = {"name": "Hacker News 'Who is hiring?' threads (global tech job posts)",
             "url": "https://news.ycombinator.com/submitted?id=whoishiring",
             "current_window": [t["title"] for t in cur_t],
@@ -156,6 +167,7 @@ def fetch_adzuna(client: httpx.Client, previous: dict | None) -> tuple[dict, dic
 
 # ---------- combine -------------------------------------------------------
 def combine(hn: dict, ax: dict, az: dict | None) -> dict:
+    hn = {k: v for k, v in hn.items() if not k.startswith("_")}
     clusters = {}
     for c in CLUSTERS:
         parts, n = [], 0
@@ -187,6 +199,7 @@ def run(as_of: date) -> int:
         "as_of": as_of.isoformat(),
         "sources": {k: v for k, v in {"hn": hn_meta, "arxiv": ax_meta, "adzuna": az_meta}.items() if v},
         "clusters": combine(hn, ax, az or None),
+        "watch": hn.get("_watch", {}),
         "raw": {"hn": hn, "arxiv": ax, "adzuna": az},
     }
     sid = db.save_snapshot(as_of.isoformat(), payload)
