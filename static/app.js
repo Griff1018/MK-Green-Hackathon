@@ -90,6 +90,20 @@ function expBadge(e) {
   const label = simple() ? `AI impact: ${lvl}` : `AI exposure: ${e.category.replace("Exposed: ", "")} (${e.mean.toFixed(2)})`;
   return `<span class="badge ${lvl === "high" ? "warn" : ""}">${esc(label)}</span>`;
 }
+const EXP_BANDS = [["low", "Low"], ["moderate", "Moderate"], ["high", "High"], ["vhigh", "Very high"]];
+function expBand(e) {
+  const g = (e.category.match(/Gradient (\d)/) || [])[1];
+  return g === "4" ? 3 : g === "3" ? 2 : g ? 1 : 0;
+}
+function expMeter(e) {
+  if (!e) return "";
+  const b = expBand(e);
+  return `<div class="meter" role="img" aria-label="AI impact on this job: ${EXP_BANDS[b][1]}">
+    <div class="meter-track">${EXP_BANDS.map(([k], i) => `<span class="seg-${k} ${i === b ? "on" : ""}"></span>`).join("")}</div>
+    <div class="meter-labels">${EXP_BANDS.map(([, l], i) => `<span class="${i === b ? "on" : ""}">${l}</span>`).join("")}</div>
+    ${simple() ? "" : `<p class="tiny muted">ILO task score ${e.mean.toFixed(2)} of 1 · ${esc(e.category)}</p>`}
+  </div>`;
+}
 function expSentence(e) {
   if (!e) return "";
   const g = (e.category.match(/Gradient (\d)/) || [])[1];
@@ -168,11 +182,18 @@ function setDone(n, val) {
 }
 
 // ---------- chrome -------------------------------------------------------------------------
-const NAV = [["dashboard", "Home"], ["careers", "Careers"], ["path", "Path"], ["resume", "Resume"]];
+const NAV = [["dashboard", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
+  ["careers", "Careers", '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'],
+  ["path", "Path", '<path d="M6 21c0-6 12-4 12-10S9 7 9 3"/><circle cx="9" cy="3" r="1.5"/><circle cx="6" cy="21" r="1.5"/>'],
+  ["resume", "Resume", '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>']];
+const NAV2 = [["team", "Teams"], ["sources", "Sources"]];
 function renderChrome() {
   const signed = !!A() && st.page !== "signin";
   const inWizard = st.page === "wizard";
-  $("#nav").innerHTML = signed && !inWizard && A().onboarded ? NAV.map(([k, l]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}>${l}</button>`).join("") : "";
+  const showNav = signed && !inWizard && A().onboarded;
+  document.body.classList.toggle("has-nav", showNav);
+  $("#nav").innerHTML = showNav ? NAV.map(([k, l, icon]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon}</svg><span>${l}</span></button>`).join("")
+    + `<div class="nav-2">${NAV2.map(([k, l]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><span>${l}</span></button>`).join("")}</div>` : "";
   $("#account").innerHTML = signed ? `<details class="menu"><summary><span class="avatar">${esc(firstName()[0] || "?")}</span><span class="acct-name">${esc(firstName())}</span></summary>
     <div class="menu-body">
       <p class="tiny muted">Signed in as ${esc(A().name)}${A().sample ? " (shared sample account)" : ""}</p>
@@ -260,7 +281,7 @@ function vWizard() {
       <div class="field"><label for="occQ">Your current or last job (optional)</label><input type="search" id="occQ" placeholder="e.g. accounts clerk" value="${esc(st.occ.q)}" autocomplete="off"></div>
       ${st.busy.occ ? '<p class="small muted"><span class="spin"></span> Searching…</p>' : ""}
       ${st.occ.results.length ? `<div class="stack">${st.occ.results.map((r, i) => `<button type="button" class="btn" data-occ="${i}" style="justify-content:space-between"><span>${esc(r.title)}</span><span class="tiny muted">${r.exposure ? expBadge(r.exposure) : ""}</span></button>`).join("")}</div>` : ""}
-      ${p.current ? `<div class="note"><b>${esc(p.current.title)}</b> ${expBadge(p.current.exposure)} ${info("exposure")}<p class="small" style="margin-top:6px">${esc(expSentence(p.current.exposure))}</p>
+      ${p.current ? `<div class="note stack"><div class="row" style="gap:6px"><b>${esc(p.current.title)}</b>${info("exposure")}</div>${expMeter(p.current.exposure)}<p class="small">${esc(expSentence(p.current.exposure))}</p>
         ${p.current.suggested && Object.keys(p.current.suggested).length ? '<button class="btn ghost" type="button" id="addSuggested">+ Add skills typical of this job</button>' : ""}</div>` : ""}`;
   } else if (s.id === "interests") {
     const all = [...new Set(m.roles.flatMap((r) => r.tags))].sort();
@@ -284,7 +305,7 @@ function vWizard() {
     <div class="card stack lg wiz-card">
       ${s.title ? `<div class="stack" style="gap:6px"><span class="eyebrow">About you · ${st.wiz + 1} of ${last}</span><h2>${esc(s.title)}</h2><p class="muted">${esc(s.help)}</p></div>` : ""}
       ${body}
-      <div class="row between">
+      <div class="row between wiz-actions">
         ${st.wiz > 0 ? '<button class="btn" type="button" id="wizBack">Back</button>' : (A().onboarded ? '<button class="btn" type="button" data-page="dashboard">Cancel</button>' : "<span></span>")}
         ${st.wiz < last ? `<button class="btn primary" type="button" id="wizNext" ${canNext ? "" : "disabled"} title="${canNext ? "" : "Add at least two skills"}">Next</button>` : `<button class="btn primary big" type="button" id="wizFinish" ${st.busy.finish ? "disabled" : ""}>${st.busy.finish ? '<span class="spin"></span> Building…' : A().onboarded ? "Update my plan" : "Build my career plan"}</button>`}
       </div>
@@ -333,8 +354,9 @@ async function finishWizard() {
 }
 
 // ---------- dashboard ------------------------------------------------------------------------
+const skeleton = (n) => `<div class="page" aria-busy="true" aria-label="Loading"><div class="skel skel-title"></div><div class="dash">${Array.from({ length: n }, (_, i) => `<div class="card skel-card ${i === 0 ? "hero-card" : ""}"><div class="skel"></div><div class="skel short"></div><div class="skel"></div></div>`).join("")}</div></div>`;
 function vDashboard() {
-  if (!st.analysis || (A().role && (!st.path || st.path.role !== A().role))) { if (!st.busy.dash) { st.busy.dash = true; refresh({}).then(() => { st.busy.dash = false; }); } return '<p class="muted"><span class="spin"></span> Loading your plan…</p>'; }
+  if (!st.analysis || (A().role && (!st.path || st.path.role !== A().role))) { if (!st.busy.dash) { st.busy.dash = true; refresh({}).then(() => { st.busy.dash = false; }); } return skeleton(6); }
   const r = roleOf(A().role), res = rows().find((x) => x.role === A().role), pw = st.path, cur = currentNode(), up = st.updates, adv = st.advice;
   const u = unlockedStage(), si = cur ? cur.si : pw.stages.length - 1;
   const moved = up ? up.moved.filter((x) => flatNodes().some((n) => n.cluster === x.cluster)) : [];
@@ -394,7 +416,7 @@ function whySimple(x) {
   return out;
 }
 function vCareers() {
-  const a = st.analysis; if (!a) { refresh({}); return '<p class="muted"><span class="spin"></span> Loading…</p>'; }
+  const a = st.analysis; if (!a) { refresh({}); return skeleton(3); }
   const list = rows().slice(0, 6), adv = st.advice, diff = a.diff ? a.diff[st.scen] : null;
   return `<div class="page">
   ${intro("Careers", "Careers that fit you", simple() ? "The best matches are at the top. Tap “Why?” to see the reasons in plain words." : "Ranked by your skills, where demand is heading, and how much of the work AI can already do.")}
@@ -415,6 +437,13 @@ function vCareers() {
     </div>
   </div></div>`;
 }
+function rankDelta(roleId) {
+  if (st.scen === "moderate") return "";
+  const base = st.analysis.scenarios.moderate.find((y) => y.role === roleId).rank;
+  const now = rows().find((y) => y.role === roleId).rank, d = base - now;
+  const base_name = simple() ? "Steady change" : "Moderate AI";
+  return d ? `<span class="badge ${d > 0 ? "accent" : "warn"}" title="Rank ${now} here, rank ${base} in ${base_name}">${d > 0 ? "▲" : "▼"} ${Math.abs(d)} vs ${base_name}</span>` : `<span class="badge">Same rank as ${base_name}</span>`;
+}
 function vCareerRow(x) {
   const r = roleOf(x.role), rg = st.analysis.ranges[x.role], open = st.open === x.role, ex = st.explain[x.role];
   const local = st.analysis.local_demand[`${x.role}@0`], mine = A().role === x.role;
@@ -423,7 +452,7 @@ function vCareerRow(x) {
     <div class="stack" style="gap:6px;min-width:0">
       <h3>${esc(r.title)} ${simple() ? `<span class="badge accent">${fitLabel(x.score)}</span>` : ""}</h3>
       <div class="ladder">${r.ladder.map((s, i) => `${i ? '<span class="arrow">→</span>' : ""}<span>${esc(s.title)}</span>`).join("")}</div>
-      <div class="row" style="gap:6px">${expBadge(r.exposure)}${local ? `<span class="badge accent" title="${esc(st.analysis.local_demand_source)}">In demand in ${esc(country().name)}</span>` : ""}${simple() ? "" : `<span class="badge">${rg.min.toFixed(0)}–${rg.max.toFixed(0)} across futures</span>`}</div>
+      <div class="row" style="gap:6px">${rankDelta(x.role)}${expBadge(r.exposure)}${local ? `<span class="badge accent" title="${esc(st.analysis.local_demand_source)}">In demand in ${esc(country().name)}</span>` : ""}${simple() ? "" : `<span class="badge">${rg.min.toFixed(0)}–${rg.max.toFixed(0)} across futures</span>`}</div>
     </div>
     <div class="row act"><button class="btn" type="button" data-open="${x.role}">${open ? "Hide" : "Why?"}</button><button class="btn ${mine ? "primary" : ""}" type="button" data-choose="${x.role}">${mine ? "My career ✓" : "Choose"}</button></div>
     ${open ? `<div class="details">
@@ -437,6 +466,7 @@ function vCareerRow(x) {
       <div class="row"><button class="btn" type="button" data-explain="${x.role}" ${st.busy["ex_" + x.role] ? "disabled" : ""}>${st.busy["ex_" + x.role] ? '<span class="spin"></span> Writing…' : "Explain it to me"}</button>
         <select data-lang aria-label="Language"><option value="en" ${A().prefs.lang === "en" ? "selected" : ""}>English</option><option value="ms" ${A().prefs.lang === "ms" ? "selected" : ""}>Bahasa Malaysia</option><option value="zh" ${A().prefs.lang === "zh" ? "selected" : ""}>中文</option></select></div>
       ${ex ? `<div class="explain">${esc(ex.text)}</div><p class="tiny muted">${ex.method === "llm" ? `Written by ${esc(ex.model)} from the facts above; numbers checked.` : "Standard explanation."}</p>` : ""}
+      <div class="stack" style="gap:6px"><div class="row" style="gap:6px"><span class="label">How much AI can do in this job</span>${info("exposure")}</div>${expMeter(r.exposure)}</div>
       <details><summary class="small muted">How this career helps the UN goals ${info("sdg")}</summary><div class="stack" style="margin-top:8px">${r.sdg.map((l) => `<p class="small">${sdgTag(l.target)} ${esc(l.why)}</p>`).join("")}</div></details>
     </div>` : ""}
   </article>`;
@@ -469,7 +499,7 @@ function nodeLabel(n) { return n.type === "skill" ? cl(n.cluster).label : n.type
 function nodeIcon(n, isDone) { return isDone ? I.check : { skill: I.book, cert: I.award, gate: I.flag, checkpoint: I.case }[n.type]; }
 function vPath() {
   if (!A().role) return `<div class="page">${intro("Path", "Choose a career first", "")}<button class="btn primary" type="button" data-page="careers">Go to careers</button></div>`;
-  if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return '<p class="muted"><span class="spin"></span> Building your path…</p>'; }
+  if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return skeleton(3); }
   const pw = st.path, nodes = flatNodes(), cur = currentNode();
   if (!st.sel || !nodes.find((n) => n.key === st.sel)) st.sel = cur ? cur.key : nodes[0].key;
   const peak = pw.stages[pw.stages.length - 1].title, up = st.updates;
@@ -498,7 +528,8 @@ function vPath() {
     <div class="row">${pw.stages.map((s) => `<span class="badge">${esc(s.stage)}: ${simple() ? `~${s.weeks[1]} weeks` : `${s.hours} h · ${s.weeks[0]}–${s.weeks[1]} wk`}${s.local_demand ? " · in demand" : ""}</span>`).join("")}${info("stage")}</div>
     <label class="small row" style="gap:6px">Budget ${info("budget")}<select id="budgetPath">${country().budgets.map(([kk, v]) => `<option value="${kk}" ${P().budget === kk ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>
   </div>
-  <div class="map-wrap">${map}<div class="sheet">${vNodeSheet(nodes.find((n) => n.key === st.sel))}</div></div>
+  <div class="map-wrap">${map}<div class="sheet ${st.sheetOpen ? "open" : ""}" role="region" aria-label="Step details">${vNodeSheet(nodes.find((n) => n.key === st.sel))}</div></div>
+  ${st.sheetOpen ? '<button type="button" class="scrim" data-closesheet aria-label="Close step details"></button>' : ""}
   </div>`;
 }
 function course(c, label) {
@@ -533,7 +564,7 @@ function vNodeSheet(n) {
       <div class="stack"><span class="label">Look for jobs in ${esc(country().name)}</span>${(st.advice ? st.advice.job_search : []).map((j) => `<a class="btn" href="${esc(j.url.replace("{q}", q).replace("{q_dash}", qd))}" target="_blank" rel="noopener">${esc(j.name)} ↗</a>`).join("")}</div>
       ${unlockedStage() >= n.si ? '<button class="btn primary" type="button" data-page="resume">Build my resume →</button>' : '<p class="small muted">Finish the steps above to unlock your resume.</p>'}`;
   }
-  return `<div class="card stack"><span class="eyebrow">${esc(s.stage)} · ${esc(s.title)}</span><h3>${esc(nodeLabel(n))}</h3>${body}
+  return `<div class="card stack"><div class="row between"><span class="eyebrow">${esc(s.stage)} · ${esc(s.title)}</span><button type="button" class="btn ghost sheet-close" data-closesheet aria-label="Close">✕</button></div><h3>${esc(nodeLabel(n))}</h3>${body}
     ${n.type !== "checkpoint" ? `<button class="btn ${isDone ? "" : "primary"}" type="button" data-toggle="${esc(n.key)}">${isDone ? "Mark as not done" : "Mark as done"}</button>` : ""}</div>`;
 }
 
@@ -548,7 +579,7 @@ function resumeData() {
 }
 function vResume() {
   if (!A().role) return `<div class="page">${intro("Resume", "Choose a career first", "")}<button class="btn primary" type="button" data-page="careers">Go to careers</button></div>`;
-  if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return '<p class="muted"><span class="spin"></span> Loading…</p>'; }
+  if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return skeleton(2); }
   const u = unlockedStage();
   if (u < 0) {
     const first = flatNodes().filter((n) => n.si === 0 && required(n)), dn = first.filter((n) => done(n.key)).length;
@@ -668,7 +699,7 @@ async function searchOcc(q) {
   st.busy.occ = false; render(); refocus();
 }
 function refocus() { const el = $("#occQ"); if (el && st.focusOcc) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } }
-function go(page) { st.page = page; if (page === "wizard") { st.wiz = 0; st.expMode = null; st.extractNote = ""; } render(); window.scrollTo({ top: 0 }); const m = document.querySelector("details.menu"); if (m) m.open = false; }
+function go(page) { st.page = page; st.sheetOpen = false; if (page === "wizard") { st.wiz = 0; st.expMode = null; st.extractNote = ""; } render(); window.scrollTo({ top: 0 }); const m = document.querySelector("details.menu"); if (m) m.open = false; }
 
 document.addEventListener("click", async (ev) => {
   const t = ev.target.closest("button,a[data-page]"); if (!t) return;
@@ -688,7 +719,8 @@ document.addEventListener("click", async (ev) => {
   if (d.scen) { st.scen = d.scen; st.explain = {}; st.path = null; render(); if (A().role) await loadPath(); render(); return; }
   if (d.open) { st.open = st.open === d.open ? null : d.open; render(); return; }
   if (d.choose) { A().role = d.choose; st.path = null; st.sel = null; st.polished = null; save(); go("path"); await loadPath(); await loadAdvice(); render(); return; }
-  if (d.node) { st.sel = d.node; render(); if (window.innerWidth < 860) { const sh = $(".sheet"); if (sh) sh.scrollIntoView({ behavior: "smooth" }); } return; }
+  if (d.node) { st.sel = d.node; st.sheetOpen = window.innerWidth < 860; render(); return; }
+  if (d.closesheet !== undefined) { st.sheetOpen = false; render(); return; }
   if (d.goto) { st.sel = d.goto; go("path"); return; }
   if (d.toggle) { const n = flatNodes().find((x) => x.key === d.toggle); if (n) setDone(n, !done(n.key)); return; }
   if (d.team) { st.team = d.team; st.teamTarget = null; render(); return; }
