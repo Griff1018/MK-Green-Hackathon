@@ -1,0 +1,36 @@
+"""Settings read from environment variables (Replit Secrets in production)."""
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SEED_DIR = ROOT / "data" / "seed"
+
+
+def _load_dotenv() -> None:
+    """Minimal .env loader for local runs; real environment variables win."""
+    env = ROOT / ".env"
+    if not env.exists():
+        return
+    for line in env.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, _, value = line.partition("=")
+            os.environ.setdefault(key.strip(), value.strip())
+
+
+_load_dotenv()
+
+DATABASE_URL = os.environ.get("DATABASE_URL") or f"sqlite:///{(ROOT / 'data' / 'app.db').as_posix()}"
+ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
+
+LLM_ENABLED = os.environ.get("LLM_ENABLED", "1") == "1"
+CODEBUDDY_BIN = os.environ.get("CODEBUDDY_BIN", "codebuddy")
+CODEBUDDY_MODEL = os.environ.get("CODEBUDDY_MODEL", "deepseek-v4.1-flash")
+LLM_TIMEOUT_S = int(os.environ.get("LLM_TIMEOUT_S", "90"))
+LLM_MAX_PARALLEL = int(os.environ.get("LLM_MAX_PARALLEL", "2"))
+
+ADZUNA_APP_ID = os.environ.get("ADZUNA_APP_ID", "")
+ADZUNA_APP_KEY = os.environ.get("ADZUNA_APP_KEY", "")
+ADZUNA_COUNTRY = os.environ.get("ADZUNA_COUNTRY", "sg")
