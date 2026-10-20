@@ -1,0 +1,493 @@
+{
+  "_about": "Closed-world learning catalogue. The pathway only ever recommends items from this list. covers maps cluster id -> level the item gets a learner to. hours are the provider's stated or estimated effort. ingest/check_catalogue.py checks every URL and writes link_checked_on; a person must still review content, cost and HRD Corp status before marking reviewed_by. hrdc is 'yes' only with evidence (programme ID); otherwise 'unverified' or 'not needed' for free items.",
+  "items": [
+    {
+      "id": "aiur",
+      "title": "AI untuk Rakyat (AI for the People), registration via Rakyat Digital",
+      "provider": "MyDIGITAL & Intel",
+      "url": "https://www.mydigital.gov.my/empowering-malaysia-ai-untuk-rakyat",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "ms",
+        "en"
+      ],
+      "covers": {
+        "genai": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "eoai",
+      "title": "Elements of AI",
+      "provider": "University of Helsinki & MinnaLearn",
+      "url": "https://www.elementsofai.com/",
+      "hours": 30,
+      "cost": "free",
+      "language": [
+        "en",
+        "ms"
+      ],
+      "covers": {
+        "genai": 1,
+        "problem": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ms_genai",
+      "title": "Fundamentals of Generative AI",
+      "provider": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/",
+      "hours": 2,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "genai": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ms_excel",
+      "title": "Excel video training",
+      "provider": "Microsoft Support",
+      "url": "https://support.microsoft.com/en-us/office/excel-video-training-9bc05390-e94c-46af-a5b3-d7c22f6990bb",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "excel": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_python",
+      "title": "Python",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/python",
+      "hours": 5,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "python": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_pandas",
+      "title": "Pandas",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/pandas",
+      "hours": 4,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "python": 2,
+        "dataquality": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_cleaning",
+      "title": "Data Cleaning",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/data-cleaning",
+      "hours": 4,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "dataquality": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_sql",
+      "title": "Intro to SQL",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/intro-to-sql",
+      "hours": 3,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "sql": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_sql2",
+      "title": "Advanced SQL",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/advanced-sql",
+      "hours": 4,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "sql": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_viz",
+      "title": "Data Visualization",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/data-visualization",
+      "hours": 4,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "dataviz": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "k_ml",
+      "title": "Intro to Machine Learning",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/intro-to-machine-learning",
+      "hours": 3,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "mlds": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ms_pbi",
+      "title": "Get started with Microsoft data analytics",
+      "provider": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/training/paths/data-analytics-microsoft/",
+      "hours": 4,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "dataviz": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "g_da",
+      "title": "Google Data Analytics Professional Certificate",
+      "provider": "Google via Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-data-analytics",
+      "hours": 180,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "excel": 3,
+        "sql": 2,
+        "dataviz": 2,
+        "dataquality": 2,
+        "problem": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "fcc_da",
+      "title": "Data Analysis with Python",
+      "provider": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/data-analysis-with-python/",
+      "hours": 300,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "python": 3,
+        "dataviz": 2,
+        "mlds": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "fastai",
+      "title": "Practical Deep Learning for Coders",
+      "provider": "fast.ai",
+      "url": "https://course.fast.ai/",
+      "hours": 60,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "mlds": 3
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "cisco_cyber",
+      "title": "Introduction to Cybersecurity",
+      "provider": "Cisco Networking Academy",
+      "url": "https://www.netacad.com/courses/introduction-to-cybersecurity",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "cyber": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "cisco_net",
+      "title": "Networking Basics",
+      "provider": "Cisco Networking Academy",
+      "url": "https://www.netacad.com/courses/networking-basics",
+      "hours": 22,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "networking": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "g_itsupport",
+      "title": "Google IT Support Professional Certificate",
+      "provider": "Google via Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-it-support",
+      "hours": 180,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "helpdesk": 3,
+        "networking": 2,
+        "cyber": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "g_dm",
+      "title": "Fundamentals of Digital Marketing",
+      "provider": "Google Digital Garage",
+      "url": "https://learndigital.withgoogle.com/digitalgarage/course/digital-marketing",
+      "hours": 40,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "digimarketing": 2,
+        "content": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "canva",
+      "title": "Design School",
+      "provider": "Canva",
+      "url": "https://www.canva.com/designschool/",
+      "hours": 5,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "design": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "g_techwriting",
+      "title": "Technical Writing One",
+      "provider": "Google for Developers",
+      "url": "https://developers.google.com/tech-writing/one",
+      "hours": 4,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "correspondence": 2,
+        "content": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "uipath",
+      "title": "UiPath Academy automation courses",
+      "provider": "UiPath",
+      "url": "https://academy.uipath.com/",
+      "hours": 8,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "processmap": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "unccl",
+      "title": "Introductory e-course on climate change",
+      "provider": "UN CC:Learn",
+      "url": "https://unccelearn.org/",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "esg": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "bursa",
+      "title": "BursaSUSTAIN sustainability reporting resources",
+      "provider": "Bursa Malaysia",
+      "url": "https://bursasustain.bursamalaysia.com/",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "esg": 2
+      },
+      "link_status": "blocked",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ghgp",
+      "title": "GHG Protocol Corporate Standard (self-study)",
+      "provider": "GHG Protocol",
+      "url": "https://ghgprotocol.org/corporate-standard",
+      "hours": 8,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "ghg": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "seda",
+      "title": "Grid-connected PV training (SEDA-recognised providers)",
+      "provider": "SEDA Malaysia",
+      "url": "https://www.seda.gov.my/",
+      "hours": 40,
+      "cost": "paid",
+      "hrdc": "unverified",
+      "language": [
+        "en",
+        "ms"
+      ],
+      "covers": {
+        "solar": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "st_comp",
+      "title": "Electrical competency certification (wireman / chargeman)",
+      "provider": "Energy Commission (Suruhanjaya Tenaga)",
+      "url": "https://www.st.gov.my/",
+      "hours": 120,
+      "cost": "paid",
+      "hrdc": "unverified",
+      "language": [
+        "ms",
+        "en"
+      ],
+      "covers": {
+        "electrical": 3
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "st_eem",
+      "title": "Electrical energy manager programme (accredited providers)",
+      "provider": "Energy Commission (Suruhanjaya Tenaga)",
+      "url": "https://www.st.gov.my/",
+      "hours": 60,
+      "cost": "paid",
+      "hrdc": "unverified",
+      "language": [
+        "en",
+        "ms"
+      ],
+      "covers": {
+        "energyaudit": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "elatih",
+      "title": "e-LATiH free online courses (choose one for the skill)",
+      "provider": "HRD Corp",
+      "url": "https://elatih.hrdcorp.gov.my/",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "ms",
+        "en"
+      ],
+      "covers": {
+        "excel": 1,
+        "customer": 2,
+        "coaching": 1,
+        "stakeholder": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    }
+  ]
+}

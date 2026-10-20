@@ -1,0 +1,49 @@
+{
+  "_about": "Synthetic sample people and teams for demos and tests. None of these are real people. Skill levels: 1 basic, 2 working, 3 strong.",
+  "personas": [
+    {"id": "meiling", "group": "Working adult at risk", "name": "Mei Ling, 45",
+     "headline": "Office clerk at a logistics firm in Shah Alam, 18 years' experience.",
+     "current_esco_title": "office clerk",
+     "about": "I have worked as an office clerk for 18 years. I key in delivery orders, prepare invoices in Excel, file records, answer customer emails in English, Malay and Mandarin, and arrange meetings for my manager.",
+     "skills": {"dataentry": 3, "bookkeeping": 2, "excel": 2, "correspondence": 3, "scheduling": 3, "customer": 2, "languages": 3, "stakeholder": 2, "problem": 1},
+     "interests": ["organising", "people", "data"], "hours": 5, "budget": "free"},
+    {"id": "aisha", "group": "Fresh graduate / career switcher", "name": "Aisha, 22",
+     "headline": "Final-year BSc Environmental Science with a water-quality sampling internship.",
+     "current_esco_title": null,
+     "about": "Final-year environmental science student. During my internship I did water quality sampling and lab work, cleaned the results in Excel and made charts. I know basic Python and wrote reports for the team.",
+     "skills": {"fieldwork": 3, "excel": 2, "python": 1, "dataviz": 1, "problem": 2, "stakeholder": 1, "correspondence": 1, "esg": 1},
+     "interests": ["environment", "data"], "hours": 10, "budget": "low-cost"},
+    {"id": "hafiz", "group": "TVET student (career centre)", "name": "Hafiz, 20",
+     "headline": "Diploma in Electrical Engineering, polytechnic, final semester.",
+     "current_esco_title": null,
+     "about": "Polytechnic diploma student in electrical engineering. I do wiring and circuit practicals, help classmates fix laptops, and work weekends at a hardware shop serving customers.",
+     "skills": {"electrical": 2, "helpdesk": 1, "problem": 2, "customer": 1, "excel": 1},
+     "interests": ["hands-on", "energy", "tech"], "hours": 8, "budget": "free"}
+  ],
+  "teams": [
+    {"id": "hr", "who": "HR / L&D manager", "label": "Contact centre team",
+     "desc": "8 agents at a Klang Valley contact centre (synthetic).", "target_role": "contact_centre",
+     "columns": ["customer", "languages", "genai", "problem", "processmap", "dataviz", "cyber"],
+     "people": [
+       ["Agent 1", {"customer": 3, "languages": 3, "genai": 0, "problem": 1}],
+       ["Agent 2", {"customer": 2, "languages": 2, "genai": 1, "problem": 2, "dataviz": 1}],
+       ["Agent 3", {"customer": 3, "languages": 1, "genai": 2, "problem": 2, "processmap": 1, "cyber": 1}],
+       ["Agent 4", {"customer": 2, "languages": 3, "problem": 1}],
+       ["Agent 5", {"customer": 3, "languages": 2, "genai": 1, "problem": 1}],
+       ["Agent 6", {"customer": 1, "languages": 2, "genai": 2, "problem": 3, "processmap": 2, "dataviz": 2, "cyber": 1}],
+       ["Agent 7", {"customer": 3, "languages": 3, "problem": 2}],
+       ["Agent 8", {"customer": 2, "languages": 2, "genai": 1, "problem": 1, "processmap": 1}]]},
+    {"id": "tvet", "who": "TVET / university career centre", "label": "Diploma cohort",
+     "desc": "8 final-semester Diploma in Electrical Engineering students (synthetic).", "target_role": "energy_assessor",
+     "columns": ["electrical", "solar", "energyaudit", "excel", "problem", "genai", "customer"],
+     "people": [
+       ["Student 1", {"electrical": 2, "excel": 1, "problem": 2, "customer": 1}],
+       ["Student 2", {"electrical": 3, "solar": 1, "excel": 1, "problem": 2, "genai": 1, "customer": 1}],
+       ["Student 3", {"electrical": 2, "energyaudit": 1, "excel": 2, "problem": 1, "genai": 1, "customer": 2}],
+       ["Student 4", {"electrical": 1, "excel": 1, "problem": 1, "customer": 1}],
+       ["Student 5", {"electrical": 2, "solar": 2, "excel": 1, "problem": 2, "customer": 1}],
+       ["Student 6", {"electrical": 3, "solar": 1, "energyaudit": 1, "excel": 2, "problem": 3, "genai": 1, "customer": 2}],
+       ["Student 7", {"electrical": 2, "problem": 1, "customer": 1}],
+       ["Student 8", {"electrical": 2, "solar": 1, "excel": 1, "problem": 2, "genai": 1, "customer": 1}]]}
+  ]
+}

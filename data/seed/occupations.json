@@ -1,0 +1,1565 @@
+{
+ "_source": "ESCO classification v1.2, European Commission. https://ec.europa.eu/esco/api",
+ "_retrieved": "2026-10-20",
+ "occupations": {
+  "data analyst": {
+   "uri": "http://data.europa.eu/esco/occupation/d3edb8f8-3a06-47a0-8fb9-9b212c006aa2",
+   "title": "data analyst",
+   "code": "2511.2",
+   "isco": "2511",
+   "description": "Data analysts import, inspect, clean, transform, validate, model, or interpret collections of data with regard to the business goals of the company. They ensure that the data sources and repositories provide consistent and reliable data. Data analysts use different algorithms and IT tools as demanded by the situation and the current data. They might prepare reports in the form of visualisations such as graphs, charts, and dashboards.",
+   "essential": [
+    "manage data",
+    "perform data cleansing",
+    "data quality assessment",
+    "information confidentiality",
+    "data mining",
+    "interpret current data",
+    "information extraction",
+    "define data quality criteria",
+    "handle data samples",
+    "execute analytical mathematical calculations",
+    "information categorisation",
+    "normalise data",
+    "documentation types",
+    "query languages",
+    "integrate ICT data",
+    "implement data quality processes",
+    "apply statistical analysis techniques",
+    "unstructured data",
+    "establish data processes",
+    "statistics",
+    "analyse big data",
+    "information structure",
+    "resource description framework query language",
+    "collect ICT data",
+    "business intelligence",
+    "visual presentation techniques",
+    "perform data mining",
+    "data models"
+   ],
+   "optional": [
+    "XQuery",
+    "create data models",
+    "LINQ",
+    "manage data collection systems",
+    "information architecture",
+    "SPARQL",
+    "online analytical processing",
+    "N1QL",
+    "report analysis results",
+    "database",
+    "gather data for forensic purposes",
+    "data storage",
+    "cloud technologies",
+    "MDX",
+    "web analytics",
+    "LDAP",
+    "deliver visual presentation of data"
+   ],
+   "clusters": {
+    "dataquality": [
+     "manage data",
+     "perform data cleansing",
+     "data quality assessment",
+     "define data quality criteria",
+     "integrate ICT data",
+     "implement data quality processes",
+     "collect ICT data"
+    ],
+    "processmap": [
+     "perform data cleansing"
+    ],
+    "problem": [
+     "data quality assessment",
+     "analyse big data"
+    ],
+    "mlds": [
+     "data mining",
+     "statistics",
+     "perform data mining"
+    ],
+    "fieldwork": [
+     "handle data samples"
+    ],
+    "correspondence": [
+     "documentation types"
+    ],
+    "languages": [
+     "query languages"
+    ],
+    "sql": [
+     "query languages",
+     "data models"
+    ]
+   }
+  },
+  "business analyst": {
+   "uri": "http://data.europa.eu/esco/occupation/60082a99-d8ef-4e84-9290-78902681b6ed",
+   "title": "business analyst",
+   "code": "2421.1",
+   "isco": "2421",
+   "description": "\nBusiness analysts research and understand the strategic position of businesses and companies in relation to their markets and their stakeholders. They analyse and present their views on how the company, from many perspectives, can improve its strategic position and internal corporate structure. They assess needs for change, communication methods, technology, IT tools, new standards and certifications.",
+   "essential": [
+    "analyse financial performance of a company",
+    "business analysis",
+    "analyse internal factors of companies",
+    "market research",
+    "build business relationships",
+    "identify undetected organisational needs",
+    "advise on efficiency improvements",
+    "liaise with managers",
+    "analyse business plans",
+    "interpret financial statements",
+    "risk management",
+    "conduct qualitative research",
+    "conduct quantitative research",
+    "align efforts towards business development",
+    "make strategic business decisions",
+    "perform business analysis",
+    "analyse external factors of companies",
+    "scientific research methodology"
+   ],
+   "optional": [
+    "advise on personnel management",
+    "business strategy concepts",
+    "corporate law",
+    "shape organisational teams based on competencies",
+    "keep updated on the political landscape",
+    "business intelligence",
+    "define organisational standards",
+    "business process modelling",
+    "financial statements",
+    "report analysis results",
+    "propose ICT solutions to business problems",
+    "advise on organisation climate",
+    "support implementation of quality management systems",
+    "market entry strategies",
+    "seek innovation in current practices",
+    "interview people",
+    "quality standards",
+    "advise on communication strategies",
+    "business law",
+    "organisational policies",
+    "advise on financial matters",
+    "advise client on technical possibilities",
+    "advise on risk management"
+   ],
+   "clusters": {
+    "problem": [
+     "analyse financial performance of a company",
+     "analyse internal factors of companies",
+     "analyse business plans",
+     "analyse external factors of companies"
+    ],
+    "digimarketing": [
+     "market research"
+    ],
+    "stakeholder": [
+     "build business relationships",
+     "liaise with managers"
+    ],
+    "coaching": [
+     "advise on efficiency improvements"
+    ]
+   }
+  },
+  "database administrator": {
+   "uri": "http://data.europa.eu/esco/occupation/8c57af09-719c-42b3-be40-6ed4946236cc",
+   "title": "database administrator",
+   "code": "2521.1",
+   "isco": "2521",
+   "description": "Database administrators test, implement and administer computer databases. They use their expertise in database management systems to plan, coordinate and implement security measures to safeguard computer databases. They also use scripts and configuration files to tailor a database to users' needs.",
+   "essential": [
+    "administer ICT system",
+    "define database physical structure",
+    "database management systems",
+    "apply company policies",
+    "maintain database security",
+    "manage database",
+    "design database scheme",
+    "operate relational database management system",
+    "resource description framework query language",
+    "interpret technical texts",
+    "create data models",
+    "database development tools",
+    "distributed computing",
+    "information structure",
+    "balance database resources",
+    "data storage",
+    "maintain database performance",
+    "data models",
+    "design database backup specifications",
+    "use scripting programming",
+    "perform backups",
+    "system backup best practice",
+    "perform ICT troubleshooting",
+    "data quality assessment",
+    "query languages"
+   ],
+   "optional": [
+    "Teradata Database",
+    "Microsoft Access",
+    "business intelligence",
+    "quality assurance methodologies",
+    "IBM Informix",
+    "LINQ",
+    "use different communication channels",
+    "provide technical training",
+    "SPARQL",
+    "SQL Server",
+    "use automatic programming",
+    "execute ICT audits",
+    "Oracle Relational Database",
+    "provide ICT support",
+    "MySQL",
+    "PostgreSQL",
+    "ObjectStore",
+    "OpenEdge Database",
+    "MDX",
+    "XQuery",
+    "support ICT system users",
+    "online analytical processing",
+    "LDAP",
+    "DB2",
+    "estimate duration of work",
+    "N1QL",
+    "Filemaker (database management systems)",
+    "provide technical documentation"
+   ],
+   "clusters": {
+    "networking": [
+     "administer ICT system"
+    ],
+    "sql": [
+     "define database physical structure",
+     "database management systems",
+     "maintain database security",
+     "manage database",
+     "design database scheme",
+     "operate relational database management system",
+     "create data models",
+     "database development tools",
+     "balance database resources",
+     "data storage",
+     "maintain database performance",
+     "data models",
+     "design database backup specifications",
+     "query languages"
+    ],
+    "cyber": [
+     "maintain database security"
+    ],
+    "dataquality": [
+     "manage database",
+     "data quality assessment"
+    ],
+    "design": [
+     "design database scheme",
+     "design database backup specifications"
+    ],
+    "python": [
+     "use scripting programming"
+    ],
+    "helpdesk": [
+     "perform ICT troubleshooting"
+    ],
+    "problem": [
+     "data quality assessment"
+    ],
+    "languages": [
+     "query languages"
+    ]
+   }
+  },
+  "ICT security administrator": {
+   "uri": "http://data.europa.eu/esco/occupation/0464b062-cea6-4164-b10d-956c61956ae7",
+   "title": "ICT security administrator",
+   "code": "2529.5",
+   "isco": "2529",
+   "description": "ICT security administrators plan and carry out security measures to protect information and data from unauthorised access, deliberate attack, theft and corruption.",
+   "essential": [
+    "database development tools",
+    "organisational resilience",
+    "attend to ICT systems quality",
+    "mobile device management",
+    "apply company policies",
+    "identify ICT system weaknesses",
+    "manage IT security compliances",
+    "cyber attack counter-measures",
+    "perform ICT troubleshooting",
+    "quality assurance methodologies",
+    "maintain ICT identity management",
+    "maintain database security",
+    "ICT network security risks",
+    "internet governance",
+    "system backup best practice",
+    "Internet of Things",
+    "solve ICT system problems",
+    "ensure proper document management",
+    "interpret technical texts"
+   ],
+   "optional": [
+    "execute software tests",
+    "use scripting programming",
+    "lead disaster recovery exercises",
+    "manage database",
+    "train employees",
+    "assess ICT knowledge",
+    "manage ICT virtualisation machines",
+    "cyber security",
+    "computer forensics",
+    "web application security threats",
+    "information confidentiality",
+    "ICT security standards",
+    "information security strategy",
+    "build business relationships",
+    "execute ICT audits",
+    "ICT infrastructure",
+    "ICT encryption",
+    "address problems critically",
+    "ICT security legislation",
+    "perform backups"
+   ],
+   "clusters": {
+    "sql": [
+     "database development tools",
+     "maintain database security"
+    ],
+    "networking": [
+     "attend to ICT systems quality",
+     "identify ICT system weaknesses",
+     "ICT network security risks",
+     "solve ICT system problems"
+    ],
+    "cyber": [
+     "manage IT security compliances",
+     "cyber attack counter-measures",
+     "maintain database security",
+     "ICT network security risks"
+    ],
+    "helpdesk": [
+     "perform ICT troubleshooting"
+    ],
+    "problem": [
+     "solve ICT system problems"
+    ]
+   }
+  },
+  "ICT help desk agent": {
+   "uri": "http://data.europa.eu/esco/occupation/aaeec9a7-dc57-4485-890c-86b3eef735f9",
+   "title": "ICT help desk agent",
+   "code": "3512.1",
+   "isco": "3512",
+   "description": "ICT help desk agents provide technical assistance to computer users, answer questions or solve computer problems for clients via telephone or electronically. They provide assistance concerning the use of computer hardware and software.",
+   "essential": [
+    "create solutions to problems",
+    "manage schedule of tasks",
+    "communicate with customers",
+    "support ICT system users",
+    "characteristics of products",
+    "ICT system user requirements",
+    "guarantee customer satisfaction",
+    "keep task records",
+    "provide customer follow-up services",
+    "characteristics of services",
+    "product comprehension",
+    "solve ICT system problems",
+    "use customer relationship management software",
+    "use ICT ticketing system",
+    "keep up to date on product knowledge",
+    "provide ICT support",
+    "identify customer's needs",
+    "assist customers",
+    "prioritise requests"
+   ],
+   "optional": [
+    "educate on data confidentiality",
+    "perform data analysis",
+    "ICT infrastructure",
+    "handle helpdesk problems",
+    "answer incoming calls",
+    "perform escalation procedure",
+    "information confidentiality",
+    "ICT help platforms"
+   ],
+   "clusters": {
+    "problem": [
+     "create solutions to problems",
+     "solve ICT system problems"
+    ],
+    "scheduling": [
+     "manage schedule of tasks"
+    ],
+    "customer": [
+     "communicate with customers",
+     "guarantee customer satisfaction",
+     "provide customer follow-up services",
+     "use customer relationship management software",
+     "identify customer's needs",
+     "assist customers"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ],
+    "networking": [
+     "support ICT system users",
+     "ICT system user requirements",
+     "solve ICT system problems"
+    ],
+    "helpdesk": [
+     "provide ICT support"
+    ]
+   }
+  },
+  "online marketer": {
+   "uri": "http://data.europa.eu/esco/occupation/356227b9-2263-4dbd-81e9-7dfc6d3f3af7",
+   "title": "online marketer",
+   "code": "2431.10.4",
+   "isco": "2431",
+   "description": "Online marketers use e-mail, internet and social media in order to market goods and brands.\n",
+   "essential": [
+    "apply strategic thinking",
+    "perform video editing",
+    "use different communication channels",
+    "e-commerce systems",
+    "inspect data",
+    "apply social media marketing",
+    "perform copywriting",
+    "perform market research",
+    "plan digital marketing",
+    "content marketing strategy",
+    "implement marketing strategies",
+    "company policies",
+    "implement sales strategies",
+    "apply customer engagement strategy",
+    "use content management system software",
+    "manage budgets",
+    "execute conversion testing",
+    "create new concepts",
+    "conduct mobile marketing",
+    "execute email marketing",
+    "perform online data analysis",
+    "perform image editing",
+    "perform project management"
+   ],
+   "optional": [
+    "deal with pressure from unexpected circumstances",
+    "intellectual property law",
+    "competition law",
+    "apply information security policies",
+    "supervise brand management",
+    "ICT communications protocols",
+    "adapt to change in marketing",
+    "printed goods processes",
+    "conduct search engine optimisation",
+    "information confidentiality"
+   ],
+   "clusters": {
+    "content": [
+     "perform video editing",
+     "perform copywriting",
+     "content marketing strategy",
+     "use content management system software",
+     "perform image editing"
+    ],
+    "fieldwork": [
+     "inspect data"
+    ],
+    "digimarketing": [
+     "apply social media marketing",
+     "perform market research",
+     "plan digital marketing",
+     "content marketing strategy",
+     "implement marketing strategies",
+     "conduct mobile marketing",
+     "execute email marketing",
+     "perform online data analysis"
+    ],
+    "customer": [
+     "apply customer engagement strategy"
+    ]
+   }
+  },
+  "environmental scientist": {
+   "uri": "http://data.europa.eu/esco/occupation/11d72bd6-779a-4643-9962-313833740094",
+   "title": "environmental scientist",
+   "code": "2133.7",
+   "isco": "2133",
+   "description": " Environmental scientists identify problems and find solutions in order to minimize environmental hazards by performing analysis on samples such as air, water or soil. They advise on or develop environmental policies and aim to improve water supplies preservation and manage waste disposal sites. Environmental scientists perform environmental risk assessments and analyse the environmental impact of new solutions, construction sites or environmental changes ensuring the environmental regulations are followed.",
+   "essential": [
+    "scientific research methodology",
+    "pollution prevention",
+    "pollution legislation",
+    "manage environmental management system",
+    "ensure compliance with environmental legislation",
+    "investigate pollution",
+    "carry out environmental audits",
+    "use technical drawing software",
+    "conduct environmental surveys",
+    "conduct environmental site assessments",
+    "perform environmental investigations",
+    "assess groundwater environmental impact",
+    "physics",
+    "develop environmental remediation strategies",
+    "prepare visual data",
+    "environmental threats",
+    "environmental policy",
+    "analyse environmental data",
+    "advise on environmental risk management systems",
+    "use consulting techniques",
+    "environmental management monitors",
+    "collect samples for analysis",
+    "conduct research before survey",
+    "advise on pollution prevention",
+    "environmental legislation",
+    "implement environmental protection measures"
+   ],
+   "optional": [
+    "carry out training in environmental matters",
+    "environmental engineering",
+    "inspect industrial equipment",
+    "manage chemical testing procedures",
+    "hazardous waste storage",
+    "chemistry",
+    "biology",
+    "consumer protection",
+    "address public health issues",
+    "mining, construction and civil engineering machinery products",
+    "engineering principles",
+    "assess environmental plans against financial costs",
+    "have computer literacy",
+    "possess visual literacy",
+    "monitor environmental parameters",
+    "work with chemicals",
+    "handle chemicals",
+    "civil engineering"
+   ],
+   "clusters": {
+    "esg": [
+     "manage environmental management system",
+     "ensure compliance with environmental legislation",
+     "carry out environmental audits",
+     "conduct environmental surveys",
+     "conduct environmental site assessments",
+     "perform environmental investigations",
+     "assess groundwater environmental impact",
+     "develop environmental remediation strategies",
+     "environmental threats",
+     "environmental policy",
+     "analyse environmental data",
+     "advise on environmental risk management systems",
+     "environmental management monitors",
+     "environmental legislation",
+     "implement environmental protection measures"
+    ],
+    "problem": [
+     "conduct environmental site assessments",
+     "assess groundwater environmental impact",
+     "analyse environmental data"
+    ],
+    "cyber": [
+     "environmental threats"
+    ],
+    "coaching": [
+     "advise on environmental risk management systems",
+     "advise on pollution prevention"
+    ],
+    "fieldwork": [
+     "environmental management monitors",
+     "collect samples for analysis"
+    ]
+   }
+  },
+  "energy assessor": {
+   "uri": "http://data.europa.eu/esco/occupation/c7f5cab7-7cfb-47d7-890c-6b9c00a9eaaf",
+   "title": "energy assessor",
+   "code": "3112.1.5",
+   "isco": "3112",
+   "description": "Energy assessors determine the energy performance of buildings. They create an Energy Performance Certificate (EPC) which indicates what the estimated energy consumption of a property is. Furthermore they give advice on how to improve energy conservation.",
+   "essential": [
+    "compose energy performance contracts",
+    "advise on heating systems energy efficiency",
+    "analyse energy consumption",
+    "advise on utility consumption",
+    "conduct energy audit",
+    "carry out energy management of facilities",
+    "renewable energy technologies",
+    "energy performance of buildings",
+    "electricity consumption",
+    "electricity market",
+    "domestic heating systems",
+    "energy efficiency"
+   ],
+   "optional": [
+    "solar energy",
+    "provide information on geothermal heat pumps",
+    "provide information",
+    "promote sustainable energy",
+    "provide information on wind turbines",
+    "promote environmental awareness",
+    "provide information on solar panels",
+    "identify energy needs"
+   ],
+   "clusters": {
+    "ghg": [
+     "compose energy performance contracts",
+     "analyse energy consumption",
+     "energy performance of buildings"
+    ],
+    "coaching": [
+     "advise on heating systems energy efficiency",
+     "advise on utility consumption"
+    ],
+    "energyaudit": [
+     "advise on heating systems energy efficiency",
+     "conduct energy audit",
+     "carry out energy management of facilities",
+     "domestic heating systems",
+     "energy efficiency"
+    ],
+    "problem": [
+     "analyse energy consumption"
+    ],
+    "solar": [
+     "renewable energy technologies"
+    ],
+    "electrical": [
+     "electricity consumption",
+     "electricity market"
+    ]
+   }
+  },
+  "solar energy technician": {
+   "uri": "http://data.europa.eu/esco/occupation/75b63949-1b93-4bf2-a777-ccf978dc3e8a",
+   "title": "solar energy technician",
+   "code": "7411.1.4",
+   "isco": "7411",
+   "description": "Solar energy technicians install and maintain systems that collect solar energy. They prepare the necessary fixtures, often on roofs, install solar panels, and plug them into an electronic system including an inverter to connect the solar energy systems to the electricity lines.",
+   "essential": [
+    "check compatibility of materials",
+    "inspect construction supplies",
+    "electricity",
+    "follow health and safety procedures in construction",
+    "follow safety procedures when working at heights",
+    "use measurement instruments",
+    "interpret 3D plans",
+    "work ergonomically",
+    "mount photovoltaic panels",
+    "transport construction supplies",
+    "electrical wiring plans",
+    "mechanics",
+    "comply with legal regulations",
+    "install electrical and electronic equipment",
+    "inspect electrical supplies",
+    "solar energy",
+    "interpret 2D plans",
+    "install circuit breakers",
+    "test procedures in electricity transmission"
+   ],
+   "optional": [
+    "calculate solar panel orientation",
+    "provide information on solar panels",
+    "building codes",
+    "process incoming construction supplies",
+    "maintain work area cleanliness",
+    "monitor stock level",
+    "zero-energy building design",
+    "install inverter",
+    "calculate needs for construction supplies",
+    "use safety equipment in construction",
+    "rig loads",
+    "demonstrate products' features",
+    "types of photovoltaic panels",
+    "answer requests for quotation",
+    "keep personal administration",
+    "maintain equipment",
+    "work in a construction team",
+    "estimate profitability",
+    "order construction supplies",
+    "maintain solar energy systems",
+    "solar panel mounting systems"
+   ],
+   "clusters": {
+    "fieldwork": [
+     "inspect construction supplies",
+     "inspect electrical supplies"
+    ],
+    "electrical": [
+     "electricity",
+     "follow health and safety procedures in construction",
+     "follow safety procedures when working at heights",
+     "electrical wiring plans",
+     "install electrical and electronic equipment",
+     "inspect electrical supplies",
+     "install circuit breakers",
+     "test procedures in electricity transmission"
+    ],
+    "solar": [
+     "mount photovoltaic panels",
+     "solar energy"
+    ]
+   }
+  },
+  "executive assistant": {
+   "uri": "http://data.europa.eu/esco/occupation/2a04a1df-a3b9-403e-a245-e7f93fdddd44",
+   "title": "executive assistant",
+   "code": "3343.3",
+   "isco": "3343",
+   "description": "Executive assistants are advanced administrative professionals who work with top-level executives or in international facilities in various industries. They organise meetings, organise and maintain files, arrange travel, train staff members, communicate in other languages, and manage the day-to-day operations of the office.",
+   "essential": [
+    "disseminate messages to people",
+    "observe confidentiality",
+    "manage office facility systems",
+    "fix meetings",
+    "manage personnel agenda",
+    "perform business research",
+    "translate keywords into full texts",
+    "perform clerical duties",
+    "draft corporate emails",
+    "apply information security policies",
+    "communicate schedules to the people concerned",
+    "process commissioned instructions",
+    "build business relationships",
+    "use different communication channels",
+    "company policies",
+    "coordinate events",
+    "maintain register of shareholders",
+    "liaise with managers",
+    "use office systems",
+    "organise travel arrangements for staff"
+   ],
+   "optional": [
+    "work in an international environment",
+    "manage payroll reports",
+    "revise drafts made by managers",
+    "create import-export commercial documentation",
+    "international import export regulations",
+    "prepare financial statements",
+    "show intercultural awareness",
+    "build international relations",
+    "communicate with customers",
+    "support development of annual budget",
+    "prepare tax returns forms",
+    "international tariffs",
+    "liaise with board members",
+    "translate language concepts",
+    "speak different languages",
+    "prepare presentation material"
+   ],
+   "clusters": {
+    "scheduling": [
+     "fix meetings",
+     "communicate schedules to the people concerned",
+     "coordinate events",
+     "organise travel arrangements for staff"
+    ],
+    "correspondence": [
+     "draft corporate emails"
+    ],
+    "cyber": [
+     "apply information security policies"
+    ],
+    "stakeholder": [
+     "build business relationships",
+     "liaise with managers"
+    ]
+   }
+  },
+  "career guidance advisor": {
+   "uri": "http://data.europa.eu/esco/occupation/5d0cc30d-068a-424c-8463-f42872a7149e",
+   "title": "career guidance advisor",
+   "code": "2423.1",
+   "isco": "2423",
+   "description": "Career guidance advisors provide guidance and advice to adults and students on making educational, training and occupational choices and assist people in managing their careers, through career planning and career exploration. They help identify options for future careers, assist beneficiaries in the development of their curriculum and help people reflect on their ambitions, interests and qualifications. Career guidance advisors may provide advice on various career planning issues and make suggestions for lifelong learning if necessary, including study recommendations. They may also assist the individual in the search for a job.",
+   "essential": [
+    "identify clients' needs",
+    "encourage counselled clients to examine themselves",
+    "provide career counselling",
+    "monitor educational developments",
+    "listen actively",
+    "counselling methods",
+    "provide assistance with job search",
+    "assist clients with personal development",
+    "counsel clients",
+    "provide information on education financing",
+    "curriculum standards",
+    "coach clients",
+    "curriculum objectives",
+    "job market offers",
+    "provide information on study programmes",
+    "labour market",
+    "facilitate job market access",
+    "advise on training courses",
+    "evaluate clients' progress"
+   ],
+   "optional": [
+    "organise job search workshops",
+    "organise study information sessions",
+    "project management",
+    "identify education needs",
+    "cooperate with education professionals",
+    "application process",
+    "psychology",
+    "psychological counselling methods",
+    "perform educational testing",
+    "assessment processes",
+    "communicate with youth",
+    "education law",
+    "identify training needs",
+    "communicate on the youth's well-being",
+    "write work-related reports",
+    "assess students' preliminary learning experiences",
+    "provide information on school services",
+    "oversee extra-curricular activities",
+    "adult education",
+    "labour legislation",
+    "organise projects to fill education needs",
+    "liaise with educational staff",
+    "counsel students",
+    "university procedures",
+    "encourage students to acknowledge their achievements"
+   ],
+   "clusters": {
+    "customer": [
+     "identify clients' needs",
+     "encourage counselled clients to examine themselves",
+     "assist clients with personal development",
+     "counsel clients",
+     "coach clients",
+     "evaluate clients' progress"
+    ],
+    "coaching": [
+     "encourage counselled clients to examine themselves",
+     "provide career counselling",
+     "counselling methods",
+     "counsel clients",
+     "coach clients",
+     "advise on training courses"
+    ],
+    "fieldwork": [
+     "monitor educational developments"
+    ],
+    "problem": [
+     "evaluate clients' progress"
+    ]
+   }
+  },
+  "customer contact centre information clerk": {
+   "uri": "http://data.europa.eu/esco/occupation/b7b75eb6-34bc-462d-b412-eed393cc1397",
+   "title": "customer contact centre information clerk",
+   "code": "4222.1",
+   "isco": "4222",
+   "description": "Customer contact centre information clerks provide information to customers via the telephone and other media such as email. They answer inquiries about a company's or oganisation's services, products and policies.",
+   "essential": [
+    "answer incoming calls",
+    "characteristics of products",
+    "establish customer rapport",
+    "characteristics of services",
+    "perform customer management",
+    "communicate by telephone",
+    "guarantee customer satisfaction",
+    "collect customer data",
+    "communicate with customers",
+    "keep records of customer interaction",
+    "customer insight",
+    "provide customer follow-up",
+    "customer service"
+   ],
+   "optional": [
+    "draft corporate emails",
+    "prepare correspondence for customers",
+    "discern written communication",
+    "provide customers with order information",
+    "measure customer feedback",
+    "customer relationship management",
+    "notify customers on special offers",
+    "call-centre technologies",
+    "contact customers",
+    "follow up orders for customers",
+    "carry out active selling",
+    "analyse call performance trends",
+    "improve customer interaction",
+    "handle helpdesk problems",
+    "provide customers with price information",
+    "assist customers"
+   ],
+   "clusters": {
+    "customer": [
+     "establish customer rapport",
+     "perform customer management",
+     "guarantee customer satisfaction",
+     "collect customer data",
+     "communicate with customers",
+     "keep records of customer interaction",
+     "customer insight",
+     "provide customer follow-up",
+     "customer service"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ],
+    "dataentry": [
+     "keep records of customer interaction"
+    ]
+   }
+  },
+  "office clerk": {
+   "uri": "http://data.europa.eu/esco/occupation/6c999fc7-c6b7-4ef3-a4b9-af124a1783a2",
+   "title": "office clerk",
+   "code": "4110.1",
+   "isco": "4110",
+   "description": "Office clerks are responsible for performing clerical and administrative duties in an office setting and support of business operations within a department. They assist all the administrative staff, secretaries, and assistants by sorting mail, filing forms and documents, answering phones, greeting clients, scheduling meetings, and serving drinks.",
+   "essential": [
+    "perform office routine activities",
+    "file documents",
+    "prepare correspondence for customers",
+    "use office systems",
+    "deliver correspondence",
+    "disseminate internal communications",
+    "process data",
+    "communicate with customers",
+    "handle mail",
+    "information confidentiality",
+    "use different communication channels",
+    "disseminate messages to people",
+    "fill out forms",
+    "company policies",
+    "communicate by telephone",
+    "facilitate access to information",
+    "align content with form",
+    "organise facilities for office personnel",
+    "process commissioned instructions",
+    "maintain correspondence records",
+    "route correspondence to business departments",
+    "apply grammar and spelling rules",
+    "organise business documents",
+    "handle delivered packages"
+   ],
+   "optional": [
+    "transcription methods",
+    "translate keywords into full texts",
+    "use microsoft office",
+    "communicate with customer service department",
+    "serve beverages",
+    "respect data protection principles",
+    "digitise documents",
+    "maintain inventory of office supplies",
+    "process customer orders",
+    "accounting techniques",
+    "use software for data preservation",
+    "ensure proper document management",
+    "keep records of customer interaction",
+    "issue sales invoices",
+    "maintain internal communication systems",
+    "carry out internet research",
+    "monitor staff absences",
+    "use free typing techniques",
+    "draft corporate emails",
+    "perform cleaning duties",
+    "manage digital archives"
+   ],
+   "clusters": {
+    "dataentry": [
+     "file documents"
+    ],
+    "correspondence": [
+     "prepare correspondence for customers",
+     "deliver correspondence",
+     "maintain correspondence records",
+     "route correspondence to business departments"
+    ],
+    "customer": [
+     "prepare correspondence for customers",
+     "communicate with customers"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ],
+    "content": [
+     "align content with form"
+    ]
+   }
+  },
+  "bookkeeper": {
+   "uri": "http://data.europa.eu/esco/occupation/c3aae59e-1441-4b3e-bdd1-6da50dc7cf42",
+   "title": "bookkeeper",
+   "code": "3313.2",
+   "isco": "3313",
+   "description": "Bookkeepers record and assemble the day-to-day financial transactions of an organisation or company, consisting usually of sales, purchases, payments and receipts. They ensure all financial transactions are documented in the appropriate (day) book and general ledger, and that they are balanced out. Bookkeepers prepare the recorded books and ledgers with financial transactions for an accountant to then analyse balance sheets and income statements.",
+   "essential": [
+    "prepare trial accounting balances",
+    "bookkeeping regulations",
+    "commercial law",
+    "accounting techniques",
+    "accounting entries",
+    "financial statements",
+    "use accounting systems",
+    "identify accounting errors",
+    "company policies",
+    "depreciation",
+    "maintain financial records",
+    "accounting department processes",
+    "attach accounting certificates to accounting transactions",
+    "tax legislation",
+    "perform balance sheet operations",
+    "follow the statutory obligations",
+    "prepare financial statements",
+    "manage the general ledger"
+   ],
+   "optional": [
+    "interpret financial statements",
+    "manage payroll reports",
+    "manage cash desk",
+    "prepare tax returns forms",
+    "financial department processes",
+    "handle petty cash",
+    "manage accounts",
+    "statistics",
+    "handle financial transactions",
+    "follow up accounts receivables",
+    "support development of annual budget",
+    "organise business documents",
+    "allocate bills",
+    "issue sales invoices",
+    "labour legislation",
+    "archive documentation related to the work",
+    "calculate tax",
+    "ensure compliance with accounting conventions"
+   ],
+   "clusters": {
+    "bookkeeping": [
+     "prepare trial accounting balances",
+     "bookkeeping regulations",
+     "accounting techniques",
+     "accounting entries",
+     "use accounting systems",
+     "identify accounting errors",
+     "maintain financial records",
+     "accounting department processes",
+     "attach accounting certificates to accounting transactions",
+     "manage the general ledger"
+    ]
+   }
+  },
+  "secretary": {
+   "uri": "http://data.europa.eu/esco/occupation/5ac377d2-e1d0-4911-a299-b4ef2782a0ba",
+   "title": "secretary",
+   "code": "4120.1",
+   "isco": "4120",
+   "description": "\nSecretaries perform a variety of administrative tasks to help keep an organisation run smoothly. They answer telephone calls, draft and send e-mails, maintain diaries, arrange appointments, take messages, file documents, organise and service meetings, and manage databases.",
+   "essential": [
+    "disseminate internal communications",
+    "company policies",
+    "disseminate messages to people",
+    "communicate by telephone",
+    "organise facilities for office personnel",
+    "fill out forms",
+    "perform office routine activities",
+    "keep task records",
+    "process commissioned instructions",
+    "draft corporate emails",
+    "use microsoft office",
+    "file documents",
+    "communicate schedules to the people concerned",
+    "organise business documents",
+    "manage personnel agenda",
+    "monitor staff absences",
+    "maintain internal communication systems",
+    "handle mail"
+   ],
+   "optional": [
+    "education law",
+    "handle financial transactions",
+    "manage budgets",
+    "manage accounts",
+    "handle petty cash",
+    "deliver correspondence",
+    "prepare presentation material",
+    "accounting techniques",
+    "issue sales invoices",
+    "place orders for printed paper goods",
+    "demonstrate professional attitude to clients",
+    "manage needs for stationery items",
+    "develop documentation in accordance with legal requirements",
+    "manage online content",
+    "organise travel arrangements for staff",
+    "write meeting reports",
+    "labour law",
+    "education administration",
+    "use office systems"
+   ],
+   "clusters": {
+    "correspondence": [
+     "draft corporate emails"
+    ],
+    "dataentry": [
+     "file documents"
+    ],
+    "scheduling": [
+     "communicate schedules to the people concerned"
+    ],
+    "fieldwork": [
+     "monitor staff absences"
+    ]
+   }
+  },
+  "administrative assistant": {
+   "uri": "http://data.europa.eu/esco/occupation/044d78cc-f62f-4532-83a5-8e04f2889652",
+   "title": "administrative assistant",
+   "code": "3343.1",
+   "isco": "3343",
+   "description": "Administrative assistants perform administrative and office support for supervisors. They perform a variety of tasks, such as answering telephone calls, receiving and directing visitors, ordering office supplies, maintaining the office facilities running smoothly, and ensuring that equipment and appliances work properly.",
+   "essential": [
+    "use microsoft office",
+    "perform office routine activities",
+    "company policies",
+    "disseminate general corporate information",
+    "keep task records",
+    "organise facilities for office personnel",
+    "use office systems",
+    "draft corporate emails",
+    "handle mail",
+    "ensure proper document management",
+    "disseminate internal communications",
+    "disseminate messages to people",
+    "fill out forms",
+    "file documents",
+    "maintain statutory books",
+    "organise business documents",
+    "perform business research"
+   ],
+   "optional": [
+    "issue sales invoices",
+    "handle petty cash",
+    "transcription methods",
+    "create import-export commercial documentation",
+    "accounting techniques",
+    "manage personnel agenda",
+    "provide customer follow-up services",
+    "fix meetings",
+    "organise travel arrangements for staff",
+    "speak different languages",
+    "prepare presentation material",
+    "maintain internal communication systems",
+    "liaise with managers",
+    "respect data protection principles",
+    "maintain inventory of office supplies",
+    "monitor staff absences",
+    "process commissioned instructions",
+    "coordinate events",
+    "deliver correspondence"
+   ],
+   "clusters": {
+    "correspondence": [
+     "draft corporate emails"
+    ],
+    "dataentry": [
+     "file documents"
+    ]
+   }
+  },
+  "customer service representative": {
+   "uri": "http://data.europa.eu/esco/occupation/13d1b2b4-99dd-44da-9734-c9f74bae18f7",
+   "title": "customer service representative",
+   "code": "4225.1",
+   "isco": "4225",
+   "description": "Customer service representatives handle complaints and are responsible for maintaining overall goodwill between an organisation and its customers. They manage data regarding customer satisfaction and report it.",
+   "essential": [
+    "process refunds",
+    "analyse problems for opportunities",
+    "ensure customer focus",
+    "have computer literacy",
+    "customer service",
+    "apply conflict management",
+    "perform multiple tasks at the same time",
+    "prioritise tasks",
+    "process order forms with customer's information",
+    "provide information",
+    "determine charges for customer services",
+    "keep records of customer interaction",
+    "provide customer follow-up services",
+    "apply knowledge of human behaviour",
+    "implement customer follow-up",
+    "listen actively",
+    "communicate with customers",
+    "control of expenses",
+    "guarantee customer satisfaction",
+    "process customer orders",
+    "process data",
+    "perform escalation procedure"
+   ],
+   "optional": [
+    "sales activities",
+    "facilitate official agreement",
+    "upsell products",
+    "measure customer feedback",
+    "use customer relationship management software",
+    "consumer protection",
+    "contact customers",
+    "carry out active selling",
+    "perform data analysis",
+    "show diplomacy",
+    "e-commerce systems",
+    "data mining methods",
+    "speak different languages"
+   ],
+   "clusters": {
+    "problem": [
+     "analyse problems for opportunities"
+    ],
+    "customer": [
+     "ensure customer focus",
+     "customer service",
+     "process order forms with customer's information",
+     "determine charges for customer services",
+     "keep records of customer interaction",
+     "provide customer follow-up services",
+     "implement customer follow-up",
+     "communicate with customers",
+     "guarantee customer satisfaction",
+     "process customer orders"
+    ],
+    "dataentry": [
+     "keep records of customer interaction"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ]
+   }
+  },
+  "call centre agent": {
+   "uri": "http://data.europa.eu/esco/occupation/0ededdc2-050a-4ec3-8e70-6295105fcd19",
+   "title": "call centre agent",
+   "code": "5244.1",
+   "isco": "5244",
+   "description": "Call centre agents handle incoming or outgoing customer calls for a business. They call existing and prospective customers to promote goods and services. They also obtain sales and arrange sales visits.",
+   "essential": [
+    "adapt to changing situations",
+    "present reports",
+    "credit card payments",
+    "use customer relationship management software",
+    "communicate by telephone",
+    "have computer literacy",
+    "speak different languages",
+    "handle tasks independently",
+    "tolerate stress",
+    "guarantee customer satisfaction",
+    "keep task records",
+    "show confidence",
+    "perform multiple tasks at the same time",
+    "characteristics of services",
+    "create solutions to problems",
+    "listen actively",
+    "characteristics of products",
+    "process data"
+   ],
+   "optional": [
+    "handle helpdesk problems",
+    "perform data analysis",
+    "e-commerce systems",
+    "perform escalation procedure",
+    "answer incoming calls",
+    "teamwork principles",
+    "think proactively",
+    "educate on data confidentiality",
+    "provide ICT support",
+    "apply operations for an ITIL-based environment",
+    "e-procurement",
+    "provide customer follow-up services",
+    "prioritise requests",
+    "communication principles"
+   ],
+   "clusters": {
+    "stakeholder": [
+     "present reports"
+    ],
+    "bookkeeping": [
+     "credit card payments"
+    ],
+    "content": [
+     "credit card payments"
+    ],
+    "customer": [
+     "use customer relationship management software",
+     "guarantee customer satisfaction"
+    ],
+    "languages": [
+     "speak different languages"
+    ],
+    "problem": [
+     "create solutions to problems"
+    ]
+   }
+  },
+  "data entry clerk": {
+   "uri": "http://data.europa.eu/esco/occupation/6353b3e8-e8f2-4ecb-b230-186927139892",
+   "title": "data entry clerk",
+   "code": "4132.1",
+   "isco": "4132",
+   "description": "Data entry clerks update, maintain and retrieve information held on computer systems. They prepare source data for computer entry by compiling and sorting information, process customer and account source documents by reviewing data for deficiencies and verify entered customer and account data.",
+   "essential": [
+    "documentation types",
+    "resource description framework query language",
+    "apply information security policies",
+    "apply statistical analysis techniques",
+    "database",
+    "process data",
+    "query languages",
+    "perform data cleansing",
+    "maintain data entry requirements"
+   ],
+   "optional": [
+    "SPARQL",
+    "N1QL",
+    "information confidentiality",
+    "implement data warehousing techniques",
+    "optical character recognition software",
+    "manage data collection systems",
+    "data models",
+    "LDAP",
+    "manage data",
+    "XQuery",
+    "normalise data",
+    "data storage",
+    "OmniPage",
+    "LINQ",
+    "MDX",
+    "implement data quality processes",
+    "establish data processes",
+    "ABBYY FineReader",
+    "manage ICT data classification",
+    "apply organisational techniques"
+   ],
+   "clusters": {
+    "correspondence": [
+     "documentation types"
+    ],
+    "cyber": [
+     "apply information security policies"
+    ],
+    "sql": [
+     "database",
+     "query languages"
+    ],
+    "languages": [
+     "query languages"
+    ],
+    "dataquality": [
+     "perform data cleansing"
+    ],
+    "processmap": [
+     "perform data cleansing"
+    ],
+    "dataentry": [
+     "maintain data entry requirements"
+    ]
+   }
+  },
+  "shop assistant": {
+   "uri": "http://data.europa.eu/esco/occupation/0b15375e-dfdd-4047-9efb-096e0aaee7d2",
+   "title": "shop assistant",
+   "code": "5223.6",
+   "isco": "5223",
+   "description": "Shop assistants work in shops where they perform assistance duties. The help shopkeepers in their daily work such as ordering and refilling of goods and stock, providing general advice to customers, selling products and maintaining the shop.",
+   "essential": [
+    "provide customer follow-up services",
+    "company policies",
+    "provide customer guidance on product selection",
+    "follow given instructions",
+    "direct customers to merchandise",
+    "organise product display",
+    "put up price tags",
+    "pack merchandise for gifts",
+    "process refunds",
+    "apply company policies",
+    "maintain relationship with customers",
+    "operate cash register",
+    "maintain relationship with suppliers",
+    "stock shelves",
+    "supervise merchandise displays",
+    "arrange ordering of products for customers",
+    "package purchases in bags",
+    "maintain store cleanliness",
+    "notify customers on special offers",
+    "examine merchandise",
+    "product comprehension",
+    "carry out order intake"
+   ],
+   "optional": [
+    "demonstrate products' features",
+    "teamwork principles",
+    "keep records of merchandise delivery",
+    "operate cash point",
+    "achieve sales targets",
+    "maintain customer service",
+    "process payments",
+    "check deliveries on receipt",
+    "process orders from online shop",
+    "carry out active selling",
+    "sales promotion techniques",
+    "use different communication channels",
+    "identify customer's needs",
+    "monitor stock level"
+   ],
+   "clusters": {
+    "customer": [
+     "provide customer follow-up services",
+     "provide customer guidance on product selection",
+     "direct customers to merchandise",
+     "maintain relationship with customers",
+     "arrange ordering of products for customers",
+     "notify customers on special offers"
+    ],
+    "coaching": [
+     "provide customer guidance on product selection"
+    ],
+    "processmap": [
+     "maintain store cleanliness"
+    ]
+   }
+  },
+  "receptionist": {
+   "uri": "http://data.europa.eu/esco/occupation/f7b04542-d8c7-42db-8475-e63b507cce82",
+   "title": "receptionist",
+   "code": "4226.2",
+   "isco": "4226",
+   "description": "Receptionists are responsible for the reception area of a business. They answer the phone, greet guests, pass information, respond to inquiries and instruct visitors. They are the first point of contact for clients and customers.",
+   "essential": [
+    "company policies",
+    "communicate with customers",
+    "disseminate internal communications",
+    "communicate verbal instructions",
+    "maintain logbooks",
+    "administer appointments",
+    "use microsoft office",
+    "customer service",
+    "disseminate messages to people",
+    "communicate by telephone",
+    "maintain reception area",
+    "greet guests",
+    "adhere to organisational guidelines"
+   ],
+   "optional": [
+    "develop documentation in accordance with legal requirements",
+    "process payments",
+    "respond to customers' inquiries",
+    "maintain correspondence records",
+    "process data",
+    "accounting techniques",
+    "deliver correspondence",
+    "keep personal administration",
+    "handle customer complaints",
+    "handle mail",
+    "use different communication channels",
+    "file documents",
+    "issue sales invoices",
+    "process booking",
+    "organise facilities for office personnel",
+    "handle petty cash",
+    "office administration",
+    "use office systems",
+    "allocate badges"
+   ],
+   "clusters": {
+    "customer": [
+     "communicate with customers",
+     "customer service"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ],
+    "scheduling": [
+     "administer appointments"
+    ]
+   }
+  },
+  "warehouse worker": {
+   "uri": "http://data.europa.eu/esco/occupation/bea705fe-06ac-4147-b8e0-6e8ac1208d8f",
+   "title": "warehouse worker",
+   "code": "9333.8",
+   "isco": "9333",
+   "description": "Warehouse workers execute the accurate handling, packing and storage of materials in a warehouse. They receive goods, label them, check quality, store the goods and document any damage. Warehouse workers also monitor stock levels of items, keep inventory and ship goods.",
+   "essential": [
+    "load products for dispatch",
+    "follow stock control instructions",
+    "stack goods",
+    "implement efficiency plans for logistics operations",
+    "check for damaged items",
+    "use warehouse marking tools",
+    "use rigging tools",
+    "apply techniques for stacking goods into containers",
+    "assist in the movement of heavy loads",
+    "manage warehouse inventory",
+    "maintain stock control systems",
+    "handle paperwork related to warehouse stock",
+    "maintain physical condition of warehouse",
+    "types of packaging used in industrial shipments",
+    "have computer literacy",
+    "perform cleaning duties",
+    "pick orders for dispatching",
+    "stay alert",
+    "handle shipment paperwork",
+    "have spatial awareness",
+    "goods transported from warehouse facilities",
+    "monitor stock level",
+    "follow verbal instructions",
+    "lift heavy weights",
+    "dispatch order processing",
+    "clean industrial containers",
+    "use different communication channels",
+    "load pallets",
+    "operate package processing equipment",
+    "secure goods according to work orders",
+    "identify damaged goods before shipment",
+    "operate warehouse record systems",
+    "match goods with appropriate packaging according to security procedures",
+    "receive goods",
+    "sort waste",
+    "operate weighing machine",
+    "products coding system",
+    "operate warehouse materials",
+    "control of expenses"
+   ],
+   "optional": [
+    "safety regulations for warehouses",
+    "adapt to changing situations",
+    "use barcode scanning equipment",
+    "tend packaging machines",
+    "cooperate with colleagues",
+    "product package requirements",
+    "handle returns",
+    "apply procedures to ensure cargo complies with customs regulations",
+    "follow written instructions",
+    "handle fragile items",
+    "organise information",
+    "manage a warehouse management system",
+    "packaging engineering",
+    "clean warehouse",
+    "manage packaging material",
+    "monitor packaging operations",
+    "ensure quality control in packaging",
+    "freight transport methods",
+    "carry out ship-to-shore operations",
+    "oversee stock quality control",
+    "analyse packaging requirements",
+    "handle customer complaints",
+    "assemble goods",
+    "work in a logistics team",
+    "apply transportation management concepts"
+   ],
+   "clusters": {
+    "processmap": [
+     "perform cleaning duties",
+     "clean industrial containers"
+    ],
+    "fieldwork": [
+     "monitor stock level"
+    ],
+    "cyber": [
+     "match goods with appropriate packaging according to security procedures"
+    ]
+   }
+  }
+ }
+}
