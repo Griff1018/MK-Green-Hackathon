@@ -1,4 +1,4 @@
-"""Scoring, scenarios, pathways and SDG links.
+"""Scoring, scenarios, career paths and SDG links.
 
 Everything here is deterministic: the same profile and snapshot always give the
 same result, and every number can be traced to a seed file or a snapshot.
@@ -7,23 +7,25 @@ from __future__ import annotations
 
 import math
 
-from .data import CATALOGUE, CLUSTER, CLUSTERS, ROLE, ROLES, SDG_GOALS, SDG_TARGETS
+from .data import CATALOGUE, CLUSTER, CLUSTERS, COUNTRIES, ROLE, ROLES, SDG_GOALS, SDG_TARGETS
 
 LEVELS = ["none", "basic", "working", "strong"]
 
 # Scenario weights. Positive weights are normalised to sum to 1; exposure is a penalty.
+# "green" rewards low-carbon roles only in the Green transition scenario, where policy and
+# investment are assumed to raise demand for them. SDG links never change rankings otherwise.
 SCENARIOS = {
-    "moderate": {"label": "Moderate AI", "note": "AI mostly augments work; adoption follows current trends.",
-                 "w": {"skill": .40, "outlook": .20, "transfer": .15, "interest": .10, "sdg": .05, "exposure": .10}, "amp": 1.0},
-    "fast": {"label": "Fast disruption", "note": "AI adoption accelerates; exposed tasks are automated sooner.",
-             "w": {"skill": .35, "outlook": .25, "transfer": .15, "interest": .05, "sdg": .05, "exposure": .30}, "amp": 1.5},
+    "moderate": {"label": "Moderate AI", "note": "AI mostly helps people work; adoption follows current trends.",
+                 "w": {"skill": .45, "outlook": .20, "transfer": .15, "interest": .10, "green": 0.0, "exposure": .10}, "amp": 1.0},
+    "fast": {"label": "Fast disruption", "note": "AI adoption speeds up; exposed tasks are automated sooner.",
+             "w": {"skill": .40, "outlook": .25, "transfer": .15, "interest": .05, "green": 0.0, "exposure": .30}, "amp": 1.5},
     "green": {"label": "Green transition", "note": "Policy and investment push low-carbon jobs.",
-              "w": {"skill": .35, "outlook": .15, "transfer": .15, "interest": .10, "sdg": .20, "exposure": .10}, "amp": 1.0},
+              "w": {"skill": .35, "outlook": .15, "transfer": .15, "interest": .10, "green": .20, "exposure": .10}, "amp": 1.0},
 }
 
 # Learning order: foundations and human skills first, specialist skills later.
 ORDER = ["genai", "excel", "problem", "customer", "languages", "stakeholder", "correspondence", "scheduling",
-         "coaching", "dataentry", "bookkeeping", "processmap", "sql", "python", "dataquality", "dataviz", "mlds",
+         "coaching", "leadership", "strategy", "dataentry", "bookkeeping", "processmap", "sql", "python", "dataquality", "dataviz", "mlds",
          "networking", "helpdesk", "cyber", "digimarketing", "content", "design", "esg", "ghg", "fieldwork",
          "electrical", "solar", "energyaudit"]
 assert set(ORDER) == set(CLUSTER), "ORDER must list every cluster"
@@ -82,7 +84,7 @@ def evaluate(role: dict, skills: dict[str, int], interests: list[str], scenario:
         "outlook": outlook / need,
         "transfer": h_have / h_need if h_need else 0.5,
         "interest": clamp(len(set(tags) & set(interests)) / max(1, min(2, len(tags))), 0, 1),
-        "sdg": 1.0 if role["green"] else 0.5,
+        "green": 1.0 if role["green"] else 0.0,
         "exposure": role["exposure"]["mean"],
     }
     pos = sum(v for k, v in w.items() if k != "exposure")
@@ -140,41 +142,108 @@ def diff(skills: dict, interests: list[str], old: dict, new: dict, scenario: str
     return changes
 
 
-# ---------- pathway -------------------------------------------------------------
-def pathway(skills: dict, role_id: str, hours_per_week: int, snapshot: dict, scenario: str = "moderate",
-            interests: list[str] | None = None) -> dict:
+# ---------- career path -------------------------------------------------------
+BUDGET_COSTS = {"free": {"free"}, "low": {"free", "low-cost"}, "mid": {"free", "low-cost"},
+                "any": {"free", "low-cost", "paid"}}
+FOUNDATION = {"genai", "excel", "problem", "customer", "languages", "stakeholder", "correspondence"}
+
+
+def _item(c: dict) -> dict:
+    return {k: c.get(k) for k in ("id", "title", "provider", "url", "hours", "cost", "language", "hrdc",
+                                  "certification", "link_checked_on", "link_status")}
+
+
+def _pick(cid: str, need: int, allowed: set, used: set) -> dict:
+    """Cheapest course the budget allows that reaches the level, plus a stronger option outside the budget."""
+    cands = [c for c in CATALOGUE if c["covers"].get(cid)]
+    ok = [c for c in cands if c["cost"] in allowed]
+    reach = sorted([c for c in ok if c["covers"][cid] >= need], key=lambda c: (c["hours"], c["id"]))
+    main = reach[:1] or sorted(ok, key=lambda c: (-c["covers"][cid], c["hours"]))[:1]
+    upgrade = sorted([c for c in cands if c["cost"] not in allowed and c["covers"][cid] >= need
+                      and c["covers"][cid] == max(c["covers"].values())],  # the course is mainly about this skill
+                     key=lambda c: c["hours"])[:1]
+    fresh = [c for c in main if c["id"] not in used]
+    used.update(c["id"] for c in fresh)
+    return {"items": [_item(c) for c in fresh], "covered_earlier": bool(main) and not fresh,
+            "no_resource": not cands, "budget_blocked": bool(cands) and not ok,
+            "partial": bool(main) and max(c["covers"][cid] for c in main) < need,
+            "upgrade": [_item(c) for c in upgrade]}
+
+
+def _job(title: str) -> str:
+    """'AI-enabled executive assistant' stays as written; 'Office manager' becomes 'office manager'."""
+    return title if title[:2].isupper() else title[0].lower() + title[1:]
+
+
+def _a(word: str) -> str:
+    return "an" if word[:1].lower() in "aeiou" else "a"
+
+
+def _priority(cid: str, gap: int, snapshot: dict, scenario: str) -> float:
+    return round(gap * momentum(cid, snapshot, scenario), 3)
+
+
+def new_tech(cid: str, snapshot: dict) -> list:
+    """Newer tools in this skill area whose mentions in job posts are rising."""
+    return [w for w in snapshot.get("watch", {}).get(cid, []) if w["cur"] >= 5 and w["cur"] > w["prev"] and w["change"] > 0.05]
+
+
+def career_path(skills: dict, role_id: str, hours_per_week: int, snapshot: dict, previous: dict | None = None,
+                scenario: str = "moderate", budget: str = "free", country: str = "MY") -> dict:
+    """Ordered steps from where the person is now to the top of the career ladder."""
     skills = clean_skills(skills)
     role = ROLE[role_id]
-    ev = evaluate(role, skills, interests or [], scenario, snapshot)
-    gaps = sorted(ev["gaps"], key=lambda g: ORDER.index(g["cluster"]))
-    used: set[str] = set()
-    steps = []
-    for g in gaps:
-        cid, own, lv = g["cluster"], g["have"], g["need"]
-        cands = [c for c in CATALOGUE if c["covers"].get(cid)]
-        reach = max((c["covers"][cid] for c in cands), default=0)
-        enough = sorted([c for c in cands if c["covers"][cid] >= lv], key=lambda c: c["hours"])
-        items = enough[:1] if enough else sorted(cands, key=lambda c: -c["covers"][cid])[:1]
-        if enough and own == 0 and enough[0]["hours"] > 20:
-            base = sorted([c for c in cands if c["covers"][cid] == 1 and c["hours"] <= 10], key=lambda c: c["hours"])
-            if base and base[0] is not enough[0]:
-                items = [base[0], enough[0]]
-        fresh = [c for c in items if c["id"] not in used]
-        used.update(c["id"] for c in fresh)
-        steps.append({
-            "cluster": cid, "from": own, "to": lv, "basis": g["basis"],
-            "items": [{k: c.get(k) for k in ("id", "title", "provider", "url", "hours", "cost", "language", "hrdc",
-                                              "link_checked_on", "link_status")} for c in fresh],
-            "covered_earlier": bool(items) and not fresh,
-            "no_resource": not cands,
-            "partial": bool(cands) and reach < lv,
-            "demand_change": snapshot["clusters"].get(cid, {}).get("demand_change"),
-        })
-    hours = sum(i["hours"] for s in steps for i in s["items"])
-    weeks = hours / max(1, hours_per_week)
-    return {"role": role_id, "steps": steps, "hours": hours,
-            "weeks": [math.ceil(weeks), math.ceil(weeks * 1.4)], "hours_per_week": hours_per_week,
-            "score_now": ev["score"]}
+    allowed = BUDGET_COSTS.get(budget, BUDGET_COSTS["free"])
+    local = COUNTRIES.get(country, COUNTRIES["OTHER"])
+    have = dict(skills)
+    used: set = set()
+    stages, total_hours = [], 0
+    for idx, st in enumerate(role["stages"]):
+        gaps = [(i["cluster"], have.get(i["cluster"], 0), i["level"], i["basis"])
+                for i in st["req_list"] if have.get(i["cluster"], 0) < i["level"]]
+
+        def order(snap: dict) -> list:
+            return [g[0] for g in sorted(gaps, key=lambda g: (g[0] not in FOUNDATION,
+                                                              -_priority(g[0], g[2] - g[1], snap, scenario),
+                                                              ORDER.index(g[0])))]
+        now = order(snapshot)
+        before = order(previous) if previous else now
+        nodes = []
+        if idx > 0:
+            prev_title = role["stages"][idx - 1]["title"]
+            nodes.append({"type": "gate", "text": f"Work as {_a(prev_title)} {_job(prev_title)} and use these skills on real tasks."})
+        for cid in now:
+            g = next(x for x in gaps if x[0] == cid)
+            pick = _pick(cid, g[2], allowed, used)
+            nodes.append({"type": "skill", "cluster": cid, "from": g[1], "to": g[2], "basis": g[3],
+                          "priority": _priority(cid, g[2] - g[1], snapshot, scenario),
+                          "moved": before.index(cid) - now.index(cid),
+                          "demand_change": snapshot["clusters"].get(cid, {}).get("demand_change"),
+                          "demand_change_before": previous["clusters"].get(cid, {}).get("demand_change") if previous else None,
+                          "new_tech": new_tech(cid, snapshot), "sdg": CLUSTER[cid].get("sdg", []), **pick})
+            have[cid] = g[2]
+        for cert in st["certs"]:
+            if cert in used:
+                continue
+            c = next(x for x in CATALOGUE if x["id"] == cert)
+            used.add(cert)
+            nodes.append({"type": "cert", "item": _item(c), "optional": c["cost"] not in allowed})
+        for text in st["gates"]:
+            nodes.append({"type": "gate", "text": text})
+        nodes.append({"type": "checkpoint", "text": f"Ready to apply for {_job(st['title'])} roles."})
+        hours = sum(i["hours"] for n in nodes if n["type"] == "skill" for i in n["items"])
+        hours += sum(n["item"]["hours"] for n in nodes if n["type"] == "cert" and not n["optional"])
+        total_hours += hours
+        weeks = hours / max(1, hours_per_week)
+        stages.append({"stage": st["stage"], "title": st["title"], "isco": st["isco"], "esco": st["esco"],
+                       "exposure": st["exposure"], "nodes": nodes, "hours": hours,
+                       "weeks": [math.ceil(weeks), math.ceil(weeks * 1.4)],
+                       "local_demand": local["local_demand"].get(f"{role_id}@{idx}")})
+    ev = evaluate(role, skills, [], scenario, snapshot)
+    moved = sum(1 for s in stages for n in s["nodes"] if n.get("moved"))
+    return {"role": role_id, "stages": stages, "hours": total_hours, "hours_per_week": hours_per_week,
+            "budget": budget, "score_now": ev["score"], "priorities_changed": moved,
+            "local_demand_source": local["local_demand_source"]}
 
 
 # ---------- SDG -------------------------------------------------------------------
