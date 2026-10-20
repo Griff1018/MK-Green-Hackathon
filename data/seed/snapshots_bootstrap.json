@@ -1,0 +1,790 @@
+[
+ {
+  "as_of": "2026-07-20",
+  "sources": {
+   "hn": {
+    "name": "Hacker News 'Who is hiring?' threads (global tech job posts)",
+    "url": "https://news.ycombinator.com/submitted?id=whoishiring",
+    "current_window": [
+     "Ask HN: Who is hiring? (July 2026)",
+     "Ask HN: Who is hiring? (June 2026)",
+     "Ask HN: Who is hiring? (May 2026)"
+    ],
+    "previous_window": [
+     "Ask HN: Who is hiring? (April 2026)",
+     "Ask HN: Who is hiring? (March 2026)",
+     "Ask HN: Who is hiring? (February 2026)"
+    ],
+    "posts_current": 1452,
+    "posts_previous": 1514
+   },
+   "arxiv": {
+    "name": "arXiv API (paper abstracts)",
+    "url": "https://arxiv.org",
+    "current_window": [
+     "2026-04-22",
+     "2026-07-20"
+    ],
+    "previous_window": [
+     "2026-01-22",
+     "2026-04-21"
+    ]
+   }
+  },
+  "clusters": {
+   "excel": {
+    "demand_change": 0.241,
+    "research_change": null,
+    "n": 60
+   },
+   "dataentry": {
+    "demand_change": -0.0287,
+    "research_change": null,
+    "n": 15
+   },
+   "bookkeeping": {
+    "demand_change": -0.0415,
+    "research_change": null,
+    "n": 5
+   },
+   "correspondence": {
+    "demand_change": null,
+    "research_change": null,
+    "n": 0
+   },
+   "scheduling": {
+    "demand_change": 0.0023,
+    "research_change": null,
+    "n": 2
+   },
+   "customer": {
+    "demand_change": -0.018,
+    "research_change": null,
+    "n": 124
+   },
+   "languages": {
+    "demand_change": 0.0194,
+    "research_change": null,
+    "n": 1
+   },
+   "stakeholder": {
+    "demand_change": 0.0157,
+    "research_change": null,
+    "n": 18
+   },
+   "problem": {
+    "demand_change": 0.0047,
+    "research_change": null,
+    "n": 4
+   },
+   "coaching": {
+    "demand_change": 0.0703,
+    "research_change": null,
+    "n": 7
+   },
+   "sql": {
+    "demand_change": -0.2381,
+    "research_change": null,
+    "n": 465
+   },
+   "python": {
+    "demand_change": -0.122,
+    "research_change": null,
+    "n": 512
+   },
+   "dataviz": {
+    "demand_change": 0.1065,
+    "research_change": null,
+    "n": 53
+   },
+   "dataquality": {
+    "demand_change": 0.0954,
+    "research_change": null,
+    "n": 69
+   },
+   "genai": {
+    "demand_change": -0.056,
+    "research_change": -0.0639,
+    "n": 304
+   },
+   "processmap": {
+    "demand_change": -0.1765,
+    "research_change": 0.5891,
+    "n": 151
+   },
+   "mlds": {
+    "demand_change": -0.1476,
+    "research_change": -0.0417,
+    "n": 143
+   },
+   "cyber": {
+    "demand_change": -0.0111,
+    "research_change": null,
+    "n": 220
+   },
+   "networking": {
+    "demand_change": -0.0938,
+    "research_change": null,
+    "n": 206
+   },
+   "helpdesk": {
+    "demand_change": 0.0326,
+    "research_change": null,
+    "n": 98
+   },
+   "digimarketing": {
+    "demand_change": 0.3231,
+    "research_change": null,
+    "n": 35
+   },
+   "content": {
+    "demand_change": -0.0194,
+    "research_change": null,
+    "n": 1
+   },
+   "design": {
+    "demand_change": -0.2538,
+    "research_change": null,
+    "n": 22
+   },
+   "esg": {
+    "demand_change": 0.0894,
+    "research_change": null,
+    "n": 36
+   },
+   "ghg": {
+    "demand_change": -0.0857,
+    "research_change": null,
+    "n": 5
+   },
+   "fieldwork": {
+    "demand_change": null,
+    "research_change": null,
+    "n": 0
+   },
+   "solar": {
+    "demand_change": -0.1263,
+    "research_change": null,
+    "n": 8
+   },
+   "electrical": {
+    "demand_change": -0.1061,
+    "research_change": null,
+    "n": 11
+   },
+   "energyaudit": {
+    "demand_change": 0.0068,
+    "research_change": null,
+    "n": 6
+   }
+  },
+  "raw": {
+   "hn": {
+    "excel": {
+     "cur": 34,
+     "prev": 26,
+     "cur_share": 0.0234,
+     "prev_share": 0.0172,
+     "change": 0.241
+    },
+    "dataentry": {
+     "cur": 7,
+     "prev": 8,
+     "cur_share": 0.0048,
+     "prev_share": 0.0053,
+     "change": -0.0287
+    },
+    "bookkeeping": {
+     "cur": 2,
+     "prev": 3,
+     "cur_share": 0.0014,
+     "prev_share": 0.002,
+     "change": -0.0415
+    },
+    "scheduling": {
+     "cur": 1,
+     "prev": 1,
+     "cur_share": 0.0007,
+     "prev_share": 0.0007,
+     "change": 0.0023
+    },
+    "customer": {
+     "cur": 60,
+     "prev": 64,
+     "cur_share": 0.0413,
+     "prev_share": 0.0423,
+     "change": -0.018
+    },
+    "languages": {
+     "cur": 1,
+     "prev": 0,
+     "cur_share": 0.0007,
+     "prev_share": 0.0,
+     "change": 0.0194
+    },
+    "stakeholder": {
+     "cur": 9,
+     "prev": 9,
+     "cur_share": 0.0062,
+     "prev_share": 0.0059,
+     "change": 0.0157
+    },
+    "problem": {
+     "cur": 2,
+     "prev": 2,
+     "cur_share": 0.0014,
+     "prev_share": 0.0013,
+     "change": 0.0047
+    },
+    "coaching": {
+     "cur": 4,
+     "prev": 3,
+     "cur_share": 0.0028,
+     "prev_share": 0.002,
+     "change": 0.0703
+    },
+    "sql": {
+     "cur": 194,
+     "prev": 271,
+     "cur_share": 0.1336,
+     "prev_share": 0.179,
+     "change": -0.2381
+    },
+    "python": {
+     "cur": 233,
+     "prev": 279,
+     "cur_share": 0.1605,
+     "prev_share": 0.1843,
+     "change": -0.122
+    },
+    "dataviz": {
+     "cur": 28,
+     "prev": 25,
+     "cur_share": 0.0193,
+     "prev_share": 0.0165,
+     "change": 0.1065
+    },
+    "dataquality": {
+     "cur": 36,
+     "prev": 33,
+     "cur_share": 0.0248,
+     "prev_share": 0.0218,
+     "change": 0.0954
+    },
+    "genai": {
+     "cur": 144,
+     "prev": 160,
+     "cur_share": 0.0992,
+     "prev_share": 0.1057,
+     "change": -0.056
+    },
+    "processmap": {
+     "cur": 65,
+     "prev": 86,
+     "cur_share": 0.0448,
+     "prev_share": 0.0568,
+     "change": -0.1765
+    },
+    "mlds": {
+     "cur": 63,
+     "prev": 80,
+     "cur_share": 0.0434,
+     "prev_share": 0.0528,
+     "change": -0.1476
+    },
+    "cyber": {
+     "cur": 107,
+     "prev": 113,
+     "cur_share": 0.0737,
+     "prev_share": 0.0746,
+     "change": -0.0111
+    },
+    "networking": {
+     "cur": 95,
+     "prev": 111,
+     "cur_share": 0.0654,
+     "prev_share": 0.0733,
+     "change": -0.0938
+    },
+    "helpdesk": {
+     "cur": 49,
+     "prev": 49,
+     "cur_share": 0.0337,
+     "prev_share": 0.0324,
+     "change": 0.0326
+    },
+    "digimarketing": {
+     "cur": 22,
+     "prev": 13,
+     "cur_share": 0.0152,
+     "prev_share": 0.0086,
+     "change": 0.3231
+    },
+    "content": {
+     "cur": 0,
+     "prev": 1,
+     "cur_share": 0.0,
+     "prev_share": 0.0007,
+     "change": -0.0194
+    },
+    "design": {
+     "cur": 1,
+     "prev": 21,
+     "cur_share": 0.0007,
+     "prev_share": 0.0139,
+     "change": -0.2538
+    },
+    "esg": {
+     "cur": 19,
+     "prev": 17,
+     "cur_share": 0.0131,
+     "prev_share": 0.0112,
+     "change": 0.0894
+    },
+    "ghg": {
+     "cur": 1,
+     "prev": 4,
+     "cur_share": 0.0007,
+     "prev_share": 0.0026,
+     "change": -0.0857
+    },
+    "solar": {
+     "cur": 2,
+     "prev": 6,
+     "cur_share": 0.0014,
+     "prev_share": 0.004,
+     "change": -0.1263
+    },
+    "electrical": {
+     "cur": 4,
+     "prev": 7,
+     "cur_share": 0.0028,
+     "prev_share": 0.0046,
+     "change": -0.1061
+    },
+    "energyaudit": {
+     "cur": 3,
+     "prev": 3,
+     "cur_share": 0.0021,
+     "prev_share": 0.002,
+     "change": 0.0068
+    }
+   },
+   "arxiv": {
+    "genai": {
+     "term": "large language model",
+     "cur": 7769,
+     "prev": 8300,
+     "change": -0.0639
+    },
+    "processmap": {
+     "term": "LLM agents",
+     "cur": 997,
+     "prev": 618,
+     "change": 0.5891
+    },
+    "mlds": {
+     "term": "machine learning operations",
+     "cur": 7,
+     "prev": 8,
+     "change": -0.0417
+    }
+   },
+   "adzuna": {}
+  }
+ },
+ {
+  "as_of": "2026-10-20",
+  "sources": {
+   "hn": {
+    "name": "Hacker News 'Who is hiring?' threads (global tech job posts)",
+    "url": "https://news.ycombinator.com/submitted?id=whoishiring",
+    "current_window": [
+     "Ask HN: Who is hiring? (October 2026)",
+     "Ask HN: Who is hiring? (September 2026)",
+     "Ask HN: Who is hiring? (August 2026)"
+    ],
+    "previous_window": [
+     "Ask HN: Who is hiring? (July 2026)",
+     "Ask HN: Who is hiring? (June 2026)",
+     "Ask HN: Who is hiring? (May 2026)"
+    ],
+    "posts_current": 1160,
+    "posts_previous": 1452
+   },
+   "arxiv": {
+    "name": "arXiv API (paper abstracts)",
+    "url": "https://arxiv.org",
+    "current_window": [
+     "2026-07-23",
+     "2026-10-20"
+    ],
+    "previous_window": [
+     "2026-04-24",
+     "2026-07-22"
+    ]
+   }
+  },
+  "clusters": {
+   "excel": {
+    "demand_change": -0.213,
+    "research_change": null,
+    "n": 52
+   },
+   "dataentry": {
+    "demand_change": 0.0216,
+    "research_change": null,
+    "n": 13
+   },
+   "bookkeeping": {
+    "demand_change": -0.0375,
+    "research_change": null,
+    "n": 2
+   },
+   "correspondence": {
+    "demand_change": null,
+    "research_change": null,
+    "n": 0
+   },
+   "scheduling": {
+    "demand_change": 0.0137,
+    "research_change": null,
+    "n": 2
+   },
+   "customer": {
+    "demand_change": 0.0999,
+    "research_change": null,
+    "n": 114
+   },
+   "languages": {
+    "demand_change": -0.0194,
+    "research_change": null,
+    "n": 1
+   },
+   "stakeholder": {
+    "demand_change": -0.0954,
+    "research_change": null,
+    "n": 14
+   },
+   "problem": {
+    "demand_change": 0.0276,
+    "research_change": null,
+    "n": 4
+   },
+   "coaching": {
+    "demand_change": 0.1257,
+    "research_change": null,
+    "n": 9
+   },
+   "sql": {
+    "demand_change": 0.2094,
+    "research_change": null,
+    "n": 384
+   },
+   "python": {
+    "demand_change": 0.0897,
+    "research_change": null,
+    "n": 437
+   },
+   "dataviz": {
+    "demand_change": -0.2406,
+    "research_change": null,
+    "n": 41
+   },
+   "dataquality": {
+    "demand_change": -0.0873,
+    "research_change": null,
+    "n": 61
+   },
+   "genai": {
+    "demand_change": 0.0543,
+    "research_change": -0.0989,
+    "n": 266
+   },
+   "processmap": {
+    "demand_change": 0.0318,
+    "research_change": 0.1574,
+    "n": 119
+   },
+   "mlds": {
+    "demand_change": 0.1703,
+    "research_change": -0.115,
+    "n": 124
+   },
+   "cyber": {
+    "demand_change": 0.2725,
+    "research_change": null,
+    "n": 219
+   },
+   "networking": {
+    "demand_change": -0.0212,
+    "research_change": null,
+    "n": 169
+   },
+   "helpdesk": {
+    "demand_change": 0.1524,
+    "research_change": null,
+    "n": 96
+   },
+   "digimarketing": {
+    "demand_change": 0.3304,
+    "research_change": null,
+    "n": 49
+   },
+   "content": {
+    "demand_change": 0.0545,
+    "research_change": null,
+    "n": 3
+   },
+   "design": {
+    "demand_change": 0.15,
+    "research_change": null,
+    "n": 10
+   },
+   "esg": {
+    "demand_change": -0.1366,
+    "research_change": null,
+    "n": 30
+   },
+   "ghg": {
+    "demand_change": -0.0194,
+    "research_change": null,
+    "n": 1
+   },
+   "fieldwork": {
+    "demand_change": null,
+    "research_change": null,
+    "n": 0
+   },
+   "solar": {
+    "demand_change": 0.1,
+    "research_change": null,
+    "n": 6
+   },
+   "electrical": {
+    "demand_change": 0.161,
+    "research_change": null,
+    "n": 11
+   },
+   "energyaudit": {
+    "demand_change": 0.1135,
+    "research_change": null,
+    "n": 7
+   }
+  },
+  "raw": {
+   "hn": {
+    "excel": {
+     "cur": 18,
+     "prev": 34,
+     "cur_share": 0.0155,
+     "prev_share": 0.0234,
+     "change": -0.213
+    },
+    "dataentry": {
+     "cur": 6,
+     "prev": 7,
+     "cur_share": 0.0052,
+     "prev_share": 0.0048,
+     "change": 0.0216
+    },
+    "bookkeeping": {
+     "cur": 0,
+     "prev": 2,
+     "cur_share": 0.0,
+     "prev_share": 0.0014,
+     "change": -0.0375
+    },
+    "scheduling": {
+     "cur": 1,
+     "prev": 1,
+     "cur_share": 0.0009,
+     "prev_share": 0.0007,
+     "change": 0.0137
+    },
+    "customer": {
+     "cur": 54,
+     "prev": 60,
+     "cur_share": 0.0466,
+     "prev_share": 0.0413,
+     "change": 0.0999
+    },
+    "languages": {
+     "cur": 0,
+     "prev": 1,
+     "cur_share": 0.0,
+     "prev_share": 0.0007,
+     "change": -0.0194
+    },
+    "stakeholder": {
+     "cur": 5,
+     "prev": 9,
+     "cur_share": 0.0043,
+     "prev_share": 0.0062,
+     "change": -0.0954
+    },
+    "problem": {
+     "cur": 2,
+     "prev": 2,
+     "cur_share": 0.0017,
+     "prev_share": 0.0014,
+     "change": 0.0276
+    },
+    "coaching": {
+     "cur": 5,
+     "prev": 4,
+     "cur_share": 0.0043,
+     "prev_share": 0.0028,
+     "change": 0.1257
+    },
+    "sql": {
+     "cur": 190,
+     "prev": 194,
+     "cur_share": 0.1638,
+     "prev_share": 0.1336,
+     "change": 0.2094
+    },
+    "python": {
+     "cur": 204,
+     "prev": 233,
+     "cur_share": 0.1759,
+     "prev_share": 0.1605,
+     "change": 0.0897
+    },
+    "dataviz": {
+     "cur": 13,
+     "prev": 28,
+     "cur_share": 0.0112,
+     "prev_share": 0.0193,
+     "change": -0.2406
+    },
+    "dataquality": {
+     "cur": 25,
+     "prev": 36,
+     "cur_share": 0.0216,
+     "prev_share": 0.0248,
+     "change": -0.0873
+    },
+    "genai": {
+     "cur": 122,
+     "prev": 144,
+     "cur_share": 0.1052,
+     "prev_share": 0.0992,
+     "change": 0.0543
+    },
+    "processmap": {
+     "cur": 54,
+     "prev": 65,
+     "cur_share": 0.0466,
+     "prev_share": 0.0448,
+     "change": 0.0318
+    },
+    "mlds": {
+     "cur": 61,
+     "prev": 63,
+     "cur_share": 0.0526,
+     "prev_share": 0.0434,
+     "change": 0.1703
+    },
+    "cyber": {
+     "cur": 112,
+     "prev": 107,
+     "cur_share": 0.0966,
+     "prev_share": 0.0737,
+     "change": 0.2725
+    },
+    "networking": {
+     "cur": 74,
+     "prev": 95,
+     "cur_share": 0.0638,
+     "prev_share": 0.0654,
+     "change": -0.0212
+    },
+    "helpdesk": {
+     "cur": 47,
+     "prev": 49,
+     "cur_share": 0.0405,
+     "prev_share": 0.0337,
+     "change": 0.1524
+    },
+    "digimarketing": {
+     "cur": 27,
+     "prev": 22,
+     "cur_share": 0.0233,
+     "prev_share": 0.0152,
+     "change": 0.3304
+    },
+    "content": {
+     "cur": 3,
+     "prev": 0,
+     "cur_share": 0.0026,
+     "prev_share": 0.0,
+     "change": 0.0545
+    },
+    "design": {
+     "cur": 9,
+     "prev": 1,
+     "cur_share": 0.0078,
+     "prev_share": 0.0007,
+     "change": 0.15
+    },
+    "esg": {
+     "cur": 11,
+     "prev": 19,
+     "cur_share": 0.0095,
+     "prev_share": 0.0131,
+     "change": -0.1366
+    },
+    "ghg": {
+     "cur": 0,
+     "prev": 1,
+     "cur_share": 0.0,
+     "prev_share": 0.0007,
+     "change": -0.0194
+    },
+    "solar": {
+     "cur": 4,
+     "prev": 2,
+     "cur_share": 0.0034,
+     "prev_share": 0.0014,
+     "change": 0.1
+    },
+    "electrical": {
+     "cur": 7,
+     "prev": 4,
+     "cur_share": 0.006,
+     "prev_share": 0.0028,
+     "change": 0.161
+    },
+    "energyaudit": {
+     "cur": 4,
+     "prev": 3,
+     "cur_share": 0.0034,
+     "prev_share": 0.0021,
+     "change": 0.1135
+    }
+   },
+   "arxiv": {
+    "genai": {
+     "term": "large language model",
+     "cur": 6951,
+     "prev": 7716,
+     "change": -0.0989
+    },
+    "processmap": {
+     "term": "LLM agents",
+     "cur": 1155,
+     "prev": 996,
+     "change": 0.1574
+    },
+    "mlds": {
+     "term": "machine learning operations",
+     "cur": 4,
+     "prev": 7,
+     "change": -0.115
+    }
+   },
+   "adzuna": {}
+  }
+ }
+]
