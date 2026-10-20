@@ -9,81 +9,70 @@
    "isco": "2511",
    "description": "Data analysts import, inspect, clean, transform, validate, model, or interpret collections of data with regard to the business goals of the company. They ensure that the data sources and repositories provide consistent and reliable data. Data analysts use different algorithms and IT tools as demanded by the situation and the current data. They might prepare reports in the form of visualisations such as graphs, charts, and dashboards.",
    "essential": [
-    "manage data",
-    "perform data cleansing",
-    "data quality assessment",
-    "information confidentiality",
-    "data mining",
-    "interpret current data",
-    "information extraction",
-    "define data quality criteria",
-    "handle data samples",
-    "execute analytical mathematical calculations",
-    "information categorisation",
     "normalise data",
-    "documentation types",
-    "query languages",
-    "integrate ICT data",
-    "implement data quality processes",
-    "apply statistical analysis techniques",
-    "unstructured data",
-    "establish data processes",
-    "statistics",
     "analyse big data",
-    "information structure",
-    "resource description framework query language",
-    "collect ICT data",
-    "business intelligence",
+    "handle data samples",
+    "apply statistical analysis techniques",
+    "manage data",
+    "query languages",
+    "establish data processes",
     "visual presentation techniques",
+    "define data quality criteria",
+    "unstructured data",
+    "data quality assessment",
+    "integrate ICT data",
+    "documentation types",
+    "data mining",
+    "business intelligence",
+    "implement data quality processes",
+    "information confidentiality",
+    "information categorisation",
+    "information extraction",
+    "perform data cleansing",
+    "statistics",
+    "interpret current data",
+    "information structure",
+    "collect ICT data",
+    "resource description framework query language",
+    "execute analytical mathematical calculations",
     "perform data mining",
     "data models"
    ],
    "optional": [
-    "XQuery",
     "create data models",
     "LINQ",
     "manage data collection systems",
-    "information architecture",
-    "SPARQL",
-    "online analytical processing",
+    "cloud technologies",
+    "database",
     "N1QL",
     "report analysis results",
-    "database",
-    "gather data for forensic purposes",
-    "data storage",
-    "cloud technologies",
-    "MDX",
-    "web analytics",
+    "information architecture",
     "LDAP",
-    "deliver visual presentation of data"
+    "deliver visual presentation of data",
+    "XQuery",
+    "online analytical processing",
+    "web analytics",
+    "data storage",
+    "gather data for forensic purposes",
+    "SPARQL",
+    "MDX"
    ],
    "clusters": {
-    "dataquality": [
-     "manage data",
-     "perform data cleansing",
-     "data quality assessment",
-     "define data quality criteria",
-     "integrate ICT data",
-     "implement data quality processes",
-     "collect ICT data"
-    ],
-    "processmap": [
-     "perform data cleansing"
-    ],
     "problem": [
-     "data quality assessment",
-     "analyse big data"
-    ],
-    "mlds": [
-     "data mining",
-     "statistics",
-     "perform data mining"
+     "analyse big data",
+     "data quality assessment"
     ],
     "fieldwork": [
      "handle data samples"
     ],
-    "correspondence": [
-     "documentation types"
+    "dataquality": [
+     "manage data",
+     "define data quality criteria",
+     "data quality assessment",
+     "integrate ICT data",
+     "implement data quality processes",
+     "perform data cleansing",
+     "collect ICT data"
     ],
     "languages": [
      "query languages"
@@ -91,6 +80,17 @@
     "sql": [
      "query languages",
      "data models"
+    ],
+    "correspondence": [
+     "documentation types"
+    ],
+    "mlds": [
+     "data mining",
+     "statistics",
+     "perform data mining"
+    ],
+    "processmap": [
+     "perform data cleansing"
     ]
    }
   },
@@ -101,66 +101,70 @@
    "isco": "2421",
    "description": "\nBusiness analysts research and understand the strategic position of businesses and companies in relation to their markets and their stakeholders. They analyse and present their views on how the company, from many perspectives, can improve its strategic position and internal corporate structure. They assess needs for change, communication methods, technology, IT tools, new standards and certifications.",
    "essential": [
-    "analyse financial performance of a company",
-    "business analysis",
-    "analyse internal factors of companies",
-    "market research",
-    "build business relationships",
     "identify undetected organisational needs",
-    "advise on efficiency improvements",
-    "liaise with managers",
-    "analyse business plans",
-    "interpret financial statements",
+    "market research",
     "risk management",
+    "analyse external factors of companies",
+    "analyse internal factors of companies",
+    "scientific research methodology",
+    "interpret financial statements",
     "conduct qualitative research",
     "conduct quantitative research",
-    "align efforts towards business development",
-    "make strategic business decisions",
+    "advise on efficiency improvements",
+    "business analysis",
     "perform business analysis",
-    "analyse external factors of companies",
-    "scientific research methodology"
+    "make strategic business decisions",
+    "analyse business plans",
+    "build business relationships",
+    "analyse financial performance of a company",
+    "liaise with managers",
+    "align efforts towards business development"
    ],
    "optional": [
-    "advise on personnel management",
+    "advise on financial matters",
+    "organisational policies",
+    "support implementation of quality management systems",
+    "business law",
     "business strategy concepts",
-    "corporate law",
     "shape organisational teams based on competencies",
     "keep updated on the political landscape",
-    "business intelligence",
-    "define organisational standards",
-    "business process modelling",
-    "financial statements",
-    "report analysis results",
-    "propose ICT solutions to business problems",
-    "advise on organisation climate",
-    "support implementation of quality management systems",
-    "market entry strategies",
-    "seek innovation in current practices",
-    "interview people",
-    "quality standards",
-    "advise on communication strategies",
-    "business law",
-    "organisational policies",
-    "advise on financial matters",
+    "advise on personnel management",
     "advise client on technical possibilities",
-    "advise on risk management"
+    "propose ICT solutions to business problems",
+    "quality standards",
+    "market entry strategies",
+    "report analysis results",
+    "define organisational standards",
+    "seek innovation in current practices",
+    "business process modelling",
+    "interview people",
+    "business intelligence",
+    "advise on risk management",
+    "advise on communication strategies",
+    "advise on organisation climate",
+    "corporate law",
+    "financial statements"
    ],
    "clusters": {
-    "problem": [
-     "analyse financial performance of a company",
-     "analyse internal factors of companies",
-     "analyse business plans",
-     "analyse external factors of companies"
-    ],
     "digimarketing": [
      "market research"
+    ],
+    "problem": [
+     "analyse external factors of companies",
+     "analyse internal factors of companies",
+     "analyse business plans",
+     "analyse financial performance of a company"
+    ],
+    "coaching": [
+     "advise on efficiency improvements"
+    ],
+    "strategy": [
+     "make strategic business decisions",
+     "analyse business plans"
     ],
     "stakeholder": [
      "build business relationships",
      "liaise with managers"
-    ],
-    "coaching": [
-     "advise on efficiency improvements"
     ]
    }
   },
@@ -171,104 +175,104 @@
    "isco": "2521",
    "description": "Database administrators test, implement and administer computer databases. They use their expertise in database management systems to plan, coordinate and implement security measures to safeguard computer databases. They also use scripts and configuration files to tailor a database to users' needs.",
    "essential": [
-    "administer ICT system",
-    "define database physical structure",
-    "database management systems",
-    "apply company policies",
-    "maintain database security",
-    "manage database",
-    "design database scheme",
-    "operate relational database management system",
-    "resource description framework query language",
-    "interpret technical texts",
     "create data models",
-    "database development tools",
-    "distributed computing",
-    "information structure",
-    "balance database resources",
-    "data storage",
-    "maintain database performance",
     "data models",
-    "design database backup specifications",
+    "maintain database security",
+    "administer ICT system",
+    "apply company policies",
+    "data storage",
     "use scripting programming",
-    "perform backups",
-    "system backup best practice",
-    "perform ICT troubleshooting",
     "data quality assessment",
-    "query languages"
+    "define database physical structure",
+    "distributed computing",
+    "perform ICT troubleshooting",
+    "resource description framework query language",
+    "balance database resources",
+    "query languages",
+    "information structure",
+    "operate relational database management system",
+    "database development tools",
+    "manage database",
+    "interpret technical texts",
+    "system backup best practice",
+    "perform backups",
+    "design database scheme",
+    "database management systems",
+    "design database backup specifications",
+    "maintain database performance"
    ],
    "optional": [
-    "Teradata Database",
-    "Microsoft Access",
-    "business intelligence",
-    "quality assurance methodologies",
-    "IBM Informix",
     "LINQ",
-    "use different communication channels",
-    "provide technical training",
-    "SPARQL",
-    "SQL Server",
     "use automatic programming",
-    "execute ICT audits",
+    "business intelligence",
+    "MDX",
+    "provide technical training",
+    "N1QL",
+    "support ICT system users",
     "Oracle Relational Database",
+    "XQuery",
+    "SPARQL",
+    "execute ICT audits",
+    "PostgreSQL",
+    "OpenEdge Database",
+    "ObjectStore",
     "provide ICT support",
     "MySQL",
-    "PostgreSQL",
-    "ObjectStore",
-    "OpenEdge Database",
-    "MDX",
-    "XQuery",
-    "support ICT system users",
-    "online analytical processing",
-    "LDAP",
+    "IBM Informix",
+    "provide technical documentation",
+    "quality assurance methodologies",
     "DB2",
     "estimate duration of work",
-    "N1QL",
+    "online analytical processing",
+    "use different communication channels",
+    "SQL Server",
+    "LDAP",
     "Filemaker (database management systems)",
-    "provide technical documentation"
+    "Teradata Database",
+    "Microsoft Access"
    ],
    "clusters": {
-    "networking": [
-     "administer ICT system"
-    ],
     "sql": [
-     "define database physical structure",
-     "database management systems",
+     "create data models",
+     "data models",
      "maintain database security",
+     "data storage",
+     "define database physical structure",
+     "balance database resources",
+     "query languages",
+     "operate relational database management system",
+     "database development tools",
      "manage database",
      "design database scheme",
-     "operate relational database management system",
-     "create data models",
-     "database development tools",
-     "balance database resources",
-     "data storage",
-     "maintain database performance",
-     "data models",
+     "database management systems",
      "design database backup specifications",
-     "query languages"
+     "maintain database performance"
     ],
     "cyber": [
      "maintain database security"
     ],
-    "dataquality": [
-     "manage database",
-     "data quality assessment"
-    ],
-    "design": [
-     "design database scheme",
-     "design database backup specifications"
+    "networking": [
+     "administer ICT system"
     ],
     "python": [
      "use scripting programming"
     ],
-    "helpdesk": [
-     "perform ICT troubleshooting"
-    ],
     "problem": [
      "data quality assessment"
     ],
+    "dataquality": [
+     "data quality assessment",
+     "manage database"
+    ],
+    "helpdesk": [
+     "perform ICT troubleshooting"
+    ],
     "languages": [
      "query languages"
+    ],
+    "design": [
+     "design database scheme",
+     "design database backup specifications"
     ]
    }
   },
@@ -279,70 +283,70 @@
    "isco": "2529",
    "description": "ICT security administrators plan and carry out security measures to protect information and data from unauthorised access, deliberate attack, theft and corruption.",
    "essential": [
-    "database development tools",
-    "organisational resilience",
-    "attend to ICT systems quality",
-    "mobile device management",
-    "apply company policies",
-    "identify ICT system weaknesses",
     "manage IT security compliances",
+    "identify ICT system weaknesses",
+    "interpret technical texts",
+    "Internet of Things",
+    "database development tools",
     "cyber attack counter-measures",
-    "perform ICT troubleshooting",
+    "solve ICT system problems",
     "quality assurance methodologies",
     "maintain ICT identity management",
+    "apply company policies",
+    "ensure proper document management",
+    "mobile device management",
+    "system backup best practice",
+    "attend to ICT systems quality",
+    "internet governance",
+    "perform ICT troubleshooting",
     "maintain database security",
     "ICT network security risks",
-    "internet governance",
-    "system backup best practice",
-    "Internet of Things",
-    "solve ICT system problems",
-    "ensure proper document management",
-    "interpret technical texts"
+    "organisational resilience"
    ],
    "optional": [
-    "execute software tests",
-    "use scripting programming",
-    "lead disaster recovery exercises",
-    "manage database",
-    "train employees",
-    "assess ICT knowledge",
+    "ICT security standards",
+    "information confidentiality",
+    "ICT encryption",
+    "build business relationships",
+    "ICT security legislation",
     "manage ICT virtualisation machines",
+    "execute ICT audits",
     "cyber security",
     "computer forensics",
+    "assess ICT knowledge",
     "web application security threats",
-    "information confidentiality",
-    "ICT security standards",
-    "information security strategy",
-    "build business relationships",
-    "execute ICT audits",
-    "ICT infrastructure",
-    "ICT encryption",
+    "lead disaster recovery exercises",
+    "perform backups",
+    "execute software tests",
+    "train employees",
     "address problems critically",
-    "ICT security legislation",
-    "perform backups"
+    "ICT infrastructure",
+    "use scripting programming",
+    "manage database",
+    "information security strategy"
    ],
    "clusters": {
-    "sql": [
-     "database development tools",
-     "maintain database security"
-    ],
-    "networking": [
-     "attend to ICT systems quality",
-     "identify ICT system weaknesses",
-     "ICT network security risks",
-     "solve ICT system problems"
-    ],
     "cyber": [
      "manage IT security compliances",
      "cyber attack counter-measures",
      "maintain database security",
      "ICT network security risks"
     ],
-    "helpdesk": [
-     "perform ICT troubleshooting"
+    "networking": [
+     "identify ICT system weaknesses",
+     "solve ICT system problems",
+     "attend to ICT systems quality",
+     "ICT network security risks"
+    ],
+    "sql": [
+     "database development tools",
+     "maintain database security"
     ],
     "problem": [
      "solve ICT system problems"
+    ],
+    "helpdesk": [
+     "perform ICT troubleshooting"
     ]
    }
   },
@@ -353,62 +357,62 @@
    "isco": "3512",
    "description": "ICT help desk agents provide technical assistance to computer users, answer questions or solve computer problems for clients via telephone or electronically. They provide assistance concerning the use of computer hardware and software.",
    "essential": [
-    "create solutions to problems",
-    "manage schedule of tasks",
     "communicate with customers",
-    "support ICT system users",
-    "characteristics of products",
-    "ICT system user requirements",
-    "guarantee customer satisfaction",
-    "keep task records",
-    "provide customer follow-up services",
-    "characteristics of services",
-    "product comprehension",
-    "solve ICT system problems",
-    "use customer relationship management software",
-    "use ICT ticketing system",
-    "keep up to date on product knowledge",
-    "provide ICT support",
-    "identify customer's needs",
     "assist customers",
-    "prioritise requests"
+    "provide ICT support",
+    "prioritise requests",
+    "use ICT ticketing system",
+    "ICT system user requirements",
+    "manage schedule of tasks",
+    "provide customer follow-up services",
+    "keep task records",
+    "support ICT system users",
+    "product comprehension",
+    "guarantee customer satisfaction",
+    "solve ICT system problems",
+    "characteristics of services",
+    "keep up to date on product knowledge",
+    "identify customer's needs",
+    "characteristics of products",
+    "create solutions to problems",
+    "use customer relationship management software"
    ],
    "optional": [
-    "educate on data confidentiality",
-    "perform data analysis",
-    "ICT infrastructure",
-    "handle helpdesk problems",
     "answer incoming calls",
     "perform escalation procedure",
+    "ICT help platforms",
+    "ICT infrastructure",
+    "educate on data confidentiality",
+    "handle helpdesk problems",
     "information confidentiality",
-    "ICT help platforms"
+    "perform data analysis"
    ],
    "clusters": {
-    "problem": [
-     "create solutions to problems",
+    "customer": [
+     "communicate with customers",
+     "assist customers",
+     "provide customer follow-up services",
+     "guarantee customer satisfaction",
+     "identify customer's needs",
+     "use customer relationship management software"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ],
+    "helpdesk": [
+     "provide ICT support"
+    ],
+    "networking": [
+     "ICT system user requirements",
+     "support ICT system users",
      "solve ICT system problems"
     ],
     "scheduling": [
      "manage schedule of tasks"
     ],
-    "customer": [
-     "communicate with customers",
-     "guarantee customer satisfaction",
-     "provide customer follow-up services",
-     "use customer relationship management software",
-     "identify customer's needs",
-     "assist customers"
-    ],
-    "stakeholder": [
-     "communicate with customers"
-    ],
-    "networking": [
-     "support ICT system users",
-     "ICT system user requirements",
-     "solve ICT system problems"
-    ],
-    "helpdesk": [
-     "provide ICT support"
+    "problem": [
+     "solve ICT system problems",
+     "create solutions to problems"
     ]
    }
   },
@@ -419,62 +423,68 @@
    "isco": "2431",
    "description": "Online marketers use e-mail, internet and social media in order to market goods and brands.\n",
    "essential": [
-    "apply strategic thinking",
-    "perform video editing",
-    "use different communication channels",
-    "e-commerce systems",
-    "inspect data",
-    "apply social media marketing",
-    "perform copywriting",
-    "perform market research",
-    "plan digital marketing",
-    "content marketing strategy",
-    "implement marketing strategies",
-    "company policies",
-    "implement sales strategies",
-    "apply customer engagement strategy",
-    "use content management system software",
-    "manage budgets",
     "execute conversion testing",
-    "create new concepts",
+    "perform video editing",
+    "perform project management",
+    "use different communication channels",
+    "inspect data",
+    "apply strategic thinking",
     "conduct mobile marketing",
-    "execute email marketing",
+    "create new concepts",
+    "company policies",
+    "perform copywriting",
+    "implement sales strategies",
+    "e-commerce systems",
+    "content marketing strategy",
+    "apply social media marketing",
     "perform online data analysis",
+    "manage budgets",
     "perform image editing",
-    "perform project management"
+    "apply customer engagement strategy",
+    "implement marketing strategies",
+    "plan digital marketing",
+    "execute email marketing",
+    "use content management system software",
+    "perform market research"
    ],
    "optional": [
-    "deal with pressure from unexpected circumstances",
+    "supervise brand management",
     "intellectual property law",
+    "printed goods processes",
+    "information confidentiality",
+    "conduct search engine optimisation",
+    "deal with pressure from unexpected circumstances",
     "competition law",
     "apply information security policies",
-    "supervise brand management",
-    "ICT communications protocols",
     "adapt to change in marketing",
-    "printed goods processes",
-    "conduct search engine optimisation",
-    "information confidentiality"
+    "ICT communications protocols"
    ],
    "clusters": {
     "content": [
      "perform video editing",
      "perform copywriting",
      "content marketing strategy",
-     "use content management system software",
-     "perform image editing"
+     "perform image editing",
+     "use content management system software"
     ],
     "fieldwork": [
      "inspect data"
     ],
-    "digimarketing": [
-     "apply social media marketing",
-     "perform market research",
-     "plan digital marketing",
+    "strategy": [
+     "apply strategic thinking",
      "content marketing strategy",
-     "implement marketing strategies",
+     "manage budgets",
+     "apply customer engagement strategy"
+    ],
+    "digimarketing": [
      "conduct mobile marketing",
+     "content marketing strategy",
+     "apply social media marketing",
+     "perform online data analysis",
+     "implement marketing strategies",
+     "plan digital marketing",
      "execute email marketing",
-     "perform online data analysis"
+     "perform market research"
     ],
     "customer": [
      "apply customer engagement strategy"
@@ -488,86 +498,86 @@
    "isco": "2133",
    "description": " Environmental scientists identify problems and find solutions in order to minimize environmental hazards by performing analysis on samples such as air, water or soil. They advise on or develop environmental policies and aim to improve water supplies preservation and manage waste disposal sites. Environmental scientists perform environmental risk assessments and analyse the environmental impact of new solutions, construction sites or environmental changes ensuring the environmental regulations are followed.",
    "essential": [
-    "scientific research methodology",
-    "pollution prevention",
-    "pollution legislation",
-    "manage environmental management system",
     "ensure compliance with environmental legislation",
-    "investigate pollution",
-    "carry out environmental audits",
-    "use technical drawing software",
-    "conduct environmental surveys",
-    "conduct environmental site assessments",
     "perform environmental investigations",
-    "assess groundwater environmental impact",
     "physics",
-    "develop environmental remediation strategies",
+    "pollution prevention",
     "prepare visual data",
-    "environmental threats",
-    "environmental policy",
-    "analyse environmental data",
-    "advise on environmental risk management systems",
-    "use consulting techniques",
-    "environmental management monitors",
     "collect samples for analysis",
-    "conduct research before survey",
+    "use consulting techniques",
     "advise on pollution prevention",
+    "environmental threats",
+    "develop environmental remediation strategies",
+    "advise on environmental risk management systems",
+    "environmental management monitors",
+    "scientific research methodology",
+    "assess groundwater environmental impact",
+    "manage environmental management system",
+    "use technical drawing software",
+    "carry out environmental audits",
+    "investigate pollution",
     "environmental legislation",
-    "implement environmental protection measures"
+    "environmental policy",
+    "conduct environmental surveys",
+    "implement environmental protection measures",
+    "conduct research before survey",
+    "conduct environmental site assessments",
+    "pollution legislation",
+    "analyse environmental data"
    ],
    "optional": [
-    "carry out training in environmental matters",
-    "environmental engineering",
-    "inspect industrial equipment",
-    "manage chemical testing procedures",
-    "hazardous waste storage",
-    "chemistry",
-    "biology",
-    "consumer protection",
-    "address public health issues",
-    "mining, construction and civil engineering machinery products",
-    "engineering principles",
-    "assess environmental plans against financial costs",
-    "have computer literacy",
-    "possess visual literacy",
-    "monitor environmental parameters",
-    "work with chemicals",
     "handle chemicals",
-    "civil engineering"
+    "have computer literacy",
+    "biology",
+    "manage chemical testing procedures",
+    "engineering principles",
+    "civil engineering",
+    "carry out training in environmental matters",
+    "address public health issues",
+    "work with chemicals",
+    "chemistry",
+    "consumer protection",
+    "inspect industrial equipment",
+    "monitor environmental parameters",
+    "assess environmental plans against financial costs",
+    "hazardous waste storage",
+    "mining, construction and civil engineering machinery products",
+    "environmental engineering",
+    "possess visual literacy"
    ],
    "clusters": {
     "esg": [
-     "manage environmental management system",
      "ensure compliance with environmental legislation",
-     "carry out environmental audits",
-     "conduct environmental surveys",
-     "conduct environmental site assessments",
      "perform environmental investigations",
-     "assess groundwater environmental impact",
-     "develop environmental remediation strategies",
      "environmental threats",
-     "environmental policy",
-     "analyse environmental data",
+     "develop environmental remediation strategies",
      "advise on environmental risk management systems",
      "environmental management monitors",
-     "environmental legislation",
-     "implement environmental protection measures"
-    ],
-    "problem": [
-     "conduct environmental site assessments",
      "assess groundwater environmental impact",
+     "manage environmental management system",
+     "carry out environmental audits",
+     "environmental legislation",
+     "environmental policy",
+     "conduct environmental surveys",
+     "implement environmental protection measures",
+     "conduct environmental site assessments",
      "analyse environmental data"
+    ],
+    "fieldwork": [
+     "collect samples for analysis",
+     "environmental management monitors"
+    ],
+    "coaching": [
+     "advise on pollution prevention",
+     "advise on environmental risk management systems"
     ],
     "cyber": [
      "environmental threats"
     ],
-    "coaching": [
-     "advise on environmental risk management systems",
-     "advise on pollution prevention"
-    ],
-    "fieldwork": [
-     "environmental management monitors",
-     "collect samples for analysis"
+    "problem": [
+     "assess groundwater environmental impact",
+     "conduct environmental site assessments",
+     "analyse environmental data"
     ]
    }
   },
@@ -578,55 +588,55 @@
    "isco": "3112",
    "description": "Energy assessors determine the energy performance of buildings. They create an Energy Performance Certificate (EPC) which indicates what the estimated energy consumption of a property is. Furthermore they give advice on how to improve energy conservation.",
    "essential": [
-    "compose energy performance contracts",
     "advise on heating systems energy efficiency",
-    "analyse energy consumption",
-    "advise on utility consumption",
-    "conduct energy audit",
-    "carry out energy management of facilities",
-    "renewable energy technologies",
+    "domestic heating systems",
     "energy performance of buildings",
     "electricity consumption",
     "electricity market",
-    "domestic heating systems",
-    "energy efficiency"
+    "carry out energy management of facilities",
+    "analyse energy consumption",
+    "conduct energy audit",
+    "renewable energy technologies",
+    "advise on utility consumption",
+    "energy efficiency",
+    "compose energy performance contracts"
    ],
    "optional": [
-    "solar energy",
+    "provide information on solar panels",
+    "promote sustainable energy",
     "provide information on geothermal heat pumps",
     "provide information",
-    "promote sustainable energy",
+    "identify energy needs",
     "provide information on wind turbines",
-    "promote environmental awareness",
-    "provide information on solar panels",
-    "identify energy needs"
+    "solar energy",
+    "promote environmental awareness"
    ],
    "clusters": {
-    "ghg": [
-     "compose energy performance contracts",
-     "analyse energy consumption",
-     "energy performance of buildings"
-    ],
     "coaching": [
      "advise on heating systems energy efficiency",
      "advise on utility consumption"
     ],
     "energyaudit": [
      "advise on heating systems energy efficiency",
-     "conduct energy audit",
-     "carry out energy management of facilities",
      "domestic heating systems",
+     "carry out energy management of facilities",
+     "conduct energy audit",
      "energy efficiency"
+    ],
+    "ghg": [
+     "energy performance of buildings",
+     "analyse energy consumption",
+     "compose energy performance contracts"
+    ],
+    "electrical": [
+     "electricity consumption",
+     "electricity market"
     ],
     "problem": [
      "analyse energy consumption"
     ],
     "solar": [
      "renewable energy technologies"
-    ],
-    "electrical": [
-     "electricity consumption",
-     "electricity market"
     ]
    }
   },
@@ -637,67 +647,67 @@
    "isco": "7411",
    "description": "Solar energy technicians install and maintain systems that collect solar energy. They prepare the necessary fixtures, often on roofs, install solar panels, and plug them into an electronic system including an inverter to connect the solar energy systems to the electricity lines.",
    "essential": [
-    "check compatibility of materials",
-    "inspect construction supplies",
-    "electricity",
-    "follow health and safety procedures in construction",
-    "follow safety procedures when working at heights",
-    "use measurement instruments",
-    "interpret 3D plans",
-    "work ergonomically",
-    "mount photovoltaic panels",
-    "transport construction supplies",
-    "electrical wiring plans",
-    "mechanics",
     "comply with legal regulations",
-    "install electrical and electronic equipment",
-    "inspect electrical supplies",
-    "solar energy",
+    "test procedures in electricity transmission",
+    "electricity",
+    "mount photovoltaic panels",
     "interpret 2D plans",
+    "install electrical and electronic equipment",
+    "inspect construction supplies",
     "install circuit breakers",
-    "test procedures in electricity transmission"
+    "check compatibility of materials",
+    "electrical wiring plans",
+    "work ergonomically",
+    "mechanics",
+    "transport construction supplies",
+    "follow health and safety procedures in construction",
+    "inspect electrical supplies",
+    "follow safety procedures when working at heights",
+    "interpret 3D plans",
+    "use measurement instruments",
+    "solar energy"
    ],
    "optional": [
-    "calculate solar panel orientation",
-    "provide information on solar panels",
-    "building codes",
-    "process incoming construction supplies",
-    "maintain work area cleanliness",
-    "monitor stock level",
-    "zero-energy building design",
-    "install inverter",
-    "calculate needs for construction supplies",
-    "use safety equipment in construction",
-    "rig loads",
-    "demonstrate products' features",
-    "types of photovoltaic panels",
-    "answer requests for quotation",
-    "keep personal administration",
     "maintain equipment",
-    "work in a construction team",
     "estimate profitability",
-    "order construction supplies",
+    "calculate solar panel orientation",
     "maintain solar energy systems",
-    "solar panel mounting systems"
+    "use safety equipment in construction",
+    "answer requests for quotation",
+    "demonstrate products' features",
+    "install inverter",
+    "maintain work area cleanliness",
+    "types of photovoltaic panels",
+    "calculate needs for construction supplies",
+    "solar panel mounting systems",
+    "provide information on solar panels",
+    "rig loads",
+    "order construction supplies",
+    "building codes",
+    "keep personal administration",
+    "work in a construction team",
+    "zero-energy building design",
+    "process incoming construction supplies",
+    "monitor stock level"
    ],
    "clusters": {
-    "fieldwork": [
-     "inspect construction supplies",
-     "inspect electrical supplies"
-    ],
     "electrical": [
+     "test procedures in electricity transmission",
      "electricity",
-     "follow health and safety procedures in construction",
-     "follow safety procedures when working at heights",
-     "electrical wiring plans",
      "install electrical and electronic equipment",
-     "inspect electrical supplies",
      "install circuit breakers",
-     "test procedures in electricity transmission"
+     "electrical wiring plans",
+     "follow health and safety procedures in construction",
+     "inspect electrical supplies",
+     "follow safety procedures when working at heights"
     ],
     "solar": [
      "mount photovoltaic panels",
      "solar energy"
+    ],
+    "fieldwork": [
+     "inspect construction supplies",
+     "inspect electrical supplies"
     ]
    }
   },
@@ -708,61 +718,64 @@
    "isco": "3343",
    "description": "Executive assistants are advanced administrative professionals who work with top-level executives or in international facilities in various industries. They organise meetings, organise and maintain files, arrange travel, train staff members, communicate in other languages, and manage the day-to-day operations of the office.",
    "essential": [
-    "disseminate messages to people",
-    "observe confidentiality",
-    "manage office facility systems",
-    "fix meetings",
-    "manage personnel agenda",
-    "perform business research",
-    "translate keywords into full texts",
-    "perform clerical duties",
-    "draft corporate emails",
-    "apply information security policies",
-    "communicate schedules to the people concerned",
-    "process commissioned instructions",
-    "build business relationships",
-    "use different communication channels",
     "company policies",
+    "build business relationships",
+    "disseminate messages to people",
+    "apply information security policies",
+    "process commissioned instructions",
+    "organise travel arrangements for staff",
+    "perform business research",
+    "use different communication channels",
+    "translate keywords into full texts",
+    "communicate schedules to the people concerned",
+    "perform clerical duties",
     "coordinate events",
     "maintain register of shareholders",
-    "liaise with managers",
     "use office systems",
-    "organise travel arrangements for staff"
+    "observe confidentiality",
+    "liaise with managers",
+    "manage office facility systems",
+    "manage personnel agenda",
+    "fix meetings",
+    "draft corporate emails"
    ],
    "optional": [
-    "work in an international environment",
-    "manage payroll reports",
-    "revise drafts made by managers",
-    "create import-export commercial documentation",
-    "international import export regulations",
-    "prepare financial statements",
-    "show intercultural awareness",
-    "build international relations",
     "communicate with customers",
+    "create import-export commercial documentation",
+    "work in an international environment",
+    "prepare presentation material",
+    "international import export regulations",
     "support development of annual budget",
-    "prepare tax returns forms",
-    "international tariffs",
-    "liaise with board members",
+    "prepare financial statements",
     "translate language concepts",
+    "revise drafts made by managers",
+    "international tariffs",
     "speak different languages",
-    "prepare presentation material"
+    "show intercultural awareness",
+    "manage payroll reports",
+    "liaise with board members",
+    "prepare tax returns forms",
+    "build international relations"
    ],
    "clusters": {
-    "scheduling": [
-     "fix meetings",
-     "communicate schedules to the people concerned",
-     "coordinate events",
-     "organise travel arrangements for staff"
-    ],
-    "correspondence": [
-     "draft corporate emails"
+    "stakeholder": [
+     "build business relationships",
+     "liaise with managers"
     ],
     "cyber": [
      "apply information security policies"
     ],
-    "stakeholder": [
-     "build business relationships",
-     "liaise with managers"
+    "scheduling": [
+     "organise travel arrangements for staff",
+     "communicate schedules to the people concerned",
+     "coordinate events",
+     "fix meetings"
+    ],
+    "leadership": [
+     "manage personnel agenda"
+    ],
+    "correspondence": [
+     "draft corporate emails"
     ]
    }
   },
@@ -774,74 +787,74 @@
    "description": "Career guidance advisors provide guidance and advice to adults and students on making educational, training and occupational choices and assist people in managing their careers, through career planning and career exploration. They help identify options for future careers, assist beneficiaries in the development of their curriculum and help people reflect on their ambitions, interests and qualifications. Career guidance advisors may provide advice on various career planning issues and make suggestions for lifelong learning if necessary, including study recommendations. They may also assist the individual in the search for a job.",
    "essential": [
     "identify clients' needs",
-    "encourage counselled clients to examine themselves",
-    "provide career counselling",
-    "monitor educational developments",
-    "listen actively",
-    "counselling methods",
-    "provide assistance with job search",
-    "assist clients with personal development",
-    "counsel clients",
-    "provide information on education financing",
-    "curriculum standards",
-    "coach clients",
-    "curriculum objectives",
-    "job market offers",
-    "provide information on study programmes",
     "labour market",
+    "provide assistance with job search",
+    "evaluate clients' progress",
+    "coach clients",
     "facilitate job market access",
     "advise on training courses",
-    "evaluate clients' progress"
+    "assist clients with personal development",
+    "curriculum objectives",
+    "encourage counselled clients to examine themselves",
+    "provide information on education financing",
+    "provide information on study programmes",
+    "monitor educational developments",
+    "curriculum standards",
+    "provide career counselling",
+    "job market offers",
+    "counselling methods",
+    "listen actively",
+    "counsel clients"
    ],
    "optional": [
-    "organise job search workshops",
-    "organise study information sessions",
-    "project management",
-    "identify education needs",
-    "cooperate with education professionals",
     "application process",
-    "psychology",
-    "psychological counselling methods",
-    "perform educational testing",
-    "assessment processes",
-    "communicate with youth",
-    "education law",
-    "identify training needs",
-    "communicate on the youth's well-being",
-    "write work-related reports",
-    "assess students' preliminary learning experiences",
-    "provide information on school services",
+    "project management",
     "oversee extra-curricular activities",
+    "provide information on school services",
+    "education law",
+    "encourage students to acknowledge their achievements",
     "adult education",
-    "labour legislation",
-    "organise projects to fill education needs",
+    "organise job search workshops",
+    "psychology",
+    "assessment processes",
+    "assess students' preliminary learning experiences",
+    "communicate with youth",
+    "identify education needs",
+    "psychological counselling methods",
     "liaise with educational staff",
-    "counsel students",
+    "cooperate with education professionals",
     "university procedures",
-    "encourage students to acknowledge their achievements"
+    "write work-related reports",
+    "labour legislation",
+    "counsel students",
+    "communicate on the youth's well-being",
+    "organise study information sessions",
+    "perform educational testing",
+    "identify training needs",
+    "organise projects to fill education needs"
    ],
    "clusters": {
     "customer": [
      "identify clients' needs",
-     "encourage counselled clients to examine themselves",
+     "evaluate clients' progress",
+     "coach clients",
      "assist clients with personal development",
-     "counsel clients",
-     "coach clients",
-     "evaluate clients' progress"
-    ],
-    "coaching": [
      "encourage counselled clients to examine themselves",
-     "provide career counselling",
-     "counselling methods",
-     "counsel clients",
-     "coach clients",
-     "advise on training courses"
-    ],
-    "fieldwork": [
-     "monitor educational developments"
+     "counsel clients"
     ],
     "problem": [
      "evaluate clients' progress"
+    ],
+    "coaching": [
+     "coach clients",
+     "advise on training courses",
+     "encourage counselled clients to examine themselves",
+     "provide career counselling",
+     "counselling methods",
+     "counsel clients"
+    ],
+    "fieldwork": [
+     "monitor educational developments"
     ]
    }
   },
@@ -852,55 +865,2182 @@
    "isco": "4222",
    "description": "Customer contact centre information clerks provide information to customers via the telephone and other media such as email. They answer inquiries about a company's or oganisation's services, products and policies.",
    "essential": [
-    "answer incoming calls",
-    "characteristics of products",
-    "establish customer rapport",
+    "customer service",
     "characteristics of services",
-    "perform customer management",
+    "establish customer rapport",
     "communicate by telephone",
+    "characteristics of products",
+    "perform customer management",
+    "answer incoming calls",
+    "provide customer follow-up",
     "guarantee customer satisfaction",
     "collect customer data",
-    "communicate with customers",
     "keep records of customer interaction",
-    "customer insight",
-    "provide customer follow-up",
-    "customer service"
+    "communicate with customers",
+    "customer insight"
    ],
    "optional": [
-    "draft corporate emails",
-    "prepare correspondence for customers",
-    "discern written communication",
-    "provide customers with order information",
-    "measure customer feedback",
-    "customer relationship management",
-    "notify customers on special offers",
-    "call-centre technologies",
     "contact customers",
-    "follow up orders for customers",
     "carry out active selling",
     "analyse call performance trends",
-    "improve customer interaction",
+    "prepare correspondence for customers",
+    "call-centre technologies",
+    "customer relationship management",
+    "discern written communication",
     "handle helpdesk problems",
+    "draft corporate emails",
+    "assist customers",
+    "follow up orders for customers",
+    "provide customers with order information",
     "provide customers with price information",
-    "assist customers"
+    "notify customers on special offers",
+    "measure customer feedback",
+    "improve customer interaction"
    ],
    "clusters": {
     "customer": [
+     "customer service",
      "establish customer rapport",
      "perform customer management",
+     "provide customer follow-up",
      "guarantee customer satisfaction",
      "collect customer data",
-     "communicate with customers",
      "keep records of customer interaction",
-     "customer insight",
-     "provide customer follow-up",
-     "customer service"
+     "communicate with customers",
+     "customer insight"
+    ],
+    "dataentry": [
+     "keep records of customer interaction"
+    ],
+    "stakeholder": [
+     "communicate with customers"
+    ]
+   }
+  },
+  "data scientist": {
+   "uri": "http://data.europa.eu/esco/occupation/258e46f9-0075-4a2e-adae-1ff0477e0f30",
+   "title": "data scientist",
+   "code": "2511.3",
+   "isco": "2511",
+   "description": "Data scientists find and interpret rich data sources, manage large amounts of data, merge data sources, ensure consistency of data-sets, and create visualisations to aid in understanding data. They build mathematical models using data, present and communicate data insights and findings to specialists and scientists in their team and if required, to a non-expert audience, and recommend ways to apply the data.",
+   "essential": [
+    "execute analytical mathematical calculations",
+    "manage data collection systems",
+    "query languages",
+    "perform data cleansing",
+    "develop data processing applications",
+    "implement data quality processes",
+    "establish data processes",
+    "report analysis results",
+    "handle data samples",
+    "visual presentation techniques",
+    "resource description framework query language",
+    "build recommender systems",
+    "online analytical processing",
+    "data models",
+    "collect ICT data",
+    "information extraction",
+    "deliver visual presentation of data",
+    "normalise data",
+    "information categorisation",
+    "data mining",
+    "statistics",
+    "interpret current data",
+    "design database scheme"
+   ],
+   "optional": [
+    "manage ICT data classification",
+    "data quality assessment",
+    "perform data mining",
+    "business intelligence",
+    "LDAP",
+    "N1QL",
+    "SPARQL",
+    "manage data",
+    "manage ICT data architecture",
+    "unstructured data",
+    "integrate ICT data",
+    "LINQ",
+    "MDX",
+    "XQuery",
+    "create data models",
+    "define data quality criteria"
+   ],
+   "clusters": {
+    "dataquality": [
+     "manage data collection systems",
+     "perform data cleansing",
+     "implement data quality processes",
+     "collect ICT data"
+    ],
+    "languages": [
+     "query languages"
+    ],
+    "sql": [
+     "query languages",
+     "data models",
+     "design database scheme"
+    ],
+    "processmap": [
+     "perform data cleansing"
+    ],
+    "fieldwork": [
+     "handle data samples"
+    ],
+    "digimarketing": [
+     "online analytical processing"
+    ],
+    "dataviz": [
+     "deliver visual presentation of data"
+    ],
+    "mlds": [
+     "data mining",
+     "statistics"
+    ],
+    "design": [
+     "design database scheme"
+    ]
+   }
+  },
+  "chief data officer": {
+   "uri": "http://data.europa.eu/esco/occupation/e297ec12-4712-40a4-ad98-ba004cacb205",
+   "title": "chief data officer",
+   "code": "1330.1",
+   "isco": "1330",
+   "description": "Chief data officers manage companies' enterprise-wide data administration and data mining functions. They ensure data are used as a strategic business asset at the executive level and implement and support a more collaborative and aligned information management infrastructure for the benefit of the organisation at large.",
+   "essential": [
+    "data mining",
+    "utilise decision support system",
+    "visual presentation techniques",
+    "information structure",
+    "decision support systems",
+    "business processes",
+    "data storage",
+    "manage ICT data architecture",
+    "manage data",
+    "define data quality criteria",
+    "manage ICT data classification",
+    "apply information security policies"
+   ],
+   "optional": [
+    "resource description framework query language",
+    "SPARQL",
+    "LDAP",
+    "implement ICT risk management",
+    "online analytical processing",
+    "OpenEdge Database",
+    "CA Datacom/DB",
+    "information security strategy",
+    "business intelligence",
+    "information extraction",
+    "IBM Informix",
+    "database management systems",
+    "information architecture",
+    "unstructured data",
+    "DB2",
+    "deliver visual presentation of data",
+    "develop information security strategy",
+    "manage business knowledge",
+    "database",
+    "cloud technologies",
+    "Teradata Database",
+    "apply change management",
+    "database development tools",
+    "Filemaker (database management systems)",
+    "data quality assessment",
+    "data models",
+    "information confidentiality",
+    "PostgreSQL",
+    "SQL Server",
+    "XQuery",
+    "N1QL",
+    "integrate ICT data",
+    "ObjectStore",
+    "report analysis results",
+    "Microsoft Access",
+    "information categorisation",
+    "LINQ",
+    "coordinate technological activities",
+    "Oracle Relational Database",
+    "MySQL",
+    "query languages",
+    "MDX"
+   ],
+   "clusters": {
+    "mlds": [
+     "data mining"
+    ],
+    "processmap": [
+     "business processes"
+    ],
+    "sql": [
+     "data storage"
+    ],
+    "dataquality": [
+     "manage ICT data architecture",
+     "manage data",
+     "define data quality criteria",
+     "manage ICT data classification"
+    ],
+    "cyber": [
+     "apply information security policies"
+    ]
+   }
+  },
+  "ICT business analysis manager": {
+   "uri": "http://data.europa.eu/esco/occupation/4b3201cb-ffc5-4f61-9fc3-5c0f0038fa5f",
+   "title": "ICT business analysis manager",
+   "code": "2511.7",
+   "isco": "2511",
+   "description": "ICT business analysis managers identify areas where information system changes are needed to support business plans and monitor the impact in terms of change management. They contribute to the general ICT functional requirements of the business organisation. ICT business analysis managers analyse business needs and translate them into ICT solutions.",
+   "essential": [
+    "improve business processes",
+    "analyse business requirements",
+    "implement strategic planning",
+    "design process",
+    "decision support systems",
+    "write work-related reports",
+    "coordinate technological activities",
+    "provide cost benefit analysis reports",
+    "define technical requirements",
+    "make strategic business decisions",
+    "ICT security legislation",
+    "create business process models",
+    "perform business analysis",
+    "propose ICT solutions to business problems",
+    "business processes",
+    "provide ICT consulting advice",
+    "business process modelling",
+    "track key performance indicators",
+    "manage ICT project"
+   ],
+   "optional": [
+    "use different communication channels",
+    "information extraction",
+    "business strategy concepts",
+    "visual presentation techniques",
+    "perform data mining",
+    "provide training on technological business developments",
+    "data mining",
+    "adapt to changing situations",
+    "execute analytical mathematical calculations",
+    "systems development life-cycle",
+    "ICT market",
+    "apply change management",
+    "communicate with customers"
+   ],
+   "clusters": {
+    "processmap": [
+     "improve business processes",
+     "create business process models",
+     "business processes",
+     "business process modelling"
+    ],
+    "problem": [
+     "analyse business requirements",
+     "propose ICT solutions to business problems"
+    ],
+    "strategy": [
+     "implement strategic planning",
+     "make strategic business decisions"
+    ],
+    "design": [
+     "design process"
+    ],
+    "correspondence": [
+     "write work-related reports"
+    ],
+    "content": [
+     "write work-related reports"
+    ],
+    "scheduling": [
+     "coordinate technological activities"
+    ],
+    "cyber": [
+     "ICT security legislation"
+    ]
+   }
+  },
+  "business manager": {
+   "uri": "http://data.europa.eu/esco/occupation/544cd9cf-e2ee-4ac0-8a02-7147af6b97d7",
+   "title": "business manager",
+   "code": "1120.2",
+   "isco": "1120",
+   "description": "Business managers are responsible for setting the objectives of the business unit of a company, creating a plan for the operations, and facilitating the achievement of the objectives and implementation of the plan together with employees of the segment and stakeholders. They keep an overview of the business, understand detailed information of the business unit and support the department, and make decisions based on the information at hand.",
+   "essential": [
+    "conclude business agreements",
+    "create a financial plan",
+    "create a work atmosphere of continuous improvement",
+    "analyse business objectives",
+    "abide by business ethical code of conducts",
+    "plan health and safety procedures",
+    "hire new personnel",
+    "get involved in the day-to-day operation of the company",
+    "develop business plans",
+    "manage staff",
+    "track key performance indicators",
+    "assume responsibility for the management of a business",
+    "develop an organisational structure",
+    "develop company strategies",
+    "ensure lawful business operations",
+    "analyse business processes",
+    "company policies",
+    "control financial resources",
+    "build business relationships",
+    "business management principles",
+    "cost management",
+    "integrate strategic foundation in daily performance",
+    "strategic planning",
+    "negotiate with stakeholders",
+    "make strategic business decisions",
+    "follow company standards",
+    "liaise with managers",
+    "plan medium to long term objectives",
+    "strive for company growth",
+    "corporate social responsibility",
+    "apply business acumen",
+    "business law",
+    "financial forecasting",
+    "develop revenue generation strategies",
+    "exercise stewardship"
+   ],
+   "optional": [
+    "accounting",
+    "prepare financial statements",
+    "manage financial risk",
+    "share good practices across subsidiaries",
+    "shape corporate culture",
+    "synthesise financial information",
+    "show an exemplary leading role in an organisation",
+    "manage office facility systems",
+    "speak different languages",
+    "market entry planning",
+    "prospect new regional contracts",
+    "subsidiary operations",
+    "delegate activities",
+    "financial statements",
+    "international trade",
+    "analyse business plans",
+    "manage budgets",
+    "liaise with local authorities",
+    "develop professional network",
+    "shape organisational teams based on competencies",
+    "banking activities",
+    "integrate headquarter's guidelines into local operations",
+    "impart business plans to collaborators",
+    "marketing management",
+    "analyse financial risk",
+    "describe the financial situation of a region",
+    "financial jurisdiction",
+    "supply chain management",
+    "human resource management",
+    "establish communication with foreign cultures",
+    "follow the statutory obligations",
+    "corporate law",
+    "report on overall management of a business",
+    "align efforts towards business development",
+    "execute marketing plan",
+    "oversee quality control",
+    "maintain relationship with customers",
+    "evaluate performance of organisational collaborators",
+    "keep updated on the political landscape",
+    "marketing principles",
+    "business process modelling",
+    "project management",
+    "develop organisational policies",
+    "financial management",
+    "business loans",
+    "analyse market financial trends",
+    "interact with the board of directors",
+    "create a financial report",
+    "manage contracts"
+   ],
+   "clusters": {
+    "strategy": [
+     "create a financial plan",
+     "develop business plans",
+     "integrate strategic foundation in daily performance",
+     "strategic planning",
+     "make strategic business decisions",
+     "financial forecasting"
+    ],
+    "problem": [
+     "analyse business objectives",
+     "analyse business processes"
+    ],
+    "electrical": [
+     "plan health and safety procedures"
+    ],
+    "leadership": [
+     "manage staff"
+    ],
+    "processmap": [
+     "analyse business processes"
+    ],
+    "stakeholder": [
+     "build business relationships",
+     "negotiate with stakeholders",
+     "liaise with managers"
+    ],
+    "esg": [
+     "corporate social responsibility"
+    ]
+   }
+  },
+  "ICT system architect": {
+   "uri": "http://data.europa.eu/esco/occupation/e1c72b5f-4c5c-487c-a6df-e84b64a51dae",
+   "title": "ICT system architect",
+   "code": "2511.13",
+   "isco": "2511",
+   "description": "ICT system architects design architecture, components, modules, interfaces, and data for a multi-components system to meet specified requirements.",
+   "essential": [
+    "systems theory",
+    "business process modelling",
+    "manage system testing",
+    "integrate system components",
+    "create data models",
+    "database development tools",
+    "hardware platforms",
+    "align software with system architectures",
+    "assess ICT knowledge",
+    "design enterprise architecture",
+    "use markup languages",
+    "web programming",
+    "systems development life-cycle",
+    "analyse business requirements",
+    "apply ICT systems theory",
+    "design information system",
+    "acquire system component",
+    "define technical requirements",
+    "manage database"
+   ],
+   "optional": [
+    "Prolog (computer programming)",
+    "computer programming",
+    "AJAX",
+    "Ruby (computer programming)",
+    "Scala",
+    "Microsoft Visual C++",
+    "C++",
+    "Haskell",
+    "use object-oriented programming",
+    "VBScript",
+    "solve ICT system problems",
+    "Agile project management",
+    "Scratch (computer programming)",
+    "Objective-C",
+    "Java (computer programming)",
+    "Visual Studio .NET",
+    "Erlang",
+    "manage standards for data exchange",
+    "Lisp",
+    "Assembly (computer programming)",
+    "COBOL",
+    "ICT project management methodologies",
+    "Process-based management",
+    "design process",
+    "C#",
+    "Smalltalk (computer programming)",
+    "task algorithmisation",
+    "perform resource planning",
+    "TypeScript",
+    "ICT system integration",
+    "Groovy",
+    "ABAP",
+    "provide technical documentation",
+    "ML (computer programming)",
+    "design database scheme",
+    "JavaScript",
+    "apply technical communication skills",
+    "PHP",
+    "CoffeeScript",
+    "Pascal (computer programming)",
+    "Perl",
+    "Lean project management",
+    "R",
+    "SAP R3",
+    "information structure",
+    "Python (computer programming)",
+    "MATLAB",
+    "ICT process quality models",
+    "OpenEdge Advanced Business Language",
+    "ICT system programming",
+    "provide cost benefit analysis reports",
+    "ICT security legislation",
+    "APL",
+    "Swift (computer programming)",
+    "Common Lisp",
+    "ASP.NET",
+    "manage staff",
+    "SAS language",
+    "build business relationships"
+   ],
+   "clusters": {
+    "processmap": [
+     "business process modelling"
+    ],
+    "sql": [
+     "create data models",
+     "database development tools",
+     "manage database"
+    ],
+    "problem": [
+     "assess ICT knowledge",
+     "analyse business requirements"
+    ],
+    "design": [
+     "design enterprise architecture",
+     "design information system"
+    ],
+    "languages": [
+     "use markup languages"
+    ],
+    "python": [
+     "web programming"
+    ],
+    "networking": [
+     "apply ICT systems theory"
+    ],
+    "dataquality": [
+     "manage database"
+    ]
+   }
+  },
+  "chief technology officer": {
+   "uri": "http://data.europa.eu/esco/occupation/7b1b5da8-573a-49bb-a38e-68725a949f4f",
+   "title": "chief technology officer",
+   "code": "1330.3",
+   "isco": "1330",
+   "description": "Chief technology officers contribute to a company's technical vision and lead all aspects of technology development, according to its strategic direction and growth objectives. They match technology with business needs.",
+   "essential": [
+    "decision support systems",
+    "review development process of an organisation",
+    "analyse ICT system",
+    "implement ICT coding conventions",
+    "establish an ICT customer support process",
+    "ensure adherence to organisational ICT standards",
+    "maintain plan for continuity of operations",
+    "carry out strategic research",
+    "ICT project management methodologies",
+    "manage budgets",
+    "optimise choice of ICT solution",
+    "monitor ICT research",
+    "ICT project management",
+    "utilise decision support system",
+    "coordinate technological activities",
+    "monitor technology trends",
+    "implement corporate governance",
+    "lead technology development of an organisation",
+    "administer ICT system",
+    "define technology strategy"
+   ],
+   "optional": [
+    "Python (computer programming)",
+    "Scratch (computer programming)",
+    "ASP.NET",
+    "Lisp",
+    "hardware components suppliers",
+    "Microsoft Visual C++",
+    "COBOL",
+    "Perl",
+    "APL",
+    "Java (computer programming)",
+    "Assembly (computer programming)",
+    "perform business analysis",
+    "ABAP",
+    "maintain relationship with customers",
+    "Visual Studio .NET",
+    "OpenEdge Advanced Business Language",
+    "business intelligence",
+    "Scala",
+    "information structure",
+    "JavaScript",
+    "build business relationships",
+    "scientific research methodology",
+    "C++",
+    "Agile project management",
+    "Process-based management",
+    "ensure information privacy",
+    "SAP R3",
+    "Ruby (computer programming)",
+    "PHP",
+    "ICT communications protocols",
+    "internet governance",
+    "Objective-C",
+    "Erlang",
+    "CoffeeScript",
+    "Prolog (computer programming)",
+    "MATLAB",
+    "business strategy concepts",
+    "oversee development of software",
+    "Smalltalk (computer programming)",
+    "TypeScript",
+    "software components suppliers",
+    "Groovy",
+    "R",
+    "SAS language",
+    "Common Lisp",
+    "Lean project management",
+    "VBScript",
+    "Pascal (computer programming)",
+    "Haskell",
+    "AJAX",
+    "ICT quality policy",
+    "computer programming",
+    "ML (computer programming)",
+    "Swift (computer programming)",
+    "hardware components",
+    "C#",
+    "ICT infrastructure",
+    "software components libraries"
+   ],
+   "clusters": {
+    "problem": [
+     "analyse ICT system"
+    ],
+    "networking": [
+     "analyse ICT system",
+     "administer ICT system"
+    ],
+    "customer": [
+     "establish an ICT customer support process"
+    ],
+    "strategy": [
+     "carry out strategic research",
+     "manage budgets",
+     "define technology strategy"
+    ],
+    "fieldwork": [
+     "monitor ICT research",
+     "monitor technology trends"
+    ],
+    "scheduling": [
+     "coordinate technological activities"
+    ]
+   }
+  },
+  "ICT security manager": {
+   "uri": "http://data.europa.eu/esco/occupation/7754d570-9519-48c2-b1c9-8e165f8bca0f",
+   "title": "ICT security manager",
+   "code": "2529.7",
+   "isco": "2529",
+   "description": "ICT security managers propose and implement necessary security updates. They advise, support, inform and provide training and security awareness and take direct action on all or part of a network or system.\n",
+   "essential": [
+    "ICT quality policy",
+    "ICT system user requirements",
+    "ICT project management",
+    "computer forensics",
+    "information security strategy",
+    "define security policies",
+    "internet governance",
+    "develop information security strategy",
+    "establish an ICT security prevention plan",
+    "legal requirements of ICT products",
+    "maintain ICT identity management",
+    "implement ICT risk management",
+    "manage IT security compliances",
+    "solve ICT system problems",
+    "ICT security standards",
+    "lead disaster recovery exercises",
+    "ICT problem management techniques",
+    "internal risk management policy",
+    "manage disaster recovery plans",
+    "Internet of Things"
+   ],
+   "optional": [
+    "use ICT ticketing system",
+    "information confidentiality",
+    "cyber security",
+    "execute ICT audits",
+    "audit techniques",
+    "cyber attack counter-measures",
+    "systems development life-cycle",
+    "Outsourcing model",
+    "ICT recovery techniques",
+    "define technology strategy",
+    "organisational resilience",
+    "ICT process quality models",
+    "provide technical documentation",
+    "decision support systems",
+    "identify ICT security risks",
+    "mobile device management",
+    "Open source model",
+    "ICT security legislation",
+    "service-oriented modelling",
+    "ICT network security risks",
+    "levels of software testing",
+    "Hybrid model",
+    "investment analysis",
+    "SaaS (service-oriented modelling)",
+    "ICT encryption",
+    "tools for ICT test automation",
+    "web application security threats"
+   ],
+   "clusters": {
+    "networking": [
+     "ICT system user requirements",
+     "solve ICT system problems"
+    ],
+    "cyber": [
+     "information security strategy",
+     "define security policies",
+     "develop information security strategy",
+     "establish an ICT security prevention plan",
+     "manage IT security compliances",
+     "ICT security standards"
+    ],
+    "strategy": [
+     "information security strategy",
+     "develop information security strategy"
+    ],
+    "problem": [
+     "solve ICT system problems",
+     "ICT problem management techniques"
+    ]
+   }
+  },
+  "chief ICT security officer": {
+   "uri": "http://data.europa.eu/esco/occupation/276ba420-ef09-4a0e-b215-2c2e2f80ad28",
+   "title": "chief ICT security officer",
+   "code": "2529.1",
+   "isco": "2529",
+   "description": "Chief ICT security officers protect company and employee information against unauthorized access. They also define the Information System security policy, manage security deployment across all Information Systems and ensure the provision of information availability.",
+   "essential": [
+    "lead disaster recovery exercises",
+    "ensure adherence to organisational ICT standards",
+    "ensure compliance with legal requirements",
+    "maintain plan for continuity of operations",
+    "ICT network security risks",
+    "manage disaster recovery plans",
+    "ICT security legislation",
+    "ICT security standards",
+    "utilise decision support system",
+    "implement corporate governance",
+    "manage IT security compliances",
+    "decision support systems",
+    "organisational resilience",
+    "ensure information privacy",
+    "implement ICT risk management",
+    "monitor technology trends",
+    "cyber security",
+    "information security strategy",
+    "audit techniques"
+   ],
+   "optional": [
+    "Swift (computer programming)",
+    "Visual Studio .NET",
+    "web application security threats",
+    "Python (computer programming)",
+    "C++",
+    "software anomalies",
+    "COBOL",
+    "internet governance",
+    "Common Lisp",
+    "ASP.NET",
+    "Prolog (computer programming)",
+    "ICT encryption",
+    "optimise choice of ICT solution",
+    "ICT recovery techniques",
+    "computer programming",
+    "ABAP",
+    "coordinate technological activities",
+    "Objective-C",
+    "PHP",
+    "Groovy",
+    "CoffeeScript",
+    "World Wide Web Consortium standards",
+    "AJAX",
+    "Java (computer programming)",
+    "Lisp",
+    "SAP R3",
+    "SAS language",
+    "R",
+    "Microsoft Visual C++",
+    "Haskell",
+    "Scratch (computer programming)",
+    "Ruby (computer programming)",
+    "train employees",
+    "MATLAB",
+    "ICT system user requirements",
+    "Erlang",
+    "Perl",
+    "TypeScript",
+    "Assembly (computer programming)",
+    "cyber attack counter-measures",
+    "Pascal (computer programming)",
+    "ICT process quality models",
+    "JavaScript",
+    "tools for ICT test automation",
+    "use different communication channels",
+    "manage staff",
+    "C#",
+    "ML (computer programming)",
+    "VBScript",
+    "Scala",
+    "Internet of Things",
+    "OpenEdge Advanced Business Language",
+    "computer forensics",
+    "Smalltalk (computer programming)",
+    "create solutions to problems",
+    "APL"
+   ],
+   "clusters": {
+    "cyber": [
+     "ICT network security risks",
+     "ICT security legislation",
+     "ICT security standards",
+     "manage IT security compliances",
+     "cyber security",
+     "information security strategy"
+    ],
+    "networking": [
+     "ICT network security risks"
+    ],
+    "fieldwork": [
+     "monitor technology trends"
+    ],
+    "strategy": [
+     "information security strategy"
+    ]
+   }
+  },
+  "ICT help desk manager": {
+   "uri": "http://data.europa.eu/esco/occupation/1242d99a-47f1-4a62-b884-33746db8a6ca",
+   "title": "ICT help desk manager",
+   "code": "3512.2",
+   "isco": "3512",
+   "description": "ICT help desk managers monitor the delivery of technical support services to clients according to the predefined deadlines.  They plan and organise the user support actions and troubleshoot ICT problems and issues. ICT help desk managers supervise the help desk team ensuring that the customers get the appropriate feedback and support. They also participate in developing customer service guidelines and in reinforcing the team.",
+   "essential": [
+    "characteristics of services",
+    "communicate with customers",
+    "supervise data entry",
+    "forecast workload",
+    "product comprehension",
+    "organisational structure",
+    "analyse staff capacity",
+    "provide ICT support",
+    "create solutions to problems",
+    "use ICT ticketing system",
+    "keep up to date on product knowledge",
+    "characteristics of products",
+    "secure sensitive customer's information",
+    "educate on data confidentiality",
+    "manage staff"
+   ],
+   "optional": [
+    "perform project management",
+    "call quality assurance management",
+    "prioritise requests",
+    "ICT process quality models",
+    "ICT market",
+    "manage schedule of tasks",
+    "provide customer follow-up services",
+    "ICT help platforms",
+    "train employees",
+    "use customer relationship management software",
+    "coach employees",
+    "ICT quality policy"
+   ],
+   "clusters": {
+    "customer": [
+     "communicate with customers",
+     "secure sensitive customer's information"
     ],
     "stakeholder": [
      "communicate with customers"
     ],
     "dataentry": [
-     "keep records of customer interaction"
+     "supervise data entry"
+    ],
+    "leadership": [
+     "supervise data entry",
+     "manage staff"
+    ],
+    "strategy": [
+     "forecast workload"
+    ],
+    "problem": [
+     "analyse staff capacity",
+     "create solutions to problems"
+    ],
+    "helpdesk": [
+     "provide ICT support"
+    ]
+   }
+  },
+  "ICT operations manager": {
+   "uri": "http://data.europa.eu/esco/occupation/f0ca39a8-1e30-487c-95f9-ef2d5e734adc",
+   "title": "ICT operations manager",
+   "code": "1330.5",
+   "isco": "1330",
+   "description": "ICT operations managers coordinate ICT services and infrastructure ensuring that the organisation has the required infrastructural resources. They also plan and monitor stages of either a business process or a computer process, negotiate contracts and take mitigation action in case of non-fulfilment of agreements. They oversee the day-to-day tasks involving infrastructure components, ICT systems and software.",
+   "essential": [
+    "develop ICT workflow",
+    "define technology strategy",
+    "perform project management",
+    "train employees",
+    "attend to ICT systems quality",
+    "use ICT ticketing system",
+    "innovation processes",
+    "manage changes in ICT system",
+    "oversee quality control",
+    "manage budgets",
+    "improve business processes",
+    "use different communication channels",
+    "track key performance indicators",
+    "manage staff",
+    "design process",
+    "maintain relationship with suppliers"
+   ],
+   "optional": [
+    "systems development life-cycle",
+    "software components libraries",
+    "implement ICT risk management",
+    "develop information standards",
+    "software components suppliers",
+    "recruit employees",
+    "insourcing strategy",
+    "apply procurement",
+    "coordinate technological activities",
+    "hardware components",
+    "ICT process quality models",
+    "hardware components suppliers",
+    "comply with legal regulations",
+    "manage contracts",
+    "engineering processes",
+    "provide cost benefit analysis reports",
+    "crowdsourcing strategy",
+    "apply organisational techniques",
+    "contract law",
+    "outsourcing strategy"
+   ],
+   "clusters": {
+    "processmap": [
+     "develop ICT workflow",
+     "improve business processes"
+    ],
+    "strategy": [
+     "define technology strategy",
+     "manage budgets"
+    ],
+    "coaching": [
+     "train employees"
+    ],
+    "networking": [
+     "attend to ICT systems quality",
+     "manage changes in ICT system"
+    ],
+    "leadership": [
+     "manage staff"
+    ],
+    "design": [
+     "design process"
+    ]
+   }
+  },
+  "eBusiness manager": {
+   "uri": "http://data.europa.eu/esco/occupation/586fe133-1987-41f4-b89a-f39d4bc58e1e",
+   "title": "eBusiness manager",
+   "code": "2431.10.2",
+   "isco": "2431",
+   "description": "eBusiness managers create and execute a company's electronic strategy plan for selling products and services online. They also improve data integrity, placement of online tools and brand exposure and monitor sales for companies that market products to customers using the internet. They collaborate with the marketing and sales management team using ICT tools to reach sales goals and provide accurate information and offerings to business partners.",
+   "essential": [
+    "electronic communication",
+    "develop online sales business plan",
+    "implement strategic planning",
+    "business strategy concepts",
+    "analyse business requirements",
+    "manage budgets",
+    "plan digital marketing",
+    "business intelligence",
+    "track key performance indicators",
+    "implement sales strategies",
+    "define technology strategy",
+    "plan marketing strategy",
+    "create business process models",
+    "sales strategies",
+    "digital marketing techniques",
+    "perform business analysis",
+    "e-commerce systems",
+    "mobile marketing",
+    "ICT market",
+    "implement marketing strategies"
+   ],
+   "optional": [
+    "ICT sales methodologies",
+    "use different communication channels",
+    "web analytics",
+    "publishing strategy",
+    "information confidentiality",
+    "business process modelling",
+    "measure customer feedback",
+    "build business relationships",
+    "make strategic business decisions",
+    "business requirements techniques",
+    "lead the brand strategic planning process",
+    "brand marketing techniques",
+    "apply customer engagement strategy",
+    "communicate with customers",
+    "conduct search engine optimisation",
+    "sales argumentation"
+   ],
+   "clusters": {
+    "digimarketing": [
+     "develop online sales business plan",
+     "plan digital marketing",
+     "plan marketing strategy",
+     "digital marketing techniques",
+     "mobile marketing",
+     "implement marketing strategies"
+    ],
+    "strategy": [
+     "develop online sales business plan",
+     "implement strategic planning",
+     "business strategy concepts",
+     "manage budgets",
+     "define technology strategy",
+     "plan marketing strategy"
+    ],
+    "problem": [
+     "analyse business requirements"
+    ],
+    "processmap": [
+     "create business process models"
+    ]
+   }
+  },
+  "chief marketing officer": {
+   "uri": "http://data.europa.eu/esco/occupation/0ddbf393-38f1-4c22-b14c-fe775008f321",
+   "title": "chief marketing officer",
+   "code": "1221.3",
+   "isco": "1221",
+   "description": "Chief marketing officers manage the high level marketing operations in a company. They coordinate all the efforts related to the marketing, promotional, and advertising activities across units or geographical areas. They make sure that different activities aimed at creating awareness of products are profitable for the company. They take decisions and prepare reports on marketing projects and the costs they entail.",
+   "essential": [
+    "create annual marketing budget",
+    "plan marketing strategy",
+    "analyse internal factors of companies",
+    "brand marketing techniques",
+    "interpret financial statements",
+    "content marketing strategy",
+    "align efforts towards business development",
+    "analyse work-related written reports",
+    "track key performance indicators",
+    "manage profitability",
+    "market pricing",
+    "marketing mix",
+    "integrate marketing strategies with the global strategy",
+    "use analytics for commercial purposes",
+    "analyse consumer buying trends",
+    "identify potential markets for companies",
+    "evaluate marketing content",
+    "study sales levels of products",
+    "market analysis",
+    "define measurable marketing objectives",
+    "business management principles",
+    "liaise with managers",
+    "analyse external factors of companies",
+    "plan marketing campaign"
+   ],
+   "optional": [
+    "quality assurance methodologies",
+    "market entry strategies",
+    "implement marketing strategies",
+    "develop public relations strategies",
+    "trading law",
+    "communicate with customer service department",
+    "impart business plans to collaborators",
+    "financial capability",
+    "statistics",
+    "coordinate marketing plan actions",
+    "customer insight",
+    "manage development of promotional material",
+    "trendwatching",
+    "printing techniques",
+    "international trade",
+    "customer segmentation",
+    "subsidiary operations",
+    "analyse supply chain strategies",
+    "social media marketing techniques",
+    "graphic design",
+    "perform market research",
+    "prospect new customers",
+    "e-commerce systems",
+    "consumer law",
+    "project management",
+    "use theoretical marketing models",
+    "liaise with advertising agencies"
+   ],
+   "clusters": {
+    "digimarketing": [
+     "create annual marketing budget",
+     "plan marketing strategy",
+     "brand marketing techniques",
+     "content marketing strategy",
+     "marketing mix",
+     "integrate marketing strategies with the global strategy",
+     "evaluate marketing content",
+     "define measurable marketing objectives",
+     "plan marketing campaign"
+    ],
+    "strategy": [
+     "create annual marketing budget",
+     "plan marketing strategy",
+     "content marketing strategy",
+     "integrate marketing strategies with the global strategy"
+    ],
+    "problem": [
+     "analyse internal factors of companies",
+     "analyse work-related written reports",
+     "analyse consumer buying trends",
+     "evaluate marketing content",
+     "analyse external factors of companies"
+    ],
+    "content": [
+     "content marketing strategy",
+     "evaluate marketing content"
+    ],
+    "stakeholder": [
+     "liaise with managers"
+    ]
+   }
+  },
+  "environmental programme coordinator": {
+   "uri": "http://data.europa.eu/esco/occupation/59883630-45f9-40e7-9732-9e5ff9758d2b",
+   "title": "environmental programme coordinator",
+   "code": "2133.6",
+   "isco": "2133",
+   "description": "Environmental programme coordinators develop programmes for the improvement of environmental sustainability and efficiency within a organisation or institution. They inspect sites in order to monitor an organisation's or institution's compliance with environmental legislation. They also ensure education for the public on environmental concerns.",
+   "essential": [
+    "implement environmental action plans",
+    "analyse environmental data",
+    "environmental policy",
+    "carry out environmental audits",
+    "environmental legislation",
+    "develop environmental policy",
+    "implement environmental protection measures",
+    "perform environmental investigations",
+    "ensure compliance with environmental legislation",
+    "report on environmental issues",
+    "promote environmental awareness",
+    "conduct environmental surveys",
+    "assess environmental impact"
+   ],
+   "optional": [
+    "write inspection reports",
+    "conduct environmental site assessments",
+    "ecology",
+    "project management",
+    "government policy implementation",
+    "develop professional network",
+    "biology",
+    "chemistry",
+    "liaise with local authorities",
+    "issue licences",
+    "conduct educational activities",
+    "radiation protection",
+    "maintain relationships with government agencies",
+    "soil science",
+    "carry out training in environmental matters",
+    "develop educational resources",
+    "monitor legislation developments",
+    "conduct public presentations",
+    "manage government policy implementation",
+    "physics"
+   ],
+   "clusters": {
+    "esg": [
+     "implement environmental action plans",
+     "analyse environmental data",
+     "environmental policy",
+     "carry out environmental audits",
+     "environmental legislation",
+     "develop environmental policy",
+     "implement environmental protection measures",
+     "perform environmental investigations",
+     "ensure compliance with environmental legislation",
+     "report on environmental issues",
+     "promote environmental awareness",
+     "conduct environmental surveys",
+     "assess environmental impact"
+    ],
+    "problem": [
+     "analyse environmental data",
+     "assess environmental impact"
+    ]
+   }
+  },
+  "corporate social responsibility manager": {
+   "uri": "http://data.europa.eu/esco/occupation/1313aeea-63a9-4b4d-82d1-dbe00ff9ed10",
+   "title": "corporate social responsibility manager",
+   "code": "1219.2",
+   "isco": "1219",
+   "description": "Corporate social responsibility managers monitor the practices of organisations and companies with regard to ethics and impact on the larger community. They advise on social responsibility and sustainability matters depending on the company's needs. Corporate social responsibility managers promote actions that are environmentally conscious, philanthropic or related to human rights.",
+   "essential": [
+    "advise on social responsibility and sustainability matters",
+    "promote environmental awareness",
+    "corporate law",
+    "monitor social impact",
+    "promote sustainability",
+    "follow company standards",
+    "analyse business requirements",
+    "evaluate company needs",
+    "promote human rights implementation",
+    "coordinate operational activities",
+    "promote social awareness",
+    "develop company strategies",
+    "corporate social responsibility",
+    "provide improvement strategies",
+    "promote inclusion",
+    "strategic planning",
+    "advise on government policy compliance",
+    "define the corporate structure"
+   ],
+   "optional": [
+    "communication principles",
+    "oversee quality control",
+    "advise on public relations",
+    "analyse community needs",
+    "integrate community outreach",
+    "liaise with government officials",
+    "advise on risk management",
+    "liaise with cultural partners",
+    "public relations",
+    "implement marketing strategies",
+    "project management",
+    "ensure cross-department cooperation",
+    "environmental policy",
+    "build community relations"
+   ],
+   "clusters": {
+    "coaching": [
+     "advise on social responsibility and sustainability matters",
+     "advise on government policy compliance"
+    ],
+    "esg": [
+     "advise on social responsibility and sustainability matters",
+     "promote environmental awareness",
+     "promote sustainability",
+     "corporate social responsibility"
+    ],
+    "fieldwork": [
+     "monitor social impact"
+    ],
+    "problem": [
+     "analyse business requirements",
+     "evaluate company needs"
+    ],
+    "scheduling": [
+     "coordinate operational activities"
+    ],
+    "strategy": [
+     "strategic planning"
+    ]
+   }
+  },
+  "energy engineer": {
+   "uri": "http://data.europa.eu/esco/occupation/b2cede50-82bb-4684-9f11-1930e12ad672",
+   "title": "energy engineer",
+   "code": "2149.7",
+   "isco": "2149",
+   "description": "Energy engineers design new, efficient and clean ways to produce, transform, and distribute energy to improve environmental sustainability and energy efficiency. They extract energy through natural resources, such as oil or gas, or renewable and sustainable sources, such as wind or solar power. ",
+   "essential": [
+    "use technical drawing software",
+    "technical drawings",
+    "engineering processes",
+    "adjust engineering designs",
+    "energy market",
+    "approve engineering design",
+    "perform scientific research",
+    "energy",
+    "engineering principles"
+   ],
+   "optional": [
+    "use thermal analysis",
+    "electrical discharge",
+    "renewable energy technologies",
+    "CAD software",
+    "perform project management",
+    "zero-energy building design",
+    "create AutoCAD drawings",
+    "monitor nuclear power plant systems",
+    "design principles",
+    "operate steam turbine",
+    "develop non-hazardous waste management strategies",
+    "design automation components",
+    "develop strategies for electricity contingencies",
+    "troubleshoot",
+    "types of photovoltaic panels",
+    "test procedures in electricity transmission",
+    "provide information on wind turbines",
+    "monitor legislation developments",
+    "electric current",
+    "monitor utility equipment",
+    "calculate solar panel orientation",
+    "draw blueprints",
+    "ensure regulatory compliance in pipeline infrastructures",
+    "supervise gas distribution operations",
+    "wear appropriate protective gear",
+    "develop waste management processes",
+    "inspect building systems",
+    "manage workflow processes",
+    "report test findings",
+    "types of wind turbines",
+    "hydraulics",
+    "supervise electricity distribution operations",
+    "document analysis results",
+    "fossil fuels",
+    "identify customer's needs",
+    "promote environmental awareness",
+    "design drawings",
+    "oversee quality control",
+    "pollution legislation",
+    "electrical power safety regulations",
+    "analyse energy consumption",
+    "perform risk analysis",
+    "develop electricity distribution schedule",
+    "manage gas transmission system",
+    "ensure compliance with electricity distribution schedule",
+    "create designs for pipeline engineering",
+    "industrial heating systems",
+    "test samples for pollutants",
+    "use personal protection equipment",
+    "energy transformation",
+    "ensure compliance with environmental legislation",
+    "electricity market",
+    "ensure equipment maintenance",
+    "ensure compliance with gas distribution schedule",
+    "supervise crew",
+    "advise on environmental risk management systems",
+    "fuel gas",
+    "use testing equipment",
+    "advise on environmental remediation",
+    "maintain solar energy systems",
+    "resolve equipment malfunctions",
+    "fuel distribution systems",
+    "mitigate environmental impact of pipeline projects",
+    "gas consumption",
+    "wire harnesses",
+    "liaise with local authorities",
+    "pollution prevention",
+    "design electric power systems",
+    "promote innovative infrastructure design",
+    "ensure compliance with safety legislation",
+    "types of pipelines",
+    "design thermal equipment",
+    "refrigerants",
+    "heating, ventilation, air conditioning and refrigeration parts",
+    "power engineering",
+    "identify energy needs",
+    "promote sustainable energy",
+    "energy performance of buildings",
+    "adapt energy distribution schedules",
+    "advise on waste management procedures",
+    "report on fuel distribution incidents",
+    "natural gas",
+    "assess financial viability",
+    "mechanical engineering",
+    "manage environmental impact of operations",
+    "analyse energy market trends",
+    "perform maintenance on installed equipment",
+    "environmental engineering",
+    "pipeline transport regulations;",
+    "thermodynamics",
+    "maintain photovoltaic systems",
+    "change power distribution systems",
+    "manufacturing of steam generators",
+    "fluid mechanics",
+    "monitor waste treatment equipment",
+    "heat transfer processes",
+    "electricity consumption",
+    "quality standards",
+    "provide information on solar panels",
+    "environmental legislation",
+    "advise on pollution prevention",
+    "examine engineering principles",
+    "monitor electric generators",
+    "develop hazardous waste management strategies",
+    "monitor automated machines",
+    "conduct engineering site audits",
+    "design utility equipment",
+    "coordinate electricity generation",
+    "transmission towers",
+    "use CAD software",
+    "inspect overhead power lines",
+    "maintain concentrated solar power systems",
+    "analyse experimental laboratory data",
+    "shift energy demands",
+    "develop gas distribution schedule",
+    "ensure correct gas pressure",
+    "respond to electrical power contingencies",
+    "make electrical calculations",
+    "waste and scrap products",
+    "assess environmental impact",
+    "adjust voltage",
+    "develop energy saving concepts",
+    "maintain electrical equipment",
+    "inspect industrial equipment",
+    "ensure safety in electrical power operations",
+    "test gas purity",
+    "inspect facility sites",
+    "manage engineering project",
+    "read engineering drawings",
+    "electric generators",
+    "electrical engineering",
+    "electricity",
+    "solar energy",
+    "gas market",
+    "operate hydraulic machinery controls",
+    "security requirements of goods transported via pipelines",
+    "test pipeline infrastructure operations",
+    "advise on heating systems energy efficiency",
+    "inspect underground power cables",
+    "design solar energy systems",
+    "operate automated process control",
+    "carry out energy management of facilities",
+    "automation technology",
+    "run simulations",
+    "ensure compliance with waste legislative regulations",
+    "develop environmental remediation strategies",
+    "manage electricity transmission system"
+   ],
+   "clusters": {
+    "design": [
+     "adjust engineering designs",
+     "approve engineering design"
+    ]
+   }
+  },
+  "energy manager": {
+   "uri": "http://data.europa.eu/esco/occupation/a005f8a2-2d8a-433e-8d89-13575f822fd4",
+   "title": "energy manager",
+   "code": "1349.12",
+   "isco": "1349",
+   "description": "Energy managers coordinate the energy use in an organisation, and aim to implement policies for increased sustainability, and minimisation of cost and environmental impact. They monitor the energy demands \nand use, and develop improvement strategies, as well as researching the most beneficial source of energy for the organisation's needs.",
+   "essential": [
+    "manage supplies",
+    "develop business case",
+    "develop staff",
+    "follow company standards",
+    "define manufacturing quality criteria",
+    "establish daily priorities",
+    "compose energy performance contracts",
+    "manufacturing processes",
+    "promote sustainable management",
+    "energy performance of buildings",
+    "promote innovative infrastructure design",
+    "conduct energy audit",
+    "advise on utility consumption",
+    "promote environmental awareness",
+    "promote sustainable energy",
+    "electrical power safety regulations",
+    "develop manufacturing policies",
+    "meet deadlines",
+    "energy efficiency",
+    "electricity consumption",
+    "adhere to organisational guidelines",
+    "carry out energy management of facilities",
+    "corporate social responsibility",
+    "create manufacturing guidelines",
+    "advise on heating systems energy efficiency",
+    "manage logistics",
+    "liaise with managers",
+    "manage budgets",
+    "identify energy needs",
+    "manage staff",
+    "develop energy policy",
+    "supervise daily information operations",
+    "analyse energy consumption",
+    "strive for company growth"
+   ],
+   "optional": [
+    "monitor utility equipment",
+    "advise on potential safety hazards concerning heating systems",
+    "negotiate improvement with suppliers",
+    "renewable energy technologies",
+    "write scientific papers",
+    "ensure equipment maintenance",
+    "analyse energy market trends",
+    "inspect industrial equipment",
+    "collaborate on international energy projects",
+    "energy market",
+    "write research proposals",
+    "zero-energy building design",
+    "gas consumption",
+    "ensure equipment availability",
+    "negotiate terms with suppliers",
+    "calculate utility payments",
+    "develop energy saving concepts",
+    "identify faults in utility meters",
+    "plan health and safety procedures",
+    "industrial heating systems",
+    "contract law",
+    "gas market"
+   ],
+   "clusters": {
+    "ghg": [
+     "compose energy performance contracts",
+     "energy performance of buildings",
+     "analyse energy consumption"
+    ],
+    "esg": [
+     "promote sustainable management",
+     "promote environmental awareness",
+     "promote sustainable energy",
+     "corporate social responsibility"
+    ],
+    "design": [
+     "promote innovative infrastructure design"
+    ],
+    "energyaudit": [
+     "conduct energy audit",
+     "energy efficiency",
+     "carry out energy management of facilities",
+     "advise on heating systems energy efficiency",
+     "identify energy needs"
+    ],
+    "coaching": [
+     "advise on utility consumption",
+     "advise on heating systems energy efficiency"
+    ],
+    "electrical": [
+     "electrical power safety regulations",
+     "electricity consumption"
+    ],
+    "stakeholder": [
+     "liaise with managers"
+    ],
+    "strategy": [
+     "manage budgets"
+    ],
+    "leadership": [
+     "manage staff",
+     "supervise daily information operations"
+    ],
+    "problem": [
+     "analyse energy consumption"
+    ]
+   }
+  },
+  "solar energy engineer": {
+   "uri": "http://data.europa.eu/esco/occupation/42dbb769-4c91-47dc-bd16-ec8e70c4180f",
+   "title": "solar energy engineer",
+   "code": "2149.7.4",
+   "isco": "2149",
+   "description": "Solar energy engineers design systems which generate electrical energy from sunlight, such as photovoltaic systems. They design and construct systems which optimise the energy output from solar power, and the sustainability of the production process of solar systems.",
+   "essential": [
+    "promote sustainable energy",
+    "electrical engineering",
+    "power engineering",
+    "energy",
+    "thermodynamics",
+    "approve engineering design",
+    "provide information on solar panels",
+    "perform scientific research",
+    "engineering processes",
+    "manage engineering project",
+    "adjust engineering designs",
+    "types of photovoltaic panels",
+    "maintain concentrated solar power systems",
+    "solar energy",
+    "design solar energy systems",
+    "technical drawings",
+    "create AutoCAD drawings",
+    "use thermal analysis",
+    "conduct engineering site audits",
+    "maintain solar energy systems",
+    "adjust voltage",
+    "energy market",
+    "engineering principles",
+    "examine engineering principles",
+    "use technical drawing software"
+   ],
+   "optional": [
+    "run simulations",
+    "draw blueprints",
+    "test procedures in electricity transmission",
+    "electricity market",
+    "inspect facility sites",
+    "assess financial viability",
+    "industrial heating systems",
+    "wear appropriate protective gear",
+    "perform project management",
+    "design thermal equipment",
+    "calculate solar panel orientation",
+    "fluid mechanics",
+    "maintain photovoltaic systems",
+    "use CAD software",
+    "read engineering drawings",
+    "troubleshoot",
+    "renewable energy technologies",
+    "quality standards"
+   ],
+   "clusters": {
+    "esg": [
+     "promote sustainable energy"
+    ],
+    "electrical": [
+     "electrical engineering"
+    ],
+    "design": [
+     "approve engineering design",
+     "adjust engineering designs",
+     "design solar energy systems"
+    ],
+    "solar": [
+     "provide information on solar panels",
+     "types of photovoltaic panels",
+     "maintain concentrated solar power systems",
+     "solar energy",
+     "design solar energy systems",
+     "maintain solar energy systems"
+    ]
+   }
+  },
+  "office manager": {
+   "uri": "http://data.europa.eu/esco/occupation/6e6839b6-099c-4802-906e-7f2c8203ee69",
+   "title": "office manager",
+   "code": "3341.8",
+   "isco": "3341",
+   "description": "\\\nOffice managers oversee the administrative work that clerical workers are commissioned to perform in various types of organisations or associations. They perform micromanagement and maintain a close view of administrative processes such as such as controlling correspondence, designing filing systems, reviewing and approving supply requisitions, assigning and monitoring clerical functions. They report to managers within the same department or to general managers in companies, depending on their size.",
+   "essential": [
+    "delegate activities",
+    "manage office facility systems",
+    "manage staff",
+    "create a work atmosphere of continuous improvement",
+    "manage administrative systems",
+    "manage office appliance requirements",
+    "use office systems",
+    "manage needs for stationery items",
+    "perform clerical duties",
+    "office software",
+    "give instructions to staff",
+    "write work-related reports",
+    "make improvements to work activities",
+    "implement corporate governance",
+    "analyse staff capacity",
+    "use different communication channels",
+    "cost management"
+   ],
+   "optional": [
+    "develop classification systems",
+    "trade union regulations",
+    "accounting techniques",
+    "train employees",
+    "labour legislation",
+    "project management",
+    "prepare financial statements",
+    "revise drafts made by managers",
+    "communicate with customers",
+    "tax legislation",
+    "use customer relationship management software",
+    "recruit employees",
+    "assess employees' capability levels",
+    "manage accounts",
+    "contract law",
+    "plan shifts of employees",
+    "maintain contract administration",
+    "financial capability",
+    "manage budgets"
+   ],
+   "clusters": {
+    "leadership": [
+     "delegate activities",
+     "manage staff"
+    ],
+    "correspondence": [
+     "write work-related reports"
+    ],
+    "content": [
+     "write work-related reports"
+    ],
+    "problem": [
+     "analyse staff capacity"
+    ]
+   }
+  },
+  "chief operating officer": {
+   "uri": "http://data.europa.eu/esco/occupation/c64a6e4e-5b38-4f93-b26d-aded817aeaf3",
+   "title": "chief operating officer",
+   "code": "1120.4",
+   "isco": "1120",
+   "description": "Chief operating officers are the right hand and second in command of a company's chief executive officer. They ensure that the daily operations of the company run smoothly. Chief operating officers also develop company policies, rules and goals.",
+   "essential": [
+    "show an exemplary leading role in an organisation",
+    "marketing management",
+    "ensure lawful business operations",
+    "integrate strategic foundation in daily performance",
+    "evaluate performance of organisational collaborators",
+    "abide by business ethical code of conducts",
+    "track key performance indicators",
+    "conclude business agreements",
+    "make strategic business decisions",
+    "delegate activities",
+    "business process modelling",
+    "get involved in the day-to-day operation of the company",
+    "negotiate with stakeholders",
+    "lead managers of company departments",
+    "develop professional network",
+    "financial statements",
+    "shape organisational teams based on competencies",
+    "company policies",
+    "analyse business objectives",
+    "plan medium to long term objectives",
+    "establish collaborative relations",
+    "interpret financial statements"
+   ],
+   "optional": [
+    "develop organisational policies",
+    "define organisational standards",
+    "liaise with shareholders",
+    "analyse financial performance of a company",
+    "financial management",
+    "shape corporate culture",
+    "develop business plans",
+    "apply import strategies",
+    "build international relations",
+    "implement operational business plans",
+    "interact with the board of directors",
+    "set organisational policies",
+    "develop company strategies",
+    "implement strategic planning",
+    "follow the statutory obligations",
+    "apply export strategies",
+    "assume responsibility for the management of a business",
+    "integrate shareholders' interests in business plans",
+    "define the corporate structure",
+    "develop revenue generation strategies",
+    "imprint visionary aspirations into the business management"
+   ],
+   "clusters": {
+    "digimarketing": [
+     "marketing management"
+    ],
+    "strategy": [
+     "integrate strategic foundation in daily performance",
+     "make strategic business decisions"
+    ],
+    "stakeholder": [
+     "evaluate performance of organisational collaborators",
+     "negotiate with stakeholders",
+     "establish collaborative relations"
+    ],
+    "problem": [
+     "evaluate performance of organisational collaborators",
+     "analyse business objectives"
+    ],
+    "leadership": [
+     "delegate activities"
+    ],
+    "processmap": [
+     "business process modelling"
+    ],
+    "networking": [
+     "develop professional network"
+    ]
+   }
+  },
+  "public employment service manager": {
+   "uri": "http://data.europa.eu/esco/occupation/070e94a8-a933-4557-9b95-fefe7f4f1763",
+   "title": "public employment service manager",
+   "code": "2423.6",
+   "isco": "2423",
+   "description": "Public employment service managers supervise the operations of a public employment agency. They oversee the staff that helps people find employment or provide occupational guidance.",
+   "essential": [
+    "promote gender equality in business contexts",
+    "supervise staff",
+    "negotiate employment agreements",
+    "maintain relations with local representatives",
+    "comply with legal regulations",
+    "supervise work",
+    "manage budgets",
+    "supervision of persons",
+    "apply strategic thinking",
+    "develop employee retention programs",
+    "coordinate operational activities",
+    "manage government policy implementation",
+    "organise staff assessment",
+    "promote employment policy",
+    "liaise with local authorities",
+    "employment law",
+    "labour legislation"
+   ],
+   "optional": [
+    "analyse unemployment rates",
+    "coach employees",
+    "develop employment policies",
+    "promote equal pay",
+    "coordinate educational programmes",
+    "evaluate employees",
+    "set inclusion policies",
+    "advise on career",
+    "develop training programmes",
+    "advise on government policy compliance",
+    "discharge employees",
+    "promote inclusion in organisations",
+    "provide information on study programmes",
+    "government policy implementation"
+   ],
+   "clusters": {
+    "leadership": [
+     "supervise staff",
+     "supervise work"
+    ],
+    "stakeholder": [
+     "negotiate employment agreements",
+     "liaise with local authorities"
+    ],
+    "strategy": [
+     "manage budgets",
+     "apply strategic thinking"
+    ],
+    "scheduling": [
+     "coordinate operational activities"
+    ],
+    "problem": [
+     "organise staff assessment"
+    ]
+   }
+  },
+  "human resources manager": {
+   "uri": "http://data.europa.eu/esco/occupation/f605bcd2-90b6-45a0-a558-d05016d68a77",
+   "title": "human resources manager",
+   "code": "1212.1",
+   "isco": "1212",
+   "description": "Human resources managers plan, design and implement processes related to the human capital of companies. They develop programs for recruiting, interviewing, and selecting employees based on a previous assessment of the profile and skills required in the company. Moreover, they manage compensation and development programs for the company's employees comprising trainings, skill assessment and yearly evaluations, promotion, expat programs, and general assurance of the well-being of the employees in the workplace.",
+   "essential": [
+    "monitor company policy",
+    "outplacement",
+    "coordinate operational activities",
+    "human resource management",
+    "labour legislation",
+    "evaluate training",
+    "track key performance indicators",
+    "develop employee retention programs",
+    "manage payroll",
+    "develop training programmes",
+    "promote gender equality in business contexts",
+    "handle conflicts",
+    "organise staff assessment",
+    "plan medium to long term objectives",
+    "comply with legal regulations",
+    "human resources department processes",
+    "identify with the company's goals",
+    "identify necessary human resources",
+    "employment law",
+    "negotiate employment agreements",
+    "apply company policies",
+    "negotiate with employment agencies",
+    "manage budgets"
+   ],
+   "optional": [
+    "promote inclusion in organisations",
+    "obtain financial information",
+    "personnel management",
+    "deliver online training",
+    "build business relationships",
+    "ensure information transparency",
+    "adapt instruction to labour market",
+    "advise on organisation climate",
+    "show diplomacy",
+    "delegate activities",
+    "analyse financial risk",
+    "supervise staff",
+    "handle financial transactions",
+    "write inspection reports",
+    "advertising techniques",
+    "teamwork principles",
+    "coach employees",
+    "financial management",
+    "manage financial risk",
+    "curriculum objectives",
+    "labour law",
+    "principles of insurance",
+    "develop professional network",
+    "types of insurance",
+    "business management principles",
+    "coordinate educational programmes",
+    "develop financial products",
+    "advise on conflict management",
+    "profile people",
+    "communicate with beneficiaries",
+    "recruit employees",
+    "calculate benefits",
+    "set organisational policies",
+    "apply technical communication skills",
+    "teach corporate skills",
+    "conduct workplace audits",
+    "manage corporate training programmes",
+    "government social security programmes",
+    "promote human rights",
+    "synthesise financial information",
+    "develop pension schemes",
+    "communication",
+    "implement strategic planning",
+    "corporate law",
+    "project management",
+    "monitor organisation climate",
+    "evaluate performance of organisational collaborators",
+    "social security law",
+    "protect employee rights",
+    "maintain records of financial transactions",
+    "types of pensions",
+    "manage government policy implementation",
+    "conflict management",
+    "audit techniques",
+    "administer appointments",
+    "analyse insurance needs",
+    "insurance law",
+    "promote social security programmes",
+    "develop corporate training programmes",
+    "advise on career",
+    "leadership principles",
+    "analyse insurance risk",
+    "give constructive feedback",
+    "investigate social security applications",
+    "review insurance process",
+    "tolerate stress",
+    "advise on risk management",
+    "maintain financial records",
+    "advise on government policy compliance",
+    "assessment processes",
+    "provide advice on breaches of regulation",
+    "manage stress in organisation",
+    "corporate social responsibility",
+    "monitor developments in field of expertise",
+    "work with virtual learning environments",
+    "evaluate benefit plans",
+    "actuarial science",
+    "apply conflict management",
+    "create solutions to problems",
+    "ensure cross-department cooperation",
+    "advise on social security benefits",
+    "company policies",
+    "discharge employees",
+    "establish collaborative relations",
+    "apply strategic thinking",
+    "respond to enquiries",
+    "financial markets",
+    "promote financial products",
+    "interview people",
+    "training  subject expertise",
+    "promote education course",
+    "set inclusion policies",
+    "government policy implementation",
+    "monitor legislation developments",
+    "manage pension funds",
+    "evaluate employees",
+    "financial products",
+    "organisational policies",
+    "organisational structure",
+    "trace financial transactions",
+    "manage employee complaints",
+    "provide support in financial calculation",
+    "adult education",
+    "legal research",
+    "manage contracts",
+    "manage sub-contract labour",
+    "provide information on study programmes",
+    "consultation",
+    "gather feedback from employees",
+    "present reports",
+    "liaise with managers",
+    "negotiate settlements",
+    "handle financial disputes",
+    "identify policy breach"
+   ],
+   "clusters": {
+    "fieldwork": [
+     "monitor company policy"
+    ],
+    "scheduling": [
+     "coordinate operational activities"
+    ],
+    "problem": [
+     "evaluate training",
+     "organise staff assessment"
+    ],
+    "stakeholder": [
+     "negotiate employment agreements",
+     "negotiate with employment agencies"
+    ],
+    "strategy": [
+     "manage budgets"
+    ]
+   }
+  },
+  "contact centre supervisor": {
+   "uri": "http://data.europa.eu/esco/occupation/9d2aae3e-cbfe-409f-86cc-7cef9cd0435a",
+   "title": "contact centre supervisor",
+   "code": "3341.5",
+   "isco": "3341",
+   "description": "Contact centre supervisors oversee and coordinate the activities of contact centre employees. They ensure that daily operations run smoothly through resolving issues, instructing and training employees and supervising tasks.",
+   "essential": [
+    "liaise with managers",
+    "manage staff",
+    "characteristics of products",
+    "supervise work",
+    "perform project management",
+    "characteristics of services",
+    "motivate employees",
+    "delegate activities",
+    "follow company standards",
+    "perform data analysis",
+    "present reports",
+    "forecast workload",
+    "create solutions to problems",
+    "customer relationship management",
+    "analyse staff capacity",
+    "train employees",
+    "call quality assurance management",
+    "fix meetings"
+   ],
+   "optional": [
+    "teamwork principles",
+    "analyse customer service surveys",
+    "coordinate operational activities",
+    "manage resources",
+    "measure call quality",
+    "e-commerce systems",
+    "monitor customer service",
+    "respond to customers' inquiries",
+    "measure customer feedback",
+    "contact customers",
+    "customer service",
+    "handle helpdesk problems",
+    "recruit employees",
+    "handle customer complaints",
+    "create a work atmosphere of continuous improvement",
+    "keep records of customer interaction"
+   ],
+   "clusters": {
+    "stakeholder": [
+     "liaise with managers",
+     "present reports"
+    ],
+    "leadership": [
+     "manage staff",
+     "supervise work",
+     "motivate employees",
+     "delegate activities"
+    ],
+    "strategy": [
+     "forecast workload"
+    ],
+    "problem": [
+     "create solutions to problems",
+     "analyse staff capacity"
+    ],
+    "customer": [
+     "customer relationship management"
+    ],
+    "coaching": [
+     "train employees"
+    ],
+    "scheduling": [
+     "fix meetings"
+    ]
+   }
+  },
+  "call centre manager": {
+   "uri": "http://data.europa.eu/esco/occupation/dd25a2b0-add0-4ae2-bd85-bb644e0d0c39",
+   "title": "call centre manager",
+   "code": "3341.2",
+   "isco": "3341",
+   "description": "Call centre managers set the objectives of the service per month, week, and day. They perform micromanagement of the results obtained in the centre in order to proactively react with plans, trainings, or motivational plans depending on the problems faced by the service. They strive for achievement of KPIs such as minimum operating time, sales per day, and compliance with quality parameters.",
+   "essential": [
+    "report on overall management of a business",
+    "present reports",
+    "analyse staff capacity",
+    "supervise work",
+    "create solutions to problems",
+    "liaise with managers",
+    "strive for company growth",
+    "customer relationship management",
+    "evaluate performance of organisational collaborators",
+    "manage staff",
+    "create a work atmosphere of continuous improvement",
+    "plan health and safety procedures",
+    "interpret automatic call distribution data",
+    "analyse call centre activities",
+    "corporate social responsibility",
+    "follow company standards",
+    "measure customer feedback",
+    "call-centre technologies",
+    "communication principles",
+    "customer service",
+    "assess the feasibility of implementing developments",
+    "manage ICT project",
+    "supervise the management of an establishment",
+    "information confidentiality",
+    "telemarketing",
+    "identify customer's needs",
+    "product comprehension",
+    "manage key performance indicators of call centres",
+    "coordinate operational activities"
+   ],
+   "optional": [
+    "deliver a sales pitch",
+    "accounting techniques",
+    "train employees",
+    "e-commerce systems",
+    "call quality assurance management",
+    "analyse call performance trends",
+    "analyse customer service surveys",
+    "recruit employees",
+    "teach marketing principles",
+    "monitor customer service",
+    "sales activities",
+    "social media marketing techniques",
+    "develop online sales business plan",
+    "persuade clients with alternatives",
+    "call routing",
+    "perform market research",
+    "sales strategies",
+    "perform risk analysis",
+    "manage contracts",
+    "subsidiary operations",
+    "establish communication with foreign cultures",
+    "teach customer service techniques",
+    "business analysis"
+   ],
+   "clusters": {
+    "stakeholder": [
+     "present reports",
+     "liaise with managers",
+     "evaluate performance of organisational collaborators"
+    ],
+    "problem": [
+     "analyse staff capacity",
+     "create solutions to problems",
+     "evaluate performance of organisational collaborators",
+     "analyse call centre activities",
+     "assess the feasibility of implementing developments"
+    ],
+    "leadership": [
+     "supervise work",
+     "manage staff",
+     "supervise the management of an establishment"
+    ],
+    "customer": [
+     "customer relationship management",
+     "measure customer feedback",
+     "customer service",
+     "identify customer's needs"
+    ],
+    "electrical": [
+     "plan health and safety procedures"
+    ],
+    "processmap": [
+     "interpret automatic call distribution data"
+    ],
+    "esg": [
+     "corporate social responsibility"
+    ],
+    "digimarketing": [
+     "telemarketing"
+    ],
+    "scheduling": [
+     "coordinate operational activities"
     ]
    }
   },
@@ -911,67 +3051,67 @@
    "isco": "4110",
    "description": "Office clerks are responsible for performing clerical and administrative duties in an office setting and support of business operations within a department. They assist all the administrative staff, secretaries, and assistants by sorting mail, filing forms and documents, answering phones, greeting clients, scheduling meetings, and serving drinks.",
    "essential": [
-    "perform office routine activities",
-    "file documents",
-    "prepare correspondence for customers",
-    "use office systems",
-    "deliver correspondence",
-    "disseminate internal communications",
-    "process data",
-    "communicate with customers",
-    "handle mail",
-    "information confidentiality",
-    "use different communication channels",
-    "disseminate messages to people",
-    "fill out forms",
-    "company policies",
     "communicate by telephone",
-    "facilitate access to information",
-    "align content with form",
-    "organise facilities for office personnel",
-    "process commissioned instructions",
-    "maintain correspondence records",
-    "route correspondence to business departments",
+    "disseminate messages to people",
+    "perform office routine activities",
+    "handle delivered packages",
+    "file documents",
     "apply grammar and spelling rules",
+    "process data",
+    "organise facilities for office personnel",
+    "use different communication channels",
     "organise business documents",
-    "handle delivered packages"
+    "deliver correspondence",
+    "handle mail",
+    "communicate with customers",
+    "route correspondence to business departments",
+    "disseminate internal communications",
+    "prepare correspondence for customers",
+    "company policies",
+    "fill out forms",
+    "facilitate access to information",
+    "information confidentiality",
+    "process commissioned instructions",
+    "use office systems",
+    "maintain correspondence records",
+    "align content with form"
    ],
    "optional": [
-    "transcription methods",
-    "translate keywords into full texts",
-    "use microsoft office",
-    "communicate with customer service department",
+    "carry out internet research",
+    "use free typing techniques",
+    "accounting techniques",
     "serve beverages",
     "respect data protection principles",
+    "use microsoft office",
+    "draft corporate emails",
+    "issue sales invoices",
+    "communicate with customer service department",
+    "maintain internal communication systems",
     "digitise documents",
+    "perform cleaning duties",
+    "keep records of customer interaction",
+    "transcription methods",
     "maintain inventory of office supplies",
+    "translate keywords into full texts",
     "process customer orders",
-    "accounting techniques",
+    "manage digital archives",
     "use software for data preservation",
     "ensure proper document management",
-    "keep records of customer interaction",
-    "issue sales invoices",
-    "maintain internal communication systems",
-    "carry out internet research",
-    "monitor staff absences",
-    "use free typing techniques",
-    "draft corporate emails",
-    "perform cleaning duties",
-    "manage digital archives"
+    "monitor staff absences"
    ],
    "clusters": {
     "dataentry": [
      "file documents"
     ],
     "correspondence": [
-     "prepare correspondence for customers",
      "deliver correspondence",
-     "maintain correspondence records",
-     "route correspondence to business departments"
+     "route correspondence to business departments",
+     "prepare correspondence for customers",
+     "maintain correspondence records"
     ],
     "customer": [
-     "prepare correspondence for customers",
-     "communicate with customers"
+     "communicate with customers",
+     "prepare correspondence for customers"
     ],
     "stakeholder": [
      "communicate with customers"
@@ -988,56 +3128,56 @@
    "isco": "3313",
    "description": "Bookkeepers record and assemble the day-to-day financial transactions of an organisation or company, consisting usually of sales, purchases, payments and receipts. They ensure all financial transactions are documented in the appropriate (day) book and general ledger, and that they are balanced out. Bookkeepers prepare the recorded books and ledgers with financial transactions for an accountant to then analyse balance sheets and income statements.",
    "essential": [
-    "prepare trial accounting balances",
-    "bookkeeping regulations",
     "commercial law",
-    "accounting techniques",
-    "accounting entries",
-    "financial statements",
-    "use accounting systems",
-    "identify accounting errors",
-    "company policies",
-    "depreciation",
-    "maintain financial records",
-    "accounting department processes",
-    "attach accounting certificates to accounting transactions",
-    "tax legislation",
-    "perform balance sheet operations",
     "follow the statutory obligations",
-    "prepare financial statements",
-    "manage the general ledger"
+    "depreciation",
+    "attach accounting certificates to accounting transactions",
+    "maintain financial records",
+    "company policies",
+    "prepare trial accounting balances",
+    "accounting entries",
+    "accounting department processes",
+    "perform balance sheet operations",
+    "bookkeeping regulations",
+    "tax legislation",
+    "identify accounting errors",
+    "accounting techniques",
+    "use accounting systems",
+    "financial statements",
+    "manage the general ledger",
+    "prepare financial statements"
    ],
    "optional": [
-    "interpret financial statements",
-    "manage payroll reports",
-    "manage cash desk",
-    "prepare tax returns forms",
-    "financial department processes",
-    "handle petty cash",
     "manage accounts",
+    "ensure compliance with accounting conventions",
+    "manage cash desk",
     "statistics",
-    "handle financial transactions",
+    "manage payroll reports",
     "follow up accounts receivables",
-    "support development of annual budget",
-    "organise business documents",
-    "allocate bills",
-    "issue sales invoices",
-    "labour legislation",
     "archive documentation related to the work",
+    "financial department processes",
+    "support development of annual budget",
+    "allocate bills",
+    "handle financial transactions",
+    "handle petty cash",
+    "organise business documents",
+    "issue sales invoices",
     "calculate tax",
-    "ensure compliance with accounting conventions"
+    "labour legislation",
+    "interpret financial statements",
+    "prepare tax returns forms"
    ],
    "clusters": {
     "bookkeeping": [
-     "prepare trial accounting balances",
-     "bookkeeping regulations",
-     "accounting techniques",
-     "accounting entries",
-     "use accounting systems",
-     "identify accounting errors",
-     "maintain financial records",
-     "accounting department processes",
      "attach accounting certificates to accounting transactions",
+     "maintain financial records",
+     "prepare trial accounting balances",
+     "accounting entries",
+     "accounting department processes",
+     "bookkeeping regulations",
+     "identify accounting errors",
+     "accounting techniques",
+     "use accounting systems",
      "manage the general ledger"
     ]
    }
@@ -1049,58 +3189,61 @@
    "isco": "4120",
    "description": "\nSecretaries perform a variety of administrative tasks to help keep an organisation run smoothly. They answer telephone calls, draft and send e-mails, maintain diaries, arrange appointments, take messages, file documents, organise and service meetings, and manage databases.",
    "essential": [
-    "disseminate internal communications",
+    "organise facilities for office personnel",
+    "perform office routine activities",
+    "monitor staff absences",
+    "draft corporate emails",
+    "fill out forms",
+    "manage personnel agenda",
+    "communicate by telephone",
+    "process commissioned instructions",
+    "file documents",
+    "handle mail",
+    "keep task records",
+    "communicate schedules to the people concerned",
     "company policies",
     "disseminate messages to people",
-    "communicate by telephone",
-    "organise facilities for office personnel",
-    "fill out forms",
-    "perform office routine activities",
-    "keep task records",
-    "process commissioned instructions",
-    "draft corporate emails",
-    "use microsoft office",
-    "file documents",
-    "communicate schedules to the people concerned",
-    "organise business documents",
-    "manage personnel agenda",
-    "monitor staff absences",
     "maintain internal communication systems",
-    "handle mail"
+    "disseminate internal communications",
+    "organise business documents",
+    "use microsoft office"
    ],
    "optional": [
-    "education law",
-    "handle financial transactions",
     "manage budgets",
-    "manage accounts",
-    "handle petty cash",
-    "deliver correspondence",
-    "prepare presentation material",
-    "accounting techniques",
-    "issue sales invoices",
     "place orders for printed paper goods",
-    "demonstrate professional attitude to clients",
-    "manage needs for stationery items",
-    "develop documentation in accordance with legal requirements",
     "manage online content",
-    "organise travel arrangements for staff",
-    "write meeting reports",
-    "labour law",
     "education administration",
-    "use office systems"
+    "labour law",
+    "organise travel arrangements for staff",
+    "accounting techniques",
+    "manage accounts",
+    "demonstrate professional attitude to clients",
+    "handle financial transactions",
+    "use office systems",
+    "manage needs for stationery items",
+    "handle petty cash",
+    "education law",
+    "issue sales invoices",
+    "develop documentation in accordance with legal requirements",
+    "write meeting reports",
+    "deliver correspondence",
+    "prepare presentation material"
    ],
    "clusters": {
+    "fieldwork": [
+     "monitor staff absences"
+    ],
     "correspondence": [
      "draft corporate emails"
+    ],
+    "leadership": [
+     "manage personnel agenda"
     ],
     "dataentry": [
      "file documents"
     ],
     "scheduling": [
      "communicate schedules to the people concerned"
-    ],
-    "fieldwork": [
-     "monitor staff absences"
     ]
    }
   },
@@ -1111,44 +3254,44 @@
    "isco": "3343",
    "description": "Administrative assistants perform administrative and office support for supervisors. They perform a variety of tasks, such as answering telephone calls, receiving and directing visitors, ordering office supplies, maintaining the office facilities running smoothly, and ensuring that equipment and appliances work properly.",
    "essential": [
-    "use microsoft office",
-    "perform office routine activities",
-    "company policies",
-    "disseminate general corporate information",
-    "keep task records",
-    "organise facilities for office personnel",
-    "use office systems",
     "draft corporate emails",
-    "handle mail",
-    "ensure proper document management",
-    "disseminate internal communications",
-    "disseminate messages to people",
-    "fill out forms",
-    "file documents",
+    "perform office routine activities",
     "maintain statutory books",
-    "organise business documents",
-    "perform business research"
+    "company policies",
+    "perform business research",
+    "disseminate messages to people",
+    "use office systems",
+    "file documents",
+    "use microsoft office",
+    "handle mail",
+    "disseminate general corporate information",
+    "ensure proper document management",
+    "keep task records",
+    "fill out forms",
+    "disseminate internal communications",
+    "organise facilities for office personnel",
+    "organise business documents"
    ],
    "optional": [
-    "issue sales invoices",
-    "handle petty cash",
-    "transcription methods",
-    "create import-export commercial documentation",
-    "accounting techniques",
-    "manage personnel agenda",
-    "provide customer follow-up services",
-    "fix meetings",
-    "organise travel arrangements for staff",
-    "speak different languages",
     "prepare presentation material",
-    "maintain internal communication systems",
+    "provide customer follow-up services",
     "liaise with managers",
-    "respect data protection principles",
-    "maintain inventory of office supplies",
+    "issue sales invoices",
+    "manage personnel agenda",
     "monitor staff absences",
-    "process commissioned instructions",
+    "accounting techniques",
+    "respect data protection principles",
+    "handle petty cash",
+    "deliver correspondence",
+    "fix meetings",
+    "maintain internal communication systems",
+    "organise travel arrangements for staff",
     "coordinate events",
-    "deliver correspondence"
+    "create import-export commercial documentation",
+    "speak different languages",
+    "maintain inventory of office supplies",
+    "process commissioned instructions",
+    "transcription methods"
    ],
    "clusters": {
     "correspondence": [
@@ -1166,65 +3309,65 @@
    "isco": "4225",
    "description": "Customer service representatives handle complaints and are responsible for maintaining overall goodwill between an organisation and its customers. They manage data regarding customer satisfaction and report it.",
    "essential": [
-    "process refunds",
-    "analyse problems for opportunities",
-    "ensure customer focus",
-    "have computer literacy",
-    "customer service",
-    "apply conflict management",
-    "perform multiple tasks at the same time",
-    "prioritise tasks",
-    "process order forms with customer's information",
-    "provide information",
-    "determine charges for customer services",
-    "keep records of customer interaction",
-    "provide customer follow-up services",
     "apply knowledge of human behaviour",
-    "implement customer follow-up",
-    "listen actively",
+    "perform escalation procedure",
     "communicate with customers",
-    "control of expenses",
+    "prioritise tasks",
+    "provide information",
+    "process refunds",
+    "process order forms with customer's information",
+    "analyse problems for opportunities",
+    "customer service",
     "guarantee customer satisfaction",
+    "control of expenses",
+    "listen actively",
+    "determine charges for customer services",
     "process customer orders",
+    "ensure customer focus",
+    "keep records of customer interaction",
+    "perform multiple tasks at the same time",
+    "apply conflict management",
     "process data",
-    "perform escalation procedure"
+    "have computer literacy",
+    "implement customer follow-up",
+    "provide customer follow-up services"
    ],
    "optional": [
-    "sales activities",
-    "facilitate official agreement",
-    "upsell products",
-    "measure customer feedback",
-    "use customer relationship management software",
-    "consumer protection",
-    "contact customers",
     "carry out active selling",
     "perform data analysis",
-    "show diplomacy",
+    "consumer protection",
     "e-commerce systems",
+    "sales activities",
+    "contact customers",
+    "use customer relationship management software",
+    "show diplomacy",
+    "upsell products",
+    "speak different languages",
     "data mining methods",
-    "speak different languages"
+    "facilitate official agreement",
+    "measure customer feedback"
    ],
    "clusters": {
-    "problem": [
-     "analyse problems for opportunities"
-    ],
     "customer": [
-     "ensure customer focus",
-     "customer service",
-     "process order forms with customer's information",
-     "determine charges for customer services",
-     "keep records of customer interaction",
-     "provide customer follow-up services",
-     "implement customer follow-up",
      "communicate with customers",
+     "process order forms with customer's information",
+     "customer service",
      "guarantee customer satisfaction",
-     "process customer orders"
-    ],
-    "dataentry": [
-     "keep records of customer interaction"
+     "determine charges for customer services",
+     "process customer orders",
+     "ensure customer focus",
+     "keep records of customer interaction",
+     "implement customer follow-up",
+     "provide customer follow-up services"
     ],
     "stakeholder": [
      "communicate with customers"
+    ],
+    "problem": [
+     "analyse problems for opportunities"
+    ],
+    "dataentry": [
+     "keep records of customer interaction"
     ]
    }
   },
@@ -1235,42 +3378,49 @@
    "isco": "5244",
    "description": "Call centre agents handle incoming or outgoing customer calls for a business. They call existing and prospective customers to promote goods and services. They also obtain sales and arrange sales visits.",
    "essential": [
-    "adapt to changing situations",
-    "present reports",
-    "credit card payments",
-    "use customer relationship management software",
-    "communicate by telephone",
-    "have computer literacy",
     "speak different languages",
+    "guarantee customer satisfaction",
+    "process data",
+    "have computer literacy",
     "handle tasks independently",
     "tolerate stress",
-    "guarantee customer satisfaction",
-    "keep task records",
-    "show confidence",
     "perform multiple tasks at the same time",
-    "characteristics of services",
-    "create solutions to problems",
+    "communicate by telephone",
     "listen actively",
     "characteristics of products",
-    "process data"
+    "present reports",
+    "use customer relationship management software",
+    "adapt to changing situations",
+    "characteristics of services",
+    "credit card payments",
+    "keep task records",
+    "create solutions to problems",
+    "show confidence"
    ],
    "optional": [
-    "handle helpdesk problems",
-    "perform data analysis",
-    "e-commerce systems",
-    "perform escalation procedure",
-    "answer incoming calls",
-    "teamwork principles",
-    "think proactively",
-    "educate on data confidentiality",
-    "provide ICT support",
-    "apply operations for an ITIL-based environment",
     "e-procurement",
-    "provide customer follow-up services",
+    "apply operations for an ITIL-based environment",
+    "teamwork principles",
+    "handle helpdesk problems",
+    "think proactively",
     "prioritise requests",
-    "communication principles"
+    "educate on data confidentiality",
+    "answer incoming calls",
+    "provide ICT support",
+    "communication principles",
+    "perform data analysis",
+    "provide customer follow-up services",
+    "e-commerce systems",
+    "perform escalation procedure"
    ],
    "clusters": {
+    "languages": [
+     "speak different languages"
+    ],
+    "customer": [
+     "guarantee customer satisfaction",
+     "use customer relationship management software"
+    ],
     "stakeholder": [
      "present reports"
     ],
@@ -1279,13 +3429,6 @@
     ],
     "content": [
      "credit card payments"
-    ],
-    "customer": [
-     "use customer relationship management software",
-     "guarantee customer satisfaction"
-    ],
-    "languages": [
-     "speak different languages"
     ],
     "problem": [
      "create solutions to problems"
@@ -1299,57 +3442,57 @@
    "isco": "4132",
    "description": "Data entry clerks update, maintain and retrieve information held on computer systems. They prepare source data for computer entry by compiling and sorting information, process customer and account source documents by reviewing data for deficiencies and verify entered customer and account data.",
    "essential": [
-    "documentation types",
-    "resource description framework query language",
-    "apply information security policies",
-    "apply statistical analysis techniques",
-    "database",
-    "process data",
     "query languages",
+    "resource description framework query language",
+    "apply statistical analysis techniques",
+    "documentation types",
     "perform data cleansing",
+    "process data",
+    "apply information security policies",
+    "database",
     "maintain data entry requirements"
    ],
    "optional": [
-    "SPARQL",
-    "N1QL",
-    "information confidentiality",
-    "implement data warehousing techniques",
-    "optical character recognition software",
+    "manage ICT data classification",
+    "establish data processes",
+    "data storage",
+    "manage data",
+    "implement data quality processes",
+    "ABBYY FineReader",
+    "MDX",
     "manage data collection systems",
     "data models",
-    "LDAP",
-    "manage data",
-    "XQuery",
-    "normalise data",
-    "data storage",
+    "optical character recognition software",
     "OmniPage",
+    "N1QL",
     "LINQ",
-    "MDX",
-    "implement data quality processes",
-    "establish data processes",
-    "ABBYY FineReader",
-    "manage ICT data classification",
-    "apply organisational techniques"
+    "information confidentiality",
+    "implement data warehousing techniques",
+    "LDAP",
+    "normalise data",
+    "apply organisational techniques",
+    "XQuery",
+    "SPARQL"
    ],
    "clusters": {
-    "correspondence": [
-     "documentation types"
-    ],
-    "cyber": [
-     "apply information security policies"
-    ],
-    "sql": [
-     "database",
-     "query languages"
-    ],
     "languages": [
      "query languages"
+    ],
+    "sql": [
+     "query languages",
+     "database"
+    ],
+    "correspondence": [
+     "documentation types"
     ],
     "dataquality": [
      "perform data cleansing"
     ],
     "processmap": [
      "perform data cleansing"
+    ],
+    "cyber": [
+     "apply information security policies"
     ],
     "dataentry": [
      "maintain data entry requirements"
@@ -1363,59 +3506,62 @@
    "isco": "5223",
    "description": "Shop assistants work in shops where they perform assistance duties. The help shopkeepers in their daily work such as ordering and refilling of goods and stock, providing general advice to customers, selling products and maintaining the shop.",
    "essential": [
-    "provide customer follow-up services",
-    "company policies",
-    "provide customer guidance on product selection",
-    "follow given instructions",
-    "direct customers to merchandise",
-    "organise product display",
-    "put up price tags",
+    "examine merchandise",
+    "notify customers on special offers",
     "pack merchandise for gifts",
-    "process refunds",
     "apply company policies",
+    "organise product display",
+    "stock shelves",
+    "provide customer follow-up services",
+    "put up price tags",
+    "supervise merchandise displays",
+    "carry out order intake",
+    "package purchases in bags",
     "maintain relationship with customers",
     "operate cash register",
-    "maintain relationship with suppliers",
-    "stock shelves",
-    "supervise merchandise displays",
+    "process refunds",
+    "follow given instructions",
+    "company policies",
     "arrange ordering of products for customers",
-    "package purchases in bags",
+    "direct customers to merchandise",
     "maintain store cleanliness",
-    "notify customers on special offers",
-    "examine merchandise",
     "product comprehension",
-    "carry out order intake"
+    "provide customer guidance on product selection",
+    "maintain relationship with suppliers"
    ],
    "optional": [
-    "demonstrate products' features",
-    "teamwork principles",
     "keep records of merchandise delivery",
-    "operate cash point",
-    "achieve sales targets",
+    "teamwork principles",
     "maintain customer service",
-    "process payments",
+    "demonstrate products' features",
+    "sales promotion techniques",
     "check deliveries on receipt",
+    "process payments",
     "process orders from online shop",
     "carry out active selling",
-    "sales promotion techniques",
-    "use different communication channels",
     "identify customer's needs",
+    "operate cash point",
+    "achieve sales targets",
+    "use different communication channels",
     "monitor stock level"
    ],
    "clusters": {
     "customer": [
+     "notify customers on special offers",
      "provide customer follow-up services",
-     "provide customer guidance on product selection",
-     "direct customers to merchandise",
      "maintain relationship with customers",
      "arrange ordering of products for customers",
-     "notify customers on special offers"
-    ],
-    "coaching": [
+     "direct customers to merchandise",
      "provide customer guidance on product selection"
+    ],
+    "leadership": [
+     "supervise merchandise displays"
     ],
     "processmap": [
      "maintain store cleanliness"
+    ],
+    "coaching": [
+     "provide customer guidance on product selection"
     ]
    }
   },
@@ -1426,51 +3572,51 @@
    "isco": "4226",
    "description": "Receptionists are responsible for the reception area of a business. They answer the phone, greet guests, pass information, respond to inquiries and instruct visitors. They are the first point of contact for clients and customers.",
    "essential": [
-    "company policies",
-    "communicate with customers",
-    "disseminate internal communications",
     "communicate verbal instructions",
-    "maintain logbooks",
+    "greet guests",
     "administer appointments",
     "use microsoft office",
-    "customer service",
-    "disseminate messages to people",
-    "communicate by telephone",
     "maintain reception area",
-    "greet guests",
-    "adhere to organisational guidelines"
+    "disseminate internal communications",
+    "communicate with customers",
+    "communicate by telephone",
+    "company policies",
+    "adhere to organisational guidelines",
+    "disseminate messages to people",
+    "customer service",
+    "maintain logbooks"
    ],
    "optional": [
-    "develop documentation in accordance with legal requirements",
-    "process payments",
-    "respond to customers' inquiries",
-    "maintain correspondence records",
-    "process data",
-    "accounting techniques",
-    "deliver correspondence",
-    "keep personal administration",
-    "handle customer complaints",
-    "handle mail",
-    "use different communication channels",
-    "file documents",
     "issue sales invoices",
-    "process booking",
-    "organise facilities for office personnel",
     "handle petty cash",
-    "office administration",
+    "organise facilities for office personnel",
     "use office systems",
-    "allocate badges"
+    "process payments",
+    "handle customer complaints",
+    "process data",
+    "use different communication channels",
+    "office administration",
+    "deliver correspondence",
+    "process booking",
+    "allocate badges",
+    "respond to customers' inquiries",
+    "file documents",
+    "accounting techniques",
+    "maintain correspondence records",
+    "handle mail",
+    "develop documentation in accordance with legal requirements",
+    "keep personal administration"
    ],
    "clusters": {
+    "scheduling": [
+     "administer appointments"
+    ],
     "customer": [
      "communicate with customers",
      "customer service"
     ],
     "stakeholder": [
      "communicate with customers"
-    ],
-    "scheduling": [
-     "administer appointments"
     ]
    }
   },
@@ -1481,83 +3627,83 @@
    "isco": "9333",
    "description": "Warehouse workers execute the accurate handling, packing and storage of materials in a warehouse. They receive goods, label them, check quality, store the goods and document any damage. Warehouse workers also monitor stock levels of items, keep inventory and ship goods.",
    "essential": [
-    "load products for dispatch",
-    "follow stock control instructions",
+    "products coding system",
+    "dispatch order processing",
+    "operate warehouse record systems",
+    "pick orders for dispatching",
+    "use different communication channels",
+    "maintain stock control systems",
+    "use rigging tools",
+    "operate warehouse materials",
+    "receive goods",
+    "have computer literacy",
+    "sort waste",
     "stack goods",
-    "implement efficiency plans for logistics operations",
+    "clean industrial containers",
+    "have spatial awareness",
+    "match goods with appropriate packaging according to security procedures",
+    "stay alert",
+    "operate weighing machine",
+    "lift heavy weights",
+    "monitor stock level",
+    "apply techniques for stacking goods into containers",
+    "maintain physical condition of warehouse",
+    "handle shipment paperwork",
+    "load pallets",
+    "handle paperwork related to warehouse stock",
+    "types of packaging used in industrial shipments",
+    "goods transported from warehouse facilities",
     "check for damaged items",
     "use warehouse marking tools",
-    "use rigging tools",
-    "apply techniques for stacking goods into containers",
-    "assist in the movement of heavy loads",
     "manage warehouse inventory",
-    "maintain stock control systems",
-    "handle paperwork related to warehouse stock",
-    "maintain physical condition of warehouse",
-    "types of packaging used in industrial shipments",
-    "have computer literacy",
     "perform cleaning duties",
-    "pick orders for dispatching",
-    "stay alert",
-    "handle shipment paperwork",
-    "have spatial awareness",
-    "goods transported from warehouse facilities",
-    "monitor stock level",
-    "follow verbal instructions",
-    "lift heavy weights",
-    "dispatch order processing",
-    "clean industrial containers",
-    "use different communication channels",
-    "load pallets",
-    "operate package processing equipment",
-    "secure goods according to work orders",
+    "follow stock control instructions",
+    "assist in the movement of heavy loads",
+    "load products for dispatch",
+    "control of expenses",
     "identify damaged goods before shipment",
-    "operate warehouse record systems",
-    "match goods with appropriate packaging according to security procedures",
-    "receive goods",
-    "sort waste",
-    "operate weighing machine",
-    "products coding system",
-    "operate warehouse materials",
-    "control of expenses"
+    "secure goods according to work orders",
+    "operate package processing equipment",
+    "implement efficiency plans for logistics operations",
+    "follow verbal instructions"
    ],
    "optional": [
-    "safety regulations for warehouses",
-    "adapt to changing situations",
-    "use barcode scanning equipment",
-    "tend packaging machines",
-    "cooperate with colleagues",
-    "product package requirements",
-    "handle returns",
-    "apply procedures to ensure cargo complies with customs regulations",
-    "follow written instructions",
-    "handle fragile items",
+    "work in a logistics team",
     "organise information",
-    "manage a warehouse management system",
-    "packaging engineering",
-    "clean warehouse",
-    "manage packaging material",
+    "follow written instructions",
     "monitor packaging operations",
+    "clean warehouse",
+    "manage a warehouse management system",
+    "use barcode scanning equipment",
+    "assemble goods",
+    "safety regulations for warehouses",
+    "cooperate with colleagues",
+    "handle customer complaints",
+    "handle fragile items",
+    "analyse packaging requirements",
+    "packaging engineering",
+    "product package requirements",
+    "adapt to changing situations",
+    "tend packaging machines",
+    "manage packaging material",
     "ensure quality control in packaging",
-    "freight transport methods",
+    "apply transportation management concepts",
+    "apply procedures to ensure cargo complies with customs regulations",
     "carry out ship-to-shore operations",
     "oversee stock quality control",
-    "analyse packaging requirements",
-    "handle customer complaints",
-    "assemble goods",
-    "work in a logistics team",
-    "apply transportation management concepts"
+    "handle returns",
+    "freight transport methods"
    ],
    "clusters": {
     "processmap": [
-     "perform cleaning duties",
-     "clean industrial containers"
-    ],
-    "fieldwork": [
-     "monitor stock level"
+     "clean industrial containers",
+     "perform cleaning duties"
     ],
     "cyber": [
      "match goods with appropriate packaging according to security procedures"
+    ],
+    "fieldwork": [
+     "monitor stock level"
     ]
    }
   }

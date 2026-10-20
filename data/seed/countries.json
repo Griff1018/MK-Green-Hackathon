@@ -1,0 +1,52 @@
+{
+  "_about": "Country settings for local job search, funding schemes and local demand notes. job_search urls use {q} for the job title. local_demand lists roles (role id @ ladder stage index, 0 = entry) named as critical occupations in an official local source; source says where the claim comes from. Budgets are monthly learning budgets in local currency.",
+  "countries": {
+    "MY": {
+      "name": "Malaysia", "currency": "RM",
+      "budgets": [["free", "Free courses only"], ["low", "Up to RM100 a month"], ["mid", "Up to RM500 a month"], ["any", "More than RM500 a month"]],
+      "job_search": [
+        ["JobStreet Malaysia", "https://my.jobstreet.com/{q_dash}-jobs"],
+        ["MyFutureJobs (PERKESO)", "https://myfuturejobs.gov.my/"],
+        ["LinkedIn Jobs", "https://www.linkedin.com/jobs/search/?keywords={q}&location=Malaysia"]
+      ],
+      "funding": [
+        ["HRD Corp claimable training", "If you are employed, ask HR whether a course can be claimed under your employer's HRD Corp levy.", "https://hrdcorp.gov.my/program-registration-hrd-corp-claimable-course/"],
+        ["HRD Corp e-LATiH", "Free online courses for Malaysians.", "https://elatih.hrdcorp.gov.my/"],
+        ["MyFutureJobs (PERKESO)", "National job portal with career and training programmes for job seekers.", "https://myfuturejobs.gov.my/"]
+      ],
+      "local_demand": {
+        "data_analyst@0": "Data professionals", "data_analyst@1": "Data professionals", "dba@0": "Data professionals",
+        "security_admin@0": "Cybersecurity professionals", "security_admin@1": "Cybersecurity professionals", "security_admin@2": "Cybersecurity professionals",
+        "career_advisor@2": "Human resources managers"
+      },
+      "local_demand_source": "Named among the 66 roles in TalentCorp's MyMahir Malaysia Critical Occupations List (MyCOL) 2024/2025, as reported by SAYS on 9 January 2026. Check the full list on TalentCorp's MyMahir portal.",
+      "adzuna": null,
+      "trend_note": "Malaysian job-ad data has no open API, so demand trends use global job posts. Local demand notes come from TalentCorp's critical occupations list."
+    },
+    "SG": {
+      "name": "Singapore", "currency": "S$",
+      "budgets": [["free", "Free courses only"], ["low", "Up to S$50 a month"], ["mid", "Up to S$200 a month"], ["any", "More than S$200 a month"]],
+      "job_search": [
+        ["MyCareersFuture", "https://www.mycareersfuture.gov.sg/search?search={q}"],
+        ["LinkedIn Jobs", "https://www.linkedin.com/jobs/search/?keywords={q}&location=Singapore"]
+      ],
+      "funding": [
+        ["SkillsFuture Credit", "Singapore citizens aged 25 and above can use SkillsFuture Credit for approved courses.", "https://www.skillsfuture.gov.sg/initiatives/mid-career/credit"]
+      ],
+      "local_demand": {},
+      "local_demand_source": "",
+      "adzuna": "sg",
+      "trend_note": "Demand trends use global job posts, plus Adzuna Singapore job ads when the server has an Adzuna key."
+    },
+    "OTHER": {
+      "name": "Another country", "currency": "USD",
+      "budgets": [["free", "Free courses only"], ["low", "Up to USD 25 a month"], ["mid", "Up to USD 100 a month"], ["any", "More than USD 100 a month"]],
+      "job_search": [["LinkedIn Jobs", "https://www.linkedin.com/jobs/search/?keywords={q}"]],
+      "funding": [],
+      "local_demand": {},
+      "local_demand_source": "",
+      "adzuna": null,
+      "trend_note": "Demand trends use global job posts. Local data is not available for this country yet."
+    }
+  }
+}

@@ -488,6 +488,406 @@
       },
       "link_status": "ok",
       "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "pl300",
+      "title": "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
+      "hours": 40,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "dataviz": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "g_ada",
+      "title": "Google Advanced Data Analytics Certificate",
+      "provider": "Google via Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-advanced-data-analytics",
+      "hours": 180,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "mlds": 2,
+        "python": 3,
+        "dataviz": 3
+      },
+      "certification": true,
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ml_spec",
+      "title": "Machine Learning Specialization",
+      "provider": "DeepLearning.AI & Stanford via Coursera",
+      "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+      "hours": 90,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "mlds": 3
+      },
+      "certification": true,
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "iiba",
+      "title": "IIBA business analysis certifications (ECBA, CCBA, CBAP)",
+      "provider": "IIBA",
+      "url": "https://www.iiba.org/business-analysis-certifications/",
+      "hours": 60,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "processmap": 3,
+        "stakeholder": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "g_pm",
+      "title": "Google Project Management Certificate",
+      "provider": "Google via Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-project-management",
+      "hours": 140,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "strategy": 2,
+        "leadership": 2,
+        "stakeholder": 2
+      },
+      "certification": true,
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "pmp",
+      "title": "Project Management Professional (PMP)",
+      "provider": "PMI",
+      "url": "https://www.pmi.org/certifications/project-management-pmp",
+      "hours": 80,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "strategy": 3,
+        "leadership": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "blocked",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "secplus",
+      "title": "CompTIA Security+",
+      "provider": "CompTIA",
+      "url": "https://www.comptia.org/en-us/certifications/security/",
+      "hours": 60,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "cyber": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "isc2_cc",
+      "title": "Certified in Cybersecurity (CC)",
+      "provider": "ISC2",
+      "url": "https://www.isc2.org/certifications/cc",
+      "hours": 20,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "cyber": 2
+      },
+      "certification": true,
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "cissp",
+      "title": "CISSP",
+      "provider": "ISC2",
+      "url": "https://www.isc2.org/certifications/cissp",
+      "hours": 150,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "cyber": 3,
+        "strategy": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "aws_cp",
+      "title": "AWS Certified Cloud Practitioner (free prep on AWS Skill Builder)",
+      "provider": "Amazon Web Services",
+      "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+      "hours": 20,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "networking": 2
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "dp300",
+      "title": "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-database-administrator-associate/",
+      "hours": 50,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "sql": 3,
+        "dataquality": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "az305",
+      "title": "Microsoft Certified: Azure Solutions Architect Expert",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-solutions-architect/",
+      "hours": 80,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "networking": 3,
+        "strategy": 1
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "itil",
+      "title": "ITIL 4 Foundation",
+      "provider": "PeopleCert",
+      "url": "https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1",
+      "hours": 20,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "processmap": 2,
+        "helpdesk": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "skillshop",
+      "title": "Google Ads and Analytics certifications",
+      "provider": "Google Skillshop",
+      "url": "https://skillshop.withgoogle.com/",
+      "hours": 20,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "digimarketing": 3,
+        "dataviz": 1
+      },
+      "certification": true,
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "hubspot_cm",
+      "title": "Content Marketing course",
+      "provider": "HubSpot Academy",
+      "url": "https://academy.hubspot.com/courses/content-marketing",
+      "hours": 8,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "content": 3,
+        "digimarketing": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "hubspot_cs",
+      "title": "Customer Service course",
+      "provider": "HubSpot Academy",
+      "url": "https://academy.hubspot.com/courses/customer-service",
+      "hours": 3,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "customer": 3
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "gri",
+      "title": "GRI Academy (sustainability reporting)",
+      "provider": "Global Reporting Initiative",
+      "url": "https://www.globalreporting.org/reporting-support/education/gri-academy/",
+      "hours": 30,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "esg": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "cem",
+      "title": "Certified Energy Manager (CEM)",
+      "provider": "Association of Energy Engineers",
+      "url": "https://www.aeecenter.org/certified-energy-manager/",
+      "hours": 50,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "energyaudit": 3,
+        "strategy": 1
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "gcdf",
+      "title": "Global Career Development Facilitator (GCDF)",
+      "provider": "Center for Credentialing & Education",
+      "url": "https://www.cce-global.org/gcdf",
+      "hours": 120,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "coaching": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "shrm",
+      "title": "SHRM certifications (SHRM-CP, SHRM-SCP)",
+      "provider": "SHRM",
+      "url": "https://www.shrm.org/credentials",
+      "hours": 100,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "leadership": 3,
+        "strategy": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "openlearn_lead",
+      "title": "Free leadership and management courses",
+      "provider": "The Open University (OpenLearn)",
+      "url": "https://www.open.edu/openlearn/money-business/leadership-management",
+      "hours": 10,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "leadership": 2,
+        "strategy": 1
+      },
+      "link_status": "blocked",
+      "link_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ms_ai900",
+      "title": "Microsoft Certified: Azure AI Fundamentals (AI-900)",
+      "provider": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/",
+      "hours": 15,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "genai": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-20"
     }
   ]
 }

@@ -1,59 +1,705 @@
 {
-  "_about": "Future roles the app can recommend. esco_title must match an ESCO occupation's preferred label exactly; ingest/build_seed.py looks it up and stores its URI, ISCO-08 code, ESCO skills and the ILO 2025 exposure score. req is the team's curated requirement (cluster id -> level 1 basic, 2 working, 3 strong), reviewed against the ESCO skills shown in the app. sdg links name a UN SDG target and say why it applies.",
-  "roles": [
-    {"id": "data_analyst", "title": "Data analyst", "esco_title": "data analyst",
-     "tags": ["data", "tech"], "green": false,
-     "req": {"excel": 3, "sql": 2, "python": 2, "dataviz": 2, "dataquality": 2, "genai": 2, "problem": 2, "stakeholder": 1},
-     "sdg": [["8.2", "Turns business data into productivity gains through better decisions."],
-             ["9.5", "Builds local technological capability in data and analytics."]]},
-    {"id": "business_analyst", "title": "Business process analyst", "esco_title": "business analyst",
-     "tags": ["organising", "data", "people"], "green": false,
-     "req": {"processmap": 2, "excel": 2, "genai": 2, "stakeholder": 2, "problem": 2, "dataquality": 1, "correspondence": 1},
-     "sdg": [["8.2", "Redesigns routine work so people spend time on higher-value tasks."]]},
-    {"id": "dba", "title": "Database administrator", "esco_title": "database administrator",
-     "tags": ["tech", "data"], "green": false,
-     "req": {"sql": 3, "dataquality": 2, "networking": 2, "python": 1, "cyber": 2, "problem": 2},
-     "sdg": [["9.1", "Keeps the data infrastructure that services depend on reliable and resilient."]]},
-    {"id": "security_admin", "title": "Cybersecurity administrator", "esco_title": "ICT security administrator",
-     "tags": ["tech"], "green": false,
-     "req": {"cyber": 3, "networking": 2, "problem": 2, "genai": 1, "stakeholder": 1},
-     "sdg": [["9.1", "Protects digital infrastructure from disruption."],
-             ["16.6", "Secure systems support effective, accountable and transparent institutions."]]},
-    {"id": "it_support", "title": "IT support technician", "esco_title": "ICT help desk agent",
-     "tags": ["tech", "hands-on", "people"], "green": false,
-     "req": {"helpdesk": 2, "networking": 1, "customer": 2, "cyber": 1, "genai": 1},
-     "sdg": [["9.c", "Helps people and small firms actually use digital tools."]]},
-    {"id": "online_marketer", "title": "Digital marketing specialist", "esco_title": "online marketer",
-     "tags": ["creative", "data", "people"], "green": false,
-     "req": {"digimarketing": 2, "content": 2, "genai": 2, "dataviz": 1, "customer": 1, "design": 1},
-     "sdg": [["8.3", "Helps micro and small businesses reach customers and grow."]]},
-    {"id": "env_scientist", "title": "Environmental & sustainability scientist", "esco_title": "environmental scientist",
-     "tags": ["environment", "data", "people"], "green": true,
-     "req": {"esg": 2, "ghg": 2, "fieldwork": 2, "excel": 2, "dataviz": 1, "stakeholder": 2, "problem": 2},
-     "sdg": [["12.6", "Helps companies adopt sustainable practices and report on them."],
-             ["13.2", "Builds emissions and environmental data into planning."]]},
-    {"id": "energy_assessor", "title": "Energy assessor", "esco_title": "energy assessor",
-     "tags": ["energy", "hands-on", "tech"], "green": true,
-     "req": {"energyaudit": 2, "electrical": 1, "excel": 1, "ghg": 1, "customer": 1, "problem": 2},
-     "sdg": [["7.3", "Directly improves energy efficiency in buildings."],
-             ["13.2", "Cuts emissions through measured savings."]]},
-    {"id": "solar_tech", "title": "Solar energy technician", "esco_title": "solar energy technician",
-     "tags": ["energy", "hands-on"], "green": true,
-     "req": {"solar": 2, "electrical": 3, "customer": 1, "problem": 1},
-     "sdg": [["7.2", "Installs and maintains renewable generation capacity."],
-             ["13.2", "Each installation displaces fossil-fuel electricity."]]},
-    {"id": "exec_assistant", "title": "AI-enabled executive assistant", "esco_title": "executive assistant",
-     "tags": ["organising", "people"], "green": false,
-     "req": {"scheduling": 2, "correspondence": 2, "genai": 2, "stakeholder": 2, "excel": 2, "languages": 2, "processmap": 1},
-     "sdg": [["8.2", "Uses AI to raise office productivity while keeping the human coordination role."]]},
-    {"id": "career_advisor", "title": "Career guidance advisor", "esco_title": "career guidance advisor",
-     "tags": ["people", "organising"], "green": false,
-     "req": {"coaching": 2, "stakeholder": 2, "genai": 1, "excel": 1, "problem": 2, "languages": 2},
-     "sdg": [["4.4", "Helps adults gain skills for decent jobs."],
-             ["8.5", "Supports full and productive employment through reskilling."]]},
-    {"id": "contact_centre", "title": "Customer experience specialist", "esco_title": "customer contact centre information clerk",
-     "tags": ["people"], "green": false,
-     "req": {"customer": 3, "genai": 2, "languages": 2, "problem": 1, "dataentry": 1},
-     "sdg": [["8.5", "Keeps a human service role viable as AI handles routine queries."]]}
-  ]
+ "_about": "Future roles the app can recommend. esco_title must match an ESCO occupation's preferred label exactly; ingest/build_seed.py looks it up and stores its URI, ISCO-08 code, ESCO skills and the ILO 2025 exposure score. req is the team's curated requirement (cluster id -> level 1 basic, 2 working, 3 strong), reviewed against the ESCO skills shown in the app. sdg links name a UN SDG target and say why it applies. ladder lists the next career stages: each is a real ESCO occupation; add raises skill levels on top of earlier stages; gates are milestones reached in practice; certs are catalogue ids.",
+ "roles": [
+  {
+   "id": "data_analyst",
+   "title": "Data analyst",
+   "esco_title": "data analyst",
+   "tags": [
+    "data",
+    "tech"
+   ],
+   "green": false,
+   "req": {
+    "excel": 3,
+    "sql": 2,
+    "python": 2,
+    "dataviz": 2,
+    "dataquality": 2,
+    "genai": 2,
+    "problem": 2,
+    "stakeholder": 1
+   },
+   "sdg": [
+    [
+     "8.2",
+     "Turns business data into productivity gains through better decisions."
+    ],
+    [
+     "9.5",
+     "Builds local technological capability in data and analytics."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "data scientist",
+     "add": {
+      "python": 3,
+      "mlds": 2,
+      "dataquality": 3,
+      "stakeholder": 2
+     },
+     "gates": [
+      "Build a portfolio of real analysis projects that people used"
+     ],
+     "certs": [
+      "ml_spec",
+      "g_ada",
+      "pl300"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "chief data officer",
+     "add": {
+      "leadership": 3,
+      "strategy": 3,
+      "dataquality": 3,
+      "stakeholder": 3
+     },
+     "gates": [
+      "Lead a data team and own an organisation's data strategy"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "business_analyst",
+   "title": "Business process analyst",
+   "esco_title": "business analyst",
+   "tags": [
+    "organising",
+    "data",
+    "people"
+   ],
+   "green": false,
+   "req": {
+    "processmap": 2,
+    "excel": 2,
+    "genai": 2,
+    "stakeholder": 2,
+    "problem": 2,
+    "dataquality": 1,
+    "correspondence": 1
+   },
+   "sdg": [
+    [
+     "8.2",
+     "Redesigns routine work so people spend time on higher-value tasks."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "ICT business analysis manager",
+     "add": {
+      "processmap": 3,
+      "leadership": 2,
+      "stakeholder": 3
+     },
+     "gates": [
+      "Lead requirements work on a cross-team project"
+     ],
+     "certs": [
+      "iiba",
+      "g_pm"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "business manager",
+     "add": {
+      "strategy": 3,
+      "leadership": 3
+     },
+     "gates": [
+      "Own the results of a business unit"
+     ],
+     "certs": [
+      "pmp"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dba",
+   "title": "Database administrator",
+   "esco_title": "database administrator",
+   "tags": [
+    "tech",
+    "data"
+   ],
+   "green": false,
+   "req": {
+    "sql": 3,
+    "dataquality": 2,
+    "networking": 2,
+    "python": 1,
+    "cyber": 2,
+    "problem": 2
+   },
+   "sdg": [
+    [
+     "9.1",
+     "Keeps the data infrastructure that services depend on reliable and resilient."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "ICT system architect",
+     "add": {
+      "networking": 3,
+      "cyber": 2,
+      "python": 2,
+      "strategy": 1
+     },
+     "gates": [
+      "Design and document a system other teams build on"
+     ],
+     "certs": [
+      "dp300",
+      "az305",
+      "aws_cp"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "chief technology officer",
+     "add": {
+      "leadership": 3,
+      "strategy": 3,
+      "stakeholder": 3
+     },
+     "gates": [
+      "Lead engineering teams and set technology direction"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "security_admin",
+   "title": "Cybersecurity administrator",
+   "esco_title": "ICT security administrator",
+   "tags": [
+    "tech"
+   ],
+   "green": false,
+   "req": {
+    "cyber": 3,
+    "networking": 2,
+    "problem": 2,
+    "genai": 1,
+    "stakeholder": 1
+   },
+   "sdg": [
+    [
+     "9.1",
+     "Protects digital infrastructure from disruption."
+    ],
+    [
+     "16.6",
+     "Secure systems support effective, accountable and transparent institutions."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "ICT security manager",
+     "add": {
+      "cyber": 3,
+      "leadership": 2,
+      "stakeholder": 2
+     },
+     "gates": [
+      "Handle real security incidents and run an awareness programme"
+     ],
+     "certs": [
+      "isc2_cc",
+      "secplus"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "chief ICT security officer",
+     "add": {
+      "strategy": 3,
+      "leadership": 3
+     },
+     "gates": [
+      "CISSP needs several years of paid security work; check ISC2's current requirements"
+     ],
+     "certs": [
+      "cissp"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "it_support",
+   "title": "IT support technician",
+   "esco_title": "ICT help desk agent",
+   "tags": [
+    "tech",
+    "hands-on",
+    "people"
+   ],
+   "green": false,
+   "req": {
+    "helpdesk": 2,
+    "networking": 1,
+    "customer": 2,
+    "cyber": 1,
+    "genai": 1
+   },
+   "sdg": [
+    [
+     "9.c",
+     "Helps people and small firms actually use digital tools."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "ICT help desk manager",
+     "add": {
+      "helpdesk": 3,
+      "leadership": 2,
+      "processmap": 1
+     },
+     "gates": [
+      "Run a support queue and coach newer agents"
+     ],
+     "certs": [
+      "itil",
+      "g_itsupport"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "ICT operations manager",
+     "add": {
+      "strategy": 2,
+      "leadership": 3,
+      "networking": 2,
+      "cyber": 2
+     },
+     "gates": [
+      "Own uptime and budgets for IT operations"
+     ],
+     "certs": [
+      "aws_cp"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "online_marketer",
+   "title": "Digital marketing specialist",
+   "esco_title": "online marketer",
+   "tags": [
+    "creative",
+    "data",
+    "people"
+   ],
+   "green": false,
+   "req": {
+    "digimarketing": 2,
+    "content": 2,
+    "genai": 2,
+    "dataviz": 1,
+    "customer": 1,
+    "design": 1
+   },
+   "sdg": [
+    [
+     "8.3",
+     "Helps micro and small businesses reach customers and grow."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "eBusiness manager",
+     "add": {
+      "digimarketing": 3,
+      "dataviz": 2,
+      "strategy": 1
+     },
+     "gates": [
+      "Run campaigns with a budget and report on results"
+     ],
+     "certs": [
+      "skillshop",
+      "hubspot_cm"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "chief marketing officer",
+     "add": {
+      "strategy": 3,
+      "leadership": 3,
+      "stakeholder": 3
+     },
+     "gates": [
+      "Lead a marketing team and its budget"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "env_scientist",
+   "title": "Environmental & sustainability scientist",
+   "esco_title": "environmental scientist",
+   "tags": [
+    "environment",
+    "data",
+    "people"
+   ],
+   "green": true,
+   "req": {
+    "esg": 2,
+    "ghg": 2,
+    "fieldwork": 2,
+    "excel": 2,
+    "dataviz": 1,
+    "stakeholder": 2,
+    "problem": 2
+   },
+   "sdg": [
+    [
+     "12.6",
+     "Helps companies adopt sustainable practices and report on them."
+    ],
+    [
+     "13.2",
+     "Builds emissions and environmental data into planning."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "environmental programme coordinator",
+     "add": {
+      "esg": 3,
+      "ghg": 3,
+      "stakeholder": 3,
+      "leadership": 1
+     },
+     "gates": [
+      "Coordinate an environmental programme with several partners"
+     ],
+     "certs": [
+      "gri"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "corporate social responsibility manager",
+     "add": {
+      "strategy": 3,
+      "leadership": 3
+     },
+     "gates": [
+      "Own a company's sustainability strategy and reporting"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "energy_assessor",
+   "title": "Energy assessor",
+   "esco_title": "energy assessor",
+   "tags": [
+    "energy",
+    "hands-on",
+    "tech"
+   ],
+   "green": true,
+   "req": {
+    "energyaudit": 2,
+    "electrical": 1,
+    "excel": 1,
+    "ghg": 1,
+    "customer": 1,
+    "problem": 2
+   },
+   "sdg": [
+    [
+     "7.3",
+     "Directly improves energy efficiency in buildings."
+    ],
+    [
+     "13.2",
+     "Cuts emissions through measured savings."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "energy engineer",
+     "add": {
+      "energyaudit": 3,
+      "electrical": 2,
+      "ghg": 2
+     },
+     "gates": [
+      "An engineering degree is required, and professional engineering practice in Malaysia needs registration with the Board of Engineers Malaysia (BEM)."
+     ],
+     "certs": [
+      "cem"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "energy manager",
+     "add": {
+      "strategy": 2,
+      "leadership": 3,
+      "energyaudit": 3
+     },
+     "gates": [
+      "Lead energy management for a large site or company"
+     ],
+     "certs": [
+      "st_eem"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "solar_tech",
+   "title": "Solar energy technician",
+   "esco_title": "solar energy technician",
+   "tags": [
+    "energy",
+    "hands-on"
+   ],
+   "green": true,
+   "req": {
+    "solar": 2,
+    "electrical": 3,
+    "customer": 1,
+    "problem": 1
+   },
+   "sdg": [
+    [
+     "7.2",
+     "Installs and maintains renewable generation capacity."
+    ],
+    [
+     "13.2",
+     "Each installation displaces fossil-fuel electricity."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "solar energy engineer",
+     "add": {
+      "solar": 3,
+      "electrical": 3,
+      "problem": 3
+     },
+     "gates": [
+      "An engineering degree is required, and professional engineering practice in Malaysia needs registration with the Board of Engineers Malaysia (BEM)."
+     ],
+     "certs": [
+      "seda"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "energy manager",
+     "add": {
+      "strategy": 2,
+      "leadership": 3,
+      "energyaudit": 2
+     },
+     "gates": [
+      "Lead energy management for a large site or company"
+     ],
+     "certs": [
+      "st_eem",
+      "cem"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "exec_assistant",
+   "title": "AI-enabled executive assistant",
+   "esco_title": "executive assistant",
+   "tags": [
+    "organising",
+    "people"
+   ],
+   "green": false,
+   "req": {
+    "scheduling": 2,
+    "correspondence": 2,
+    "genai": 2,
+    "stakeholder": 2,
+    "excel": 2,
+    "languages": 2,
+    "processmap": 1
+   },
+   "sdg": [
+    [
+     "8.2",
+     "Uses AI to raise office productivity while keeping the human coordination role."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "office manager",
+     "add": {
+      "leadership": 2,
+      "processmap": 2,
+      "strategy": 1
+     },
+     "gates": [
+      "Run the office's daily operations and suppliers"
+     ],
+     "certs": [
+      "g_pm"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "chief operating officer",
+     "add": {
+      "strategy": 3,
+      "leadership": 3,
+      "stakeholder": 3
+     },
+     "gates": [
+      "Run a business unit or operations function end to end"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "career_advisor",
+   "title": "Career guidance advisor",
+   "esco_title": "career guidance advisor",
+   "tags": [
+    "people",
+    "organising"
+   ],
+   "green": false,
+   "req": {
+    "coaching": 2,
+    "stakeholder": 2,
+    "genai": 1,
+    "excel": 1,
+    "problem": 2,
+    "languages": 2
+   },
+   "sdg": [
+    [
+     "4.4",
+     "Helps adults gain skills for decent jobs."
+    ],
+    [
+     "8.5",
+     "Supports full and productive employment through reskilling."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "public employment service manager",
+     "add": {
+      "leadership": 2,
+      "strategy": 2,
+      "coaching": 3
+     },
+     "gates": [
+      "Lead a team of advisers or a guidance programme"
+     ],
+     "certs": [
+      "gcdf"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "human resources manager",
+     "add": {
+      "leadership": 3,
+      "strategy": 3,
+      "stakeholder": 3
+     },
+     "gates": [
+      "Own people policies and workforce planning"
+     ],
+     "certs": [
+      "shrm"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "contact_centre",
+   "title": "Customer experience specialist",
+   "esco_title": "customer contact centre information clerk",
+   "tags": [
+    "people"
+   ],
+   "green": false,
+   "req": {
+    "customer": 3,
+    "genai": 2,
+    "languages": 2,
+    "problem": 1,
+    "dataentry": 1
+   },
+   "sdg": [
+    [
+     "8.5",
+     "Keeps a human service role viable as AI handles routine queries."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "contact centre supervisor",
+     "add": {
+      "leadership": 2,
+      "dataviz": 1,
+      "customer": 3
+     },
+     "gates": [
+      "Supervise a shift and coach agents on quality"
+     ],
+     "certs": [
+      "hubspot_cs"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "call centre manager",
+     "add": {
+      "strategy": 2,
+      "leadership": 3,
+      "processmap": 2
+     },
+     "gates": [
+      "Own service levels, staffing and budget for a centre"
+     ],
+     "certs": [
+      "g_pm"
+     ]
+    }
+   ]
+  }
+ ]
 }

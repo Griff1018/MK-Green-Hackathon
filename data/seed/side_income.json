@@ -1,0 +1,28 @@
+{
+  "_about": "Ways to earn with a skill while studying. Shown as ideas for people on a tight budget, never as job offers. Earnings depend on the person and market, so no amounts are given. caution notes legal or licensing limits.",
+  "ideas": {
+    "excel": ["Spreadsheet clean-up and simple reports for small shops and home businesses"],
+    "bookkeeping": ["Monthly bookkeeping for small businesses and home sellers"],
+    "dataentry": ["Short data-entry jobs on freelance marketplaces (check the client and the pay before you start)"],
+    "correspondence": ["Writing letters, product descriptions or minutes for small businesses"],
+    "content": ["Writing product descriptions, blog posts or captions for online sellers"],
+    "languages": ["Translation and interpreting for local businesses and community groups"],
+    "customer": ["Part-time customer chat support for online sellers"],
+    "digimarketing": ["Managing social media pages for local small businesses"],
+    "design": ["Designing posters and social-media graphics with free tools"],
+    "helpdesk": ["Setting up laptops, phones and Wi-Fi for neighbours and small offices"],
+    "python": ["Small automation scripts for small businesses"],
+    "dataviz": ["Simple sales dashboards for small businesses"],
+    "sql": ["Fixing and querying small business databases"],
+    "genai": ["Helping small businesses set up AI tools for everyday tasks"],
+    "coaching": ["Tutoring school students in subjects you know well"],
+    "fieldwork": ["Part-time survey or research assistant work"],
+    "esg": ["Helping small companies collect data for a basic sustainability report"],
+    "electrical": ["Helper to a licensed electrical contractor"],
+    "solar": ["Helper to a registered solar installer"]
+  },
+  "caution": {
+    "electrical": "Only competent persons certified by the Energy Commission may carry out electrical wiring work in Malaysia. Work as a helper under a licensed contractor.",
+    "solar": "Installation must follow the registered installer's supervision and safety rules."
+  }
+}

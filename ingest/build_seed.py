@@ -128,6 +128,7 @@ def build_occupations(client: httpx.Client) -> dict:
     samples = json.loads((SEED / "samples.json").read_text(encoding="utf-8"))
     clusters = json.loads((SEED / "clusters.json").read_text(encoding="utf-8"))["clusters"]
     titles = [r["esco_title"] for r in roles]
+    titles += [s["esco_title"] for r in roles for s in r.get("ladder", [])]
     titles += [p["current_esco_title"] for p in samples["personas"] if p.get("current_esco_title")]
     titles += COMMON_CURRENT
     occ, missing = {}, []
