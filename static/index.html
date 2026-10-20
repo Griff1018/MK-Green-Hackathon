@@ -4,40 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Workforce Futures Engine</title>
-<meta name="description" content="From who you are today to where you can be in the AI era: future skills radar, scenario-ranked roles, reskilling pathways and SDG links.">
+<meta name="description" content="From who you are today to where you can be in the AI era: careers that fit you, a step-by-step path to the top, and a resume when you are ready.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-<div class="banner"><div class="wrap">
-  <span><b>Prototype</b> for the SDC Hackathon 2026, Domain 1.</span>
-  <span>Estimates support your decision; they are not predictions. Sample people are synthetic.</span>
-</div></div>
-
 <header class="top"><div class="wrap">
   <div class="brand">
-    <div class="mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 14 L7 8 L10 11 L16 3" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="3" r="1.8" fill="#fff"/></svg></div>
-    <div style="min-width:0">
-      <h1>Workforce Futures Engine</h1>
-      <p class="small muted">From who you are today to where you can be in the AI era</p>
-    </div>
+    <div class="logo" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 18 18"><path d="M2 14 L7 8 L10 11 L16 3" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div><h1>Workforce Futures</h1><p class="tiny muted tag-line">Your career in the AI era, one step at a time</p></div>
   </div>
-  <div class="controls">
-    <div class="seg" role="group" aria-label="Future scenario" id="scenarioSeg"></div>
-    <label class="small"><span class="muted">Trend data</span> <select id="snapSel" aria-label="Trend data snapshot"></select></label>
-    <label class="small check" style="align-items:center"><input type="checkbox" id="compareChk"> Show what changed</label>
-  </div>
+  <nav class="steps" id="steps" aria-label="Your journey"></nav>
+  <div class="top-links" id="topLinks"></div>
 </div></header>
-
-<nav class="tabs" aria-label="Journey"><div class="wrap" role="tablist" id="tabs"></div></nav>
 <main><div class="wrap" id="app"><p class="muted">Loading…</p></div></main>
-
 <footer><div class="wrap">
-  This tool supports career decisions. It does not make hiring, selection or eligibility decisions.
-  Licensed under Apache 2.0. Data: ESCO (European Commission), ILO Working Paper 140 (CC BY 4.0), UN SDG API, Hacker News via Algolia, arXiv.
-  <span id="llmFoot"></span>
+  Supports your decisions; never makes hiring decisions. Estimates, not predictions.
+  Data: ESCO (European Commission), ILO Working Paper 140 (CC BY 4.0), UN SDG API, Hacker News via Algolia, arXiv.
+  <span id="llmFoot"></span> Apache 2.0.
 </div></footer>
 <div class="toast" id="toast" hidden></div>
 <script src="/static/app.js"></script>
