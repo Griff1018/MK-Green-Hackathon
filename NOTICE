@@ -1,0 +1,18 @@
+Workforce Futures Engine
+Copyright 2026 the SDC Hackathon team (see README)
+
+This product includes data from third parties, used under their terms:
+
+- ESCO classification v1.2, European Commission (https://esco.ec.europa.eu).
+  Reused under the Commission's reuse policy (Decision 2011/833/EU) with attribution.
+- Gmyrek, P. et al. (2025). Generative AI and Jobs: A Refined Global Index of
+  Occupational Exposure. ILO Working Paper 140. Licensed CC BY 4.0.
+  Data: https://github.com/pgmyrek/2025_GenAI_scores_ISCO08
+- United Nations Statistics Division, SDG API (https://unstats.un.org/SDGAPI).
+- Hacker News "Who is hiring?" threads, counted through the Algolia HN Search API
+  (https://hn.algolia.com/api). Only counts are stored, never post text or authors.
+- arXiv API (https://arxiv.org). Metadata is CC0. Thank you to arXiv for use of its
+  open access interoperability. This project is not endorsed by arXiv.
+- Optional: Adzuna API (https://developer.adzuna.com), under Adzuna's terms.
+
+Course names and links in data/seed/catalogue.json belong to their providers.

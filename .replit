@@ -1,0 +1,12 @@
+# Replit configuration. See README "Deploy on Replit".
+modules = ["python-3.12", "nodejs-20", "postgresql-16"]
+run = ["bash", "scripts/start.sh"]
+
+[deployment]
+deploymentTarget = "autoscale"
+build = ["bash", "scripts/build.sh"]
+run = ["bash", "scripts/start.sh"]
+
+[[ports]]
+localPort = 8000
+externalPort = 80
