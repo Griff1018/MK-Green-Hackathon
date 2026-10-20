@@ -2,22 +2,33 @@
 
 From who you are today to where you can be in the AI era.
 
-A web app for the **SDC Hackathon 2026, Domain 1: Aiversecity Future-Ready Workforce**. A person describes their experience; the app tracks how AI and the job market are moving, ranks future roles under several scenarios, builds a reskilling pathway from free and low-cost courses, and shows how the path connects to the UN Sustainable Development Goals. HR managers and career centres get a team or cohort view.
+A web app for the **SDC Hackathon 2026, Domain 1: Aiversecity Future-Ready Workforce**. It takes a person through four steps:
 
-The app supports career decisions. It never makes hiring, selection or eligibility decisions.
+1. **About you**: import a CV (PDF, Word or text), describe your work, or start from a sample person. Set your country, age band, situation, budget and weekly hours.
+2. **Careers**: careers ranked by fit, demand trends and AI exposure, under three future scenarios, with advice for your situation and budget.
+3. **Path**: a step-by-step map from entry level to the top of the career (for example AI-enabled executive assistant → office manager → chief operating officer), rechecked against the latest trend data.
+4. **Resume**: unlocks when you finish a stage, and lists only what you have completed.
+
+HR managers and career centres get a team or cohort view. The app supports career decisions. It never makes hiring, selection or eligibility decisions.
 
 ## What it does (Domain 1 must-haves)
 
 | Must-have | How the app delivers it |
 |---|---|
-| 1. Skills profile intake | Free-text description (keyword matching, plus an optional language model that must quote the user's own words), live ESCO job search that pre-fills typical skills, editable skill levels, interests and weekly hours. |
-| 2. AI-trend signal layer | Dated snapshots fetched from public APIs: Hacker News "Who is hiring?" job posts (skill share, last 3 months vs the 3 before) and arXiv papers on AI topics (last 90 days vs the 90 before), plus Adzuna job ads when a key is set. Source and date shown everywhere. Refreshed by a scheduled job. |
-| 3. Future-role matching | 12 roles grounded in ESCO occupations, ranked by a published formula. Each score shows its parts, the skills you have, and the gap. |
-| 4. Personalised reskilling pathway | Ordered steps from a closed catalogue of 29 real courses, with hours, cost, HRD Corp status and a weeks estimate from your weekly hours. Says so when no verified course exists. |
-| 5. SDG mapping | Every role links to official UN SDG targets (text from the UN SDG API) with a reason for each link. |
-| 6. Handling uncertainty | Three scenarios (Moderate AI, Fast disruption, Green transition), score ranges across scenarios, "top 3 in n of 3 scenarios", and "what changed" when trend data changes. |
+| 1. Skills profile intake | CV import (PDF, Word, text) with an editable review form; free-text description; live ESCO job search that pre-fills typical skills; editable skill levels. An optional language model reads the CV after contact details and IC numbers are removed, and must quote the CV for every skill. |
+| 2. AI-trend signal layer | Dated snapshots from public APIs: Hacker News "Who is hiring?" job posts (skill share, last 3 months vs the 3 before), arXiv papers on AI topics, and mentions of newer tools (for example MCP, dbt, SOC 2). Adzuna job ads are added when a key is set. A scheduled job refreshes the data; the app rechecks your path against it on every visit. |
+| 3. Future-role matching | 12 careers grounded in ESCO occupations, ranked by a published formula. Each score shows its parts, the skills you have, and the gap. |
+| 4. Personalised reskilling pathway | A path map across three career stages, each a real ESCO occupation, up to the peak role. Courses and certificates come from a closed catalogue of 51 checked items and fit your budget; paid options show as optional upgrades. Steps are ordered by prerequisites and current demand, and flagged when their priority changes or a new tool is rising. |
+| 5. SDG mapping | Every career and every skill links to official UN SDG targets (text from the UN SDG API), shown with a reason. SDG links are information only: they never change rankings, except that the Green transition scenario weights low-carbon careers, because that scenario assumes demand for them grows. |
+| 6. Handling uncertainty | Three scenarios (Moderate AI, Fast disruption, Green transition), score ranges across scenarios, and "what changed" when trend data changes. |
 
-Good-to-haves included: team and cohort heatmap with CSV upload, automatic "what changed" comparison between snapshots, explanations in English, Bahasa Malaysia and Chinese, mobile-friendly layout, progress tracking, and no protected attributes in scoring.
+Also included: local job search links, funding schemes and critical-occupation notes for Malaysia and Singapore; plain-language advice and "earn while you learn" ideas for people on a tight budget; explanations in English, Bahasa Malaysia and Chinese; a resume builder with PDF export; a team and cohort heatmap with CSV upload; a mobile-friendly layout.
+
+### Fairness and privacy
+
+- Age band and situation are optional and only shape cost and time advice. A test checks that they never change career matches.
+- The profile, CV details and progress stay in the browser (localStorage). The server does not store CVs; contact details are removed before any text reaches the model.
+- Demos use the synthetic sample CVs in `static/samples/`. Domain 1 forbids real CVs in the competition demo.
 
 ## How it works
 
@@ -68,6 +79,7 @@ python -m ingest.refresh                     # new trend snapshot as of today
 python -m ingest.refresh --as-of 2026-07-20  # rebuild a past snapshot
 python -m ingest.build_seed                  # re-download ESCO, ILO and SDG seed data
 python -m ingest.check_catalogue             # check every course link
+python -m ingest.make_sample_cvs             # rebuild the synthetic sample CVs
 python -m pytest -q                          # tests
 ```
 
@@ -81,7 +93,7 @@ python -m pytest -q                          # tests
    - `CODEBUDDY_MODEL`: optional, default `deepseek-v4.1-flash`
    - `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`: optional job-ads source
 4. **Publish → Autoscale**. Build and run commands come from `.replit` (`scripts/build.sh`, `scripts/start.sh`).
-5. **Publish → Scheduled**: command `bash scripts/refresh.sh`, weekly. This keeps the trend layer updating.
+5. **Publish → Scheduled**: command `bash scripts/refresh.sh`, daily. Each run stores a dated snapshot; the app compares the newest snapshot with the one before to re-rank path steps and flag new tools. (Hacker News hiring threads are monthly and arXiv is daily, so most days only part of the data changes.)
 
 Keep the deployment URL: it is the Replit proof for the Technical & Tools Declaration.
 
@@ -91,7 +103,11 @@ Keep the deployment URL: it is the Replit proof for the Technical & Tools Declar
 |---|---|---|
 | GET | `/api/meta` | Roles, skill clusters, scenarios, samples, snapshots, sources, model status |
 | POST | `/api/analyze` | Rankings for all scenarios; with `compare_id`, what changed |
-| POST | `/api/pathway` | Ordered learning plan for one role |
+| POST | `/api/pathway` | Career path across all stages (budget- and country-aware) |
+| POST | `/api/advice` | Plain-language advice, side-income ideas, funding and job-search links |
+| POST | `/api/cv` | Read a CV file into editable fields (multipart upload; nothing stored) |
+| POST | `/api/resume/polish` | Optional AI rewording of resume lines, checked against the input |
+| GET | `/api/updates` | What changed since the previous snapshot and which new tools are rising |
 | POST | `/api/extract` | Skills from free text |
 | POST | `/api/explain` | Plain-language explanation (en, ms, zh) |
 | GET | `/api/occupations/search?q=` | Live ESCO job search with ILO exposure |
