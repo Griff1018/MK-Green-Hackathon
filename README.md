@@ -99,7 +99,8 @@ python -m pytest -q                          # tests
 3. In **Secrets**, add:
    - `ADMIN_TOKEN`: any long random string (protects `POST /api/admin/refresh`)
    - `TEST_ACCOUNTS`: tester accounts to create, for example `alice:Alice,bob:Bob`. Kept out of the repository on purpose.
-   - `CODEBUDDY_API_KEY`: from your WorkBuddy/CodeBuddy profile page, to enable the model (optional). For the China edition also set `CODEBUDDY_INTERNET_ENVIRONMENT=internal`.
+   - `LLM_API_KEY`: a DeepSeek API key from platform.deepseek.com, to enable the model (optional). Any OpenAI-compatible service works: also set `LLM_BASE_URL` and `LLM_MODEL` (defaults `https://api.deepseek.com`, `deepseek-chat`).
+   - or `CODEBUDDY_API_KEY`: from your WorkBuddy/CodeBuddy profile page, to use the CodeBuddy CLI instead (needs a plan with API access). For the China edition also set `CODEBUDDY_INTERNET_ENVIRONMENT=internal`.
    - `CODEBUDDY_MODEL`: optional, default `deepseek-v4.1-flash`
    - `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`: optional job-ads source
 4. **Publish → Autoscale**. Build and run commands come from `.replit` (`scripts/build.sh`, `scripts/start.sh`).

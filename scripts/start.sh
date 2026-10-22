@@ -4,5 +4,5 @@ set -euo pipefail
 if [ -d .codebuddy-cli/node_modules/.bin ]; then
   export PATH="$PWD/.codebuddy-cli/node_modules/.bin:$PATH"
 fi
-[ -d .codebuddy-cli ] || [ "${LLM_ENABLED:-1}" != "1" ] || bash scripts/build.sh
+[ -d .codebuddy-cli ] || [ "${LLM_ENABLED:-1}" != "1" ] || [ -n "${LLM_API_KEY:-}" ] || bash scripts/build.sh
 exec python -m uvicorn app.main:app --host 0.0.0.0 --port "${PORT:-8000}"

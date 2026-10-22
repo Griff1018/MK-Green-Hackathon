@@ -28,6 +28,10 @@ ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
 LLM_ENABLED = os.environ.get("LLM_ENABLED", "1") == "1"
 CODEBUDDY_BIN = os.environ.get("CODEBUDDY_BIN", "codebuddy")
 CODEBUDDY_MODEL = os.environ.get("CODEBUDDY_MODEL", "deepseek-v4.1-flash")
+# OpenAI-compatible API (DeepSeek by default). When LLM_API_KEY is set it is used instead of the CLI.
+LLM_API_KEY = os.environ.get("LLM_API_KEY", "")
+LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "https://api.deepseek.com")
+LLM_MODEL = os.environ.get("LLM_MODEL", "deepseek-chat")
 LLM_TIMEOUT_S = int(os.environ.get("LLM_TIMEOUT_S", "90"))
 LLM_MAX_PARALLEL = int(os.environ.get("LLM_MAX_PARALLEL", "2"))
 

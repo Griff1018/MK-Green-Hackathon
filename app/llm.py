@@ -1,9 +1,11 @@
-"""Connection to a language model through the WorkBuddy (CodeBuddy) CLI.
+"""Connection to a language model: an OpenAI-compatible API (e.g. DeepSeek) when
+LLM_API_KEY is set, otherwise the WorkBuddy (CodeBuddy) CLI.
 
 The model is only ever asked to (a) pick skill clusters from a fixed list, quoting
 the user's own words as evidence, and (b) explain results we already computed.
 Its output is validated; anything that fails validation is discarded and the app
-falls back to deterministic code. The CLI runs with every tool disabled.
+falls back to deterministic code. The CLI runs with every tool disabled; the API
+is called without tools.
 """
 from __future__ import annotations
 
@@ -14,6 +16,9 @@ import subprocess
 import tempfile
 import threading
 from collections import OrderedDict
+from urllib.parse import urlparse
+
+import httpx
 
 from . import config
 
@@ -31,9 +36,22 @@ def _binary() -> str | None:
     return shutil.which(config.CODEBUDDY_BIN)
 
 
+def _api() -> bool:
+    return bool(config.LLM_API_KEY)
+
+
+def _api_name() -> str:
+    host = urlparse(config.LLM_BASE_URL).hostname or "API"
+    known = {"api.deepseek.com": "DeepSeek API", "api.openai.com": "OpenAI API", "api.groq.com": "Groq API",
+             "generativelanguage.googleapis.com": "Google Gemini API"}
+    return known.get(host, host)
+
+
 def status() -> dict:
     if not config.LLM_ENABLED:
         return {"enabled": False, "available": False, "model": None, "reason": "Disabled by LLM_ENABLED=0"}
+    if _api():
+        return {"enabled": True, "available": True, "model": config.LLM_MODEL, "via": _api_name(), "reason": ""}
     if not _status["checked"]:
         _status["checked"] = True
         _status["available"] = bool(_binary())
@@ -52,11 +70,48 @@ def run_json(prompt: str, shape: str, system: str) -> dict:
     st = status()
     if not st["available"]:
         raise LLMError(st["reason"] or "LLM unavailable")
-    key = hashlib.sha256(json.dumps([prompt, system, config.CODEBUDDY_MODEL]).encode()).hexdigest()
+    key = hashlib.sha256(json.dumps([prompt, system, st["model"], st["via"]]).encode()).hexdigest()
     with _cache_lock:
         if key in _cache:
             _cache.move_to_end(key)
             return _cache[key]
+    data = _call_api(prompt, system) if _api() else _call_cli(prompt, system)
+    with _cache_lock:
+        _cache[key] = data
+        while len(_cache) > 200:
+            _cache.popitem(last=False)
+    return data
+
+
+def _call_api(prompt: str, system: str) -> dict:
+    """One chat completion from an OpenAI-compatible endpoint, asked for a JSON object."""
+    body = {"model": config.LLM_MODEL, "temperature": 0.3, "response_format": {"type": "json_object"},
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}]}
+    with _slots:
+        try:
+            r = httpx.post(config.LLM_BASE_URL.rstrip("/") + "/chat/completions", json=body, timeout=config.LLM_TIMEOUT_S,
+                           headers={"Authorization": f"Bearer {config.LLM_API_KEY}"})
+        except httpx.TimeoutException as e:
+            raise LLMError("Model call timed out") from e
+        except httpx.HTTPError as e:
+            raise LLMError(f"Model API unreachable: {type(e).__name__}") from e
+    if r.status_code != 200:
+        try:
+            msg = r.json().get("error", {}).get("message", "")
+        except ValueError:
+            msg = r.text
+        raise LLMError(f"Model API error {r.status_code}: {str(msg)[:200]}")
+    try:
+        text = r.json()["choices"][0]["message"]["content"] or ""
+    except (ValueError, KeyError, IndexError) as e:
+        raise LLMError("Unexpected model API response") from e
+    data = _first_json_object(text)
+    if data is None:
+        raise LLMError("Model did not return JSON")
+    return data
+
+
+def _call_cli(prompt: str, system: str) -> dict:
     cmd = [_binary(), "-p", "--output-format", "json", "--tools", "", "--no-session-persistence",
            "--setting-sources", "", "--model", config.CODEBUDDY_MODEL,
            "--system-prompt", system]
@@ -76,10 +131,6 @@ def run_json(prompt: str, shape: str, system: str) -> dict:
     data = _first_json_object(result.get("result") or "")
     if data is None:
         raise LLMError("Model did not return JSON")
-    with _cache_lock:
-        _cache[key] = data
-        while len(_cache) > 200:
-            _cache.popitem(last=False)
     return data
 
 
