@@ -1,0 +1,195 @@
+{
+  "_about": "Action tracks people can add next to the basic learning path. Steps are practical habits, not courses, so they carry no numbers about jobs or pay. 'examples' tailor a step to a career family; families group the 20 careers. Links were checked to respond on 2026-10-22; local links apply only to the country named.",
+  "families": {
+    "tech": ["data_analyst", "business_analyst", "dba", "security_admin", "it_support"],
+    "office": ["exec_assistant", "career_advisor", "contact_centre"],
+    "marketing": ["online_marketer"],
+    "green": ["env_scientist", "energy_assessor", "solar_tech"],
+    "lab": ["biology_tech", "biochem_tech"],
+    "health": ["med_records", "med_lab"],
+    "farming": ["agri_tech", "crop_worker"],
+    "making": ["mech_assembler", "quality_tech"]
+  },
+  "tracks": [
+    {
+      "id": "linkedin",
+      "title": "LinkedIn & personal brand",
+      "about": "Let employers find you and see what you are learning.",
+      "chapters": [
+        {
+          "title": "Set up your profile",
+          "steps": [
+            {"id": "photo", "title": "Add a clear photo and a headline",
+             "why": "A headline that names the job you want tells recruiters what to search you for.",
+             "how": ["Use a plain, friendly photo of your face.", "Write a headline with the role you are moving into and 2–3 skills, e.g. \"Aspiring {role} · {skills}\"."],
+             "links": [{"label": "LinkedIn Help: create a good profile", "url": "https://www.linkedin.com/help/linkedin/answer/a554351"}]},
+            {"id": "about", "title": "Write your About section",
+             "why": "Three short paragraphs explain your story better than a list of past jobs.",
+             "how": ["Where you are now and what you are good at.", "Why you are moving towards {role}.", "What you are learning right now (name the course from your path)."]},
+            {"id": "skills", "title": "List the skills from your plan",
+             "why": "Recruiters filter by skills, so use the same words employers use.",
+             "how": ["Add the skills you already have from your profile here.", "Add each new skill when you mark its step done on your path."]}
+          ]
+        },
+        {
+          "title": "Share what you learn",
+          "steps": [
+            {"id": "first-post", "title": "Post about your first finished step",
+             "why": "A short post shows you follow through. It also gives people something to react to.",
+             "how": ["Say what you learned in 3–4 sentences and one thing you will try at work.", "Add the course certificate or a screenshot if there is one."],
+             "examples": {"tech": "Share a small chart or query you made while practising.", "marketing": "Share a before/after of a post or page you improved.", "health": "Share what you learned about records or lab safety, never patient details.", "lab": "Share a technique you practised, never unpublished results.", "farming": "Share a photo of a field practice you tried and what changed.", "green": "Share a simple energy or waste saving you measured.", "making": "Share a process fix or checklist you made.", "office": "Share a template or workflow that saved you time."}},
+            {"id": "weekly", "title": "Post once a week for a month",
+             "why": "Regular short posts keep your name in front of people in your field.",
+             "how": ["Pick one day a week.", "Rotate: something you learned, a useful link with your own comment, a question to your network.", "Tick this step after four weeks in a row."]},
+            {"id": "comment", "title": "Comment thoughtfully on others' posts",
+             "why": "Good comments start conversations with people already working as {role}.",
+             "how": ["Follow 10 people or companies in your field.", "Each week, add a real comment to 2–3 of their posts: a question or your own experience."]}
+          ]
+        },
+        {
+          "title": "Get noticed",
+          "steps": [
+            {"id": "featured", "title": "Add a Featured project",
+             "why": "One concrete piece of work is stronger than any claim.",
+             "how": ["Pin your best project, post or certificate to the Featured section."],
+             "examples": {"tech": "A dashboard or script on GitHub.", "marketing": "A campaign or content sample.", "health": "A records clean-up or process you improved (no patient data).", "lab": "A poster or write-up of a technique.", "farming": "A field trial log or photo series.", "green": "An energy or carbon calculation you did.", "making": "A quality checklist or before/after defect count.", "office": "A process guide or template."}},
+            {"id": "open-to-work", "title": "Turn on \"Open to work\" for {role}",
+             "why": "Recruiters can then see the roles and places you want.",
+             "how": ["Choose who can see it (all members or recruiters only).", "Add {role} and nearby job titles."]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "experience",
+      "title": "Real experience",
+      "about": "Use your skills on real work before you apply: internships, volunteering, projects.",
+      "chapters": [
+        {
+          "title": "Find a first chance",
+          "steps": [
+            {"id": "search", "title": "Search for internships, attachments or trainee roles",
+             "why": "Short placements count as experience on your resume.",
+             "how": ["Search for \"{role}\" plus \"intern\", \"trainee\" or \"attachment\".", "Save 5 that fit your hours and location."],
+             "links": [{"label": "MyFutureJobs (Malaysia)", "url": "https://myfuturejobs.gov.my", "country": "MY"}, {"label": "MyCareersFuture (Singapore)", "url": "https://www.mycareersfuture.gov.sg", "country": "SG"}, {"label": "LinkedIn Jobs", "url": "https://www.linkedin.com"}],
+             "examples": {"health": "Hospitals and clinics often run attachments for records and lab staff.", "lab": "University and hospital labs take short-term lab assistants.", "farming": "Farms, plantations and agricultural institutes offer field attachments.", "green": "Solar installers and energy consultancies take trainees.", "making": "Factories run apprenticeship and technician trainee schemes."}},
+            {"id": "volunteer", "title": "Volunteer with your new skills",
+             "why": "Volunteering gives real tasks, references and stories for interviews.",
+             "how": ["Offer one skill from your path to a charity, community group or small business."],
+             "links": [{"label": "Malaysian Red Crescent", "url": "https://www.redcrescent.org.my", "country": "MY"}, {"label": "Giving.sg volunteering (Singapore)", "url": "https://www.giving.sg", "country": "SG"}],
+             "examples": {"tech": "Clean up a spreadsheet or set up basic security for a small group.", "marketing": "Run social media for a community group for a month.", "health": "Help at health screenings or blood drives.", "office": "Organise schedules or records for a community group.", "green": "Help a community group measure its energy or waste."}}
+          ]
+        },
+        {
+          "title": "Build proof of work",
+          "steps": [
+            {"id": "project", "title": "Do one small project end to end",
+             "why": "A finished project shows you can do the job, not just pass a course.",
+             "how": ["Pick a real problem you can finish in 2–4 weeks.", "Write down the problem, what you did and the result."],
+             "links": [{"label": "GitHub", "url": "https://github.com", "family": "tech"}, {"label": "Kaggle datasets", "url": "https://www.kaggle.com", "family": "tech"}],
+             "examples": {"tech": "Analyse a public dataset and share the notebook.", "marketing": "Grow a small page or newsletter and report what worked.", "health": "Design a cleaner records checklist for a clinic workflow (no real patient data).", "lab": "Write up a standard procedure for a technique you practised.", "farming": "Keep a season log for one plot: inputs, weather, yield.", "green": "Do an energy walk-through of a home or office and list savings.", "making": "Map a process step and cut one source of defects.", "office": "Automate one weekly task and time the saving."}},
+            {"id": "shadow", "title": "Shadow someone doing {role} for a day",
+             "why": "You see the real daily work and meet someone who can refer you.",
+             "how": ["Ask a contact (see the Networking track) if you can join them for a few hours."]}
+          ]
+        },
+        {
+          "title": "Turn it into evidence",
+          "steps": [
+            {"id": "reference", "title": "Ask for a reference or recommendation",
+             "why": "Someone else vouching for your work carries weight with employers.",
+             "how": ["Ask your supervisor or volunteer lead for a short LinkedIn recommendation or a reference letter."]},
+            {"id": "resume-line", "title": "Add the experience to your resume",
+             "why": "Your resume page can then show it next to your finished skills.",
+             "how": ["Write one line per placement: what you did, with which skill, and the result.", "Add it under Experience in the Resume page."]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "title": "Networking",
+      "about": "Meet people already doing the job. Many roles are filled through referrals.",
+      "chapters": [
+        {
+          "title": "Join the community",
+          "steps": [
+            {"id": "group", "title": "Join one professional group or community",
+             "why": "Groups share openings, events and advice before they are public.",
+             "how": ["Find one online group and one local meetup for {role}."],
+             "links": [{"label": "Meetup", "url": "https://www.meetup.com"}],
+             "examples": {"tech": "A local data, cloud or security meetup.", "marketing": "A digital marketing or content creators' group.", "health": "A health informatics or medical lab professionals' group.", "lab": "A university or industry lab users' group.", "farming": "A farmers' association or agri-tech community.", "green": "A renewable energy or sustainability professionals' network.", "making": "A manufacturing, automation or quality group.", "office": "An admin professionals' or HR community."}},
+            {"id": "event", "title": "Go to one event and talk to two people",
+             "why": "Short, real conversations are how people remember you.",
+             "how": ["Prepare one line about yourself and one question to ask.", "Connect on LinkedIn the same day with a short note."]}
+          ]
+        },
+        {
+          "title": "Learn from people in the job",
+          "steps": [
+            {"id": "info-chat", "title": "Ask for a 20-minute chat with someone in {role}",
+             "why": "An informational interview tells you what the job is really like and who is hiring.",
+             "how": ["Ask politely, say why you chose them, keep it short.", "Prepare 3–5 questions: their day, the skills that matter, how they got in."],
+             "links": [{"label": "Coursera: informational interviews", "url": "https://www.coursera.org/articles/informational-interview"}]},
+            {"id": "thank", "title": "Follow up and stay in touch",
+             "why": "A thank-you and a later update turn a chat into a contact.",
+             "how": ["Send thanks within a day.", "Tell them a month later what you did with their advice."]}
+          ]
+        },
+        {
+          "title": "Speak up",
+          "steps": [
+            {"id": "speak", "title": "Practise speaking in front of others",
+             "why": "Confidence in meetings and interviews is part of most jobs.",
+             "how": ["Join a speaking club or offer a short talk at work or in your group."],
+             "links": [{"label": "Toastmasters International", "url": "https://www.toastmasters.org"}]},
+            {"id": "help", "title": "Help someone newer than you",
+             "why": "Sharing what you know builds your reputation and deepens your own skills.",
+             "how": ["Answer a question in your group or mentor a newcomer for an hour."]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jobhunt",
+      "title": "Job hunting",
+      "about": "Turn your new skills into applications and interviews.",
+      "chapters": [
+        {
+          "title": "Get ready",
+          "steps": [
+            {"id": "tailor", "title": "Tailor your resume to {role}",
+             "why": "A resume that uses the job's own words passes screening more often.",
+             "how": ["Open your Resume page.", "Match your skills list and summary to the words in 3 real job ads."]},
+            {"id": "targets", "title": "Make a list of 10 target employers",
+             "why": "A short list helps you follow companies closely instead of applying everywhere.",
+             "how": ["Include large and small employers near you.", "Follow them on LinkedIn and note who hires for {role}."],
+             "links": [{"label": "MyFutureJobs (Malaysia)", "url": "https://myfuturejobs.gov.my", "country": "MY"}, {"label": "MyCareersFuture (Singapore)", "url": "https://www.mycareersfuture.gov.sg", "country": "SG"}]}
+          ]
+        },
+        {
+          "title": "Apply steadily",
+          "steps": [
+            {"id": "apply", "title": "Apply to a few good matches each week",
+             "why": "A steady pace of careful applications beats many rushed ones.",
+             "how": ["Pick 3 a week that fit well.", "Write two lines on why you fit each one.", "Tick this step after a month of applying."]},
+            {"id": "track", "title": "Keep a simple application log",
+             "why": "Knowing where you applied and when to follow up stops chances slipping away.",
+             "how": ["Note company, role, date, contact and next step.", "Follow up politely after about a week."]}
+          ]
+        },
+        {
+          "title": "Interviews",
+          "steps": [
+            {"id": "stories", "title": "Prepare three work stories",
+             "why": "Interviewers ask for examples: what happened, what you did and the result.",
+             "how": ["One about a problem you solved.", "One about working with others.", "One about learning something new fast (your path counts)."]},
+            {"id": "mock", "title": "Do a practice interview",
+             "why": "Saying answers out loud once makes the real interview far easier.",
+             "how": ["Ask a friend, a contact or a career centre to run a 30-minute mock interview.", "Ask for one thing to improve."]}
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -984,6 +984,322 @@
     "8.2"
    ],
    "watch": []
+  },
+  {
+   "id": "labwork",
+   "label": "Laboratory techniques & samples",
+   "kind": "tech",
+   "ai": false,
+   "esco_keywords": [
+    "laboratory",
+    "samples",
+    "specimen",
+    "microscop",
+    "analysers"
+   ],
+   "aliases": [
+    "lab",
+    "laboratory",
+    "lab work",
+    "pipette",
+    "pcr",
+    "microscope",
+    "microscopy",
+    "specimen",
+    "specimens",
+    "samples",
+    "titration",
+    "cell culture",
+    "makmal"
+   ],
+   "hn": [],
+   "arxiv": null,
+   "sdg": [
+    "9.5"
+   ],
+   "watch": []
+  },
+  {
+   "id": "bioinfo",
+   "label": "Bioinformatics & genomic data",
+   "kind": "tech",
+   "ai": false,
+   "esco_keywords": [
+    "biological data",
+    "molecular biology",
+    "genetics",
+    "biostatistics",
+    "biotechnology"
+   ],
+   "aliases": [
+    "bioinformatics",
+    "genomics",
+    "genome",
+    "sequencing",
+    "dna",
+    "rna",
+    "ngs",
+    "biopython",
+    "protein structure",
+    "biology",
+    "biotech",
+    "biotechnology"
+   ],
+   "hn": [
+    "bioinformatics"
+   ],
+   "arxiv": null,
+   "sdg": [
+    "3.b",
+    "9.5"
+   ],
+   "watch": [
+    "AlphaFold"
+   ]
+  },
+  {
+   "id": "agronomy",
+   "label": "Crops, soil & farm practice",
+   "kind": "green",
+   "ai": false,
+   "esco_keywords": [
+    "crop",
+    "soil",
+    "plant",
+    "fertilis",
+    "harvest",
+    "agronom",
+    "pest control",
+    "livestock",
+    "farm",
+    "planting"
+   ],
+   "aliases": [
+    "farming",
+    "farm",
+    "farmer",
+    "agriculture",
+    "crops",
+    "planting",
+    "harvest",
+    "harvesting",
+    "soil",
+    "fertiliser",
+    "fertilizer",
+    "pesticide",
+    "padi",
+    "paddy",
+    "rice",
+    "palm oil",
+    "plantation",
+    "rubber",
+    "vegetables",
+    "livestock",
+    "poultry",
+    "pertanian",
+    "ladang",
+    "kebun"
+   ],
+   "hn": [],
+   "arxiv": null,
+   "sdg": [
+    "2.4",
+    "2.3"
+   ],
+   "watch": []
+  },
+  {
+   "id": "precisionag",
+   "label": "Precision farming tech (drones, sensors, GIS)",
+   "kind": "green",
+   "ai": false,
+   "esco_keywords": [
+    "agricultural information systems",
+    "farming technologies",
+    "agricultural machinery",
+    "technical equipment for crop production",
+    "irrigation"
+   ],
+   "aliases": [
+    "precision agriculture",
+    "precision farming",
+    "smart farming",
+    "drone",
+    "drones",
+    "uav",
+    "gis",
+    "remote sensing",
+    "sensors",
+    "iot",
+    "irrigation",
+    "fertigation",
+    "agtech",
+    "agritech"
+   ],
+   "hn": [
+    "agtech"
+   ],
+   "arxiv": null,
+   "sdg": [
+    "2.4",
+    "9.5"
+   ],
+   "watch": []
+  },
+  {
+   "id": "clinical",
+   "label": "Patient care & clinical knowledge",
+   "kind": "human",
+   "ai": false,
+   "esco_keywords": [
+    "medical terminology",
+    "clinical guidelines",
+    "good clinical practice",
+    "health care",
+    "infection",
+    "anatomy",
+    "physiology",
+    "healthcare users"
+   ],
+   "aliases": [
+    "patient care",
+    "patients",
+    "nursing",
+    "nurse",
+    "caregiver",
+    "caregiving",
+    "clinic",
+    "hospital",
+    "first aid",
+    "vital signs",
+    "infection control",
+    "medical terminology",
+    "jururawat"
+   ],
+   "hn": [],
+   "arxiv": null,
+   "sdg": [
+    "3.8"
+   ],
+   "watch": []
+  },
+  {
+   "id": "healthdata",
+   "label": "Health records & clinical coding",
+   "kind": "tech",
+   "ai": false,
+   "esco_keywords": [
+    "clinical coding",
+    "health records",
+    "medical records",
+    "medical informatics",
+    "clinical information system",
+    "data in healthcare",
+    "healthcare users' data"
+   ],
+   "aliases": [
+    "medical records",
+    "health records",
+    "patient records",
+    "clinical coding",
+    "medical coding",
+    "icd-10",
+    "icd-11",
+    "icd",
+    "emr",
+    "ehr",
+    "health informatics",
+    "medical billing",
+    "rekod perubatan"
+   ],
+   "hn": [
+    "EHR"
+   ],
+   "arxiv": null,
+   "sdg": [
+    "3.8"
+   ],
+   "watch": []
+  },
+  {
+   "id": "automation",
+   "label": "Industrial automation & robotics",
+   "kind": "tech",
+   "ai": false,
+   "esco_keywords": [
+    "automation",
+    "robot",
+    "control systems",
+    "machine controls",
+    "controller of a machine",
+    "mechatronic",
+    "control engineering",
+    "automated machines"
+   ],
+   "aliases": [
+    "automation",
+    "robot",
+    "robots",
+    "robotics",
+    "plc",
+    "cnc",
+    "scada",
+    "hmi",
+    "mechatronics",
+    "ladder logic",
+    "servo",
+    "conveyor",
+    "machine operator",
+    "production line",
+    "factory"
+   ],
+   "hn": [
+    "robotics"
+   ],
+   "arxiv": null,
+   "sdg": [
+    "9.2",
+    "9.4"
+   ],
+   "watch": []
+  },
+  {
+   "id": "quality",
+   "label": "Quality control & inspection",
+   "kind": "tech",
+   "ai": false,
+   "esco_keywords": [
+    "quality assurance",
+    "quality control",
+    "quality standards",
+    "inspection",
+    "inspect quality",
+    "quality management",
+    "quality audits",
+    "test procedures"
+   ],
+   "aliases": [
+    "quality control",
+    "quality assurance",
+    "qc",
+    "qa",
+    "inspection",
+    "inspector",
+    "iso 9001",
+    "six sigma",
+    "spc",
+    "lean",
+    "5s",
+    "kaizen",
+    "gmp"
+   ],
+   "hn": [],
+   "arxiv": null,
+   "sdg": [
+    "9.4",
+    "12.5"
+   ],
+   "watch": []
   }
  ]
 }

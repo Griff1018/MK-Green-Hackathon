@@ -1,0 +1,25 @@
+{
+  "_about": "Rules for the Task X-ray. Task texts and scores come from the ILO 2025 GenAI exposure index (Working Paper 140, CC BY 4.0). The bands are this app's display choice, not ILO categories. A task's words link it to the human skills it relies on; the first matching rules win (at most two skills).",
+  "bands": [
+    {"id": "ai", "min": 0.6, "label": "AI can do much of this"},
+    {"id": "help", "min": 0.4, "label": "AI can help with this"},
+    {"id": "human", "min": 0.0, "label": "Mostly human work"}
+  ],
+  "rules": [
+    {"words": ["advis", "counsel", "guid", "coach", "mentor", "train", "teach", "instruct", "educat"], "clusters": ["coaching"]},
+    {"words": ["negotiat", "liais", "consult", "coordinat", "collaborat", "co-operat", "cooperat", "represent", "promot"], "clusters": ["stakeholder"]},
+    {"words": ["patient", "treat", "care for", "nurs", "clinical"], "clusters": ["clinical"]},
+    {"words": ["customer", "client", "public", "visitor", "complain", "enquir", "inquir"], "clusters": ["customer"]},
+    {"words": ["supervis", "manag", "lead", "direct", "allocat", "staff", "recruit"], "clusters": ["leadership"]},
+    {"words": ["plan", "budget", "strateg", "polic", "priorit", "forecast"], "clusters": ["strategy"]},
+    {"words": ["analys", "evaluat", "assess", "investigat", "diagnos", "solv", "problem", "research", "interpret"], "clusters": ["problem"]},
+    {"words": ["inspect", "test", "quality", "standard", "complian", "audit"], "clusters": ["quality"]},
+    {"words": ["field", "site", "sample", "survey"], "clusters": ["fieldwork"]},
+    {"words": ["crop", "soil", "plant", "harvest", "farm", "livestock"], "clusters": ["agronomy"]},
+    {"words": ["laborator", "specimen", "experiment"], "clusters": ["labwork"]},
+    {"words": ["install", "repair", "maintain", "wiring", "electrical"], "clusters": ["electrical"]},
+    {"words": ["machine", "equipment", "assembl", "robot"], "clusters": ["automation"]},
+    {"words": ["meeting", "presentation", "speak", "interview"], "clusters": ["stakeholder"]},
+    {"words": ["languag", "translat"], "clusters": ["languages"]}
+  ]
+}

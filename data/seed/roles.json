@@ -700,6 +700,470 @@
      ]
     }
    ]
+  },
+  {
+   "id": "biology_tech",
+   "title": "Biology technician",
+   "esco_title": "biology technician",
+   "tags": [
+    "science",
+    "data",
+    "hands-on"
+   ],
+   "green": false,
+   "req": {
+    "labwork": 2,
+    "dataquality": 1,
+    "excel": 2,
+    "problem": 1,
+    "genai": 1
+   },
+   "sdg": [
+    [
+     "9.5",
+     "Builds local scientific research capacity in the life sciences."
+    ],
+    [
+     "3.b",
+     "Lab and data work supports research on new medicines and vaccines."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "bioinformatics scientist",
+     "add": {
+      "bioinfo": 3,
+      "python": 2,
+      "dataviz": 2,
+      "mlds": 1
+     },
+     "gates": [
+      "Analyse real biological datasets in a research project, ideally one that is published"
+     ],
+     "certs": []
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "research manager",
+     "add": {
+      "leadership": 3,
+      "strategy": 2,
+      "stakeholder": 2
+     },
+     "gates": [
+      "Lead a research team and manage its projects and funding"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "biochem_tech",
+   "title": "Biochemistry technician",
+   "esco_title": "biochemistry technician",
+   "tags": [
+    "science",
+    "hands-on"
+   ],
+   "green": false,
+   "req": {
+    "labwork": 2,
+    "bioinfo": 1,
+    "dataquality": 2,
+    "problem": 2
+   },
+   "sdg": [
+    [
+     "3.b",
+     "Supports the development of medicines and diagnostics."
+    ],
+    [
+     "9.5",
+     "Adds skilled technical staff to biotechnology research."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "biochemist",
+     "add": {
+      "labwork": 3,
+      "bioinfo": 2,
+      "dataviz": 2,
+      "genai": 2
+     },
+     "gates": [
+      "A degree in biochemistry or a related science is usually required."
+     ],
+     "certs": []
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "research and development manager",
+     "add": {
+      "leadership": 3,
+      "strategy": 3,
+      "stakeholder": 2
+     },
+     "gates": [
+      "Lead an R&D programme from idea to product"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "agri_tech",
+   "title": "Agricultural technician",
+   "esco_title": "agricultural technician",
+   "tags": [
+    "farming",
+    "hands-on",
+    "environment",
+    "data"
+   ],
+   "green": true,
+   "req": {
+    "agronomy": 2,
+    "precisionag": 1,
+    "fieldwork": 1,
+    "dataentry": 1,
+    "problem": 1
+   },
+   "sdg": [
+    [
+     "2.4",
+     "Helps farms produce more food with less water, fertiliser and soil damage."
+    ],
+    [
+     "2.3",
+     "Field data and advice can raise the yields and incomes of small farmers."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "agronomist",
+     "add": {
+      "agronomy": 3,
+      "precisionag": 2,
+      "dataviz": 1,
+      "genai": 1
+     },
+     "gates": [
+      "Advise growers on crops and soil across several seasons"
+     ],
+     "certs": [
+      "cca"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "farm manager",
+     "add": {
+      "leadership": 2,
+      "strategy": 2,
+      "precisionag": 2,
+      "bookkeeping": 2
+     },
+     "gates": [
+      "Run a farm or plantation operation, including budgets and staff"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "crop_worker",
+   "title": "Crop production worker",
+   "esco_title": "crop production worker",
+   "tags": [
+    "farming",
+    "hands-on"
+   ],
+   "green": true,
+   "req": {
+    "agronomy": 1,
+    "fieldwork": 1,
+    "problem": 1
+   },
+   "sdg": [
+    [
+     "2.4",
+     "Sustainable crop practices protect soil and water for future harvests."
+    ],
+    [
+     "2.3",
+     "Skilled crop work raises the productivity and income of food producers."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "agronomic crop production team leader",
+     "add": {
+      "agronomy": 2,
+      "precisionag": 2,
+      "leadership": 1,
+      "dataentry": 1
+     },
+     "gates": [
+      "Lead a field team through a full growing season"
+     ],
+     "certs": []
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "crop production manager",
+     "add": {
+      "precisionag": 3,
+      "strategy": 2,
+      "leadership": 2,
+      "dataviz": 1
+     },
+     "gates": [
+      "Manage crop production for a whole farm or estate"
+     ],
+     "certs": [
+      "cca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "med_records",
+   "title": "Medical records clerk",
+   "esco_title": "medical records clerk",
+   "tags": [
+    "health",
+    "data",
+    "organising"
+   ],
+   "green": false,
+   "req": {
+    "healthdata": 1,
+    "dataentry": 2,
+    "excel": 1,
+    "correspondence": 1
+   },
+   "sdg": [
+    [
+     "3.8",
+     "Accurate health records make safe, affordable care possible for everyone."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "clinical coder",
+     "add": {
+      "healthdata": 3,
+      "clinical": 1,
+      "dataquality": 2,
+      "genai": 1
+     },
+     "gates": [
+      "Code real patient records under supervision until your accuracy is checked"
+     ],
+     "certs": [
+      "ahima_cca"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "clinical informatics manager",
+     "add": {
+      "dataviz": 2,
+      "sql": 2,
+      "strategy": 2,
+      "leadership": 2,
+      "genai": 2
+     },
+     "gates": [
+      "Lead a hospital or clinic's health information systems"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "med_lab",
+   "title": "Medical laboratory assistant",
+   "esco_title": "medical laboratory assistant",
+   "tags": [
+    "health",
+    "science",
+    "hands-on"
+   ],
+   "green": false,
+   "req": {
+    "labwork": 2,
+    "clinical": 1,
+    "dataentry": 1,
+    "dataquality": 1
+   },
+   "sdg": [
+    [
+     "3.8",
+     "Lab tests are part of the essential health services everyone should be able to get."
+    ],
+    [
+     "3.d",
+     "Labs are the first to detect outbreaks and health risks."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "biomedical scientist",
+     "add": {
+      "labwork": 3,
+      "clinical": 2,
+      "dataviz": 1,
+      "genai": 1
+     },
+     "gates": [
+      "A degree in biomedical science and registration with your country's health professions regulator are usually required."
+     ],
+     "certs": []
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "medical laboratory manager",
+     "add": {
+      "leadership": 3,
+      "strategy": 2,
+      "dataquality": 3
+     },
+     "gates": [
+      "Run a medical laboratory, including staff, equipment and accreditation"
+     ],
+     "certs": []
+    }
+   ]
+  },
+  {
+   "id": "mech_assembler",
+   "title": "Mechatronics assembler",
+   "esco_title": "mechatronics assembler",
+   "tags": [
+    "making",
+    "tech",
+    "hands-on"
+   ],
+   "green": false,
+   "req": {
+    "automation": 2,
+    "quality": 1,
+    "problem": 2,
+    "electrical": 1
+   },
+   "sdg": [
+    [
+     "9.2",
+     "Skilled automation work keeps manufacturing jobs competitive and local."
+    ],
+    [
+     "9.4",
+     "Well-run automated lines use less energy and material per product."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "automation engineering technician",
+     "add": {
+      "automation": 3,
+      "electrical": 2,
+      "python": 1,
+      "dataviz": 1
+     },
+     "gates": [
+      "Install and commission automated equipment on a real production line"
+     ],
+     "certs": [
+      "isa_ccst"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "automation engineer",
+     "add": {
+      "mlds": 2,
+      "python": 2,
+      "strategy": 1,
+      "stakeholder": 2
+     },
+     "gates": [
+      "An engineering degree is usually required for automation engineer roles."
+     ],
+     "certs": [
+      "isa_cap"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "quality_tech",
+   "title": "Quality engineering technician",
+   "esco_title": "quality engineering technician",
+   "tags": [
+    "making",
+    "data",
+    "organising"
+   ],
+   "green": false,
+   "req": {
+    "quality": 2,
+    "dataentry": 1,
+    "excel": 2,
+    "problem": 2
+   },
+   "sdg": [
+    [
+     "9.4",
+     "Catching defects early saves material, energy and rework."
+    ],
+    [
+     "12.5",
+     "Better quality control means less scrap and waste."
+    ]
+   ],
+   "ladder": [
+    {
+     "stage": "Experienced",
+     "esco_title": "quality engineer",
+     "add": {
+      "quality": 3,
+      "dataviz": 2,
+      "python": 1,
+      "genai": 1
+     },
+     "gates": [
+      "Own the quality checks for a product or production line"
+     ],
+     "certs": [
+      "asq_cqt",
+      "ksu_sixsigma"
+     ]
+    },
+    {
+     "stage": "Peak",
+     "esco_title": "quality services manager",
+     "add": {
+      "leadership": 3,
+      "strategy": 2,
+      "stakeholder": 2
+     },
+     "gates": [
+      "Lead a site's quality team and its audits"
+     ],
+     "certs": [
+      "asq_cqe"
+     ]
+    }
+   ]
   }
  ]
 }

@@ -16,7 +16,7 @@
         "genai": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "eoai",
@@ -34,7 +34,7 @@
         "problem": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "ms_genai",
@@ -50,7 +50,7 @@
         "genai": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "ms_excel",
@@ -66,7 +66,7 @@
         "excel": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_python",
@@ -82,7 +82,7 @@
         "python": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_pandas",
@@ -99,7 +99,7 @@
         "dataquality": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_cleaning",
@@ -115,7 +115,7 @@
         "dataquality": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_sql",
@@ -131,7 +131,7 @@
         "sql": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_sql2",
@@ -147,7 +147,7 @@
         "sql": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_viz",
@@ -163,7 +163,7 @@
         "dataviz": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "k_ml",
@@ -179,7 +179,7 @@
         "mlds": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "ms_pbi",
@@ -195,7 +195,7 @@
         "dataviz": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "g_da",
@@ -215,7 +215,7 @@
         "problem": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "fcc_da",
@@ -233,7 +233,7 @@
         "mlds": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "fastai",
@@ -249,7 +249,7 @@
         "mlds": 3
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "cisco_cyber",
@@ -265,7 +265,7 @@
         "cyber": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "cisco_net",
@@ -281,7 +281,7 @@
         "networking": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "g_itsupport",
@@ -299,7 +299,7 @@
         "cyber": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "g_dm",
@@ -316,7 +316,7 @@
         "content": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "canva",
@@ -332,7 +332,7 @@
         "design": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "g_techwriting",
@@ -349,7 +349,7 @@
         "content": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "uipath",
@@ -365,7 +365,7 @@
         "processmap": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "unccl",
@@ -381,7 +381,7 @@
         "esg": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "bursa",
@@ -397,7 +397,7 @@
         "esg": 2
       },
       "link_status": "blocked",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "ghgp",
@@ -413,7 +413,7 @@
         "ghg": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "seda",
@@ -431,7 +431,7 @@
         "solar": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "st_comp",
@@ -449,7 +449,7 @@
         "electrical": 3
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "st_eem",
@@ -467,7 +467,7 @@
         "energyaudit": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "elatih",
@@ -487,7 +487,7 @@
         "stakeholder": 1
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "pl300",
@@ -505,7 +505,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "g_ada",
@@ -524,7 +524,7 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "ml_spec",
@@ -541,7 +541,7 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "iiba",
@@ -560,7 +560,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "g_pm",
@@ -579,7 +579,7 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "pmp",
@@ -598,7 +598,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "blocked",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "secplus",
@@ -616,7 +616,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "isc2_cc",
@@ -633,7 +633,7 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "cissp",
@@ -652,7 +652,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "aws_cp",
@@ -670,7 +670,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "dp300",
@@ -689,7 +689,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "az305",
@@ -708,7 +708,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "itil",
@@ -727,7 +727,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "skillshop",
@@ -745,7 +745,7 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "hubspot_cm",
@@ -762,7 +762,7 @@
         "digimarketing": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "hubspot_cs",
@@ -778,7 +778,7 @@
         "customer": 3
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "gri",
@@ -796,7 +796,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "cem",
@@ -815,7 +815,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "gcdf",
@@ -833,7 +833,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "shrm",
@@ -852,7 +852,7 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "openlearn_lead",
@@ -869,7 +869,7 @@
         "strategy": 1
       },
       "link_status": "blocked",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
     },
     {
       "id": "ms_ai900",
@@ -887,7 +887,346 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-20"
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "ghtc_biosec",
+      "title": "Introduction to Biosecurity Principles and Laboratory Guidelines",
+      "provider": "The Global Health Network (Global Health Training Centre)",
+      "url": "https://globalhealthtrainingcentre.tghn.org/biosecurity-principles-laboratory-guidelines/",
+      "hours": 2,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "labwork": 1
+      },
+      "link_status": "blocked",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "ebi_terrified",
+      "title": "Bioinformatics for the terrified",
+      "provider": "EMBL-EBI Training",
+      "url": "https://www.ebi.ac.uk/training/online/courses/bioinformatics-terrified/",
+      "hours": 2,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "bioinfo": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "ebi_path",
+      "title": "Introductory bioinformatics pathway",
+      "provider": "EMBL-EBI Training",
+      "url": "https://www.ebi.ac.uk/training/online/courses/introductory-bioinformatics-pathway/",
+      "hours": 8,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "bioinfo": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "ucsd_bioinfo",
+      "title": "Bioinformatics Specialization",
+      "provider": "UC San Diego via Coursera",
+      "url": "https://www.coursera.org/specializations/bioinformatics",
+      "hours": 120,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "bioinfo": 3,
+        "python": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "fao_soil",
+      "title": "Climate-smart soil and land management",
+      "provider": "FAO elearning Academy",
+      "url": "https://elearning.fao.org/course/view.php?id=435",
+      "hours": 2,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "agronomy": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "fao_crop",
+      "title": "Climate-smart crop production",
+      "provider": "FAO elearning Academy",
+      "url": "https://elearning.fao.org/course/view.php?id=436",
+      "hours": 2,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "agronomy": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "qgis",
+      "title": "QGIS Training Manual",
+      "provider": "QGIS project",
+      "url": "https://docs.qgis.org/latest/en/docs/training_manual/index.html",
+      "hours": 30,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "precisionag": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "itc_uav",
+      "title": "UAVs in Precision Agriculture",
+      "provider": "ITC, University of Twente (Geoversity)",
+      "url": "https://www.geoversity.io/courses/uav-materclass/uavs-in-precision-agriculture/",
+      "hours": 40,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "precisionag": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "cca",
+      "title": "Certified Crop Adviser (CCA)",
+      "provider": "American Society of Agronomy",
+      "url": "https://www.certifiedcropadviser.org/",
+      "hours": 60,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "agronomy": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "who_icd11",
+      "title": "ICD-11 Training Package",
+      "provider": "World Health Organization",
+      "url": "https://icdcdn.who.int/icd11training/index.html",
+      "hours": 10,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "healthdata": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "jhu_hi",
+      "title": "Health Informatics Specialization",
+      "provider": "Johns Hopkins University via Coursera",
+      "url": "https://www.coursera.org/specializations/health-informatics",
+      "hours": 40,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "healthdata": 3,
+        "dataquality": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "ahima_cca",
+      "title": "Certified Coding Associate (CCA)",
+      "provider": "AHIMA",
+      "url": "https://www.ahima.org/certification-careers/certifications-overview/cca/",
+      "hours": 60,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "healthdata": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "siemens_plc",
+      "title": "quickSTEP: Basics of PLCs",
+      "provider": "Siemens (SITRAIN)",
+      "url": "https://www.sitrain.us/LMS/Step.aspx",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "automation": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "nptel_iiot",
+      "title": "Introduction to Industry 4.0 and Industrial Internet of Things",
+      "provider": "NPTEL (IIT Kharagpur)",
+      "url": "https://onlinecourses.nptel.ac.in/noc25_cs146/preview",
+      "hours": 36,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "automation": 2,
+        "networking": 1
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "isa_ccst",
+      "title": "Certified Control Systems Technician (CCST)",
+      "provider": "ISA",
+      "url": "https://www.isa.org/certification/ccst",
+      "hours": 60,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "automation": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "isa_cap",
+      "title": "Certified Automation Professional (CAP)",
+      "provider": "ISA",
+      "url": "https://www.isa.org/certification/cap",
+      "hours": 100,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "automation": 3,
+        "strategy": 1
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "alison_qc",
+      "title": "Introduction to Quality Control",
+      "provider": "Alison",
+      "url": "https://alison.com/course/introduction-to-quality-control",
+      "hours": 6,
+      "cost": "free",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "quality": 2
+      },
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "ksu_sixsigma",
+      "title": "Six Sigma Yellow Belt Specialization",
+      "provider": "Kennesaw State University via Coursera",
+      "url": "https://www.coursera.org/specializations/six-sigma-fundamentals",
+      "hours": 30,
+      "cost": "low-cost",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "quality": 3,
+        "processmap": 1
+      },
+      "certification": true,
+      "link_status": "ok",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "asq_cqt",
+      "title": "Certified Quality Technician (CQT)",
+      "provider": "ASQ",
+      "url": "https://asq.org/cert/quality-technician",
+      "hours": 80,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "quality": 3
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "blocked",
+      "link_checked_on": "2026-10-21"
+    },
+    {
+      "id": "asq_cqe",
+      "title": "Certified Quality Engineer (CQE)",
+      "provider": "ASQ",
+      "url": "https://asq.org/cert/quality-engineer",
+      "hours": 120,
+      "cost": "paid",
+      "language": [
+        "en"
+      ],
+      "covers": {
+        "quality": 3,
+        "strategy": 1
+      },
+      "certification": true,
+      "hrdc": "unverified",
+      "link_status": "blocked",
+      "link_checked_on": "2026-10-21"
     }
   ]
 }

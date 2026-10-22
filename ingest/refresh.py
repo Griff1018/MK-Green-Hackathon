@@ -9,6 +9,7 @@ Sources (all public, no personal data):
   hn      Hacker News "Ask HN: Who is hiring?" monthly threads, via the Algolia HN API.
           Share of job posts mentioning each skill: last 3 threads vs the 3 before.
   arxiv   arXiv API. Papers on AI topics: last 90 days vs the 90 days before.
+  news    Work headlines from Hacker News (titles and links only), see ingest/news.py.
   adzuna  Optional. Live job-ad counts for one market (default Singapore as a labelled
           regional proxy) when ADZUNA_APP_ID / ADZUNA_APP_KEY are set. Change is measured
           against the previous snapshot.
@@ -26,6 +27,7 @@ import httpx
 
 from app import config, db
 from app.data import CLUSTERS
+from ingest.news import fetch_news
 
 HN = "https://hn.algolia.com/api/v1"
 ARXIV = "https://export.arxiv.org/api/query"
@@ -194,6 +196,13 @@ def run(as_of: date) -> int:
         print(f"arXiv windows ending {as_of}…")
         ax, ax_meta = fetch_arxiv(client, as_of)
         az_res = fetch_adzuna(client, previous) if as_of == date.today() else None
+        news = None
+        if as_of == date.today():
+            print("Work headlines…")
+            try:
+                news = fetch_news(client)
+            except Exception as e:  # headlines are extra; never block the trend snapshot
+                print(f"Headlines skipped: {e}")
     az, az_meta = az_res if az_res else ({}, None)
     payload = {
         "as_of": as_of.isoformat(),
@@ -202,6 +211,8 @@ def run(as_of: date) -> int:
         "watch": hn.get("_watch", {}),
         "raw": {"hn": hn, "arxiv": ax, "adzuna": az},
     }
+    if news:
+        payload["news"] = news
     sid = db.save_snapshot(as_of.isoformat(), payload)
     print(f"Saved snapshot {sid} as of {as_of}")
     return sid
