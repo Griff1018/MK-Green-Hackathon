@@ -1,0 +1,19 @@
+# Domain 1 feature evidence
+
+Screenshots of the running app (synthetic sample persona "Mei Ling", Detailed mode, 1280 px wide).
+They were taken on 2026-10-21 with headless Edge against a local preview server.
+
+| # | Feature (what the brief expects) | Where it is in the app | Screenshots |
+|---|---|---|---|
+| 1 | **Skills profile intake**: current skills and potential through a CV upload, form or questionnaire | About you steps. Import a CV (PDF, Word or text, with contact details removed before any AI reads it), or write a few lines, or skip. Then check and add skills by type-to-search, with levels, and pick interests. | `1a-intake-cv-upload.png`, `1b-intake-skills-form.png`, `1c-intake-interests.png` |
+| 2 | **AI-trend signal layer**: updatable source, shown with its date | The "Data and sources" page lists every source with its retrieved date, licence and Fresh/Stale status. The live signals are Hacker News "Who is hiring?" job posts (n = 1159) and arXiv, fetched by the app itself once a day (the Sources page says "Automatic refresh is on" and shows the latest data date). Today's brief on Home shows the snapshot date. | `2a-trend-sources-page.png`, `2b-trend-daily-brief.png` |
+| 3 | **Future-role matching**: explainable match score and a clear skills gap | Careers page. The map places every career by AI exposure and demand. "Why this match" splits the score into its parts. "Skill gap" lists the skills you have, and what is missing with the level needed. | `3a-matching-career-map.png`, `3b-matching-score-parts.png`, `3c-matching-skill-gap.png` |
+| 4 | **Personalised reskilling pathway**: ordered plan, estimated time, free or low-cost resources | Path page. Three stages show hours and weeks. Steps are ordered by prerequisites and current demand. Each step lists a course that fits the budget (provider, hours, cost, HRD Corp status). Paid certificates are shown as optional. | `4a-pathway-milestones.png`, `4b-pathway-step-courses.png` |
+| 5 | **SDG mapping**: every role and skill tagged; how the chosen path contributes | The career's "UN goals" tab gives each SDG target with a reason. Each path step shows "Supports SDG …". A test checks that every skill has an SDG target. | `5a-sdg-career-contribution.png`, `4b-pathway-step-courses.png` |
+| 6 | **Handling uncertainty**: more than one scenario; predictions marked as estimates | Careers page: Moderate AI / Fast disruption / Green transition switch. Each score shows its range across the three futures with "An estimate, not a prediction". | `6-uncertainty-scenarios.png`, `6b-uncertainty-score-range.png` |
+| + | **Who it is for: HR / L&D managers and TVET / university career centres** | Picking either in About you opens a team flow. Home becomes four guided steps: where the group stands (readiness, nearly ready, most shared gap), where they could go (career map ranked by group average), what to train first (shared gaps first, hours, HRD Corp grant-before-training note), and each person (readiness, two biggest gaps, printable one-page plan). A first-use guide walks through it, a leadership report prints the whole plan, and Lambtae answers questions from the group's data. | `7a`–`7g` |
+
+## Known gaps
+
+- **Trend data for the newest skill groups.** Lab techniques, farming practice, patient care and quality control have no trend source yet, because the Hacker News job board rarely lists them, so their demand shows as neutral. Bioinformatics, precision farming, health records and automation now get daily numbers from the automatic refresh. Adzuna (already wired in, needs free API keys) would cover non-tech jobs.
+- **HRD Corp.** The catalogue includes HRD Corp's free e-LATiH platform. Paid courses show "HRD Corp: unverified", because a programme is only marked claimable when there is a programme ID as evidence.

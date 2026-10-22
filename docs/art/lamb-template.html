@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- Source of lamb-template.png. Render with:
+     msedge --headless --disable-gpu --hide-scrollbars --default-background-color=00000000
+            --window-size=512,512 --screenshot=lamb-template.png lamb-template.html -->
+<html><head><meta charset="utf-8"><style>
+  html, body { margin: 0; width: 512px; height: 512px; overflow: hidden; background: transparent; font: 600 13px/1.2 "Segoe UI", sans-serif; }
+  .ref { position: absolute; inset: 0; width: 512px; height: 512px; opacity: .35; }
+  .zone { position: absolute; left: 0; right: 0; }
+  .z1 { top: 0; height: 307px; background: rgba(31, 59, 217, .06); }
+  .z2 { top: 307px; height: 71px; background: rgba(31, 59, 217, .03); }
+  .z3 { top: 378px; height: 134px; background: repeating-linear-gradient(45deg, rgba(0,0,0,.05) 0 6px, transparent 6px 14px); }
+  .line { position: absolute; left: 0; right: 0; border-top: 2px dashed #1F3BD9; }
+  .v { position: absolute; top: 0; bottom: 0; left: 255px; border-left: 1px dashed rgba(0,0,0,.35); }
+  .frame { position: absolute; inset: 0; border: 2px solid rgba(0,0,0,.45); }
+  .lab { position: absolute; left: 8px; color: #1F3BD9; background: rgba(255,255,255,.85); padding: 2px 6px; border-radius: 3px; }
+  .lab.grey { color: #444; }
+</style></head><body>
+  <div class="zone z1"></div><div class="zone z2"></div><div class="zone z3"></div>
+  <img class="ref" src="../../static/art/lamb.svg" alt="">
+  <div class="v"></div><div class="frame"></div>
+  <div class="line" style="top:307px"></div><div class="line" style="top:378px"></div>
+  <span class="lab" style="top:8px">Shows when she peeks out of the suitcase (top 60%, keep the face here)</span>
+  <span class="lab" style="top:313px">Also shows above the chat box</span>
+  <span class="lab grey" style="top:384px">Hidden in both places: body can go here</span>
+  <span class="lab grey" style="top:488px">512 × 512 · transparent PNG · centre line in the middle</span>
+</body></html>

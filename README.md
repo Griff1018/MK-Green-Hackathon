@@ -20,8 +20,8 @@ HR managers and career centres get a team or cohort view. The app supports caree
 | Must-have | How the app delivers it |
 |---|---|
 | 1. Skills profile intake | CV import (PDF, Word, text) with an editable review form; free-text description; live ESCO job search that pre-fills typical skills; editable skill levels. An optional language model reads the CV after contact details and IC numbers are removed, and must quote the CV for every skill. |
-| 2. AI-trend signal layer | Dated snapshots from public APIs: Hacker News "Who is hiring?" job posts (skill share, last 3 months vs the 3 before), arXiv papers on AI topics, and mentions of newer tools (for example MCP, dbt, SOC 2). Adzuna job ads are added when a key is set. A scheduled job refreshes the data; the app rechecks your path against it on every visit. |
-| 3. Future-role matching | 12 careers grounded in ESCO occupations, ranked by a published formula. Each score shows its parts, the skills you have, and the gap. |
+| 2. AI-trend signal layer | Dated snapshots from public APIs: Hacker News "Who is hiring?" job posts (skill share, last 3 months vs the 3 before), arXiv papers on AI topics, and mentions of newer tools (for example MCP, dbt, SOC 2). Adzuna job ads are added when a key is set. The app fetches a new snapshot by itself once a day while it runs (checked at start-up and every hour; set `AUTO_REFRESH=0` to turn it off), and rechecks your path against it on every visit. |
+| 3. Future-role matching | 20 careers grounded in ESCO occupations (office, data and IT, green energy, biology and lab science, farming, healthcare, manufacturing), ranked by a published formula. Each score shows its parts, the skills you have, and the gap. |
 | 4. Personalised reskilling pathway | A path map across three career stages, each a real ESCO occupation, up to the peak role. Courses and certificates come from a closed catalogue of 51 checked items and fit your budget; paid options show as optional upgrades. Steps are ordered by prerequisites and current demand, and flagged when their priority changes or a new tool is rising. |
 | 5. SDG mapping | Every career and every skill links to official UN SDG targets (text from the UN SDG API), shown with a reason. SDG links are information only: they never change rankings, except that the Green transition scenario weights low-carbon careers, because that scenario assumes demand for them grows. |
 | 6. Handling uncertainty | Three scenarios (Moderate AI, Fast disruption, Green transition), score ranges across scenarios, and "what changed" when trend data changes. |
@@ -82,7 +82,7 @@ Open http://localhost:8000. The first start loads the two bundled trend snapshot
 Useful commands:
 
 ```bash
-python -m ingest.refresh                     # new trend snapshot as of today
+python -m ingest.refresh                     # new trend snapshot as of today (the running app also does this daily)
 python -m ingest.refresh --as-of 2026-07-20  # rebuild a past snapshot
 python -m ingest.build_seed                  # re-download ESCO, ILO and SDG seed data
 python -m ingest.check_catalogue             # check every course link
@@ -131,6 +131,16 @@ Keep the deployment URL: it is the Replit proof for the Technical & Tools Declar
 ## Data and licences
 
 See [NOTICE](NOTICE). Code is under the [Apache License 2.0](LICENSE). Sample people and teams in `data/seed/samples.json` are synthetic. No real CVs or personal data are used. Profiles stay in the user's browser; free text sent for extraction is not stored.
+
+## Career helper (Lambtae)
+
+A suitcase at the bottom right of every signed-in page opens a chat with Lambtae, the in-app assistant. She answers questions about the app and the person's own plan from facts the app has already computed (top careers, chosen path, next step and its courses, advice, sources). Guardrails in `app/agent.py`: the model sees no contact details or CV text; any number not found in the facts is rejected; page buttons come from a fixed list; she cannot change anything. Without a model, a keyword fallback answers from the same facts. Chat history is saved per account in the `chats` table and cleared when a profile is reset. Artwork is original SVG drawn for this project.
+
+## Languages
+
+The interface is available in English, Bahasa Melayu and Chinese (header dropdown). The choice is saved to the account and also sets the language of AI explanations. Translations live in `static/i18n/ms.json` and `static/i18n/zh.json`, keyed by the English text; anything missing falls back to English. Job titles, skill names, course names and quoted UN/ILO text stay in English because they come from ESCO, the ILO and course providers, and the resume document stays in English. The translations were drafted with AI help and should be checked by a fluent speaker before the demo.
+
+To check coverage after changing text: `python -m ingest.i18n_server` then `python -m ingest.check_i18n`.
 
 ## Known limits
 

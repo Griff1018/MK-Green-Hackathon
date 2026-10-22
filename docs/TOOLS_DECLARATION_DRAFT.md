@@ -26,13 +26,21 @@ Draft for the team to complete and copy into the official template. Items in [br
 
 ## Open-source libraries
 
-FastAPI, Uvicorn, HTTPX, SQLAlchemy, psycopg, RapidFuzz, pypdf and python-docx (CV import), python-multipart, openpyxl and fpdf2 (seed and sample-CV build), pytest. Fonts: Bricolage Grotesque and IBM Plex (Google Fonts, SIL Open Font License).
+FastAPI, Uvicorn, HTTPX, SQLAlchemy, psycopg, RapidFuzz, pypdf and python-docx (CV import), python-multipart, openpyxl and fpdf2 (seed and sample-CV build), pytest. Fonts: Newsreader and Figtree (Google Fonts, SIL Open Font License). Front-end motion: GSAP 3.12.5 with ScrollTrigger (GSAP Standard License) and Lenis 1.1.20 (MIT), bundled in static/vendor; both are switched off when the device asks for reduced motion.
+
+## Images
+
+| Image | Where | Licence |
+|---|---|---|
+| Deep blue and purple flowing shapes, by Richard Horvath (unsplash.com/photos/deep-blue-and-purple-flowing-shapes-_nWaeTF6qo0) | Landing page background | Unsplash License; credited on the page |
+
+Design reference: the "2D-Composition" technique notes (github.com/AzusagawaKaedeSama/2D-Composition), used for ideas only. The repository has no licence, so none of its SVG or PNG files are used; the app's geometric marks are drawn in its own code.
 
 ## AI tools
 
 | Tool | Model | How it was used |
 |---|---|---|
-| WorkBuddy / CodeBuddy CLI (Tencent) | DeepSeek V4.1 Flash (`deepseek-v4.1-flash`) | At runtime, optional: suggests skills from a user's description (must quote the user's words) and rewords explanations (numbers checked against the data), reads CVs after contact details are removed, and rewords resume lines without adding facts. Tools disabled. |
+| WorkBuddy / CodeBuddy CLI (Tencent) | DeepSeek V4.1 Flash (`deepseek-v4.1-flash`) | At runtime, optional: suggests skills from a user's description (must quote the user's words) and rewords explanations (numbers checked against the data), reads CVs after contact details are removed, rewords resume lines without adding facts, and answers in-app chat questions ("Lambtae") from the person's own plan, with invented numbers rejected and no actions. Tools disabled. |
 | Claude Code (Anthropic) | Claude Opus 5.5 | During development: research checks, a concept demo, and generating most of the first version of the code from the team's instructions. [Team: describe which parts you reviewed, changed and can explain, per Handbook 8.5.6.] |
 | Perplexity | [model] | Early research draft (`research.md`). |
 
