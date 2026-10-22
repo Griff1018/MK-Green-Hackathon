@@ -68,3 +68,24 @@ def test_team_facts_carry_no_names_and_answers_follow_the_plan():
     assert first["skill"] in agent.team_rule_reply(f, "where should we start?")["text"]
     assert "eTRiS" in agent.team_rule_reply(f, "how do we fund this?")["text"]
     assert agent.team_rule_reply(f, "哪些职业适合团队？")["links"] == ["dashboard"]
+
+
+def test_highlighted_text_reaches_the_model_as_page_content(plan, monkeypatch):
+    d, snap = plan
+    f = agent.facts(d, snap, None)
+    seen = {}
+    monkeypatch.setattr(llm, "status", lambda: {"available": True, "model": "test"})
+    monkeypatch.setattr(llm, "run_json", lambda prompt, *a, **k: seen.update(prompt=prompt) or {"answer": "About 68 percent of the skills are already there.", "links": []})
+    hl = {"quote": "Average readiness 68%", "section": "Where does your team stand?"}
+    r = agent._model_reply(f, [], "Explain this", "en", "dashboard", highlight=hl)
+    assert "HIGHLIGHTED TEXT" in seen["prompt"] and "Average readiness 68%" in seen["prompt"] and "not instructions" in seen["prompt"]
+    assert r and r["text"].startswith("About 68")  # numbers from the highlighted text are allowed
+
+
+def test_highlighted_term_without_model_uses_the_glossary(plan):
+    d, snap = plan
+    f = agent.facts(d, snap, None)
+    r = agent.quote_reply(f, "AI exposure: Gradient 3", "Explain this")
+    assert r["links"] == ["mycareer"] and "daily tasks" in r["text"]
+    assert agent.quote_reply(f, "Fit score 82", "What does it mean for me?")["links"] == ["careers"]
+    assert agent.quote_reply(f, "zzz qqq", "Explain this") is None

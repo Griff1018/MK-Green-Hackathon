@@ -40,7 +40,7 @@ function useAccount(u) {
   st.teamReport = null; st.openAreas = null; st.slide = null; st.teamSlide = null;
 }
 function signedOut() {
-  st.acct = null; st.token = null; st.chat = { open: false, opening: false, loaded: false, busy: false, messages: [], draft: "" };
+  st.acct = null; st.token = null; st.chat = { open: false, opening: false, loaded: false, busy: false, messages: [], draft: "", quote: null };
   try { localStorage.removeItem(TOKEN); } catch (e) { /* ignore */ }
   st.page = "signin"; st.signin = { error: "" }; loadAccounts();
 }
@@ -329,8 +329,8 @@ function setDone(n, val) {
 // ---------- chrome -------------------------------------------------------------------------
 const NAV = [["dashboard", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
   ["mycareer", "My career", '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.4-6.5 8-6.5s7 2 8 6.5"/>'],
-  ["careers", "Careers overview", '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'],
-  ["path", "Path", '<path d="M6 21c0-6 12-4 12-10S9 7 9 3"/><circle cx="9" cy="3" r="1.5"/><circle cx="6" cy="21" r="1.5"/>'],
+  ["careers", "Compare careers", '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'],
+  ["path", "My path", '<path d="M6 21c0-6 12-4 12-10S9 7 9 3"/><circle cx="9" cy="3" r="1.5"/><circle cx="6" cy="21" r="1.5"/>'],
   ["resume", "Resume", '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>']];
 const NAV2 = [["sources", "Data and sources"], ["team", "For HR teams"]];
 const NAV_JOB = ["jobcheck", "Job check", '<path d="M4 7h16v12H4z"/><path d="M9 7V4h6v3"/><path d="M8 13l3 3 5-6"/>'];
@@ -820,6 +820,31 @@ function rotateLoading() {
 }
 const skeleton = (n, label) => { setTimeout(rotateLoading, 0); return `<div class="page" aria-busy="true"><div class="skel skel-title"></div><p class="load-msg" ${label ? "" : "data-rotate"} role="status">${esc(label || T(LOAD_LINES[0]))}</p><div class="dash">${Array.from({ length: n }, (_, i) => `<div class="card skel-card ${i === 0 ? "hero-card" : ""}"><div class="skel"></div><div class="skel short"></div><div class="skel"></div></div>`).join("")}</div></div>`; };
 const tipText = (t) => esc(simple() ? firstSentence(TS(t)) : TS(t));
+// "What do you want to do?": the questions people come with, each answered in one line with their own
+// data and one tap from the page that has the full answer. Also the only way to Job check and News on
+// phones without opening More.
+const QT_ICON = {
+  careers: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  path: '<path d="M6 21c0-6 12-4 12-10S9 7 9 3"/><circle cx="9" cy="3" r="1.5"/><circle cx="6" cy="21" r="1.5"/>',
+  mycareer: '<rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2M12 11v4M10 13h4"/>',
+  jobcheck: '<path d="M4 7h16v12H4z"/><path d="M9 7V4h6v3"/><path d="M8 13l3 3 5-6"/>',
+  resume: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
+  news: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>',
+};
+function quickTasks(r, res, cur, b) {
+  const best = rows().find((x) => x.rank === 1), alt = best && best.role === A().role ? rows().find((x) => x.rank === 2) : best;
+  const items = [
+    ["careers", "Which careers suit me?", alt ? T("Also worth a look: {career}", { career: roleOf(alt.role).title }) : T("Compare every career side by side")],
+    ["path", "What should I learn next?", cur ? T("Next step: {step}", { step: nodeLabel(cur) }) : T("You finished every step. Well done!")],
+    ["mycareer", "Is AI changing my job?", b >= 0 ? T("AI impact: {level}", { level: T(EXP_BANDS[b][1]) }) : T("See which tasks AI can do")],
+    ["jobcheck", "Does a job ad fit me?", T("Paste an ad, see what you have and what is missing")],
+    ["resume", "Make my resume", T("Built from your profile, ready to save as PDF")],
+    ["news", "What is new in jobs?", T("Headlines and trends from the last 45 days")],
+  ];
+  return `<section class="quick" aria-labelledby="quickH"><h3 id="quickH">${T("What do you want to do?")}</h3>
+    <div class="quick-grid">${items.map(([k, q, a]) => `<button type="button" class="quick-btn" data-page="${k}"><span class="q-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${QT_ICON[k]}</svg></span><span class="q-text"><b>${T(q)}</b><span class="tiny muted">${esc(a)}</span></span><span class="q-arrow" aria-hidden="true">→</span></button>`).join("")}</div>
+  </section>`;
+}
 function vDashboard() {
   if (isTeamUser()) return vTeamHome();
   if (!st.analysis || (A().role && (!st.path || st.path.role !== A().role))) { if (!st.busy.dash) { st.busy.dash = true; refresh({}).then(() => { st.busy.dash = false; }); } return skeleton(6); }
@@ -852,6 +877,7 @@ function vDashboard() {
         <div class="act"><button class="btn primary big" type="button" data-goto="${esc(cur.key)}">${T("Start this step")}</button></div>`
         : `<span class="done-mark">${I.check}</span><div class="stack" style="gap:4px"><span class="eyebrow">${T("Your path")}</span><h3>${T("You finished every step. Well done!")}</h3></div>`}
     </div>
+    ${quickTasks(r, res, cur, b)}
     <section class="card stack updates" id="updates" aria-roledescription="${T("carousel")}" aria-label="${T("Updates")}">
       <div class="row between"><div class="row" style="gap:8px"><h3>${T("Updates")}</h3>${changes ? `<span class="badge accent">${esc(T(changes === 1 ? "{n} change" : "{n} changes", { n: changes }))}</span>` : `<span class="badge">${T("No changes")}</span>`}</div>
         <div class="row" style="gap:6px"><button type="button" class="btn ghost" data-page="news">${T("See all news")}</button><button type="button" class="deck-arrow sm" data-upd="-1" aria-label="${T("Previous")}">←</button><button type="button" class="deck-arrow sm" data-upd="1" aria-label="${T("Next")}">→</button></div></div>
@@ -958,7 +984,7 @@ function vCareers() {
   const a = st.analysis; if (!a) { refresh({}); return skeleton(3, T("Matching your skills to {n} careers…", { n: st.meta.roles.length })); }
   const all = rows(), adv = st.advice, diff = a.diff ? a.diff[st.scen] : null;
   return `<div class="page">
-  ${intro(T("Careers overview"), T("Every career, side by side"), T(simple() ? "Look through all careers by zone. Tap one to see why it fits, in plain words. These are estimates, not promises." : "All careers ranked by your skills, where demand is heading, and how much of the work AI can already do. Estimates, not predictions."), A().role ? `<button class="btn" type="button" data-page="mycareer">${T("Back to my career")}</button>` : "")}
+  ${intro(T("Compare careers"), T("Every career, side by side"), T(simple() ? "Look through all careers by zone. Tap one to see why it fits, in plain words. These are estimates, not promises." : "All careers ranked by your skills, where demand is heading, and how much of the work AI can already do. Estimates, not predictions."), A().role ? `<button class="btn" type="button" data-page="mycareer">${T("Back to my career")}</button>` : "")}
   <div class="row between">
     <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>${scenBrief()}
     <label class="check small" style="align-items:center"><input type="checkbox" id="compareChk" ${st.compare ? "checked" : ""}> ${T("What changed recently")}</label>
@@ -1065,9 +1091,24 @@ const ZONES = [
   ["steady", "Steady", "Fewer openings · AI does less of the work"],
   ["shrink", "Shrinking", "Fewer openings · AI does more of the work"],
 ];
-const TAG_ICON = [["farming", "🌱"], ["health", "🩺"], ["science", "🔬"], ["making", "🔧"], ["energy", "☀️"], ["environment", "🌿"],
-  ["data", "📊"], ["tech", "💻"], ["creative", "🎨"], ["people", "💬"], ["organising", "📁"], ["hands-on", "🛠️"]];
-const careerIcon = (id) => { const tags = roleOf(id).tags || []; return (TAG_ICON.find(([t]) => tags.includes(t)) || [, "💼"])[1]; };
+// Career icons: line drawings in the same 24px stroke style as the nav icons (no emoji).
+const TAG_ICON = [
+  ["farming", '<path d="M12 21v-9"/><path d="M12 12c0-4 3-6.5 7-6.5 0 4-3 6.5-7 6.5zM12 14.5c0-3-2.3-5-5.5-5 0 3 2.3 5 5.5 5z"/><path d="M6 21h12"/>'],
+  ["health", '<path d="M6 4v5a4 4 0 0 0 8 0V4"/><path d="M10 13v2.5a4.5 4.5 0 0 0 9 0V13"/><circle cx="19" cy="11" r="2"/>'],
+  ["science", '<path d="M9.5 3h5M10 3v6L4.8 18.2A1.9 1.9 0 0 0 6.5 21h11a1.9 1.9 0 0 0 1.7-2.8L14 9V3"/><path d="M7.5 15h9"/>'],
+  ["making", '<path d="M14.5 6.5a4 4 0 0 1 5-5l-2.8 2.8.7 2.3 2.3.7 2.8-2.8a4 4 0 0 1-5 5L8 19a2.1 2.1 0 0 1-3-3z"/>'],
+  ["energy", '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>'],
+  ["environment", '<path d="M5 19c0-8 5-13 15-14-.5 10-5.5 15-13 15z"/><path d="M5 19c3-3.5 6-6 9.5-8"/>'],
+  ["data", '<path d="M4 4v16h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/>'],
+  ["tech", '<rect x="3" y="4.5" width="18" height="12" rx="1.5"/><path d="M8 20.5h8M12 16.5v4"/>'],
+  ["creative", '<path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 1.4-2.2-.7-1.3.2-2.8 1.7-2.8H18a3 3 0 0 0 3-3c0-5.5-4-10-9-10z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/>'],
+  ["people", '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>'],
+  ["organising", '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>'],
+  ["hands-on", '<path d="M3 21l7.5-7.5M8 16l-3-3 4.5-4.5 3 3"/><path d="M14 4l6 6-3 3-6-6z"/><path d="M15 11l5 5"/>'],
+];
+const CASE_PATH = '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/>';
+const careerIcon = (id) => { const tags = roleOf(id).tags || []; const p = (TAG_ICON.find(([t]) => tags.includes(t)) || [, CASE_PATH])[1];
+  return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`; };
 const zoneOf = (x) => {
   const e = roleOf(x.role).exposure, moreAI = e ? expBand(e) >= 2 : false, up = x.components.outlook >= 0.5;
   return up ? (moreAI ? "change" : "grow") : (moreAI ? "shrink" : "steady");
@@ -1786,7 +1827,7 @@ function vUpdates() {
 function nodeLabel(n) { return n.type === "skill" ? cl(n.cluster).label : n.type === "cert" ? n.item.title : n.type === "gate" ? T(simple() ? "Real work" : "Experience") : T("Ready to apply"); }
 function nodeIcon(n, isDone) { return isDone ? I.check : { skill: I.book, cert: I.award, gate: I.flag, checkpoint: I.case }[n.type]; }
 function vPath() {
-  if (!A().role) return `<div class="page">${intro(T("Path"), T("Choose a career first"), "")}<button class="btn primary" type="button" data-page="careers">${T("Go to careers")}</button></div>`;
+  if (!A().role) return `<div class="page">${intro(T("My path"), T("Choose a career first"), "")}<button class="btn primary" type="button" data-page="careers">${T("Go to careers")}</button></div>`;
   if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return skeleton(3, T("Building your path…")); }
   const pw = st.path, nodes = flatNodes(), cur = currentNode();
   if (!st.sel || !nodes.find((n) => n.key === st.sel)) st.sel = cur ? cur.key : nodes[0].key;
@@ -1822,7 +1863,7 @@ function vPath() {
     </section>`;
   };
   return `<div class="page">
-  ${intro(T("Path"), T("Your path to {role}", { role: peak }), simple() ? T("Follow the road from the top. Tap a circle to see what to do. Dashed circles are optional.") : esc(T("Start as {role}. Steps are ordered by prerequisites and current demand. Paid certificates outside your budget are dashed and optional.", { role: pw.stages[0].title })))}
+  ${intro(T("My path"), T("Your path to {role}", { role: peak }), simple() ? T("Follow the road from the top. Tap a circle to see what to do. Dashed circles are optional.") : esc(T("Start as {role}. Steps are ordered by prerequisites and current demand. Paid certificates outside your budget are dashed and optional.", { role: pw.stages[0].title })))}
   ${vTrackTabs(tab)}
   ${tab !== "basic" ? vTrackBoard(trackOf(tab)) : `<div class="row between">
     <div class="legend" aria-label="${T("Legend")}"><span><i class="l-done"></i>${T("Done")}</span><span><i class="l-now"></i>${T("Next step")}</span><span><i></i>${T("To do")}</span><span><i class="l-opt"></i>${T("Optional")}</span><span><b class="flag-s">${esc(flagMoved)}</b>${T("Moved up today")}</span><span><b class="flag-s">${esc(flagTool)}</b>${T("Rising tool")}</span>${info("stage")}</div>
@@ -2377,7 +2418,7 @@ const ME_TOUR = [
   { sel: ".home-row .geo-tile:nth-child(3)", t: "Your resume", x: "Your resume fills in by itself as you finish courses. Open it to edit sections, add experience or let AI draft a section, then download it." },
   { sel: "#updates", t: "Today's brief", x: "What moved in your job market, work headlines and how AI touches your career. It flips on its own; use the arrows to go back." },
   { sel: '#nav [data-page="mycareer"]', t: "My career", x: "The full picture of your career: how the score is calculated, which skills you have and which you still need, which tasks AI can do, and a Do I suit this job? check." },
-  { sel: '#nav [data-page="careers"]', t: "Careers overview", x: "Compare every career side by side. Switch between the three futures to see how the ranking changes, and pick a different goal at any time." },
+  { sel: '#nav [data-page="careers"]', t: "Compare careers", x: "Compare every career side by side. Switch between the three futures to see how the ranking changes, and pick a different goal at any time." },
   { sel: '#nav [data-page="path"]', t: "Your path", x: "Every step to your goal, stage by stage. Tap a circle for the course, the hours and the UN Sustainable Development Goals it supports. Add tracks such as LinkedIn, real experience or networking." },
   { sel: '#nav [data-page="jobcheck"]', t: "Job check", x: "Paste a real job ad to see how well you match it and what to learn before you apply." },
   { sel: '#nav [data-page="updates"]', t: "Fresh data", x: "Open Updates to fetch the newest job posts and headlines, and see what changed in your career, the rankings, your path and the news." },
@@ -2535,17 +2576,17 @@ const HELPER_GEO = `<svg class="helper-geo" viewBox="0 0 220 220" aria-hidden="t
 </svg>`;
 const HELPER_NAME = "Lambtae";  // a name, so the same in every language
 const SUGGEST = ["What should I do next?", "Which careers fit me best?", "How do I build my resume?", "Where does the data come from?"];
-st.chat = { open: false, opening: false, loaded: false, busy: false, messages: [], draft: "" };
+st.chat = { open: false, opening: false, loaded: false, busy: false, messages: [], draft: "", quote: null };
 const TEAM_SUGGEST = ["Where should we start?", "Which careers suit the group?", "How do we fund this?", "How do I read the map?"];
 const helperVisible = () => !!A() && A().onboarded && !["signin", "wizard", "teamperson", "teamreport"].includes(st.page);
 function chatMsg(m) {
-  if (m.role === "user") return `<div class="msg me"><p>${esc(m.text)}</p>${!isTeamUser() && A().role && m.text.length >= 12 ? `<button type="button" class="chat-track" data-trackgoal="${esc(m.text)}">${SPARK.replace('width="22" height="22"', 'width="13" height="13"')} ${T("Make this a track")}</button>` : ""}</div>`;
+  if (m.role === "user") return `<div class="msg me">${m.quote ? `<blockquote class="msg-quote">${m.section ? `<span>${esc(m.section)}</span>` : ""}${esc(m.quote)}</blockquote>` : ""}<p>${esc(m.text)}</p>${!m.quote && !isTeamUser() && A().role && m.text.length >= 12 ? `<button type="button" class="chat-track" data-trackgoal="${esc(m.text)}">${SPARK.replace('width="22" height="22"', 'width="13" height="13"')} ${T("Make this a track")}</button>` : ""}</div>`;
   const links = (m.links || []).map((p) => `<button type="button" class="btn chat-link" data-page="${esc(p)}">${esc(T(PAGE_NAME[p] || p))} →</button>`).join("");
   const srcs = (m.sources || []).map((s) => { const i = s.indexOf(": "); return `<span class="chat-src">${SRC_ICON}${esc(i > 0 ? T(s.slice(0, i)) + ": " + s.slice(i + 2) : s)}</span>`; }).join("");
   const how = m.method === "llm" ? T("AI answer from your plan ({model}). Check before you act.", { model: m.model }) : T("Quick answer from your plan.");
   return `<div class="msg bot"><p>${esc(TS(m.text))}</p>${links ? `<div class="chat-links">${links}</div>` : ""}${srcs ? `<div class="chat-srcs">${srcs}</div>` : ""}<span class="chat-how">${esc(how)}</span></div>`;
 }
-const PAGE_NAME = { dashboard: "Home", jobcheck: "Job check", news: "News", mycareer: "My career", careers: "Careers overview", path: "Path", resume: "Resume", wizard: "Edit about you", sources: "Data and sources", team: "For HR teams" };
+const PAGE_NAME = { dashboard: "Home", jobcheck: "Job check", news: "News", mycareer: "My career", careers: "Compare careers", path: "My path", resume: "Resume", wizard: "Edit about you", sources: "Data and sources", team: "For HR teams" };
 function renderHelper() {
   const root = $("#helper"); if (!root) return;
   if (!helperVisible()) { root.innerHTML = ""; root.className = ""; return; }
@@ -2563,8 +2604,9 @@ function renderHelper() {
         ${c.messages.map(chatMsg).join("")}
         ${c.busy ? `<div class="msg bot typing" aria-label="${esc(T("{name} is thinking", { name: HELPER_NAME }))}"><span></span><span></span><span></span></div>` : ""}
       </div>
+      ${c.quote ? `<div class="chat-quote"><blockquote>${esc(c.quote.text)}</blockquote><button type="button" class="icon-btn" id="quoteDrop" aria-label="${T("Remove highlighted text")}" title="${T("Remove highlighted text")}">✕</button></div>` : ""}
       <form class="chat-form" id="chatForm"><label class="sr-only" for="chatInput">${esc(T("Ask {name}", { name: HELPER_NAME }))}</label>
-        <textarea id="chatInput" rows="1" maxlength="600" placeholder="${T("Ask about your plan or this app…")}" ${c.busy ? "disabled" : ""}>${esc(c.draft)}</textarea>
+        <textarea id="chatInput" rows="1" maxlength="600" placeholder="${T(c.quote ? "What do you want to know about it?" : "Ask about your plan or this app…")}" ${c.busy ? "disabled" : ""}>${esc(c.draft)}</textarea>
         ${micBtn("chatInput")}<button type="submit" class="btn primary" ${c.busy ? "disabled" : ""} aria-label="${T("Send")}">${T("Send")}</button></form>
       <p class="chat-foot">${T("Answers use only your plan and the app's data. They are estimates; check before you act.")}</p>
     </section>` : "";
@@ -2575,7 +2617,7 @@ function renderHelper() {
 }
 async function openChat() {
   const c = st.chat;
-  if (c.open) { c.open = false; renderHelper(); $("#caseBtn").focus(); return; }
+  if (c.open) { c.open = false; c.quote = null; selClear(); renderHelper(); $("#caseBtn").focus(); return; }
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!calm) { c.opening = true; renderHelper(); await new Promise((r) => setTimeout(r, 420)); }
   c.opening = false; c.open = true; renderHelper();
@@ -2587,10 +2629,11 @@ async function openChat() {
 }
 async function sendChat(text) {
   const c = st.chat, msg = String(text || "").trim(); if (!msg || c.busy) return;
-  c.messages.push({ role: "user", text: msg }); c.draft = ""; c.busy = true; renderHelper();
+  const q = c.quote; c.quote = null;
+  c.messages.push({ role: "user", text: msg, ...(q ? { quote: q.text, section: q.section } : {}) }); c.draft = ""; c.busy = true; renderHelper();
   try {
     clearTimeout(tSave); if (A()) await api("/api/me", Object.fromEntries(DATA_KEYS.map((k) => [k, A()[k]])), false, "PUT");
-    const body = { message: msg, lang: LANG, page: st.page };
+    const body = { message: msg, lang: LANG, page: st.page, ...(q ? { quote: q.text, section: q.section || null } : {}) };
     if (isTeamUser()) {  // skill levels only: names are replaced before anything leaves the browser
       const Tm = teamData();
       body.team = { people: Tm.people.map(([, sk], i) => [`Person ${i + 1}`, sk]), target_role: st.teamTarget || Tm.target_role, budget: P().budget || "free", kind: P().situation };
@@ -2600,6 +2643,77 @@ async function sendChat(text) {
   } catch (e) { c.messages.push({ role: "assistant", text: T("Sorry, I could not answer just now: {e}", { e: e.message }), links: [], sources: [], method: "rules" }); }
   c.busy = false; renderHelper(); const inp = $("#chatInput"); if (inp) inp.focus();
 }
+
+// ---------- Ask Lambtae about anything on the page ------------------------------------------
+// Select any text in the app and a small bar appears next to it: "Explain this", "What it means
+// for me" or "Ask…". The highlighted words, and the heading of the card they came from, go to
+// /api/chat as page content (never as instructions), so Lambtae explains them with the person's own
+// plan. The words stay marked on the page while Lambtae answers (CSS Custom Highlight API, where the
+// browser has it).
+const SEL_MAX = 500;
+let selRange = null, tSel = null;
+const selHL = () => (window.CSS && CSS.highlights && window.Highlight ? CSS.highlights : null);
+function selSection(node) {
+  const el = node && (node.nodeType === 1 ? node : node.parentElement); if (!el) return "";
+  const box = el.closest(".card, section, .kpi, .page-head, .zone-card, .quick-btn, tr");
+  const h = box && (box.querySelector("h2, h3") || box.querySelector(".k-label, .eyebrow"));
+  const head = h && !h.contains(el) ? h.textContent.replace(/\s+/g, " ").trim().slice(0, 80) : "";
+  return [T(PAGE_NAME[st.page] || ""), head].filter(Boolean).join(" · ").slice(0, 120);
+}
+function selHide() { const b = $("#askSel"); if (b) b.hidden = true; selRange = null; }
+function selCheck() {
+  const sel = window.getSelection(), bar = $("#askSel");
+  if (!bar || !helperVisible() || !sel || sel.isCollapsed || !sel.rangeCount) return selHide();
+  const r = sel.getRangeAt(0), n = r.commonAncestorContainer, host = n.nodeType === 1 ? n : n.parentElement;
+  if (!host || !host.closest("#app") || host.closest("input, textarea, select, [contenteditable], .chat, #askSel")) return selHide();
+  if (sel.toString().replace(/\s+/g, " ").trim().length < 2) return selHide();
+  selRange = r.cloneRange(); bar.hidden = false; selPlace();
+}
+function selPlace() {
+  const bar = $("#askSel"); if (!bar || bar.hidden || !selRange) return;
+  const rects = [...selRange.getClientRects()].filter((x) => x.width || x.height);
+  const first = rects[0] || selRange.getBoundingClientRect(), last = rects[rects.length - 1] || first;
+  const vw = document.documentElement.clientWidth, vh = window.innerHeight, bw = bar.offsetWidth, bh = bar.offsetHeight, gap = 10;
+  // touch screens show their own copy menu above the selection, so the bar goes below it there
+  const touch = window.matchMedia("(pointer: coarse)").matches;
+  let top = touch ? last.bottom + gap + 18 : first.top - bh - gap;
+  if (!touch && top < 64) top = last.bottom + gap;
+  const floor = document.body.classList.contains("has-nav") && vw < 1024 ? vh - 80 : vh - 8;
+  top = Math.max(8, Math.min(top, floor - bh));
+  const mid = touch ? (last.left + last.right) / 2 : (first.left + first.right) / 2;
+  bar.style.left = `${Math.max(8, Math.min(mid - bw / 2, vw - bw - 8))}px`; bar.style.top = `${top}px`;
+}
+async function askAbout(kind) {
+  if (!selRange) return;
+  let text = selRange.toString().replace(/\s+/g, " ").trim();
+  if (text.length > SEL_MAX) text = text.slice(0, SEL_MAX - 1) + "…";
+  const section = selSection(selRange.commonAncestorContainer), hl = selHL();
+  if (hl) hl.set("lambtae", new Highlight(selRange.cloneRange()));
+  window.getSelection().removeAllRanges(); selHide();
+  const c = st.chat; c.quote = { text, section };
+  if (!c.open) await openChat(); else renderHelper();
+  if (kind === "own") { const inp = $("#chatInput"); if (inp) inp.focus(); return; }
+  sendChat(T(kind === "me" ? "What does this mean for me?" : "Explain this in simple words."));
+}
+const selClear = () => { const hl = selHL(); if (hl) hl.delete("lambtae"); };
+const LAMB_FACE = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.5a2.5 2.5 0 1 1 1.8-4.3A3 3 0 0 1 15.2 5.2 2.5 2.5 0 1 1 17 9.5"/><path d="M7.5 9.5c0 5 2 9 4.5 9s4.5-4 4.5-9"/><circle cx="10.2" cy="12" r=".6" fill="currentColor"/><circle cx="13.8" cy="12" r=".6" fill="currentColor"/></svg>`;
+function renderAskSel() {
+  let bar = $("#askSel");
+  if (!bar) {
+    bar = document.createElement("div"); bar.id = "askSel"; bar.className = "ask-sel"; bar.hidden = true; bar.setAttribute("role", "toolbar");
+    document.body.appendChild(bar);
+    bar.addEventListener("mousedown", (ev) => ev.preventDefault());  // keep the selection while the bar is pressed
+    bar.addEventListener("click", (ev) => { const b = ev.target.closest("[data-asksel]"); if (b) askAbout(b.dataset.asksel); });
+  }
+  bar.setAttribute("aria-label", T("Ask {name}", { name: HELPER_NAME }));
+  bar.innerHTML = `<span class="ask-sel-who">${LAMB_FACE}<span>${esc(HELPER_NAME)}</span></span>
+    <button type="button" data-asksel="explain">${T("Explain this")}</button>
+    <button type="button" data-asksel="me">${T("What it means for me")}</button>
+    <button type="button" data-asksel="own" title="${T("Ask your own question")}">${T("Ask…")}</button>`;
+}
+document.addEventListener("selectionchange", () => { clearTimeout(tSel); tSel = setTimeout(selCheck, 180); });
+window.addEventListener("scroll", () => requestAnimationFrame(selPlace), { passive: true });
+window.addEventListener("resize", () => requestAnimationFrame(selPlace));
 
 const VIEWS = { teams: vTeams, people: vPeople, member: vMember, updates: vUpdates, signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
 // ---------- motion: GSAP + ScrollTrigger animations, Lenis smooth scrolling ------------------------
@@ -2659,7 +2773,9 @@ function landingMotion(intro) {
       .from(".signin-card", { y: 44, opacity: 0, duration: 1 }, 0.45);
   }
   ScrollTrigger.batch(".landing-below .kpi, .landing-below .preview", { start: "top 92%", once: true,
-    onEnter: (els) => gsap.from(els, { y: 36, opacity: 0, duration: 0.9, stagger: 0.1, ease: "power3.out" }) });
+    // fromTo with an explicit end: a plain .from() that starts while an earlier one is still running takes
+    // the half-way offset as its end, which left the number columns stuck at different heights
+    onEnter: (els) => gsap.fromTo(els, { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: "power3.out", overwrite: true, clearProps: "transform,opacity" }) });
   if (!countedOnce) {
     ScrollTrigger.create({ trigger: ".landing-below .proof", start: "top 85%", once: true, onEnter: () => {
       countedOnce = true;
@@ -2777,7 +2893,7 @@ function render() {
   renderChrome();
   $("#app").innerHTML = VIEWS[st.page]();
   bindDrop();
-  renderHelper();
+  renderHelper(); renderAskSel(); selHide(); selClear();
   netBackground(st.page === "wizard");
   afterRender();
   updatesSetup();
@@ -2917,7 +3033,8 @@ document.addEventListener("click", async (ev) => {
   if (d.explain) { explainRole(d.explain, false); return; }
   switch (t.id) {
     case "caseBtn": if (!A().prefs.helperSeen) { A().prefs.helperSeen = true; save(); } openChat(); return;
-    case "chatClose": st.chat.open = false; renderHelper(); $("#caseBtn").focus(); return;
+    case "chatClose": st.chat.open = false; st.chat.quote = null; selClear(); renderHelper(); $("#caseBtn").focus(); return;
+    case "quoteDrop": st.chat.quote = null; selClear(); renderHelper(); { const inp = $("#chatInput"); if (inp) inp.focus(); } return;
     case "chatClear": try { await api("/api/chat", null, false, "DELETE"); } catch (e) { /* nothing to clear */ } st.chat.messages = []; renderHelper(); return;
     case "themeBtn": { const nx = theme() === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx; try { localStorage.setItem("wfe.theme", nx); } catch (e) { /* this visit only */ } renderThemeBtn(); return; }
     case "navMore": { const m = document.querySelector("details.menu"); if (m) { m.open = !m.open; if (m.open) m.querySelector("summary").focus(); } return; }
@@ -3106,7 +3223,8 @@ document.addEventListener("keydown", (ev) => {
   if (ev.key !== "Escape") return;
   if (story.on) { closeStory(); return; }
   if (tourAt >= 0) { tourShow(TOUR().length); return; }
-  if (st.chat.open) { st.chat.open = false; renderHelper(); $("#caseBtn").focus(); return; }
+  if ($("#askSel") && !$("#askSel").hidden) { window.getSelection().removeAllRanges(); selHide(); return; }
+  if (st.chat.open) { st.chat.open = false; st.chat.quote = null; selClear(); renderHelper(); $("#caseBtn").focus(); return; }
   if (st.sheetOpen) { st.sheetOpen = false; render(); const b = document.querySelector(`[data-node="${CSS.escape(st.sel || "")}"]`); if (b) b.focus(); return; }
   const tip = document.querySelector(".info.open"); if (tip) { closeInfo(); tip.querySelector(".info-btn").focus(); return; }
   document.querySelectorAll("details[open]").forEach((d) => { if (d.matches(".menu, .src")) { d.open = false; d.querySelector("summary").focus(); } });

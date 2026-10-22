@@ -76,7 +76,7 @@ header.top .wrap { display: flex; align-items: center; gap: 12px 16px; padding-b
 @media (max-width: 760px) { .step-btn .label { display: none; } .brand .tag-line { display: none; } }
 
 main { padding-block: 32px 64px; }
-.page { display: grid; gap: 28px; }
+.page { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }  /* minmax: a wide child (tabs, tables) scrolls instead of widening the page on phones */
 .intro { display: grid; gap: 6px; max-width: 66ch; }
 .eyebrow { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
 
@@ -1111,7 +1111,8 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 2147483000; point
 .zone-card.top { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
 .zone-card:not(.top) { opacity: .82; }
 .zone-card.mine, .zone-card.sel { border: 1.5px solid var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); opacity: 1; }
-.z-icon { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--chip); font-size: 1.1rem; }
+.z-icon { width: 34px; height: 34px; flex: none; border-radius: 10px; display: grid; place-items: center; background: var(--chip); color: var(--ink); }
+.zone-card.mine .z-icon, .zone-card.sel .z-icon { background: var(--accent-soft); color: var(--accent); }
 .z-text { display: grid; gap: 1px; min-width: 0; }
 .z-text b { font-weight: 600; font-size: .9rem; line-height: 1.25; }
 .z-tag { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); white-space: nowrap; }
@@ -1232,6 +1233,28 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 2147483000; point
   .home-row { grid-template-columns: 1fr; }
 }
 
+/* ---- Home: "What do you want to do?" question shortcuts ---- */
+.quick { display: grid; gap: 12px; }
+.quick h3 { font-family: var(--display); font-weight: 500; font-size: 1.25rem; }
+.quick-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.quick-btn { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; text-align: left; padding: 14px 16px; min-height: 64px;
+  background: var(--surface); border: 1px solid var(--card-border); border-radius: var(--r); color: var(--ink); font: inherit; cursor: pointer; }
+.quick-btn .q-icon { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--chip); color: var(--ink); }
+.quick-btn .q-text { display: grid; gap: 2px; min-width: 0; }
+.quick-btn b { font-weight: 600; font-size: .95rem; line-height: 1.3; }
+.quick-btn .tiny { overflow-wrap: anywhere; }
+.quick-btn .q-arrow { color: var(--faint); }
+.quick-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 859.98px) { .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .quick-grid { grid-template-columns: minmax(0, 1fr); } .quick-btn { padding: 12px 14px; } }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .quick-btn { transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s; }
+  .quick-btn .q-arrow { transition: transform .25s cubic-bezier(.2,.8,.2,1), color .25s; }
+  .quick-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .quick-btn:hover .q-arrow { transform: translateX(3px); color: var(--accent); }
+  .quick-btn:active { transform: translateY(0) scale(.98); }
+}
+
 /* ---- News: filters, summary, magazine grid ---- */
 .news-tools .seg { flex-wrap: wrap; }
 .news-points { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
@@ -1342,6 +1365,9 @@ ol.how { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
   padding: 7px 12px 7px 10px; border-radius: 2px; background: var(--ink); color: var(--bg); border-left: 4px solid var(--accent); pointer-events: none; }
 .helper.is-new .case-btn::after { content: ""; position: absolute; top: 2px; left: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--ink); pointer-events: none; }
 @media (max-width: 1023.98px) { .case-label { display: none; } .helper-geo { right: -12px; bottom: -14px; width: 160px; height: 160px; } }
+/* with the tab bar: the helper sits under the bar so the corner shapes run on behind it instead of over it
+   (the case button and chat sit above the bar, so nothing clickable is covered) */
+@media (max-width: 1023.98px) { body.has-nav .helper { z-index: 8; } }
 @media print { .helper-geo, .case-label { display: none; } }
 
 /* ---- Home, constructivist: composition for progress, accent rule, solid block, tile marks, hover motion ---- */
@@ -1749,3 +1775,27 @@ html.tour-lock, html.tour-lock body { overflow: hidden; overscroll-behavior: non
 .z-sdg { display: inline-flex; gap: 2px; }
 .z-sdg i { font-style: normal; min-width: 16px; height: 16px; padding: 0 2px; border-radius: 3px; color: #fff; font-size: .6rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 .z-sdg i.y { color: #222; }
+
+/* ---- Ask Lambtae about a selection: a small ink bar next to the highlighted words ---- */
+.ask-sel { position: fixed; z-index: 60; display: flex; align-items: center; gap: 2px; padding: 4px; max-width: calc(100vw - 16px);
+  background: var(--ink); color: var(--bg); border-radius: var(--r-sm); box-shadow: var(--shadow); font-size: .8rem; }
+.ask-sel[hidden] { display: none; }
+.ask-sel-who { display: inline-flex; align-items: center; gap: 5px; padding: 0 8px 0 6px; font-weight: 600; border-right: 1px solid color-mix(in srgb, var(--bg) 25%, transparent); }
+.ask-sel-who svg { color: var(--accent-soft); }
+.ask-sel button { font: inherit; color: inherit; background: none; border: 0; padding: 6px 9px; border-radius: 3px; cursor: pointer; white-space: nowrap; }
+.ask-sel button[data-asksel="explain"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.ask-sel button:hover, .ask-sel button:focus-visible { background: color-mix(in srgb, var(--bg) 16%, transparent); outline: none; }
+.ask-sel button[data-asksel="explain"]:hover { background: color-mix(in srgb, var(--accent) 85%, var(--bg)); }
+@media (pointer: coarse) { .ask-sel button { padding: 9px 11px; } }
+@media (max-width: 380px) { .ask-sel-who span { display: none; } .ask-sel-who { padding: 0 6px; } }
+@media (prefers-reduced-motion: no-preference) { .ask-sel:not([hidden]) { animation: askSelIn .18s cubic-bezier(.2,.8,.2,1); } }
+@keyframes askSelIn { from { opacity: 0; transform: translateY(4px); } }
+@media print { .ask-sel { display: none !important; } }
+/* the words Lambtae is answering about stay marked on the page */
+::highlight(lambtae) { background-color: color-mix(in srgb, var(--accent) 28%, transparent); color: inherit; }
+/* the highlighted words, quoted in the chat */
+.msg-quote { margin: 0; padding: 2px 0 2px 9px; border-left: 2px solid currentColor; font-size: .8rem; line-height: 1.45; opacity: .85; font-style: italic; overflow-wrap: anywhere; }
+.msg-quote span { display: block; font-style: normal; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; opacity: .8; }
+.chat-quote { display: flex; gap: 8px; align-items: flex-start; margin: 0 12px; padding: 8px 4px 8px 10px; border-left: 3px solid var(--accent); background: var(--chip); border-radius: 0 var(--r-sm) var(--r-sm) 0; }
+.chat-quote blockquote { margin: 0; flex: 1; min-width: 0; font-size: .8rem; line-height: 1.45; color: var(--muted); font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.chat-quote .icon-btn { width: 28px; height: 28px; font-size: .8rem; flex: none; }

@@ -152,6 +152,8 @@ class ChatIn(BaseModel):
     lang: str = "en"
     page: str = "dashboard"
     team: TeamChat | None = None
+    quote: str | None = Field(None, max_length=500)     # text the person highlighted on the page
+    section: str | None = Field(None, max_length=120)   # heading of the card it came from
 
 
 def _token(authorization: str) -> str | None:
@@ -208,7 +210,9 @@ def chat(body: ChatIn, authorization: str = Header("")) -> dict:
     u = _auth(authorization)
     snap = load_snapshot(None)
     team = body.team.model_dump() if body.team and body.team.target_role in ROLE else None
-    return agent.ask(u["id"], u["data"], body.message.strip(), body.lang, body.page, snap, previous_of(snap), team)
+    quote = (body.quote or "").strip() or None
+    return agent.ask(u["id"], u["data"], body.message.strip(), body.lang, body.page, snap, previous_of(snap), team,
+                     quote, (body.section or "").strip() or None)
 
 
 @app.delete("/api/chat")
