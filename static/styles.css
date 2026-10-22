@@ -1732,3 +1732,12 @@ html.tour-lock, html.tour-lock body { overflow: hidden; overscroll-behavior: non
 .pc-prog .fill { height: 100%; background: var(--accent); }
 .skills-tbl td:nth-child(2) { min-width: 170px; }
 .skills-tbl td:first-child { white-space: nowrap; }
+
+/* ---- several teams ---- */
+.team-tabs-row { gap: 12px; }
+.team-tabs { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+.team-tabs button { white-space: nowrap; }
+.teams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); grid-auto-rows: 1fr; gap: 16px; }
+.team-card { display: flex; flex-direction: column; }
+.team-card > .row:last-child { margin-top: auto; }
+.team-card.current { border-color: var(--accent); }

@@ -11,7 +11,7 @@ const st = {
   meta: null, page: "signin", wiz: 0, scen: "moderate", compare: false,
   analysis: null, advice: null, path: null, updates: null, sel: null, open: null,
   explain: {}, exTried: {}, busy: {}, cvDraft: null, extractNote: "", occ: { q: "", results: [], source: "" }, expMode: null,
-  team: "hr", teamUpload: null, teamTarget: null, polished: null,
+  team: "hr", ownTeams: [], legacyUpload: null, teamTargets: {}, polished: null,
   acct: null, token: null, accounts: [], signin: { error: "" }
 };
 const A = () => st.acct;
@@ -31,7 +31,12 @@ function save() {
 function useAccount(u) {
   st.acct = { id: u.id, name: u.name, sample: u.kind === "sample", kind: u.kind, ...u.data };
   if (st.acct.profile) st.acct.profile = { home_country: "", custom_skills: [], ...st.acct.profile };
-  if (st.acct.team) { st.team = st.acct.team.source === "upload" && !st.teamUpload ? (st.acct.profile.situation === "tvet" ? "tvet" : "hr") : st.acct.team.source; st.teamTarget = st.acct.team.target; }
+  loadOwnTeams();
+  if (st.acct.team) {
+    const t = st.acct.team, src = t.source === "upload" ? (st.ownTeams[0] || {}).id : t.source;
+    st.teamTargets = t.targets || (t.target && src ? { [src]: t.target } : {});
+    st.team = src && (isOwn(src) ? st.ownTeams.some((x) => x.id === src) : st.meta.samples.teams.some((x) => x.id === src)) ? src : (st.acct.profile && st.acct.profile.situation === "tvet" ? "tvet" : "hr");
+  }
   st.teamReport = null; st.openAreas = null; st.slide = null; st.teamSlide = null;
 }
 function signedOut() {
@@ -127,6 +132,7 @@ const GEO = (() => {
     dashboard: o('<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="var(--accent)" stroke="none"/>'),
     jobcheck: o('<rect x="2" y="2" width="20" height="20"/><path d="M2 12h20v10H2z" fill="var(--accent)" stroke="none"/><path d="M7 7h10"/>'),
     updates: o('<circle cx="12" cy="12" r="10"/><path d="M12 12L12 2A10 10 0 0 1 22 12z" fill="var(--accent)" stroke="none"/><circle cx="12" cy="12" r="5"/>'),
+    teams: o('<rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9" fill="var(--accent)" stroke="none"/>'),
     people: o('<circle cx="7" cy="8" r="3.4"/><circle cx="17" cy="8" r="3.4" fill="var(--accent)" stroke="none"/><path d="M2 21c.8-3.6 2.6-5.4 5-5.4s4.2 1.8 5 5.4M12 21c.8-3.6 2.6-5.4 5-5.4s4.2 1.8 5 5.4"/>'),
     member: o('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="9" r="3.6"/><path d="M5.5 19c1.6-3.4 4-4.6 6.5-4.6s4.9 1.2 6.5 4.6" stroke="var(--accent)" stroke-width="2.4"/>'),
     news: o('<rect x="2" y="3" width="20" height="18"/><path d="M2 3h20v6H2z" fill="var(--accent)" stroke="none"/><path d="M6 13h12M6 17h8"/>'),
@@ -1603,7 +1609,7 @@ function achieved(i, base) { const s = { ...base }; Object.values(mem(i).done).f
 const teamPeople = () => teamData().people.map(([nm, sk], i) => [nm, achieved(i, sk)]);
 const memDoneTotal = () => Object.values(memAll()[st.team] || {}).reduce((a, m) => a + Object.keys(m.done || {}).length, 0);
 // typed-in list: removing a row shifts the profiles below it up by one
-function memShift(from) { const g = memAll().upload; if (!g) return; const n = {}; Object.entries(g).forEach(([k, v]) => { const i = +k; if (i < from) n[i] = v; else if (i > from) n[i - 1] = v; }); memAll().upload = n; memSave(); }
+function memShift(from) { const g = memAll()[st.team]; if (!g) return; const n = {}; Object.entries(g).forEach(([k, v]) => { const i = +k; if (i < from) n[i] = v; else if (i > from) n[i - 1] = v; }); memAll()[st.team] = n; memSave(); }
 // each person's path is built once from the levels they started with, so ticking steps does not reshuffle it
 function memPathKey(i) { const m = mem(i); return [st.team, i, memTarget(i), st.scen, P().budget || "free"].join("|") + "|" + JSON.stringify(m.base || teamData().people[i][1]); }
 function memPath(i) {
@@ -1613,7 +1619,7 @@ function memPath(i) {
   const m = mem(i); if (!m.base) { m.base = { ...teamData().people[i][1] }; memSave(); }
   st.memPaths[k] = { busy: true };
   api("/api/pathway", { skills: m.base, interests: [], hours: P().hours || 5, country: P().country || "MY", budget: P().budget || "free", age_band: null, situation: null, role: memTarget(i), scenario: st.scen })
-    .then((d) => { st.memPaths[k] = { data: d }; }).catch(() => { delete st.memPaths[k]; }).finally(() => { if (["people", "member"].includes(st.page)) render(); });
+    .then((d) => { st.memPaths[k] = { data: d }; }).catch(() => { delete st.memPaths[k]; }).finally(() => { if (["people", "member", "teams"].includes(st.page)) render(); });
   return null;
 }
 const memNodes = (pw) => pw.stages.flatMap((s, si) => s.nodes.map((n) => ({ ...n, si, key: nodeKey(si, n), stage: s })));
@@ -1622,12 +1628,52 @@ function memProgress(i) {
   const req = memNodes(pw).filter(required), d = mem(i).done;
   return { pw, req, n: req.filter((x) => d[x.key]).length, next: req.find((x) => !d[x.key]) || null };
 }
+function vTeamTabs() {
+  const tab = (id) => `<button type="button" data-team="${id}" aria-pressed="${st.team === id}">${esc(teamName(id))}${isOwn(id) ? "" : ` <span class="tiny muted">${T("sample")}</span>`}</button>`;
+  return `<div class="row between team-tabs-row"><div class="seg team-tabs" role="group" aria-label="${T("Teams")}"><button type="button" data-page="teams" aria-pressed="${st.page === "teams"}">${T("All teams")}</button>${allTeamIds().map(tab).join("")}</div>
+    <div class="row">${ownTeam() ? `<button type="button" class="btn ghost small" id="teamEdit">${T("Edit this team")}</button>` : ""}<button type="button" class="btn small" id="teamNew">+ ${T("New team")}</button></div></div>`;
+}
+// One card per team: size, target, readiness, path progress and the gap most people share.
+function teamRepFor(id) {
+  st.allRep = st.allRep || {};
+  const key = withTeam(id, teamKey), hit = st.allRep[key];
+  if (hit) return hit.data || null;
+  st.allRep[key] = { busy: true };
+  const body = withTeam(id, () => ({ people: teamPeople(), target_role: st.teamTarget || teamData().target_role, budget: P().budget || "free" }));
+  api("/api/team", body).then((d) => { st.allRep[key] = { data: d }; }).catch(() => { delete st.allRep[key]; }).finally(() => { if (st.page === "teams") render(); });
+  return null;
+}
+function vTeams() {
+  if (!isTeamUser()) { st.page = "dashboard"; return vDashboard(); }
+  const cards = allTeamIds().map((id) => withTeam(id, () => {
+    const Tm = teamData(), target = st.teamTarget || Tm.target_role, rep = teamRepFor(id);
+    const prs = Tm.people.map((_, i) => memProgress(i)), loaded = prs.every(Boolean);
+    const doneN = loaded ? prs.reduce((a, x) => a + x.n, 0) : 0, totalN = loaded ? prs.reduce((a, x) => a + x.req.length, 0) : 0;
+    const ppl = rep ? rep.people[st.scen] : [], avg = ppl.length ? ppl.reduce((a, x) => a + x.readiness, 0) / ppl.length : null, gap = rep && rep.plan.steps[0];
+    return `<section class="card stack team-card ${st.team === id ? "current" : ""}">
+      <div class="row between" style="flex-wrap:nowrap"><h3>${esc(teamName(id))}</h3>${isOwn(id) ? "" : `<span class="badge">${T("sample")}</span>`}</div>
+      <p class="small muted">${esc(T("{n} people · preparing for {role}", { n: Tm.people.length, role: roleOf(target).title }))}</p>
+      <div class="list">
+        <div><span>${T("Average readiness")}</span><span class="mono">${avg == null ? "…" : Math.round(avg * 100) + "%"}</span></div>
+        <div><span>${T("Path steps done")}</span><span class="mono">${loaded ? `${doneN} / ${totalN}` : "…"}</span></div>
+        <div><span>${T("Most shared gap")}</span><span class="small">${gap ? esc(T("{skill} ({n} of {total})", { skill: cl(gap.cluster).label, n: gap.n, total: Tm.people.length })) : rep ? T("None") : "…"}</span></div>
+      </div>
+      ${loaded && totalN ? `<span class="pc-prog"><span class="track"><span class="fill" style="display:block;width:${Math.round(doneN / totalN * 100)}%"></span></span></span>` : ""}
+      <div class="row"><button type="button" class="btn small" data-goteam="${id}">${T("Open team")} →</button></div>
+    </section>`;
+  }));
+  return `<div class="page">
+  ${intro(T("For HR and career centres"), T("All teams"), esc(T("Every team you look after, side by side. Each team has its own people, target career and profiles.")))}
+  ${vTeamTabs()}
+  <div class="teams-grid">${cards.join("")}</div></div>`;
+}
 function vPeople() {
   if (!isTeamUser()) { st.page = "dashboard"; return vDashboard(); }
   const Tm = teamData(), rep = teamReady() ? st.teamReport.people[st.scen] : [];
   const ready = Object.fromEntries(rep.map((x) => [x.name, x.readiness]));
   return `<div class="page">
   ${intro(T("For HR and career centres"), T(isCohort() ? "Students" : "People"), esc(T("One profile for each person in {group}. Open a profile to set their job title and target, and tick path steps as they finish them. Profiles are kept on this device.", { group: TS(Tm.label) })))}
+  ${vTeamTabs()}
   <div class="people-grid">${Tm.people.map(([nm], i) => {
     const m = mem(i), pr = memProgress(i), pct = pr && pr.req.length ? Math.round(pr.n / pr.req.length * 100) : 0;
     return `<button type="button" class="card person-card" data-member="${i}">
@@ -2093,31 +2139,53 @@ function resumeText() {
 }
 
 // ---------- teams and sources ---------------------------------------------------------------
-function teamData() { return st.team === "upload" && st.teamUpload ? st.teamUpload : st.meta.samples.teams.find((t) => t.id === st.team); }
+// A manager can keep several teams. Samples are fixed; their own teams are typed in or imported and
+// kept on this device. Each team has its own target career (st.teamTarget reads the current team's).
+const isOwn = (id) => /^t_/.test(id || "");
+const ownTeam = () => isOwn(st.team) ? st.ownTeams.find((t) => t.id === st.team) || null : null;
+const OWN_KEY = () => `wfe.teams.${A().id}`;
+function loadOwnTeams() {
+  let list = null; try { list = JSON.parse(localStorage.getItem(OWN_KEY()) || "null"); } catch (e) { /* none yet */ }
+  if (!list) {  // the single typed list from before becomes the first team, with its profiles
+    list = st.legacyUpload ? [{ ...st.legacyUpload, id: "t_1", label: st.legacyUpload.label === "Your list" || st.legacyUpload.label === "Your team" ? T("My team") : st.legacyUpload.label }] : [];
+    const all = memAll(); if (all.upload) { all.t_1 = all.upload; delete all.upload; memSave(); }
+  }
+  st.ownTeams = list; saveOwnTeams();
+}
+function saveOwnTeams() { try { localStorage.setItem(OWN_KEY(), JSON.stringify(st.ownTeams)); } catch (e) { /* this visit only */ } }
+const allTeamIds = () => [...st.meta.samples.teams.map((t) => t.id), ...st.ownTeams.map((t) => t.id)];
+const teamName = (id) => { const o = st.ownTeams.find((t) => t.id === id); return o ? o.label : TS(st.meta.samples.teams.find((t) => t.id === id).label); };
+function withTeam(id, fn) { const was = st.team; st.team = id; try { return fn(); } finally { st.team = was; } }
+function teamData() { return ownTeam() || st.meta.samples.teams.find((t) => t.id === st.team) || st.meta.samples.teams[0]; }
 function parseCsv(text) {
   const lines = text.trim().split(/\r?\n/).map((l) => l.split(",").map((c) => c.trim()));
   const head = lines.shift(); const cols = head.slice(1).filter((c) => st.meta.clusters.some((x) => x.id === c));
   if (!cols.length) throw new Error(T("The header must be: name, then skill codes such as excel, genai, customer"));
   const people = lines.filter((l) => l[0]).map((l) => [l[0], Object.fromEntries(cols.map((c) => [c, Math.max(0, Math.min(3, parseInt(l[head.indexOf(c)], 10) || 0))]))]);
-  return { id: "upload", who: "Your upload", label: "Your team", desc: T("{n} people from your file. Kept on this device; skill levels are sent only to score them, never stored.", { n: people.length }), target_role: st.meta.roles[0].id, columns: cols, people };
+  return { id: newTeamId(), who: "Your upload", label: T("Imported team"), desc: T("{n} people from your file. Kept on this device; skill levels are sent only to score them, never stored.", { n: people.length }), target_role: st.meta.roles[0].id, columns: cols, people };
 }
 // Typing the group in: start with the skills the chosen career needs and three empty rows.
+const newTeamId = () => "t_" + Date.now().toString(36);
 function newTeam() {
   const role = roleOf(st.teamTarget || teamData().target_role) || st.meta.roles[0];
-  return { id: "upload", who: "Your list", label: "Your list", desc: "", target_role: role.id, columns: role.req.map((q) => q.cluster), people: [1, 2, 3].map((i) => [T("Person {n}", { n: i }), {}]) };
+  return { id: newTeamId(), who: "Your list", label: T("Team {n}", { n: st.ownTeams.length + 1 }), desc: "", target_role: role.id, columns: role.req.map((q) => q.cluster), people: [1, 2, 3].map((i) => [T("Person {n}", { n: i }), {}]) };
 }
+function addOwnTeam(t) { st.ownTeams.push(t); st.team = t.id; st.teamTarget = st.teamTarget || t.target_role; saveOwnTeams(); teamEdited(); }
+function openTeamEditor() { st.page = "wizard"; st.wiz = Math.max(0, wizSteps().findIndex((w) => w.id === "team")); render(); scrollTop(); }
 function teamEdited(paint) {
-  const U = st.teamUpload;
-  U.desc = T("{n} people you entered. Kept on this device; skill levels are sent only to score them, never stored.", { n: U.people.length });
+  const U = ownTeam();
+  if (U) U.desc = T("{n} people you entered. Kept on this device; skill levels are sent only to score them, never stored.", { n: U.people.length });
   st.teamRev = (st.teamRev || 0) + 1;
-  try { localStorage.setItem("wfe.teamUpload", JSON.stringify(U)); } catch (e) { /* this visit only */ }
+  saveOwnTeams();
   teamSaved();
   if (paint) render();
 }
 function vTeamEditor() {
-  const U = st.teamUpload, free = st.meta.clusters.filter((c) => !U.columns.includes(c.id));
+  const U = ownTeam(), free = st.meta.clusters.filter((c) => !U.columns.includes(c.id));
   const lvSel = (i, k, v) => `<select data-tlv="${i}|${k}" aria-label="${esc(cl(k).label)}">${[0, 1, 2, 3].map((n) => `<option value="${n}" ${n === v ? "selected" : ""}>${esc(lv(n))}</option>`).join("")}</select>`;
   return `<div class="card stack team-editor" id="teamEditor">
+    <div class="row between"><div class="field" style="flex:1;min-width:200px"><label for="teamName">${T("Team name")}</label><input type="text" id="teamName" value="${esc(U.label)}" maxlength="60"></div>
+      <button type="button" class="btn ghost small" id="teamDel">${T("Delete this team")}</button></div>
     <div class="tablewrap"><table><thead><tr><th>${T("Name or ID")}</th><th>${T("Job title now")}</th>${U.columns.map((k) => `<th><span>${esc(cl(k).label)}</span><button type="button" class="x-btn" data-tcoldel="${k}" aria-label="${esc(T("Remove {skill}", { skill: cl(k).label }))}">×</button></th>`).join("")}<th></th></tr></thead>
       <tbody>${U.people.map(([nm, sk], i) => `<tr><td><input type="text" data-tname="${i}" value="${esc(nm)}" maxlength="40" aria-label="${esc(T("Name or ID"))}"></td><td><input type="text" data-ttitle="${i}" value="${esc(mem(i).title)}" maxlength="60" aria-label="${esc(T("Job title now"))}" placeholder="${esc(T("Job title"))}"></td>${U.columns.map((k) => `<td>${lvSel(i, k, sk[k] || 0)}</td>`).join("")}<td><button type="button" class="x-btn" data-tdel="${i}" aria-label="${esc(T("Remove {name}", { name: nm }))}" ${U.people.length < 2 ? "disabled" : ""}>×</button></td></tr>`).join("")}</tbody></table></div>
     <div class="row"><button type="button" class="btn" id="teamAddPerson">+ ${T("Add person")}</button>
@@ -2132,10 +2200,11 @@ const TEAM_ROLES = ["hr", "tvet"];
 const isTeamUser = () => !!A() && !!A().profile && TEAM_ROLES.includes(P().situation);
 const wizSteps = () => WIZ.filter((w) => isTeamUser() ? !["experience", "skills", "interests"].includes(w.id) : w.id !== "team");
 const teamWord = () => T(P().situation === "tvet" ? "cohort" : "team");
-const teamKey = () => { const Tm = teamData(); return [st.team, st.teamTarget || Tm.target_role, P().budget, Tm.people.length, st.team === "upload" ? st.teamRev || 0 : 0, memDoneTotal()].join("|"); };
+Object.defineProperty(st, "teamTarget", { get: () => st.teamTargets[st.team] || null, set: (v) => { st.teamTargets = { ...st.teamTargets, [st.team]: v || undefined }; } });
+const teamKey = () => { const Tm = teamData(); return [st.team, st.teamTarget || Tm.target_role, P().budget, Tm.people.length, isOwn(st.team) ? st.teamRev || 0 : 0, memDoneTotal()].join("|"); };
 const teamReady = () => st.teamReport && st.teamKey === teamKey();
 function teamSaved() {
-  if (isTeamUser()) { A().team = { source: st.team, target: st.teamTarget || teamData().target_role }; save(); }
+  if (isTeamUser()) { A().team = { source: st.team, targets: st.teamTargets }; save(); }
 }
 function setTeamTarget(role) { st.teamTarget = role; teamSaved(); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
 async function loadTeamReport() {
@@ -2148,9 +2217,10 @@ async function loadTeamReport() {
 function vTeamStep() {
   const Tm = teamData(), target = st.teamTarget || Tm.target_role;
   const samples = st.meta.samples.teams.map((t) => `<button type="button" class="option" data-team="${t.id}" aria-pressed="${st.team === t.id}"><b>${esc(T("Sample: {label}", { label: TS(t.label) }))}</b><span class="small muted">${esc(TS(t.desc))}</span></button>`).join("");
-  const own = `<button type="button" class="option" data-team="upload" aria-pressed="${st.team === "upload"}"><b>${T("Type your own")}</b><span class="small muted">${st.teamUpload ? esc(T("{n} people so far", { n: st.teamUpload.people.length })) : T("Enter each person and their skill levels here")}</span></button>`;
+  const own = st.ownTeams.map((t) => `<button type="button" class="option" data-team="${t.id}" aria-pressed="${st.team === t.id}"><b>${esc(t.label)}</b><span class="small muted">${esc(T("{n} people so far", { n: t.people.length }))}</span></button>`).join("")
+    + `<button type="button" class="option" id="teamNew"><b>+ ${T(st.ownTeams.length ? "New team" : "Type your own")}</b><span class="small muted">${T("Enter each person and their skill levels here")}</span></button>`;
   return `<div class="options">${samples}${own}</div>
-    ${st.team === "upload" && st.teamUpload ? vTeamEditor() : ""}
+    ${ownTeam() ? vTeamEditor() : ""}
     <div class="field"><label for="teamTarget">${esc(T("Career to prepare your {group} for", { group: teamWord() }))}</label><select id="teamTarget">${st.meta.roles.map((x) => `<option value="${x.id}" ${x.id === target ? "selected" : ""}>${esc(x.title)}</option>`).join("")}</select>
       <span class="tiny muted">${T("You can change this later. Home also ranks every career for the whole group.")}</span></div>
     <p class="tiny muted">${T("Have a spreadsheet?")} <label class="text-link">${T("Import a CSV")}<input type="file" id="teamCsv" accept=".csv,text/csv" hidden></label> ${T("(name, then skill codes such as excel, genai, customer with levels 0–3).")}</p>`;
@@ -2219,6 +2289,7 @@ function vTeamHome() {
       <tbody>${ppl.map((p) => `<tr><td><button type="button" class="link-btn" data-member="${Tm.people.findIndex((x) => x[0] === p.name)}"><b>${esc(p.name)}</b></button></td><td>${readyBar(p.readiness)}</td><td class="small">${p.gaps.length ? p.gaps.slice(0, 2).map((g) => `${esc(cl(g.cluster).label)} <span class="muted">${esc(lv(g.have))} → ${esc(lv(g.need))}</span>`).join("<br>") : `<span class="muted">${T("None")}</span>`}</td><td class="small">${esc(title(p.top[0].role))} <span class="mono muted">${Math.round(p.top[0].score)}</span></td><td><button type="button" class="btn ghost small" data-person="${esc(p.name)}">${T("One-page plan")}</button></td></tr>`).join("")}</tbody></table></div>`);
   return `<div class="page team-home">
   ${intro(T("For HR and career centres"), T(isCohort() ? "Your cohort: {label}" : "Your team: {label}", { label: TS(Tm.label) }), esc(T("A reskilling plan for {n} people, preparing for {role}. Work through the four steps below. Scores are group averages: estimates, not predictions.", { n: N, role: tgtTitle })))}
+  ${vTeamTabs()}
   <div class="row between team-tools">
     <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>${scenBrief()}
     <div class="row"><button type="button" class="btn" data-page="teamreport">${T("Report for leadership")}</button></div>
@@ -2383,7 +2454,8 @@ function vTeam() {
   const cell = (v, nd) => { const c = nd ? (v >= nd ? 3 : v === nd - 1 ? 2 : v > 0 ? 1 : 0) : Math.min(v, 3); return `<span class="cell c${c}">${lvlDots(v)}<span>${esc(lv(v))}</span></span>`; };
   const gaps = Object.keys(need).map((k) => ({ k, n: Tm.people.filter(([, s]) => (s[k] || 0) < need[k]).length })).sort((a, b) => b.n - a.n);
   return `<div class="page">${intro(T("For HR and career centres"), TS(Tm.label), esc(TS(Tm.desc)))}
-   <div class="row between"><div class="seg">${st.meta.samples.teams.map((t) => `<button type="button" data-team="${t.id}" aria-pressed="${st.team === t.id}">${esc(TS(t.who))}</button>`).join("")}${st.teamUpload ? `<button type="button" data-team="upload" aria-pressed="${st.team === "upload"}">${T("Your list")}</button>` : ""}</div>
+   ${vTeamTabs()}
+   <div class="row between"><span></span>
      <div class="row"><label class="small">${T("Target")} <select id="teamTarget">${st.meta.roles.map((x) => `<option value="${x.id}" ${x.id === target ? "selected" : ""}>${esc(x.title)}</option>`).join("")}</select></label></div></div>
    <div class="card"><div class="tablewrap"><table class="skills-tbl"><thead><tr><th>${T("Person")}</th><th>${T("Best fit")}</th>${cols.map((k) => `<th>${esc(cl(k).label)}${need[k] ? `<br><span class="mono">${esc(T("needs {level}", { level: lv(need[k]) }))}</span>` : ""}</th>`).join("")}</tr></thead>
      <tbody>${teamPeople().map(([nm, s], i) => `<tr><td><button type="button" class="link-btn nowrap" data-member="${i}">${esc(nm)}</button></td><td class="small">${best[nm] ? `${esc(roleOf(best[nm].role).title)} <span class="mono muted">${Math.round(best[nm].score)}</span>` : "…"}</td>${cols.map((k) => `<td>${cell(s[k] || 0, need[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
@@ -2519,7 +2591,7 @@ async function sendChat(text) {
   c.busy = false; renderHelper(); const inp = $("#chatInput"); if (inp) inp.focus();
 }
 
-const VIEWS = { people: vPeople, member: vMember, updates: vUpdates, signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
+const VIEWS = { teams: vTeams, people: vPeople, member: vMember, updates: vUpdates, signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
 // ---------- motion: GSAP + ScrollTrigger animations, Lenis smooth scrolling ------------------------
 // The landing gets the full treatment; inside the app, cards below the fold rise in once per page.
 // Everything is skipped when the device asks for reduced motion.
@@ -2761,7 +2833,7 @@ document.addEventListener("click", async (ev) => {
     if (d.opt === "mode") A().prefs.mode = v;
     else {
       P()[d.opt] = v; if (d.opt === "country") P().budget = "free";
-      if (d.opt === "situation" && TEAM_ROLES.includes(v) && st.team !== "upload") { st.team = v; st.teamTarget = null; }
+      if (d.opt === "situation" && TEAM_ROLES.includes(v) && !isOwn(st.team)) { st.team = v; }
     }
     save(); render(); return;
   }
@@ -2823,11 +2895,11 @@ document.addEventListener("click", async (ev) => {
   if (d.closesheet !== undefined) { st.sheetOpen = false; render(); return; }
   if (d.goto) { st.sel = d.goto; go("path"); return; }
   if (d.toggle) { const n = flatNodes().find((x) => x.key === d.toggle); if (n) setDone(n, !done(n.key)); return; }
-  if (d.tdel) { st.teamUpload.people.splice(+d.tdel, 1); memShift(+d.tdel); teamEdited(true); return; }
-  if (d.tcoldel) { const U = st.teamUpload; U.columns = U.columns.filter((k) => k !== d.tcoldel); U.people.forEach(([, sk]) => delete sk[d.tcoldel]); teamEdited(true); return; }
+  if (d.tdel) { ownTeam().people.splice(+d.tdel, 1); memShift(+d.tdel); teamEdited(true); return; }
+  if (d.tcoldel) { const U = ownTeam(); U.columns = U.columns.filter((k) => k !== d.tcoldel); U.people.forEach(([, sk]) => delete sk[d.tcoldel]); teamEdited(true); return; }
   if (d.member !== undefined) { st.member = +d.member; st.page = "member"; render(); scrollTop(); return; }
-  if (d.team === "upload" && !st.teamUpload) { st.teamUpload = newTeam(); teamEdited(); }
-  if (d.team) { st.team = d.team; st.teamTarget = d.team === "upload" ? st.teamTarget : null; teamSaved(); render(); return; }
+  if (d.goteam) { st.team = d.goteam; teamSaved(); st.page = "dashboard"; render(); scrollTop(); return; }
+  if (d.team) { st.team = d.team; teamSaved(); render(); return; }
   if (d.target) { setTeamTarget(d.target); return; }
   if (d.person) { st.teamPerson = d.person; go("teamperson"); return; }
   if (d.cvadd) { st.cvDraft[d.cvadd].push(d.cvadd === "experience" ? { title: "", organisation: "", start: "", end: "", highlights: [] } : { qualification: "", institution: "", year: "" }); render(); return; }
@@ -2848,7 +2920,14 @@ document.addEventListener("click", async (ev) => {
     case "printPage": window.print(); return;
     case "newsSumBtn": summariseNews(); return;
     case "updateBtn": runUpdate(); return;
-    case "teamAddPerson": st.teamUpload.people.push([T("Person {n}", { n: st.teamUpload.people.length + 1 }), {}]); teamEdited(true); return;
+    case "teamAddPerson": ownTeam().people.push([T("Person {n}", { n: ownTeam().people.length + 1 }), {}]); teamEdited(true); return;
+    case "teamNew": addOwnTeam(newTeam()); if (st.page === "wizard") render(); else openTeamEditor(); return;
+    case "teamEdit": openTeamEditor(); return;
+    case "teamDel": {
+      const U = ownTeam(); if (!U || !window.confirm(T("Delete {team} and its profiles from this device?", { team: U.label }))) return;
+      st.ownTeams = st.ownTeams.filter((x) => x.id !== U.id); delete memAll()[U.id]; memSave(); saveOwnTeams();
+      st.team = (st.ownTeams[0] || st.meta.samples.teams[0]).id; teamSaved(); render(); return;
+    }
     case "jcRun": runJobCheck(); return;
     case "newsMore": { st.newsMore = (st.newsMore || 18) + 18; const r = $("#newsResults"); if (r) r.innerHTML = vNewsResults(); return; }
     case "slidePrev": slideMove(-1); return;
@@ -2919,9 +2998,9 @@ document.addEventListener("change", (ev) => {
     if (t.checked) m.done[n.key] = n.type === "skill" ? { cluster: n.cluster, to: n.to } : {}; else delete m.done[n.key];
     memSave(); render(); return;
   }
-  if (d.tlv) { const [i, k] = d.tlv.split("|"); st.teamUpload.people[+i][1][k] = +t.value; teamEdited(); return; }
-  if (t.id === "teamAddSkill" && t.value) { st.teamUpload.columns.push(t.value); teamEdited(true); return; }
-  if (t.id === "teamCsv" && t.files[0]) { const f = new FileReader(); f.onload = () => { try { st.teamUpload = parseCsv(String(f.result)); st.team = "upload"; st.teamTarget = st.teamTarget || st.teamUpload.target_role; try { localStorage.setItem("wfe.teamUpload", JSON.stringify(st.teamUpload)); } catch (e2) { /* this visit only */ } teamSaved(); render(); } catch (e) { toast(e.message); } }; f.readAsText(t.files[0]); }
+  if (d.tlv) { const [i, k] = d.tlv.split("|"); ownTeam().people[+i][1][k] = +t.value; teamEdited(); return; }
+  if (t.id === "teamAddSkill" && t.value) { ownTeam().columns.push(t.value); teamEdited(true); return; }
+  if (t.id === "teamCsv" && t.files[0]) { const f = new FileReader(); f.onload = () => { try { addOwnTeam(parseCsv(String(f.result))); if (st.page === "wizard") render(); else openTeamEditor(); } catch (e) { toast(e.message); } }; f.readAsText(t.files[0]); }
 });
 document.addEventListener("submit", (ev) => { if (ev.target.id === "chatForm") { ev.preventDefault(); sendChat($("#chatInput").value); } });
 document.addEventListener("input", (ev) => {
@@ -2929,7 +3008,8 @@ document.addEventListener("input", (ev) => {
   if (t.id === "chatInput") { st.chat.draft = t.value; return; }
   if (d.memf) { mem(st.member)[d.memf] = t.value; memSave(); return; }
   if (d.ttitle !== undefined) { mem(+d.ttitle).title = t.value; memSave(); return; }
-  if (d.tname) { st.teamUpload.people[+d.tname][0] = t.value.trim() || T("Person {n}", { n: +d.tname + 1 }); teamEdited(); return; }
+  if (t.id === "teamName") { ownTeam().label = t.value.trim() || T("Team {n}", { n: st.ownTeams.indexOf(ownTeam()) + 1 }); saveOwnTeams(); const b = document.querySelector(`.options [data-team="${st.team}"] b`); if (b) b.textContent = ownTeam().label; return; }
+  if (d.tname) { ownTeam().people[+d.tname][0] = t.value.trim() || T("Person {n}", { n: +d.tname + 1 }); teamEdited(); return; }
   if (t.id === "hours") { P().hours = +t.value; const o = $("#hoursOut"); if (o) o.textContent = t.value; st.path = null; save(); return; }
   if (t.id === "about") { P().about = t.value; save(); return; }
   if (d.pick) { openPick(t); return; }
@@ -3056,7 +3136,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ren
   try { st.meta = await api("/api/meta"); }
   catch (e) { $("#app").innerHTML = `<p class="note warn">${esc(T("The server is not ready: {e}", { e: e.message }))}</p>`; return; }
   try { st.updates = await api("/api/updates"); } catch (e) { st.updates = null; }
-  try { st.teamUpload = JSON.parse(localStorage.getItem("wfe.teamUpload") || "null"); } catch (e) { st.teamUpload = null; }
+  try { st.legacyUpload = JSON.parse(localStorage.getItem("wfe.teamUpload") || "null"); } catch (e) { st.legacyUpload = null; }
   try { st.token = localStorage.getItem(TOKEN); } catch (e) { st.token = null; }
   if (st.token) { try { useAccount(await api("/api/me")); await syncAccountLang(); } catch (e) { st.token = null; st.acct = null; try { localStorage.removeItem(TOKEN); } catch (e2) { /* ignore */ } } }
   if (A()) {

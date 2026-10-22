@@ -1650,5 +1650,20 @@
  "own target": "个人目标",
  "{n} of {total} steps done": "已完成 {n}/{total} 步",
  "{pct}% of the path done": "路径已完成 {pct}%",
- "{p}% ready": "{p}% 就绪"
+ "{p}% ready": "{p}% 就绪",
+ "My team": "我的团队",
+ "Imported team": "导入的团队",
+ "Team {n}": "团队 {n}",
+ "Team name": "团队名称",
+ "Delete this team": "删除此团队",
+ "New team": "新团队",
+ "Delete {team} and its profiles from this device?": "从此设备删除{team}及其档案？",
+ "sample": "示例",
+ "All teams": "所有团队",
+ "Edit this team": "编辑此团队",
+ "{n} people · preparing for {role}": "{n} 人 · 准备：{role}",
+ "Path steps done": "已完成路径步骤",
+ "{skill} ({n} of {total})": "{skill}（{n}/{total}）",
+ "Open team": "打开团队",
+ "Every team you look after, side by side. Each team has its own people, target career and profiles.": "你负责的所有团队并排显示。每个团队都有自己的成员、目标职业和档案。"
 }

@@ -1650,5 +1650,20 @@
  "own target": "sasaran sendiri",
  "{n} of {total} steps done": "{n} daripada {total} langkah selesai",
  "{pct}% of the path done": "{pct}% laluan selesai",
- "{p}% ready": "{p}% sedia"
+ "{p}% ready": "{p}% sedia",
+ "My team": "Pasukan saya",
+ "Imported team": "Pasukan diimport",
+ "Team {n}": "Pasukan {n}",
+ "Team name": "Nama pasukan",
+ "Delete this team": "Padam pasukan ini",
+ "New team": "Pasukan baharu",
+ "Delete {team} and its profiles from this device?": "Padam {team} dan profilnya daripada peranti ini?",
+ "sample": "contoh",
+ "All teams": "Semua pasukan",
+ "Edit this team": "Edit pasukan ini",
+ "{n} people · preparing for {role}": "{n} orang · bersedia untuk {role}",
+ "Path steps done": "Langkah laluan selesai",
+ "{skill} ({n} of {total})": "{skill} ({n} daripada {total})",
+ "Open team": "Buka pasukan",
+ "Every team you look after, side by side. Each team has its own people, target career and profiles.": "Setiap pasukan yang anda jaga, bersebelahan. Setiap pasukan ada orang, kerjaya sasaran dan profilnya sendiri."
 }
