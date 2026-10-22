@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="512" height="512">
+  <!-- Lamb, the career helper. Original artwork for Workforce Futures. Replace with static/art/lamb.png (512x512, transparent); see docs/art/README.md -->
+
+  <path d="M34 42c-16-6-26 10-17 20 7 8 18 2 14-6-3-5-9-2-7 2" fill="none" stroke="#C98A5A" stroke-width="7" stroke-linecap="round"/>
+
+  <path d="M86 42c16-6 26 10 17 20-7 8-18 2-14-6 3-5 9-2 7 2" fill="none" stroke="#C98A5A" stroke-width="7" stroke-linecap="round"/>
+
+  <g fill="#fff" stroke="#111" stroke-width="1.5">
+
+    <circle cx="42" cy="36" r="13"/><circle cx="55" cy="28" r="14"/><circle cx="69" cy="29" r="14"/><circle cx="80" cy="38" r="12"/>
+
+    <ellipse cx="32" cy="64" rx="9" ry="4.5" transform="rotate(-18 32 64)"/><ellipse cx="88" cy="64" rx="9" ry="4.5" transform="rotate(18 88 64)"/>
+
+  </g>
+
+  <path d="M38 98c4-14 40-14 44 0v22H38z" fill="#fff" stroke="#111" stroke-width="1.5"/>
+
+  <ellipse cx="60" cy="62" rx="23" ry="21" fill="#FBE4D2" stroke="#111" stroke-width="1.5"/>
+
+  <g fill="#fff" stroke="#111" stroke-width="1.5"><circle cx="49" cy="44" r="9"/><circle cx="61" cy="41" r="10"/><circle cx="72" cy="45" r="8"/></g>
+
+  <path class="eye" d="M49 63q4-4 8 0M63 63q4-4 8 0" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+
+  <circle cx="46" cy="69" r="3.6" fill="#F0A096" opacity=".75"/><circle cx="74" cy="69" r="3.6" fill="#F0A096" opacity=".75"/>
+
+  <path d="M55 71q2.5 3 5 0q2.5 3 5 0" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+
+  <path d="M60 86l-10-6v12zM60 86l10-6v12z" fill="#1F3BD9"/><circle cx="60" cy="86" r="3" fill="#1F3BD9" stroke="#111" stroke-width="1"/>
+
+</svg>

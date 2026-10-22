@@ -16,3 +16,20 @@ This product includes data from third parties, used under their terms:
 - Optional: Adzuna API (https://developer.adzuna.com), under Adzuna's terms.
 
 Course names and links in data/seed/catalogue.json belong to their providers.
+
+Landing page background, used under the Unsplash License (https://unsplash.com/license)
+and loaded from Unsplash's servers:
+- Deep blue and purple flowing shapes, by Richard Horvath
+  https://unsplash.com/photos/deep-blue-and-purple-flowing-shapes-_nWaeTF6qo0
+
+Design inspiration (ideas only, no files copied): "2D-Composition" technique notes,
+https://github.com/AzusagawaKaedeSama/2D-Composition. The geometric marks in this app
+are drawn in its own code.
+
+Fonts: Newsreader and Figtree (Google Fonts), SIL Open Font License 1.1.
+
+Bundled JavaScript libraries (static/vendor):
+- GSAP 3.12.5 and its ScrollTrigger plugin, by GreenSock (https://gsap.com), under the
+  GSAP Standard License (https://gsap.com/standard-license), free for this use.
+- Lenis 1.1.20 smooth scrolling, by darkroom.engineering (https://github.com/darkroomengineering/lenis),
+  MIT License.

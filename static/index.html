@@ -4,28 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Workforce Futures Engine</title>
-<meta name="description" content="From who you are today to where you can be in the AI era: careers that fit you, a step-by-step path to the top, and a resume when you are ready.">
+<meta name="description" content="See how AI changes your career, and what to do next: careers that fit you, a step-by-step path to the top role, and a resume when you are ready.">
+<script>try { var t = localStorage.getItem("wfe.theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Figtree:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
 <header class="top"><div class="wrap">
   <div class="brand">
-    <div class="logo" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 18 18"><path d="M2 14 L7 8 L10 11 L16 3" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <div><h1>Workforce Futures</h1><p class="tiny muted tag-line">Your career in the AI era, one step at a time</p></div>
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 2a14 14 0 0 1 0 28z" fill="var(--accent)"/><circle cx="26" cy="5" r="2.4" fill="currentColor"/><line x1="1" y1="29" x2="31" y2="11" stroke="currentColor" stroke-width="1"/></svg>
+    <h1 class="wordmark">Workforce<br>Futures</h1>
+    <span class="brand-rule" aria-hidden="true"></span>
+    <p class="tag-line" data-i18n="Your career in the AI era, one step at a time">Your career in the AI era, one step at a time</p>
   </div>
-  <div id="account"></div>
+  <div class="top-actions">
+    <div id="langPick"></div>
+    <button type="button" class="icon-btn" id="themeBtn" aria-label="Switch light or dark mode" title="Light or dark mode"></button>
+    <div id="account"></div>
+  </div>
 </div></header>
 <nav class="nav" id="nav" aria-label="Main"></nav>
-<main><div class="wrap" id="app"><p class="muted">Loading…</p></div></main>
+<main><div class="wrap" id="app"><div class="page" aria-busy="true"><div class="skel skel-title"></div><p class="load-msg" data-i18n="Getting your career guide ready…">Getting your career guide ready…</p><div class="dash"><div class="card skel-card hero-card"></div><div class="card skel-card"></div><div class="card skel-card"></div></div></div></div></main>
 <footer><div class="wrap">
-  Supports your decisions; never makes hiring decisions. Estimates, not predictions.
-  Data: ESCO (European Commission), ILO Working Paper 140 (CC BY 4.0), UN SDG API, Hacker News via Algolia, arXiv.
-  <span id="llmFoot"></span> Apache 2.0.
+  <p class="trust" data-i18n="Sample data only. Estimates, not predictions. You stay in control: check every suggestion before you act on it.">Sample data only. Estimates, not predictions. You stay in control: check every suggestion before you act on it.</p>
+  <p data-i18n="Scores never use age, gender or ethnicity, and we do not ask for gender or ethnicity. This tool supports your decisions and never makes hiring decisions.">Scores never use age, gender or ethnicity, and we do not ask for gender or ethnicity. This tool supports your decisions and never makes hiring decisions.</p>
+  <ul class="src-pills" aria-label="Data sources" data-i18n-label="Data sources"><li>ESCO · European Commission</li><li>ILO Working Paper 140 · CC BY 4.0</li><li>UN SDG API</li><li>Hacker News via Algolia</li><li>arXiv</li></ul>
+  <p><span id="llmFoot"></span> Apache 2.0.</p>
 </div></footer>
-<div class="toast" id="toast" hidden></div>
+<div id="helper"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="/static/vendor/gsap.min.js"></script>
+<script src="/static/vendor/ScrollTrigger.min.js"></script>
+<script src="/static/vendor/lenis.min.js"></script>
 <script src="/static/app.js"></script>
 </body>
 </html>
