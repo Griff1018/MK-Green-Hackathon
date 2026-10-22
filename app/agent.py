@@ -35,7 +35,7 @@ PAGES = {
     "news": "News: real work and jobs headlines from Hacker News (titles and links), our own trend signals, a career filter and an AI summary of the headlines shown.",
     "careers": "Careers overview: every career ranked for you in three possible futures, grouped into zones by demand and AI impact, with details for any career, including how the fit score is calculated and a What it takes tab (the skills that would raise a career's rank, in order, with hours).",
     "path": "Path: your step-by-step road from entry to the top role, with courses that fit your budget, plus optional action tracks you can add (LinkedIn & personal brand, real experience, networking, job hunting). Mark steps done here.",
-    "resume": "Resume: unlocks after you finish a stage; built from your profile and finished steps; save as PDF.",
+    "resume": "Resume: open any time; built from your profile and the path steps you finish; save as PDF.",
     "wizard": "Edit about you: change explanation style, language, country, age and situation, time, budget, CV, skills and interests.",
     "sources": "Data and sources: where every number comes from, how the score is calculated, and what the AI model may do.",
     "team": "For HR teams: a team skills heatmap and shared gaps for training plans, never for selection.",
@@ -175,8 +175,7 @@ def facts(data: dict, snap: dict, prev: dict | None) -> dict:
             if unlocked == si - 1 and st["steps_done"] == st["steps_total"]:
                 unlocked = si
         f["my_career"] = {"career": ROLE[role_id]["title"], "stages": stages, "next_step": nxt,
-                          "resume": f"unlocked for {stages[unlocked]['job']}" if unlocked >= 0 else
-                          f"locked until the {stages[0]['stage'].lower()} stage is finished"}
+                          "resume": f"ready for {stages[max(unlocked, 0)]['job']}"}
         tips = advice.advice(skills, country, p.get("age_band") or None, p.get("situation") or None,
                              p.get("budget", "free"), p.get("hours", 5), role_id, path["hours"])
         f["advice"] = tips["tips"][:5]

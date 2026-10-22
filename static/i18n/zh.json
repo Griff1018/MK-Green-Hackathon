@@ -1435,5 +1435,15 @@
  "You have it: {level}": "你已具备：{level}",
  "To learn, in this order": "按此顺序学习",
  "Already have": "已具备",
- "The order gives the most fit points per hour of study. +points = how much each skill adds to your fit score. An estimate, not a promise.": "这个顺序让每小时学习获得最多匹配分。+分数 = 每项技能为你的匹配度增加多少。是估计，不是承诺。"
+ "The order gives the most fit points per hour of study. +points = how much each skill adds to your fit score. An estimate, not a promise.": "这个顺序让每小时学习获得最多匹配分。+分数 = 每项技能为你的匹配度增加多少。是估计，不是承诺。",
+ "No ad at hand? Try a sample:": "手头没有广告？试试示例：",
+ "Sample ad made up for this demo. No real employer.": "这是为演示编写的示例广告，并非真实雇主。",
+ "Junior data analyst": "初级数据分析师",
+ "Medical lab assistant": "医学实验室助理",
+ "Digital marketing executive": "数字营销专员",
+ "You can build your resume now. Each path step you finish adds its course here.": "你现在就可以制作简历。每完成一个路径步骤，其课程就会加到这里。",
+ "Ready to edit": "可以编辑",
+ "Courses you finish are added automatically.": "你完成的课程会自动加入。",
+ "Your resume is ready any time. It grows as you finish path steps, so it only shows what you can really do.": "你的简历随时可用。它会随着你完成路径步骤而增加，所以只展示你真正会做的事。",
+ "How do I build my resume?": "我怎样制作简历？"
 }

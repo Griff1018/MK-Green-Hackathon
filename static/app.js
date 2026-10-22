@@ -190,7 +190,7 @@ const GLOSSARY = {
   sdg: ["The UN's 17 goals for a better world. This shows how the work helps them.", "Links to official UN SDG targets with a reason. They do not change rankings, except in the Green transition scenario."],
   esco: ["The EU's official list of jobs and skills. We use it so careers are real.", "ESCO v1.2 occupations and essential skills, linked to ISCO-08 codes."],
   future: ["A skill employers now want because of AI. Official job lists don't include it yet.", "Requirement added by the team because ESCO predates generative AI."],
-  resume: ["Your resume opens when you finish a stage, so it only shows what you can really do.", "The resume lists skills at working level or above and only courses marked done."],
+  resume: ["Your resume is ready any time. It grows as you finish path steps, so it only shows what you can really do.", "The resume lists skills at working level or above and only courses marked done."],
   update: ["We check the latest job and research data every time you visit.", "The newest trend snapshot is compared with the previous one to re-rank steps and spot rising tools."]
 };
 const GLOSS_LABEL = { score: "Fit score", exposure: "AI exposure", demand: "Demand", scenario: "Future scenario", stage: "Stage", priority: "Priority", newtech: "New tool", budget: "Budget", sdg: "UN goals", esco: "ESCO", future: "AI-era skill", resume: "Resume", update: "Daily check" };
@@ -728,7 +728,7 @@ function vDashboard() {
         <div class="row" style="gap:12px"><div class="ring" style="--p:${stagePct(si)}"><span>${stagePct(si)}%</span></div><div><b>${esc(T("{stage} stage", { stage: TS(pw.stages[si].stage) }))}</b><p class="tiny muted">${esc(T("About {weeks} weeks at your pace", { weeks: pw.stages[si].weeks[1] }))}</p></div></div></div>
       <div class="kpi geo-tile"><span class="kpi-geo" aria-hidden="true">${TILE_GEO.resume}</span><span class="k-label">${T("Resume")} ${info("resume")}</span>
         ${u >= 0 ? `<b>${esc(T("Ready for {role}", { role: pw.stages[u].title }))}</b><div class="row"><button class="btn" type="button" data-page="resume">${T("Open my resume")}</button></div>`
-          : `<b>${I.lock.replace('width="28" height="28"', 'width="16" height="16" style="vertical-align:-2px"')} ${T("Locked")}</b><p class="tiny muted">${esc(T("Finish the {stage} stage to unlock it ({pct}% done).", { stage: stageName(pw.stages[0].stage, true), pct: stagePct(0) }))}</p>`}</div>
+          : `<b>${T("Ready to edit")}</b><p class="tiny muted">${T("Courses you finish are added automatically.")}</p><div class="row"><button class="btn" type="button" data-page="resume">${T("Open my resume")}</button></div>`}</div>
     </div>
   </div>`;
 }
@@ -1276,6 +1276,46 @@ function vXray() {
 }
 
 // ---------- job check -------------------------------------------------------------------------
+// Sample ads for trying the page. Invented for this demo: no real employer, salary or link.
+const SAMPLE_ADS = [
+  ["Junior data analyst", `Junior Data Analyst (Kuala Lumpur)
+We are a mid-sized logistics company looking for a junior data analyst to join our operations team.
+What you will do:
+- Write SQL queries to pull delivery and warehouse data
+- Build weekly dashboards in Power BI for the operations managers
+- Clean and check data in Excel before it is reported
+- Present findings to team leads and suggest improvements
+What we look for:
+- Strong analytical thinking and attention to detail
+- Good communication with non-technical colleagues
+- Experience with Python is a plus
+- Comfortable using AI tools such as ChatGPT or Copilot to speed up routine work`],
+  ["Medical lab assistant", `Medical Laboratory Assistant (Penang)
+A private hospital laboratory is hiring a medical laboratory assistant.
+Responsibilities:
+- Receive, label and prepare patient specimens for testing
+- Follow laboratory safety and quality control procedures
+- Keep accurate records in the laboratory information system
+- Support patients and nurses with sample collection questions
+Requirements:
+- Diploma in medical laboratory technology or related field
+- Careful, organised and good at record keeping
+- Basic spreadsheet skills
+- Good communication in Malay and English`],
+  ["Digital marketing executive", `Digital Marketing Executive (Singapore, hybrid)
+A growing online retailer is looking for a digital marketing executive.
+You will:
+- Plan and run social media campaigns and paid ads
+- Track results with Google Analytics and report on what works
+- Write product descriptions, emails and blog posts
+- Create simple visuals in Canva or Figma
+- Work with the sales team and outside agencies
+You have:
+- Experience in SEO and growth marketing
+- Strong copywriting skills
+- Data-driven mindset; Excel skills are a must
+- Bonus: experience using generative AI tools for content`],
+];
 function jcState() { return st.jc || (st.jc = { text: "", url: "", busy: false, res: null, note: "" }); }
 async function runJobCheck() {
   const j = jcState(); if (j.busy || (!j.text.trim() && !j.url.trim())) return;
@@ -1307,13 +1347,14 @@ function vJobCheck() {
   return `<div class="page">
   ${intro(T("Job check"), T("Check a real job ad against your skills"), T("Paste a job ad (or a link to one). We find the skills it asks for and show what you already have and what is missing. The ad is not saved."))}
   <section class="card stack jc-form">
+    <div class="row jc-samples" style="gap:6px"><span class="small muted">${T("No ad at hand? Try a sample:")}</span>${SAMPLE_ADS.map(([l], i) => `<button type="button" class="chip" data-sample="${i}">${esc(T(l))}</button>`).join("")}</div>
     <label class="field"><span class="label">${T("The job ad")}</span><div class="with-mic"><textarea id="jobText" rows="7" maxlength="20000" placeholder="${T("Paste the full ad text here…")}">${esc(j.text)}</textarea>${micBtn("jobText")}</div></label>
     <label class="field"><span class="label">${T("Or a link to the ad")}</span><input id="jobUrl" type="url" maxlength="600" value="${esc(j.url)}" placeholder="https://"></label>
     <p class="tiny muted">${T("Many job sites block automatic reading. If the link doesn't work, paste the text instead.")}</p>
     <div class="row"><button type="button" class="btn primary" id="jcRun" ${j.busy ? "disabled" : ""}>${j.busy ? `<span class="spin"></span> ${T("Checking…")}` : T("Check this job")}</button></div>
     ${j.note ? `<p class="note warn small">${esc(TS(j.note))}</p>` : ""}
   </section>
-  ${r ? `<section class="card stack jc-result" id="jcResult">
+  ${r ? `<section class="card stack jc-result" id="jcResult">${j.sample ? `<p class="note small">${T("Sample ad made up for this demo. No real employer.")}</p>` : ""}
     <div class="jc-top">${progressGeo(r.fit || 0, T("You have {pct}% of what this ad asks", { pct: r.fit || 0 }))}
       <div class="stack" style="gap:6px;min-width:0"><span class="eyebrow">${T("Your match for this ad")}</span><h3>${esc(r.title || T("This job"))}</h3>
         <p class="small">${esc(T("It asks for {n} skills from our list. You have {have}; {miss} need work, about {hours} h of checked courses.", { n: r.asks.length, have: r.asks.filter((a) => a.status === "have").length, miss: r.asks.filter((a) => a.status !== "have").length, hours: r.hours }))}</p>
@@ -1544,7 +1585,7 @@ function vNodeSheet(n) {
     body = `<p class="small">${esc(TS(n.text))}</p>
       ${s.local_demand ? `<p class="note accent small">${esc(simple() ? T("Employers in {country} are short of these people.", { country: countryName() }) : T("{group} are listed as critical occupations in {country}.", { group: TS(s.local_demand), country: countryName() }) + " " + TS(st.path.local_demand_source))}</p>` : ""}
       <div class="stack"><span class="label">${esc(T("Look for jobs in {country}", { country: countryName() }))}</span>${(st.advice ? st.advice.job_search : []).map((j) => `<a class="btn" href="${esc(j.url.replace("{q}", q).replace("{q_dash}", qd))}" target="_blank" rel="noopener">${esc(j.name)} ↗</a>`).join("")}</div>
-      ${unlockedStage() >= n.si ? `<button class="btn primary" type="button" data-page="resume">${T("Build my resume →")}</button>` : `<p class="small muted">${T("Finish the steps above to unlock your resume.")}</p>`}`;
+      <button class="btn primary" type="button" data-page="resume">${T("Build my resume →")}</button>`;
   }
   return `<div class="card stack"><div class="row between"><span class="eyebrow">${esc(TS(s.stage))} · ${esc(s.title)}</span><button type="button" class="btn ghost sheet-close" data-closesheet aria-label="${T("Close")}">✕</button></div><h3>${esc(nodeLabel(n))}</h3>${body}
     ${n.type !== "checkpoint" ? `<button class="btn ${isDone ? "" : "primary"}" type="button" data-toggle="${esc(n.key)}">${T(isDone ? "Mark as not done" : "Mark as done")}</button>` : ""}</div>`;
@@ -1554,28 +1595,21 @@ function vNodeSheet(n) {
 // The resume document itself stays in English: employers in the region expect it, and
 // skill and course names come from English sources. The form around it is translated.
 function resumeData() {
-  const cv = P().cv, u = unlockedStage(), stage = st.path.stages[u];
+  const cv = P().cv, u = unlockedStage(), stage = st.path.stages[Math.max(u, 0)];  // aims at the first job until a stage is done
   const skills = [...Object.entries(skillsNow()).filter(([, v]) => v >= 2).sort((a, b) => b[1] - a[1]).map(([k]) => cl(k).label), ...(P().custom_skills || [])];
   const courses = flatNodes().filter((n) => done(n.key) && (n.type === "cert" || n.type === "skill")).flatMap((n) => n.type === "cert" ? [n.item] : n.items).map((c) => `${c.title}, ${c.provider}`);
   const job = /^[A-Z]{2}/.test(stage.title) ? stage.title : stage.title[0].toLowerCase() + stage.title.slice(1);
-  const summary = cv.summary || `${stage.title} candidate with skills in ${skills.slice(0, 4).join(", ").toLowerCase()}. Completed a structured learning path towards ${job} roles.`;
+  const summary = cv.summary || `${stage.title} candidate with skills in ${skills.slice(0, 4).join(", ").toLowerCase()}. ${u >= 0 ? "Completed" : "Following"} a structured learning path towards ${job} roles.`;
   return { stage, skills, courses, summary };
 }
 function vResume() {
   if (!A().role) return `<div class="page">${intro(T("Resume"), T("Choose a career first"), "")}<button class="btn primary" type="button" data-page="careers">${T("Go to careers")}</button></div>`;
   if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return skeleton(2, T("Loading your resume…")); }
-  const u = unlockedStage();
-  if (u < 0) {
-    const first = flatNodes().filter((n) => n.si === 0 && required(n)), dn = first.filter((n) => done(n.key)).length;
-    return `<div class="page">${intro(T("Resume"), T("Your resume unlocks when you are ready"), "")}
-      <div class="card lock"><span class="icon" style="width:56px;height:56px">${I.lock}</span><div class="ring" style="--p:${stagePct(0)}"><span>${stagePct(0)}%</span></div>
-        <p>${T("Finish the steps for {role} ({done} of {total} done) to unlock a resume for that job.", { role: `<b>${esc(st.path.stages[0].title)}</b>`, done: dn, total: first.length })}</p>
-        <p class="small muted">${esc(T(GLOSSARY.resume[0]))}</p><button class="btn primary" type="button" data-page="path">${T("Continue my path")}</button></div></div>`;
-  }
   const cv = P().cv, R = resumeData();
   const expHtml = cv.experience.map((e) => `<p><b>${esc(e.title)}</b>${e.organisation ? ", " + esc(e.organisation) : ""} <span class="meta">${esc([e.start, e.end].filter(Boolean).join(" – "))}</span></p>${(e.highlights || []).length ? `<ul>${(e._polished || e.highlights).map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}`).join("");
   return `<div class="page">
   ${intro(T("Resume"), T("Resume for {role}", { role: R.stage.title }), T("Built from your profile and the steps you finished. Check it, then save it as a PDF.") + (LANG === "en" ? "" : " " + T("The resume itself is in English, as most employers expect.")))}
+  ${unlockedStage() < 0 ? `<p class="note small">${T("You can build your resume now. Each path step you finish adds its course here.")}</p>` : ""}
   <div class="resume-wrap">
     <div class="stack lg no-print">
       <div class="card stack"><h3>${T("Your details")}</h3>
@@ -1883,7 +1917,7 @@ const HELPER_GEO = `<svg class="helper-geo" viewBox="0 0 220 220" aria-hidden="t
   <line x1="0" y1="206" x2="220" y2="96" stroke="var(--ink)" stroke-opacity=".3" stroke-width="1"/>
 </svg>`;
 const HELPER_NAME = "Lambtae";  // a name, so the same in every language
-const SUGGEST = ["What should I do next?", "Which careers fit me best?", "How do I unlock my resume?", "Where does the data come from?"];
+const SUGGEST = ["What should I do next?", "Which careers fit me best?", "How do I build my resume?", "Where does the data come from?"];
 st.chat = { open: false, opening: false, loaded: false, busy: false, messages: [], draft: "" };
 const TEAM_SUGGEST = ["Where should we start?", "Which careers suit the group?", "How do we fund this?", "How do I read the map?"];
 const helperVisible = () => !!A() && A().onboarded && !["signin", "wizard", "teamperson", "teamreport"].includes(st.page);
@@ -2206,6 +2240,7 @@ document.addEventListener("click", async (ev) => {
   if (d.xray) { st.xrayWhich = d.xray; st.xrayAll = false; render(); return; }
   if (d.xrayall !== undefined) { st.xrayAll = !st.xrayAll; render(); return; }
   if (d.tip !== undefined) { taskTip(+d.tip); return; }
+  if (d.sample !== undefined) { const j = jcState(); j.text = SAMPLE_ADS[+d.sample][1]; j.url = ""; j.sample = true; render(); runJobCheck(); return; }
   if (d.jctrack !== undefined) {
     const t = jobTrack(st.jc.res); A().prefs.customTracks = [...customTracks(), t]; A().prefs.tracks = [...myTracks(), t.id];
     st.pathTab = t.id; save(); go("path"); toast(T("Track added.")); return;
@@ -2328,7 +2363,7 @@ document.addEventListener("input", (ev) => {
   if (t.id === "about") { P().about = t.value; save(); return; }
   if (d.pick) { openPick(t); return; }
   if (t.id === "aiGoal") { aiState().goal = t.value; return; }
-  if (t.id === "jobText") { jcState().text = t.value; return; }
+  if (t.id === "jobText") { jcState().text = t.value; jcState().sample = false; return; }
   if (t.id === "jobUrl") { jcState().url = t.value; return; }
   if (t.id === "aiDir") { aiState().dir = t.value; return; }
   if (t.id === "aiChange") { aiState().change = t.value; return; }
