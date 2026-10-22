@@ -239,3 +239,17 @@ def test_team_report_ranks_all_careers_and_orders_the_plan_by_shared_gaps():
     assert [s["n"] for s in steps] == sorted((s["n"] for s in steps), reverse=True)
     for s in steps:
         assert all(i["id"] in ids and i["cost"] == "free" for i in s["items"])
+
+
+def test_update_button_respects_cooldown(client, monkeypatch):
+    import time
+    from app import main
+    started = []
+    monkeypatch.setattr(main, "_run_refresh", lambda: started.append(1))
+    monkeypatch.setitem(main._refresh_state, "finished_at", time.time())  # fetched a moment ago
+    r = client.post("/api/refresh").json()
+    assert not r["started"] and r["cooldown"] > 0 and not started
+    monkeypatch.setitem(main._refresh_state, "finished_at", time.time() - main.REFRESH_COOLDOWN_S - 1)
+    r = client.post("/api/refresh").json()
+    time.sleep(0.2)
+    assert r["started"] and started

@@ -1,5 +1,5 @@
 {
-  "_about": "Closed-world learning catalogue. The pathway only ever recommends items from this list. covers maps cluster id -> level the item gets a learner to. hours are the provider's stated or estimated effort. ingest/check_catalogue.py checks every URL and writes link_checked_on; a person must still review content, cost and HRD Corp status before marking reviewed_by. hrdc is 'yes' only with evidence (programme ID); otherwise 'unverified' or 'not needed' for free items.",
+  "_about": "Closed-world learning catalogue. The pathway only ever recommends items from this list. covers maps cluster id -> level the item gets a learner to. hours are the provider's stated or estimated effort. ingest/check_catalogue.py checks every URL and writes link_checked_on; a person must still review content, cost and HRD Corp status before marking reviewed_by. hrdc is 'yes' only with evidence (programme ID); otherwise 'unverified' or 'not needed' for free items. Prices: copied from each provider's own page on 2026-10-22 where the page shows one; other paid items say 'see provider'.",
   "items": [
     {
       "id": "aiur",
@@ -215,7 +215,15 @@
         "problem": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/professional-certificates/google-data-analytics",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "fcc_da",
@@ -299,7 +307,15 @@
         "cyber": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "g_dm",
@@ -505,7 +521,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 165,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$165 per exam (price varies by country)",
+        "source": "https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "g_ada",
@@ -524,7 +548,15 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/professional-certificates/google-advanced-data-analytics",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "ml_spec",
@@ -541,7 +573,15 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "iiba",
@@ -560,7 +600,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 395,
+        "currency": "USD",
+        "per": "exam",
+        "text": "ECBA: US$395 or less",
+        "source": "https://www.iiba.org/business-analysis-certifications/ecba/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "g_pm",
@@ -579,7 +627,15 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/professional-certificates/google-project-management",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "pmp",
@@ -652,7 +708,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 749,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$749 per exam",
+        "source": "https://www.isc2.org/certifications/cissp",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "aws_cp",
@@ -670,7 +734,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 100,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$100 per exam",
+        "source": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "dp300",
@@ -689,7 +761,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 165,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$165 per exam (price varies by country)",
+        "source": "https://learn.microsoft.com/en-us/credentials/certifications/azure-database-administrator-associate/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "az305",
@@ -708,7 +788,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 165,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$165 per exam (price varies by country)",
+        "source": "https://learn.microsoft.com/en-us/credentials/certifications/azure-solutions-architect/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "itil",
@@ -887,7 +975,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 99,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$99 per exam (price varies by country)",
+        "source": "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "ghtc_biosec",
@@ -952,7 +1048,15 @@
         "python": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "fao_soil",
@@ -1067,7 +1171,15 @@
         "dataquality": 2
       },
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "ahima_cca",
@@ -1085,7 +1197,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 299,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$299 exam (US$199 for AHIMA members)",
+        "source": "https://www.ahima.org/certification-careers/certifications-overview/cca/",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "siemens_plc",
@@ -1189,7 +1309,15 @@
       },
       "certification": true,
       "link_status": "ok",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 49,
+        "currency": "USD",
+        "per": "month",
+        "text": "Coursera subscription, US$49 a month (U.S. price; varies by country; financial aid available)",
+        "source": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "asq_cqt",
@@ -1207,7 +1335,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "blocked",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 460,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$460 exam fee (ASQ members save US$100)",
+        "source": "https://asq.org/cert/quality-technician",
+        "checked_on": "2026-10-22"
+      }
     },
     {
       "id": "asq_cqe",
@@ -1226,7 +1362,15 @@
       "certification": true,
       "hrdc": "unverified",
       "link_status": "blocked",
-      "link_checked_on": "2026-10-21"
+      "link_checked_on": "2026-10-21",
+      "price": {
+        "amount": 550,
+        "currency": "USD",
+        "per": "exam",
+        "text": "US$550 exam fee (ASQ members save US$100)",
+        "source": "https://asq.org/cert/quality-engineer",
+        "checked_on": "2026-10-22"
+      }
     }
   ]
 }

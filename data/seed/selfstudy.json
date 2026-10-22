@@ -1,0 +1,454 @@
+{
+  "_about": "Free self-study resources per skill: tutorials, official docs and practice sites. They are not courses and do not complete a path step. Each link was checked to load on 2026-10-22 (pages behind a bot check were opened in a browser).",
+  "checked_on": "2026-10-22",
+  "resources": {
+    "excel": [
+      {
+        "title": "Excel help & learning",
+        "provider": "Microsoft Support",
+        "url": "https://support.microsoft.com/en-us/excel"
+      },
+      {
+        "title": "Excel tutorial",
+        "provider": "W3Schools",
+        "url": "https://www.w3schools.com/excel/"
+      }
+    ],
+    "dataentry": [
+      {
+        "title": "Typing practice",
+        "provider": "Typing.com",
+        "url": "https://www.typing.com/"
+      },
+      {
+        "title": "Apply data validation to cells",
+        "provider": "Microsoft Support",
+        "url": "https://support.microsoft.com/en-us/office/apply-data-validation-to-cells-29fecbcc-d1b9-42c1-9d76-eff3ce5f7249"
+      }
+    ],
+    "bookkeeping": [
+      {
+        "title": "Bookkeeping explained",
+        "provider": "AccountingCoach",
+        "url": "https://www.accountingcoach.com/bookkeeping/explanation"
+      }
+    ],
+    "correspondence": [
+      {
+        "title": "Professional and technical writing",
+        "provider": "Purdue OWL",
+        "url": "https://owl.purdue.edu/owl/subject_specific_writing/professional_technical_writing/index.html"
+      },
+      {
+        "title": "Plain language guide",
+        "provider": "Digital.gov",
+        "url": "https://digital.gov/guides/plain-language"
+      }
+    ],
+    "scheduling": [
+      {
+        "title": "Outlook help & learning",
+        "provider": "Microsoft Support",
+        "url": "https://support.microsoft.com/en-us/outlook"
+      },
+      {
+        "title": "Google Calendar help",
+        "provider": "Google",
+        "url": "https://support.google.com/calendar/"
+      }
+    ],
+    "customer": [
+      {
+        "title": "Customer service lessons",
+        "provider": "HubSpot Academy",
+        "url": "https://academy.hubspot.com/courses/customer-service"
+      }
+    ],
+    "languages": [
+      {
+        "title": "Language lessons",
+        "provider": "Duolingo",
+        "url": "https://www.duolingo.com/"
+      },
+      {
+        "title": "Learn English online",
+        "provider": "British Council",
+        "url": "https://learnenglish.britishcouncil.org/"
+      }
+    ],
+    "stakeholder": [
+      {
+        "title": "Team Playbook",
+        "provider": "Atlassian",
+        "url": "https://www.atlassian.com/team-playbook"
+      }
+    ],
+    "problem": [
+      {
+        "title": "Statistics and probability",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/math/statistics-probability"
+      },
+      {
+        "title": "Algorithms (step-by-step thinking)",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/computing/computer-science/algorithms"
+      }
+    ],
+    "coaching": [
+      {
+        "title": "Manager and coaching guides",
+        "provider": "Google re:Work",
+        "url": "https://rework.withgoogle.com/"
+      },
+      {
+        "title": "Coaching and feedback articles",
+        "provider": "MindTools",
+        "url": "https://www.mindtools.com/"
+      }
+    ],
+    "sql": [
+      {
+        "title": "SQL tutorial",
+        "provider": "W3Schools",
+        "url": "https://www.w3schools.com/sql/"
+      },
+      {
+        "title": "Interactive SQL lessons",
+        "provider": "SQLBolt",
+        "url": "https://sqlbolt.com/"
+      },
+      {
+        "title": "Intro to SQL",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+      }
+    ],
+    "python": [
+      {
+        "title": "Python tutorial",
+        "provider": "W3Schools",
+        "url": "https://www.w3schools.com/python/"
+      },
+      {
+        "title": "The Python Tutorial",
+        "provider": "Python.org",
+        "url": "https://docs.python.org/3/tutorial/"
+      },
+      {
+        "title": "Scientific Computing with Python",
+        "provider": "freeCodeCamp",
+        "url": "https://www.freecodecamp.org/learn/scientific-computing-with-python/"
+      }
+    ],
+    "dataviz": [
+      {
+        "title": "Power BI training",
+        "provider": "Microsoft Learn",
+        "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi"
+      },
+      {
+        "title": "Data Visualisation Catalogue",
+        "provider": "Data Viz Catalogue",
+        "url": "https://datavizcatalogue.com/"
+      }
+    ],
+    "dataquality": [
+      {
+        "title": "Cleaning data with pandas",
+        "provider": "W3Schools",
+        "url": "https://www.w3schools.com/python/pandas/pandas_cleaning.asp"
+      },
+      {
+        "title": "Data Cleaning",
+        "provider": "Kaggle Learn",
+        "url": "https://www.kaggle.com/learn/data-cleaning"
+      }
+    ],
+    "genai": [
+      {
+        "title": "Prompt Engineering Guide",
+        "provider": "Prompting Guide",
+        "url": "https://www.promptingguide.ai/"
+      },
+      {
+        "title": "Elements of AI",
+        "provider": "University of Helsinki",
+        "url": "https://www.elementsofai.com/"
+      },
+      {
+        "title": "Generative AI for Beginners",
+        "provider": "Microsoft (GitHub)",
+        "url": "https://github.com/microsoft/generative-ai-for-beginners"
+      }
+    ],
+    "processmap": [
+      {
+        "title": "Power Automate training",
+        "provider": "Microsoft Learn",
+        "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-automate"
+      },
+      {
+        "title": "BPMN introduction",
+        "provider": "Camunda",
+        "url": "https://camunda.com/bpmn/"
+      }
+    ],
+    "mlds": [
+      {
+        "title": "Intro to Machine Learning",
+        "provider": "Kaggle Learn",
+        "url": "https://www.kaggle.com/learn/intro-to-machine-learning"
+      },
+      {
+        "title": "Machine Learning Crash Course",
+        "provider": "Google",
+        "url": "https://developers.google.com/machine-learning/crash-course"
+      },
+      {
+        "title": "Getting started",
+        "provider": "scikit-learn",
+        "url": "https://scikit-learn.org/stable/getting_started.html"
+      }
+    ],
+    "cyber": [
+      {
+        "title": "Cyber security tutorial",
+        "provider": "W3Schools",
+        "url": "https://www.w3schools.com/cybersecurity/"
+      },
+      {
+        "title": "Hands-on security rooms (free tier)",
+        "provider": "TryHackMe",
+        "url": "https://tryhackme.com/"
+      },
+      {
+        "title": "OWASP Top 10",
+        "provider": "OWASP",
+        "url": "https://owasp.org/www-project-top-ten/"
+      }
+    ],
+    "networking": [
+      {
+        "title": "Networking and cybersecurity courses",
+        "provider": "Cisco Networking Academy",
+        "url": "https://www.netacad.com/"
+      },
+      {
+        "title": "Bash tutorial",
+        "provider": "W3Schools",
+        "url": "https://www.w3schools.com/bash/"
+      }
+    ],
+    "helpdesk": [
+      {
+        "title": "Windows help & learning",
+        "provider": "Microsoft Support",
+        "url": "https://support.microsoft.com/en-us/windows"
+      }
+    ],
+    "digimarketing": [
+      {
+        "title": "SEO Starter Guide",
+        "provider": "Google Search Central",
+        "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+      },
+      {
+        "title": "Google Ads and Analytics training",
+        "provider": "Google Skillshop",
+        "url": "https://skillshop.withgoogle.com/"
+      }
+    ],
+    "content": [
+      {
+        "title": "Writing guides",
+        "provider": "Purdue OWL",
+        "url": "https://owl.purdue.edu/owl/purdue_owl.html"
+      },
+      {
+        "title": "Marketing blog",
+        "provider": "HubSpot",
+        "url": "https://blog.hubspot.com/marketing"
+      }
+    ],
+    "design": [
+      {
+        "title": "Design School",
+        "provider": "Canva",
+        "url": "https://www.canva.com/design-school/"
+      },
+      {
+        "title": "Get started",
+        "provider": "Figma Learn",
+        "url": "https://help.figma.com/hc/en-us/categories/360002051613"
+      }
+    ],
+    "esg": [
+      {
+        "title": "GRI Standards (free download)",
+        "provider": "Global Reporting Initiative",
+        "url": "https://www.globalreporting.org/standards/"
+      },
+      {
+        "title": "SDG learning",
+        "provider": "UN SDG:Learn",
+        "url": "https://www.unsdglearn.org/"
+      }
+    ],
+    "ghg": [
+      {
+        "title": "Standards and guidance",
+        "provider": "GHG Protocol",
+        "url": "https://ghgprotocol.org/standards-guidance"
+      },
+      {
+        "title": "Climate change courses",
+        "provider": "UN CC:Learn",
+        "url": "https://unccelearn.org/"
+      }
+    ],
+    "fieldwork": [
+      {
+        "title": "Water data and tools",
+        "provider": "US EPA",
+        "url": "https://www.epa.gov/waterdata"
+      },
+      {
+        "title": "Climate change courses",
+        "provider": "UN CC:Learn",
+        "url": "https://unccelearn.org/"
+      }
+    ],
+    "solar": [
+      {
+        "title": "How does solar energy work?",
+        "provider": "US Department of Energy",
+        "url": "https://www.energy.gov/cmei/systems/how-does-solar-energy-work"
+      },
+      {
+        "title": "Renewable energy knowledge",
+        "provider": "IRENA",
+        "url": "https://www.irena.org/"
+      }
+    ],
+    "electrical": [
+      {
+        "title": "Electrical engineering",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/science/electrical-engineering"
+      }
+    ],
+    "energyaudit": [
+      {
+        "title": "Saving energy",
+        "provider": "International Energy Agency",
+        "url": "https://www.iea.org/topics/saving-energy"
+      }
+    ],
+    "leadership": [
+      {
+        "title": "Manager guides",
+        "provider": "Google re:Work",
+        "url": "https://rework.withgoogle.com/"
+      },
+      {
+        "title": "Leadership articles",
+        "provider": "MindTools",
+        "url": "https://www.mindtools.com/"
+      }
+    ],
+    "strategy": [
+      {
+        "title": "Personal finance and budgeting",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/college-careers-more/personal-finance"
+      },
+      {
+        "title": "Strategy tools",
+        "provider": "MindTools",
+        "url": "https://www.mindtools.com/"
+      }
+    ],
+    "labwork": [
+      {
+        "title": "Laboratory biosafety manual",
+        "provider": "World Health Organization",
+        "url": "https://www.who.int/publications/i/item/9789240011311"
+      }
+    ],
+    "bioinfo": [
+      {
+        "title": "Bioinformatics training",
+        "provider": "EMBL-EBI",
+        "url": "https://www.ebi.ac.uk/training/"
+      },
+      {
+        "title": "Bioinformatics problems",
+        "provider": "Rosalind",
+        "url": "https://rosalind.info/problems/locations/"
+      }
+    ],
+    "agronomy": [
+      {
+        "title": "Plant and soil sciences library",
+        "provider": "PASSel (Univ. of Nebraska)",
+        "url": "https://passel2.unl.edu/"
+      },
+      {
+        "title": "Agriculture courses",
+        "provider": "FAO elearning Academy",
+        "url": "https://elearning.fao.org/"
+      }
+    ],
+    "precisionag": [
+      {
+        "title": "QGIS Training Manual",
+        "provider": "QGIS",
+        "url": "https://docs.qgis.org/latest/en/docs/training_manual/"
+      }
+    ],
+    "clinical": [
+      {
+        "title": "Health courses",
+        "provider": "OpenWHO",
+        "url": "https://openwho.org/"
+      },
+      {
+        "title": "Health and medicine",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/science/health-and-medicine"
+      }
+    ],
+    "healthdata": [
+      {
+        "title": "ICD-11 browser and guides",
+        "provider": "World Health Organization",
+        "url": "https://icd.who.int/"
+      },
+      {
+        "title": "Health IT basics",
+        "provider": "HealthIT.gov",
+        "url": "https://www.healthit.gov/topic/health-it-and-health-information-exchange-basics"
+      }
+    ],
+    "automation": [
+      {
+        "title": "Programmable controllers overview",
+        "provider": "AutomationDirect",
+        "url": "https://www.automationdirect.com/plc"
+      }
+    ],
+    "quality": [
+      {
+        "title": "e-Handbook of Statistical Methods",
+        "provider": "NIST",
+        "url": "https://www.itl.nist.gov/div898/handbook/"
+      },
+      {
+        "title": "Statistics and probability",
+        "provider": "Khan Academy",
+        "url": "https://www.khanacademy.org/math/statistics-probability"
+      }
+    ]
+  }
+}

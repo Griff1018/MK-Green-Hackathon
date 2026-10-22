@@ -126,6 +126,9 @@ const GEO = (() => {
   return {
     dashboard: o('<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="var(--accent)" stroke="none"/>'),
     jobcheck: o('<rect x="2" y="2" width="20" height="20"/><path d="M2 12h20v10H2z" fill="var(--accent)" stroke="none"/><path d="M7 7h10"/>'),
+    updates: o('<circle cx="12" cy="12" r="10"/><path d="M12 12L12 2A10 10 0 0 1 22 12z" fill="var(--accent)" stroke="none"/><circle cx="12" cy="12" r="5"/>'),
+    people: o('<circle cx="7" cy="8" r="3.4"/><circle cx="17" cy="8" r="3.4" fill="var(--accent)" stroke="none"/><path d="M2 21c.8-3.6 2.6-5.4 5-5.4s4.2 1.8 5 5.4M12 21c.8-3.6 2.6-5.4 5-5.4s4.2 1.8 5 5.4"/>'),
+    member: o('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="9" r="3.6"/><path d="M5.5 19c1.6-3.4 4-4.6 6.5-4.6s4.9 1.2 6.5 4.6" stroke="var(--accent)" stroke-width="2.4"/>'),
     news: o('<rect x="2" y="3" width="20" height="18"/><path d="M2 3h20v6H2z" fill="var(--accent)" stroke="none"/><path d="M6 13h12M6 17h8"/>'),
     mycareer: o('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="9" r="3.6" fill="var(--accent)" stroke="none"/><path d="M5.5 19c1.6-3.4 4-4.6 6.5-4.6s4.9 1.2 6.5 4.6"/>'),
     careers: o('<rect x="2" y="2" width="20" height="20"/><path d="M2 22V2a20 20 0 0 1 20 20z" fill="var(--accent)" stroke="none"/>'),
@@ -234,6 +237,8 @@ function expSentence(e) {
   return T("ILO mean task score {score} of 1 ({category}). Most exposed task: “{task}”.", { score: e.mean.toFixed(2), category: e.category, task: e.most_exposed_task.task });
 }
 const SCEN_SIMPLE = { moderate: "Steady change", fast: "AI moves fast", green: "Green jobs grow" };
+// One line under the future switch saying what the chosen scenario assumes.
+const scenBrief = () => `<p class="scen-brief small"><b>${esc(scenLabel(st.scen))}:</b> ${esc(TS(st.meta.scenarios[st.scen].note))}</p>`;
 const scenLabel = (k) => simple() ? T(SCEN_SIMPLE[k]) : TS(st.meta.scenarios[k].label);
 const I = {
   upload: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>',
@@ -314,6 +319,7 @@ const NAV = [["dashboard", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6
   ["resume", "Resume", '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>']];
 const NAV2 = [["sources", "Data and sources"], ["team", "For HR teams"]];
 const NAV_JOB = ["jobcheck", "Job check", '<path d="M4 7h16v12H4z"/><path d="M9 7V4h6v3"/><path d="M8 13l3 3 5-6"/>'];
+const NAV_UPD = ["updates", "Updates", '<path d="M20 11a8 8 0 0 0-14.6-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.6 4.5L20 16"/><path d="M20 20v-4h-4"/>'];
 const NAV_NEWS = ["news", "News", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>'];
 function renderChrome() {
   const signed = !!A() && st.page !== "signin";
@@ -324,18 +330,20 @@ function renderChrome() {
   const navBtn = ([k, l, icon]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon}</svg><span>${T(l)}</span></button>`;
   const more = NAV2.some(([k]) => st.page === k);
   $("#nav").setAttribute("aria-label", T("Main"));
-  const teamNav = [NAV[0], ["team", "Skills table", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>']];
-  $("#nav").innerHTML = showNav ? (isTeamUser() ? `<div class="nav-group">${T("Plan")}</div>${teamNav.map(navBtn).join("")}` : `<div class="nav-group">${T("Plan")}</div>${NAV.slice(0, 3).map(navBtn).join("")}<div class="nav-group">${T("Act")}</div>${NAV.slice(3).map(navBtn).join("")}${navBtn(NAV_JOB).replace("<button ", '<button class="nav-info" ')}<div class="nav-group nav-info">${T("Stay informed")}</div>${navBtn(NAV_NEWS).replace("<button ", '<button class="nav-info" ')}`)
+  const teamNav = [NAV[0], ["people", isCohort() ? "Students" : "People", '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.9-3.8 3.4-5.8 6.5-5.8s5.6 2 6.5 5.8"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.6c1.6.8 2.6 2.6 3 5.4"/>'], ["team", "Skills table", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>']];
+  $("#nav").innerHTML = showNav ? (isTeamUser() ? `<div class="nav-group">${T("Plan")}</div>${teamNav.map(navBtn).join("")}` : `<div class="nav-group">${T("Plan")}</div>${NAV.slice(0, 3).map(navBtn).join("")}<div class="nav-group">${T("Act")}</div>${NAV.slice(3).map(navBtn).join("")}${navBtn(NAV_JOB).replace("<button ", '<button class="nav-info" ')}<div class="nav-group nav-info">${T("Stay informed")}</div>${navBtn(NAV_NEWS).replace("<button ", '<button class="nav-info" ')}${navBtn(NAV_UPD).replace("<button ", '<button class="nav-info" ').replace("</span></button>", `</span>${updChanges() ? `<i class="nav-dot" title="${esc(T("{n} changes", { n: updChanges() }))}"></i>` : ""}</button>`)}`)
     + `<button type="button" class="nav-more" id="navMore" ${more ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>${T("More")}</span></button>`
     + `<div class="nav-2"><div class="nav-group">${T("Trust and teams")}</div>${NAV2.map(([k, l]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><span>${T(l)}</span></button>`).join("")}</div>` : "";
   renderThemeBtn();
+  $("#modePick").innerHTML = signed && A().onboarded ? `<div class="seg mode-seg" role="group" aria-label="${T("Explanations")}" title="${T("How much detail to show")}"><button type="button" data-mode="simple" aria-pressed="${simple()}">${T("Simple")}</button><button type="button" data-mode="detailed" aria-pressed="${!simple()}">${T("Detailed")}</button></div>` : "";
   $("#langPick").innerHTML = `<label class="lang-pick" title="${T("Language")}">${I.globe}<span class="sr-only">${T("Language")}</span><select id="uiLang">${LANGS.map(([k, short, full]) => `<option value="${k}" ${LANG === k ? "selected" : ""} title="${full}">${short}</option>`).join("")}</select></label>`;
   $("#account").innerHTML = signed ? `<details class="menu"><summary><span class="avatar">${esc(firstName()[0] || "?")}</span><span class="acct-name">${esc(firstName())}</span></summary>
     <div class="menu-body">
       <p class="tiny muted">${esc(T("Signed in as {name}", { name: A().name }))}${A().sample ? " " + T("(shared sample account)") : ""}</p>
-      <div class="seg" role="group" aria-label="${T("Explanations")}"><button type="button" data-mode="simple" aria-pressed="${simple()}">${T("Simple")}</button><button type="button" data-mode="detailed" aria-pressed="${!simple()}">${T("Detailed")}</button></div>
+      <div class="seg menu-mode" role="group" aria-label="${T("Explanations")}"><button type="button" data-mode="simple" aria-pressed="${simple()}">${T("Simple")}</button><button type="button" data-mode="detailed" aria-pressed="${!simple()}">${T("Detailed")}</button></div>
       ${A().onboarded ? `<button type="button" class="btn" data-page="wizard">${T("Edit about you")}</button>` : ""}
-      ${isTeamUser() ? "" : `<button type="button" class="btn" data-page="news">${T("News")}</button><button type="button" class="btn" data-page="jobcheck">${T("Job check")}</button>`}<button type="button" class="btn" data-page="team">${T("Teams")}</button><button type="button" class="btn" data-page="sources">${T("Sources")}</button>
+      ${A().onboarded ? `<button type="button" class="btn" id="tourStart">${T("Show the guide")}</button>${isTeamUser() ? "" : `<button type="button" class="btn" id="storyReplay">▶ ${T("Replay my story")}</button>`}` : ""}
+      <div class="menu-nav">${isTeamUser() ? "" : `<button type="button" class="btn" data-page="updates">${T("Updates")}</button><button type="button" class="btn" data-page="news">${T("News")}</button><button type="button" class="btn" data-page="jobcheck">${T("Job check")}</button>`}<button type="button" class="btn" data-page="team">${T("Teams")}</button><button type="button" class="btn" data-page="sources">${T("Sources")}</button></div>
       <button type="button" class="btn" id="signOut">${T("Sign out")}</button>
     </div></details>` : "";
   document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = T(el.dataset.i18n); });
@@ -408,7 +416,7 @@ const WIZ = [
   { id: "experience", title: "What have you done so far?", help: "Import your CV, write a few lines, or skip and add skills yourself." },
   { id: "skills", title: "Rate your skills", help: "Rate each skill from 0 to 5. Open the areas that fit your work and skip the rest. Your answers only shape your matches and plan." },
   { id: "interests", title: "What do you enjoy?", help: "Pick as many as you like. We use this to rank careers." },
-  { id: "team", title: "Who are you planning for?", help: "Use a sample group or upload your own. We rank careers for the whole group and build one learning plan." },
+  { id: "team", title: "Who are you planning for?", help: "Use a sample group or type in your own. We rank careers for the whole group and build one learning plan." },
   { id: "done", title: "", help: "" }
 ];
 function optionCard(group, value, title, text, on) { return `<button type="button" class="option" data-opt="${group}" data-val="${esc(value)}" aria-pressed="${on}"><b>${esc(title)}</b>${text ? `<span class="small muted">${esc(text)}</span>` : ""}</button>`; }
@@ -644,7 +652,144 @@ async function finishWizard() {
   } catch (e) { toast(T("Could not build your plan: {e}", { e: e.message })); }
   st.busy.finish = false; save();
   st.page = "dashboard"; render(); window.scrollTo({ top: 0 });
-  toast(T(first ? "Your career plan is ready." : "Your plan is updated."));
+  if (st.analysis && st.path) openStory(); else toast(T(first ? "Your career plan is ready." : "Your plan is updated."));
+}
+
+// ---------- Your story ----------------------------------------------------------------------------
+// A short, Wrapped-style recap of the four steps (about you, the skills radar, your matches, your
+// path) that plays after onboarding and from "Replay my story" on Home. Every number comes from the
+// analysis and path the app just built. Cards advance on their own; tap right/left, arrow keys,
+// hold to pause, Esc to skip.
+const STORY_MS = 7000;
+const story = { on: false, i: 0, elapsed: 0, paused: false, raf: 0, last: 0, downAt: 0, held: false };
+const STORY_N = 6;
+function storyData() {
+  const sk = skillsNow(), mine = Object.entries(sk).sort((a, b) => b[1] - a[1]);
+  const sig = Object.entries(st.analysis.signals).filter(([, v]) => v.demand_change != null && v.n >= 5).sort((a, b) => b[1].demand_change - a[1].demand_change);
+  const up = sig.filter(([, v]) => v.demand_change > 0).slice(0, 3), down = sig.filter(([, v]) => v.demand_change < 0).slice(-3).reverse();
+  const rs = rows(), byOut = [...rs].sort((a, b) => b.components.outlook - a.components.outlook);
+  const nodes = flatNodes(), sdgs = [...new Set(nodes.flatMap((n) => n.sdg || []))];
+  return { sk, mine, up, down, rolesUp: byOut.slice(0, 2), rolesDown: byOut.slice(-2).reverse(), top: rs.slice(0, 3), pw: st.path, nodes, sdgs };
+}
+// One small composition per card from the house shapes: ring, flat accent piece, stripes, dot, line.
+function storyGeo(i) {
+  const s = (inner) => `<svg class="story-geo" viewBox="0 0 200 200" aria-hidden="true"><defs><clipPath id="sgS${i}"><circle cx="150" cy="150" r="30"/></clipPath></defs>
+    <line x1="0" y1="196" x2="200" y2="36" stroke="var(--ink)" stroke-opacity=".25"/>${inner}
+    <g clip-path="url(#sgS${i})" stroke="var(--ink)" stroke-opacity=".55" stroke-width="4">${Array.from({ length: 9 }, (_, k) => `<line x1="110" x2="190" y1="${122 + k * 7}" y2="${122 + k * 7}"/>`).join("")}</g></svg>`;
+  return [
+    s('<circle cx="90" cy="90" r="70" fill="none" stroke="var(--ink)" stroke-opacity=".4" stroke-width="1.2"/><path class="sg-spin" d="M90 20a70 70 0 0 1 0 140z" fill="var(--accent)"/><circle cx="176" cy="24" r="6" fill="var(--ink)"/>'),
+    s('<circle cx="90" cy="90" r="76" fill="none" stroke="var(--ink)" stroke-opacity=".35"/><circle cx="90" cy="90" r="52" fill="none" stroke="var(--ink)" stroke-opacity=".35"/><circle cx="90" cy="90" r="28" fill="none" stroke="var(--ink)" stroke-opacity=".35"/><path class="sg-sweep" d="M90 90 L90 14 A76 76 0 0 1 156 52 Z" fill="var(--accent)"/><circle cx="130" cy="40" r="5" fill="var(--ink)"/><circle cx="52" cy="120" r="5" fill="var(--ink)" fill-opacity=".5"/>'),
+    s('<circle cx="90" cy="90" r="74" fill="none" stroke="var(--ink)" stroke-opacity=".35"/><circle cx="90" cy="90" r="46" fill="none" stroke="var(--ink)" stroke-opacity=".35"/><circle class="sg-pop" cx="90" cy="90" r="20" fill="var(--accent)"/><circle cx="176" cy="24" r="6" fill="var(--ink)"/>'),
+    s('<rect x="20" y="40" width="150" height="16" fill="none" stroke="var(--ink)" stroke-opacity=".4"/><rect class="sg-grow" x="20" y="40" width="120" height="16" fill="var(--accent)"/><rect x="20" y="76" width="150" height="16" fill="none" stroke="var(--ink)" stroke-opacity=".4"/><rect x="20" y="76" width="80" height="16" fill="var(--ink)" fill-opacity=".6"/><circle cx="176" cy="24" r="6" fill="var(--ink)"/>'),
+    s('<rect x="20" y="120" width="40" height="40" fill="none" stroke="var(--ink)" stroke-opacity=".4"/><rect x="60" y="80" width="40" height="80" fill="none" stroke="var(--ink)" stroke-opacity=".4"/><rect class="sg-rise" x="100" y="30" width="40" height="130" fill="var(--accent)"/><circle cx="176" cy="24" r="6" fill="var(--ink)"/>'),
+    s('<circle class="sg-pop" cx="96" cy="96" r="64" fill="var(--accent)"/><circle cx="96" cy="96" r="84" fill="none" stroke="var(--ink)" stroke-opacity=".4"/><circle cx="176" cy="24" r="6" fill="var(--ink)"/>'),
+  ][i];
+}
+function storyCard(i, d) {
+  const k = (n, c = "") => `class="si ${c}" style="--k:${n}"`;
+  const head = (n, eyebrow, h) => `<span ${k(0, "eyebrow")}>${n ? esc(T("{n} of 4", { n })) + " · " : ""}${esc(T(eyebrow))}</span><h2 ${k(1)}>${h}</h2>`;
+  const bar = ([c, v], max, cls) => `<div class="st-bar ${cls}"><span class="st-lbl">${esc(cl(c).label)}${d.sk[c] ? ` <span class="badge">${T("You have this")}</span>` : ""}</span><span class="st-track"><i style="--w:${Math.max(6, Math.round(Math.abs(v.demand_change) / max * 100))}%"></i></span><span class="mono st-chg">${cls === "st-up" ? "▲" : "▼"} ${Math.abs(Math.round(v.demand_change * 100))}%</span></div>`;
+  if (i === 0) {
+    return `${head(1, "Tell us about yourself", esc(T("This is you today, {name}.", { name: firstName() })))}
+      <p ${k(2)}><b class="st-big" data-count="${d.mine.length}">${d.mine.length}</b> <span class="st-unit">${T(d.mine.length === 1 ? "skill you told us about" : "skills you told us about")}</span></p>
+      <div ${k(3)}><div class="st-chips">${d.mine.slice(0, 6).map(([c, v]) => `<span class="st-chip">${esc(cl(c).label)} ${lvlDots(v)}</span>`).join("")}</div></div>
+      ${P().interests.length ? `<p ${k(4, "muted")}>${esc(T("You enjoy: {list}", { list: P().interests.map((x) => T(x)).join(", ") }))}</p>` : ""}`;
+  }
+  if (i === 1) {
+    const max = Math.max(...[...d.up, ...d.down].map(([, v]) => Math.abs(v.demand_change)), 0.01);
+    return `${head(2, "Future Skills Radar", esc(T("The job market is moving.")))}
+      <div ${k(2)}><span class="label">${T("Rising in job posts")}</span>${d.up.map((x) => bar(x, max, "st-up")).join("")}</div>
+      <div ${k(3)}><span class="label">${T("Cooling")}</span>${d.down.map((x) => bar(x, max, "st-down")).join("")}</div>
+      <p ${k(4, "small")}>${esc(T("Careers heading up: {up}. Heading down: {down}.", { up: d.rolesUp.map((x) => roleOf(x.role).title).join(", "), down: d.rolesDown.map((x) => roleOf(x.role).title).join(", ") }))}</p>
+      <p ${k(5, "tiny muted")}>${esc(T("Change in the share of job posts asking for each skill, last 3 months against the 3 before, to {date} (Hacker News “Who is hiring?”).", { date: fmtDate(st.analysis.snapshot.as_of) }))}</p>`;
+  }
+  if (i === 2) {
+    const [b, ...rest] = d.top;
+    return `${head(3, "Get matched", esc(T("Your best match")))}
+      <p ${k(2, "st-role")}>${esc(roleOf(b.role).title)}</p>
+      <p ${k(3)}><b class="st-big" data-count="${Math.round(b.score)}">${Math.round(b.score)}</b> <span class="st-unit">/ 100 · ${esc(fitLabel(b.score))}</span></p>
+      <div ${k(4)}>${b.gaps.length ? `<span class="label">${T("Skills to close the gap")}</span><div class="st-chips">${b.gaps.slice(0, 5).map((g) => `<span class="st-chip">${esc(cl(g.cluster).label)} <span class="muted">→ ${esc(lv(g.need))}</span></span>`).join("")}</div>` : `<p>${T("You already have every entry skill.")}</p>`}</div>
+      <div ${k(5, "st-rest")}>${rest.map((x, n) => `<div><span class="mono">#${n + 2}</span> ${esc(roleOf(x.role).title)} <span class="mono muted">${Math.round(x.score)}</span></div>`).join("")}</div>
+      ${A().role && A().role !== b.role ? `<p ${k(6, "small")}>${esc(T("You chose to aim for {role}. The next card shows the path to it.", { role: roleOf(A().role).title }))}</p>` : ""}`;
+  }
+  if (i === 3) {
+    const r = roleOf(A().role), res = rows().find((x) => x.role === A().role); if (!res) return "";
+    const label = Object.fromEntries(CALC_PARTS.map(([kk, l]) => [kk, T(l)])), why = fitWhy(res, r);
+    const parts = Object.entries(res.points).filter(([, v]) => Math.abs(v) >= 0.05).sort((p1, p2) => p2[1] - p1[1]);
+    const max = Math.max(...parts.map(([, v]) => Math.abs(v)), 1);
+    return `${head(3, "Get matched", esc(T("Why {role} suits you", { role: r.title })))}
+      <p ${k(2)}><b class="st-big" data-count="${Math.round(res.score)}">${Math.round(res.score)}</b> <span class="st-unit">/ 100 · ${esc(fitLabel(res.score))}</span></p>
+      <div ${k(3)}>${parts.map(([kk, v]) => `<div class="st-bar ${v < 0 ? "st-down" : "st-up"}"><span class="st-lbl"><b>${esc(label[kk] || kk)}</b><span class="tiny muted st-why">${esc(why[kk] || "")}</span></span><span class="st-track"><i style="--w:${Math.max(6, Math.round(Math.abs(v) / max * 100))}%"></i></span><span class="mono st-chg">${v > 0 ? "+" : "−"}${Math.abs(v).toFixed(1)}</span></div>`).join("")}</div>
+      ${res.gaps.length ? `<div ${k(4)}><span class="label">${T("Still to learn for the entry job")}</span><div class="st-chips">${res.gaps.slice(0, 5).map((g) => `<span class="st-chip">${esc(cl(g.cluster).label)}</span>`).join("")}</div></div>` : ""}`;
+  }
+  if (i === 4) {
+    const pw = d.pw, steps = d.nodes.filter((n) => n.type === "skill").length;
+    return `${head(4, "Follow a pathway", esc(T("{n} steps to {role}", { n: d.nodes.length, role: pw.stages[pw.stages.length - 1].title })))}
+      <ol ${k(2, "st-ladder")}>${pw.stages.map((s2, n) => `<li style="--k:${2 + n * 0.6}"><span class="mono">${esc(TS(s2.stage))}</span><b>${esc(s2.title)}</b><span class="tiny muted">${esc(s2.weeks[0] === s2.weeks[1] ? T("{n} weeks", { n: s2.weeks[0] }) : T("{a}–{b} weeks", { a: s2.weeks[0], b: s2.weeks[1] }))}</span></li>`).join("")}</ol>
+      <p ${k(4)}>${esc(T("{s} skills to learn, about {h} hours at {w} hours a week.", { s: steps, h: pw.hours, w: pw.hours_per_week }))}</p>
+      <div ${k(5)}><span class="label">${T("Every step is linked to the UN Sustainable Development Goals")}</span><div class="sdg-row">${d.sdgs.slice(0, 8).map(sdgTag).join(" ")}</div></div>`;
+  }
+  return `<span ${k(0, "eyebrow")}>${T("Your plan")}</span><h2 ${k(1)}>${esc(T("Ready when you are, {name}.", { name: firstName() }))}</h2>
+    <p ${k(2)}>${esc(T("Your first step: {step}.", { step: d.nodes[0] ? nodeLabel(d.nodes[0]) : "—" }))}</p>
+    <div ${k(3, "row")}><button type="button" class="btn primary big" id="storyDone">${T("Go to my dashboard")}</button><button type="button" class="btn" id="storyAgain">${T("Watch again")}</button></div>`;
+}
+function storyPaint() {
+  const el = $("#story"); if (!el) return;
+  const d = storyData();
+  el.classList.toggle("final", story.i === STORY_N - 1);
+  el.querySelector(".story-card").innerHTML = `${storyGeo(story.i)}<div class="story-body">${storyCard(story.i, d)}</div>`;
+  el.querySelectorAll(".story-bars i").forEach((b, n) => { b.style.width = n < story.i ? "100%" : "0%"; });
+  el.querySelector(".story-card").setAttribute("aria-label", T("Card {n} of {total}", { n: story.i + 1, total: STORY_N }));
+  el.querySelectorAll("[data-count]").forEach((c) => {
+    const to = +c.dataset.count; if (!motionOn() || !to) return;
+    const t0 = performance.now(), tick = (t) => { const p = Math.min(1, (t - t0) / 900); c.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
+    c.textContent = "0"; requestAnimationFrame(tick);
+  });
+  const done = el.querySelector("#storyDone"); if (done) done.focus();
+}
+function storyGo(i) {
+  if (i < 0) i = 0;
+  if (i >= STORY_N) return closeStory();
+  story.i = i; story.elapsed = 0; storyPaint();
+}
+function storyLoop(t) {
+  if (!story.on) return;
+  const dt = story.last ? t - story.last : 0; story.last = t;
+  if (!story.paused && story.i < STORY_N - 1) {
+    story.elapsed += dt;
+    const b = document.querySelectorAll("#story .story-bars i")[story.i];
+    if (b) b.style.width = Math.min(100, story.elapsed / STORY_MS * 100) + "%";
+    if (story.elapsed >= STORY_MS) storyGo(story.i + 1);
+  }
+  story.raf = requestAnimationFrame(storyLoop);
+}
+function openStory() {
+  if (isTeamUser() || !st.analysis || !st.path || !rows().length) return;
+  closeStory(true);
+  if (tourAt >= 0) { document.querySelectorAll(".tour-layer").forEach((x) => x.remove()); tourAt = -1; }  // the guide comes back after the story
+  const el = document.createElement("div");
+  el.id = "story"; el.className = "story"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", T("Your plan in four steps"));
+  el.innerHTML = `<div class="story-top"><div class="story-bars">${Array.from({ length: STORY_N }, () => "<span><i></i></span>").join("")}</div>
+      <button type="button" class="btn ghost small" id="storySkip">${T("Skip")} ✕</button></div>
+    <button type="button" class="story-tap prev" data-storynav="-1" aria-label="${T("Previous")}"></button><button type="button" class="story-tap next" data-storynav="1" aria-label="${T("Next")}"></button>
+    <section class="story-card" aria-live="polite"></section>
+    <p class="story-hint tiny">${T("Tap to go on · hold to pause")}</p>`;
+  document.body.append(el); document.body.classList.add("story-open");
+  // hold anywhere to pause; a long press does not count as a tap
+  el.addEventListener("pointerdown", (e) => { if (e.target.closest("button:not(.story-tap)")) return; story.downAt = performance.now(); story.held = false; story.paused = true; });
+  el.addEventListener("pointerup", () => { story.held = performance.now() - story.downAt > 250; story.paused = false; });
+  Object.assign(story, { on: true, last: 0 });
+  storyGo(0);
+  story.raf = requestAnimationFrame(storyLoop);
+  el.querySelector("#storySkip").focus();
+}
+function closeStory(quiet) {
+  cancelAnimationFrame(story.raf); story.on = false;
+  const el = $("#story"); if (el) el.remove();
+  document.body.classList.remove("story-open");
+  if (quiet || !A()) return;
+  if (!A().prefs.story) { A().prefs.story = true; save(); }
+  if (!A().prefs[tourKey()] && st.page === "dashboard") setTimeout(() => { if (tourAt < 0 && !story.on) tourShow(0); }, 500);
 }
 
 // ---------- dashboard ------------------------------------------------------------------------
@@ -684,7 +829,6 @@ function vDashboard() {
       <div class="hero-side">
         ${progressGeo(pct)}
         <span class="tiny muted">${esc(T("of the way to {role}", { role: top }))}</span>
-        <div class="row" style="gap:6px;justify-content:center"><button class="btn ghost" type="button" data-page="mycareer">${T("About my career")}</button><button class="btn ghost" type="button" data-page="wizard">${T("Edit about you")}</button></div>
       </div>
     </section>
     <div class="card next-card">
@@ -801,7 +945,7 @@ function vCareers() {
   return `<div class="page">
   ${intro(T("Careers overview"), T("Every career, side by side"), T(simple() ? "Look through all careers by zone. Tap one to see why it fits, in plain words. These are estimates, not promises." : "All careers ranked by your skills, where demand is heading, and how much of the work AI can already do. Estimates, not predictions."), A().role ? `<button class="btn" type="button" data-page="mycareer">${T("Back to my career")}</button>` : "")}
   <div class="row between">
-    <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>
+    <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>${scenBrief()}
     <label class="check small" style="align-items:center"><input type="checkbox" id="compareChk" ${st.compare ? "checked" : ""}> ${T("What changed recently")}</label>
   </div>
   ${diff ? `<div class="note accent small"><b>${T(simple() ? "What changed:" : "What changed with the latest data.")}</b> ${diff.length ? diff.map((x) => esc(simple() ? T(x.to < x.from ? "{role} moved up" : "{role} moved down", { role: roleOf(x.role).title }) : `${roleOf(x.role).title} ${x.from} → ${x.to} (${cl(x.driver).label} ${demandText(x.driver_before)} → ${demandText(x.driver_after)})`)).join("; ") : T("Your top careers stayed the same.")}</div>` : ""}
@@ -816,7 +960,7 @@ function vMyCareer() {
   const others = all.filter((y) => y.role !== x.role).slice(0, 3);
   return `<div class="page">
   ${intro(T("My career"), roleOf(x.role).title, T(simple() ? "Why it fits you, what to learn, and how AI touches it." : "Your chosen career: why it fits, the skill gap, AI impact and UN goals."), `<button class="btn primary" type="button" data-page="path">${T("Open my path")}</button>`)}
-  <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>
+  <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>${scenBrief()}
   <section class="card stack deck-card" data-row="${x.role}">${careerHead(x)}${vCareerDetail(x, false)}</section>
   ${vNextSkills()}
   ${vXray()}
@@ -1264,7 +1408,9 @@ function vXray() {
     <div class="xr-bar" role="img" aria-label="${esc(x.bands.map((b) => `${T(b.label)}: ${x.counts[b.id]}`).join(", "))}">${x.bands.map((b) => x.counts[b.id] ? `<span class="xr-${b.id}" style="flex:${x.counts[b.id]}"><b>${x.counts[b.id]}</b></span>` : "").join("")}</div>
     <div class="xr-legend tiny">${x.bands.map((b) => `<span><i class="xr-${b.id}"></i>${T(b.label)}</span>`).join("")}</div>
     <ol class="xr-list">${shown.map((t, i) => { const k = isco + ":" + i, tip = (st.tips || {})[k];
-      return `<li class="xr-task xr-t-${t.band}"><div class="xr-score"><span class="mono">${t.score.toFixed(2)}</span><span class="track"><span class="fill" style="display:block;width:${Math.round(t.score * 100)}%"></span></span></div>
+      const head = i === 0 || shown[i - 1].band !== t.band  // tasks are sorted by score, so each band is one run
+        ? `<li class="xr-band xr-b-${t.band}"><i class="xr-${t.band}" aria-hidden="true"></i><b>${T(BAND_LABEL[t.band])}</b><span class="tiny muted">${esc(T(x.counts[t.band] === 1 ? "1 task" : "{n} tasks", { n: x.counts[t.band] }))}</span></li>` : "";
+      return `${head}<li class="xr-task xr-t-${t.band}"><div class="xr-score"><span class="mono">${t.score.toFixed(2)}</span><span class="track"><span class="fill" style="display:block;width:${Math.round(t.score * 100)}%"></span></span></div>
         <div class="stack" style="gap:6px;min-width:0"><span>${esc(t.task)}</span>
           <div class="row" style="gap:6px">${t.band === "ai" ? `<span class="small">${T("Let AI tools do the routine part, then check it yourself:")}</span> <span class="badge accent">${esc(cl("genai").label)}</span>`
             : t.skills.length ? `<span class="small">${T(t.band === "human" ? "Your human edge:" : "Keep the human part sharp:")}</span> ${t.skills.map((c) => `<span class="badge">${esc(cl(c).label)}</span>`).join("")}` : ""}
@@ -1384,6 +1530,202 @@ function toggleMic(target) {
   try { rec.start(); document.querySelectorAll(`[data-mic="${target}"]`).forEach((b) => b.setAttribute("aria-pressed", "true")); } catch (e) { rec = null; recTarget = null; }
 }
 
+// ---------- Update button ----------------------------------------------------------------------
+// Asks the server to fetch new job posts, research counts and headlines (at most every 15 minutes),
+// shows each step while it runs, then reloads everything that depends on the data.
+const UPD_STEPS = { start: "Starting…", jobs: "Reading job posts…", research: "Counting research papers…", news: "Collecting work headlines…", saving: "Saving and re-scoring…" };
+const upd = { running: false, step: null, snap: null, msg: "", timer: 0 };
+function agoText(iso) {
+  const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+  return s < 90 ? T("just now") : s < 5400 ? T("{n} min ago", { n: Math.round(s / 60) }) : s < 129600 ? T("{n} h ago", { n: Math.round(s / 3600) }) : fmtDate(iso.slice(0, 10));
+}
+function vUpdateBar() {
+  const sn = upd.snap || (st.updates && st.updates.snapshot && { as_of: st.updates.snapshot.as_of, created_at: st.updates.snapshot.created_at });
+  return `<div class="update-bar" id="updateBar" aria-live="polite">
+    <span class="live-dot ${upd.running ? "busy" : ""}" aria-hidden="true"></span>
+    <span class="small">${upd.running ? esc(T(UPD_STEPS[upd.step] || UPD_STEPS.start)) : upd.msg ? esc(upd.msg) : sn ? esc(T("Job data from {date}", { date: fmtDate(sn.as_of) })) + (sn.created_at ? ` · <span class="muted">${esc(T("fetched {ago}", { ago: agoText(sn.created_at) }))}</span>` : "") : T("Live job data")}</span>
+    <button type="button" class="btn ${upd.running ? "" : "primary"} upd-btn" id="updateBtn" ${upd.running ? "disabled" : ""}>${upd.running ? `<span class="spin"></span> ${T("Updating…")}` : "↻ " + T("Update data")}</button>
+  </div>`;
+}
+function paintUpdateBar() { document.querySelectorAll("#updateBar").forEach((el) => { el.outerHTML = vUpdateBar(); }); }
+async function reloadAfterUpdate() {
+  const before = st.updates && st.updates.snapshot && st.updates.snapshot.id;
+  try { st.updates = await api("/api/updates"); } catch (e) { /* keep the old brief */ }
+  st.newsSum = null; st.whatif = {}; st.explain = {};
+  await refresh({});  // re-scores careers, the path and the advice with the new snapshot
+  try { st.news = await api("/api/news"); } catch (e) { st.news = null; }
+  return st.updates && st.updates.snapshot && st.updates.snapshot.id !== before;
+}
+async function runUpdate() {
+  if (upd.running) return;
+  upd.msg = "";
+  if (!st.news) { try { st.news = await api("/api/news"); } catch (e) { /* compare without headlines */ } }
+  const before = updCapture();
+  let r;
+  try { r = await api("/api/refresh", {}); } catch (e) { toast(T("Could not update: {e}", { e: e.message })); return; }
+  upd.snap = r.snapshot;
+  if (!r.running) {  // fetched in the last 15 minutes: just bring this page up to date
+    await reloadAfterUpdate(); upd.report = updDiff(before);
+    upd.msg = T("Already up to date. Next fetch possible in {n} min.", { n: Math.max(1, Math.ceil(r.cooldown / 60)) });
+    render(); return;
+  }
+  upd.running = true; upd.step = r.step; paintUpdateBar();
+  clearInterval(upd.timer);
+  upd.timer = setInterval(async () => {
+    let s; try { s = await api("/api/refresh"); } catch (e) { return; }
+    upd.step = s.step; upd.snap = s.snapshot;
+    if (s.running) { paintUpdateBar(); return; }
+    clearInterval(upd.timer); upd.running = false;
+    if (s.error) { upd.msg = T("Update failed: {e}", { e: s.error }); render(); return; }
+    await reloadAfterUpdate(); upd.report = updDiff(before);
+    const n = updChanges();
+    upd.msg = T(n ? "Updated just now: {n} changes since the last check." : "Updated just now. Nothing important changed.", { n });
+    render(); toast(upd.msg);
+  }, 2000);
+}
+
+// ---------- team members: a profile the manager keeps for each person ----------------------------
+// Members do not sign in. The manager gives each person a job title, notes and (if needed) a different
+// target career, then ticks path steps as the person completes them. Ticked skill steps raise that
+// person's level everywhere (skills table, group plan). Kept on this device, like the team list.
+const MEM_KEY = () => `wfe.members.${A().id}`;
+function memAll() {
+  if (!st.members || st.members.id !== A().id) {
+    let d = {}; try { d = JSON.parse(localStorage.getItem(MEM_KEY()) || "{}"); } catch (e) { /* start empty */ }
+    st.members = { id: A().id, d };
+  }
+  return st.members.d;
+}
+const memSave = () => { try { localStorage.setItem(MEM_KEY(), JSON.stringify(memAll())); } catch (e) { /* this visit only */ } };
+function mem(i) { const all = memAll(), g = (all[st.team] = all[st.team] || {}); return (g[i] = g[i] || { title: "", notes: "", target: null, done: {} }); }
+const memTarget = (i) => mem(i).target || st.teamTarget || teamData().target_role;
+function achieved(i, base) { const s = { ...base }; Object.values(mem(i).done).forEach((x) => { if (x.cluster) s[x.cluster] = Math.max(s[x.cluster] || 0, x.to); }); return s; }
+const teamPeople = () => teamData().people.map(([nm, sk], i) => [nm, achieved(i, sk)]);
+const memDoneTotal = () => Object.values(memAll()[st.team] || {}).reduce((a, m) => a + Object.keys(m.done || {}).length, 0);
+// typed-in list: removing a row shifts the profiles below it up by one
+function memShift(from) { const g = memAll().upload; if (!g) return; const n = {}; Object.entries(g).forEach(([k, v]) => { const i = +k; if (i < from) n[i] = v; else if (i > from) n[i - 1] = v; }); memAll().upload = n; memSave(); }
+// each person's path is built once from the levels they started with, so ticking steps does not reshuffle it
+function memPathKey(i) { const m = mem(i); return [st.team, i, memTarget(i), st.scen, P().budget || "free"].join("|") + "|" + JSON.stringify(m.base || teamData().people[i][1]); }
+function memPath(i) {
+  st.memPaths = st.memPaths || {};
+  const k = memPathKey(i), hit = st.memPaths[k];
+  if (hit) return hit.data || null;
+  const m = mem(i); if (!m.base) { m.base = { ...teamData().people[i][1] }; memSave(); }
+  st.memPaths[k] = { busy: true };
+  api("/api/pathway", { skills: m.base, interests: [], hours: P().hours || 5, country: P().country || "MY", budget: P().budget || "free", age_band: null, situation: null, role: memTarget(i), scenario: st.scen })
+    .then((d) => { st.memPaths[k] = { data: d }; }).catch(() => { delete st.memPaths[k]; }).finally(() => { if (["people", "member"].includes(st.page)) render(); });
+  return null;
+}
+const memNodes = (pw) => pw.stages.flatMap((s, si) => s.nodes.map((n) => ({ ...n, si, key: nodeKey(si, n), stage: s })));
+function memProgress(i) {
+  const pw = memPath(i); if (!pw) return null;
+  const req = memNodes(pw).filter(required), d = mem(i).done;
+  return { pw, req, n: req.filter((x) => d[x.key]).length, next: req.find((x) => !d[x.key]) || null };
+}
+function vPeople() {
+  if (!isTeamUser()) { st.page = "dashboard"; return vDashboard(); }
+  const Tm = teamData(), rep = teamReady() ? st.teamReport.people[st.scen] : [];
+  const ready = Object.fromEntries(rep.map((x) => [x.name, x.readiness]));
+  return `<div class="page">
+  ${intro(T("For HR and career centres"), T(isCohort() ? "Students" : "People"), esc(T("One profile for each person in {group}. Open a profile to set their job title and target, and tick path steps as they finish them. Profiles are kept on this device.", { group: TS(Tm.label) })))}
+  <div class="people-grid">${Tm.people.map(([nm], i) => {
+    const m = mem(i), pr = memProgress(i), pct = pr && pr.req.length ? Math.round(pr.n / pr.req.length * 100) : 0;
+    return `<button type="button" class="card person-card" data-member="${i}">
+      <span class="row between" style="flex-wrap:nowrap"><b class="person-name">${esc(nm)}</b>${ready[nm] != null ? `<span class="mono small">${esc(T("{p}% ready", { p: Math.round(ready[nm] * 100) }))}</span>` : ""}</span>
+      <span class="small muted">${esc(m.title || T("No job title yet"))}</span>
+      <span class="small">${esc(T("Preparing for {role}", { role: roleOf(memTarget(i)).title }))}${m.target ? ` <span class="badge">${T("own target")}</span>` : ""}</span>
+      ${pr ? `<span class="pc-prog"><span class="track"><span class="fill" style="display:block;width:${pct}%"></span></span><span class="small">${esc(T("{n} of {total} steps done", { n: pr.n, total: pr.req.length }))}</span></span>
+        <span class="tiny muted">${esc(pr.next ? T("Next: {step}", { step: nodeLabel(pr.next) }) : T("Path complete"))}</span>` : `<span class="tiny muted"><span class="spin"></span> ${T("Building the path…")}</span>`}
+    </button>`; }).join("")}</div></div>`;
+}
+function vMember() {
+  const Tm = teamData(), i = st.member, p = Tm.people[i];
+  if (!isTeamUser() || !p) { st.page = isTeamUser() ? "people" : "dashboard"; return VIEWS[st.page](); }
+  const m = mem(i), target = memTarget(i), pr = memProgress(i), now = achieved(i, p[1]);
+  const teamRole = st.teamTarget || Tm.target_role;
+  const profile = `<section class="card stack member-profile">
+      <div class="field"><label for="memTitle">${T("Job title now")}</label><input type="text" id="memTitle" data-memf="title" value="${esc(m.title)}" maxlength="60" placeholder="${esc(T("For example: Contact centre agent"))}"></div>
+      <div class="field"><label for="memTarget">${T("Career to prepare for")}</label><select id="memTarget"><option value="">${esc(T("Team target: {role}", { role: roleOf(teamRole).title }))}</option>${st.meta.roles.filter((x) => x.id !== teamRole).map((x) => `<option value="${x.id}" ${m.target === x.id ? "selected" : ""}>${esc(x.title)}</option>`).join("")}</select></div>
+      <div class="field"><label for="memNotes">${T("Manager notes")}</label><textarea id="memNotes" data-memf="notes" rows="4" maxlength="2000" placeholder="${esc(T("What you agreed in your last 1-to-1, support needed, dates…"))}">${esc(m.notes)}</textarea></div>
+    </section>`;
+  if (!pr) return `<div class="page">${intro(T("Team member"), p[0], esc(m.title || ""))}<div class="member-grid">${profile}<section class="card"><p class="small muted"><span class="spin"></span> ${T("Building the path…")}</p></section></div></div>`;
+  const pct = pr.req.length ? Math.round(pr.n / pr.req.length * 100) : 100, nodes = memNodes(pr.pw);
+  const gained = Object.keys(now).filter((k) => (now[k] || 0) > (p[1][k] || 0));
+  const step = (n) => { const d = !!m.done[n.key], c = n.type === "skill" && n.items && n.items[0];
+    return `<li class="mstep ${d ? "done" : ""} ${required(n) ? "" : "opt"}"><label class="check"><input type="checkbox" data-memdone="${esc(n.key)}" ${d ? "checked" : ""}>
+      <span class="stack" style="gap:2px;min-width:0"><b>${esc(nodeLabel(n))}${required(n) ? "" : ` <span class="badge">${T("Optional")}</span>`}</b>
+        ${n.type === "skill" ? `<span class="small muted">${esc(lv(n.from))} → ${esc(lv(n.to))}${c ? ` · <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a> (${esc(c.provider)}, ${c.hours} h)` : ""}</span>` : n.type === "cert" && n.item ? `<span class="small muted">${esc(n.item.provider || "")}</span>` : ""}
+        ${n.sdg && n.sdg.length ? `<span class="sdg-row">${n.sdg.slice(0, 3).map(sdgTag).join(" ")}</span>` : ""}</span></label></li>`; };
+  return `<div class="page">
+  ${intro(T("Team member"), p[0], esc([m.title, T("Preparing for {role}", { role: roleOf(target).title })].filter(Boolean).join(" · ")), `<button type="button" class="btn ghost" data-page="people">← ${T(isCohort() ? "All students" : "All people")}</button>`)}
+  <div class="member-grid">
+    <div class="stack">
+      <section class="card member-top">${progressGeo(pct, T("{pct}% of the path done", { pct }))}
+        <div class="stack" style="gap:6px;min-width:0"><span class="eyebrow">${T("Path progress")}</span><b>${esc(T("{n} of {total} steps done", { n: pr.n, total: pr.req.length }))}</b>
+          <span class="small muted">${esc(pr.next ? T("Next: {step}", { step: nodeLabel(pr.next) }) : T("Path complete"))}</span>
+          ${gained.length ? `<span class="small">${esc(T("Skills gained: {list}", { list: gained.map((k) => `${cl(k).label} (${lv(p[1][k] || 0)} → ${lv(now[k])})`).join(", ") }))}</span>` : ""}</div></section>
+      ${profile}
+    </div>
+    <div class="stack">${pr.pw.stages.map((s, si) => { const ns = nodes.filter((n) => n.si === si), rq = ns.filter(required), dn = rq.filter((n) => m.done[n.key]).length;
+      return `<section class="card stack mstage"><div class="row between"><div class="stack" style="gap:2px"><span class="eyebrow">${esc(TS(s.stage))}</span><h3>${esc(s.title)}</h3></div><span class="small mono">${dn}/${rq.length}</span></div>
+        <ol class="msteps">${ns.map(step).join("")}</ol></section>`; }).join("")}
+      <p class="tiny muted">${T("Ticking a skill step raises this person's level in the skills table and the group plan. For training plans only, never for selection.")}</p></div>
+  </div></div>`;
+}
+
+// ---------- Updates page --------------------------------------------------------------------------
+// One place for fresh data: the Update button, then what changed in each part of the plan. Before a
+// fetch we note ranks, scores, step order and headlines; afterwards each section shows the difference.
+function updCapture() {
+  return { ranks: Object.fromEntries(rows().map((x) => [x.role, { rank: x.rank, score: x.score }])),
+    order: st.path ? flatNodes().map((n) => n.key) : [], news: new Set(((st.news && st.news.items) || []).map((x) => x.url)) };
+}
+function updDiff(b) {
+  const now = rows(), moves = now.map((x) => ({ role: x.role, rank: x.rank, was: b.ranks[x.role] ? b.ranks[x.role].rank : null, score: x.score, before: b.ranks[x.role] ? b.ranks[x.role].score : null }))
+    .filter((x) => x.was != null && x.was !== x.rank).sort((p, q) => Math.abs(q.was - q.rank) - Math.abs(p.was - p.rank));
+  const order = st.path ? flatNodes().map((n) => n.key) : [];
+  const stepsMoved = order.filter((k, i) => b.order.indexOf(k) > i).length;
+  const fresh = ((st.news && st.news.items) || []).filter((x) => !b.news.has(x.url));
+  return { at: Date.now(), moves, mine: moves.find((x) => x.role === A().role) || null,
+    myBefore: b.ranks[A().role] ? b.ranks[A().role].score : null, stepsMoved, fresh, newsBefore: b.news.size };
+}
+const updChanges = () => (st.updates ? st.updates.moved.length + st.updates.new_tech.length : 0) + (upd.report ? upd.report.moves.length + upd.report.stepsMoved + (upd.report.newsBefore ? upd.report.fresh.length : 0) : 0);
+function vUpdates() {
+  if (isTeamUser()) { st.page = "dashboard"; return vDashboard(); }
+  if (!st.analysis || !st.path) { if (!st.busy.dash) { st.busy.dash = true; refresh({}).then(() => { st.busy.dash = false; }); } return skeleton(4); }
+  loadNews();
+  const up = st.updates, rp = upd.report, pw = st.path, r = roleOf(A().role), res = rows().find((x) => x.role === A().role);
+  const tag = (n) => `<span class="badge ${n ? "accent" : ""}">${esc(n ? T(n === 1 ? "{n} change" : "{n} changes", { n }) : T("No changes"))}</span>`;
+  const sec = (page, title, n, body, open) => `<section class="card stack upd-sec"><div class="row between"><div class="row" style="gap:8px"><span class="geo-mark">${GEO[page]}</span><h3>${esc(title)}</h3></div>${tag(n)}</div>${body}
+    <div class="row"><button type="button" class="btn ghost small" data-page="${page}">${esc(T("Open {page}", { page: open || title }))} →</button></div></section>`;
+  const moved = up ? up.moved : [], tech = up ? up.new_tech : [];
+  const market = `<p class="small muted">${esc(up && up.previous ? T("Job posts to {date}, compared with the check before ({prev}).", { date: fmtDate(up.snapshot.as_of), prev: fmtDate(up.previous.as_of) }) : T("Job posts to {date}.", { date: fmtDate(pw.snapshot.as_of) }))}</p>
+    ${moved.length ? `<div class="list">${moved.slice(0, 4).map((x) => `<div><span>${esc(cl(x.cluster).label)}</span><span class="mono ${x.after > x.before ? "up" : "down"}">${x.after > x.before ? "▲" : "▼"} ${demandText(x.before)} → ${demandText(x.after)}</span></div>`).join("")}</div>` : `<p class="small">${T("No skill moved much in job posts.")}</p>`}
+    ${tech.length ? `<p class="small">${esc(T("Rising tools: {tools}", { tools: tech.slice(0, 5).map((x) => x.term).join(", ") }))}</p>` : ""}`;
+  const mine = rp && rp.myBefore != null && res ? `<p class="upd-num"><b>${Math.round(rp.myBefore) === Math.round(res.score) ? Math.round(res.score) : `${Math.round(rp.myBefore)} → ${Math.round(res.score)}`}</b> <span class="small muted">${esc(T("fit for {role}", { role: r.title }))}</span></p>${rp.mine ? `<p class="small">${esc(T("Rank {was} → {now} among all careers.", { was: rp.mine.was, now: rp.mine.rank }))}</p>` : Math.round(rp.myBefore) === Math.round(res.score) ? `<p class="small">${T("Your fit did not change.")}</p>` : ""}`
+    : `<p class="upd-num"><b>${res ? Math.round(res.score) : "—"}</b> <span class="small muted">${esc(T("fit for {role}", { role: r.title }))}</span></p><p class="small muted">${T("Press Update data to see how this moves.")}</p>`;
+  const careers = rp ? (rp.moves.length ? `<div class="list">${rp.moves.slice(0, 5).map((x) => `<div><span>${esc(roleOf(x.role).title)}</span><span class="mono ${x.rank < x.was ? "up" : "down"}">${x.rank < x.was ? "▲" : "▼"} #${x.was} → #${x.rank}</span></div>`).join("")}</div>` : `<p class="small">${T("The career ranking did not change.")}</p>`)
+    : `<div class="list">${rows().slice(0, 3).map((x) => `<div><span>#${x.rank} ${esc(roleOf(x.role).title)}</span><span class="mono">${Math.round(x.score)}</span></div>`).join("")}</div><p class="small muted">${T("Press Update data to see which careers move.")}</p>`;
+  const pathTools = [...new Set(flatNodes().flatMap((n) => (n.new_tech || []).map((w) => w.term)))];
+  const stepsN = rp ? rp.stepsMoved : pw.priorities_changed || 0;
+  const path = `<p class="small">${esc(stepsN ? T("{n} step(s) moved because demand changed.", { n: stepsN }) : T("Your plan is still in the best order."))}</p>
+    ${pathTools.length ? `<p class="small">${esc(T("Rising tools in your path: {tools}.", { tools: pathTools.slice(0, 4).join(", ") }))}</p>` : ""}`;
+  const items = (st.news && st.news.items) || [], fresh = rp && rp.newsBefore ? rp.fresh : null;
+  const news = !st.news ? `<p class="small muted">${T("Loading headlines…")}</p>`
+    : `<p class="small">${esc(fresh ? (fresh.length ? T(fresh.length === 1 ? "1 new headline since your last update." : "{n} new headlines since your last update.", { n: fresh.length }) : T("No new headlines since your last update.")) : T("{n} headlines this month.", { n: items.length }))}</p>
+      <ul class="small plain upd-heads">${(fresh && fresh.length ? fresh : items).slice(0, 3).map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a> <span class="tiny muted">${esc(x.site)}</span></li>`).join("")}</ul>`;
+  return `<div class="page">
+  ${intro(T("Updates"), T("What changed"), T("Fetch the newest job posts, research counts and headlines, then see what changed in each part of your plan."))}
+  ${vUpdateBar()}
+  <div class="upd-grid">
+    ${sec("dashboard", T("Job market"), moved.length + tech.length, market, T("Home"))}
+    ${sec("mycareer", T("My career"), rp && rp.myBefore != null && res && Math.round(rp.myBefore) !== Math.round(res.score) ? 1 : 0, mine)}
+    ${sec("careers", T("Careers overview"), rp ? rp.moves.length : 0, careers)}
+    ${sec("path", T("Path"), stepsN, path)}
+    ${sec("news", T("News"), fresh ? fresh.length : 0, news)}
+  </div></div>`;
+}
+
 // ---------- path ----------------------------------------------------------------------------
 function nodeLabel(n) { return n.type === "skill" ? cl(n.cluster).label : n.type === "cert" ? n.item.title : n.type === "gate" ? T(simple() ? "Real work" : "Experience") : T("Ready to apply"); }
 function nodeIcon(n, isDone) { return isDone ? I.check : { skill: I.book, cert: I.award, gate: I.flag, checkpoint: I.case }[n.type]; }
@@ -1392,9 +1734,8 @@ function vPath() {
   if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return skeleton(3, T("Building your path…")); }
   const pw = st.path, nodes = flatNodes(), cur = currentNode();
   if (!st.sel || !nodes.find((n) => n.key === st.sel)) st.sel = cur ? cur.key : nodes[0].key;
-  const peak = pw.stages[pw.stages.length - 1].title, up = st.updates;
+  const peak = pw.stages[pw.stages.length - 1].title;
   const tab = st.pathTab && st.pathTab !== "basic" && myTracks().includes(st.pathTab) ? st.pathTab : "basic";
-  const newTech = [...new Set(nodes.flatMap((n) => (n.new_tech || []).map((w) => w.term)))];
   const firstOpenKey = (nodes.find((x) => !done(x.key)) || {}).key;
   const oc = st.chOpen && st.chOpen.role === A().role ? st.chOpen : (st.chOpen = { role: A().role, open: { [cur ? cur.si : 0]: true } });
   const flagMoved = T(simple() ? "do sooner" : "priority ↑"), flagTool = T("new tool");
@@ -1424,18 +1765,13 @@ function vPath() {
         ${pts.map((q) => nodeBtn(q.n, q.x, q.y)).join("")}</div>` : ""}
     </section>`;
   };
-  const changedText = simple() ? (pw.priorities_changed ? T("{n} step(s) moved up because more jobs need them now.", { n: pw.priorities_changed }) : T("Your plan is still in the best order.")) : (pw.priorities_changed ? T("{n} step(s) moved because demand changed.", { n: pw.priorities_changed }) : T("Step order unchanged."));
   return `<div class="page">
   ${intro(T("Path"), T("Your path to {role}", { role: peak }), simple() ? T("Follow the road from the top. Tap a circle to see what to do. Dashed circles are optional.") : esc(T("Start as {role}. Steps are ordered by prerequisites and current demand. Paid certificates outside your budget are dashed and optional.", { role: pw.stages[0].title })))}
-  <div class="note accent small"><div class="row" style="gap:6px"><b>${simple() ? T("We checked today.") : esc(T("Checked {date}. Trend data {snapshot}.", { date: up ? up.checked_on : T("today"), snapshot: pw.snapshot.as_of }))}</b>${info("update")}${trendChip()}</div>
-    ${esc(changedText)}
-    ${newTech.length ? ` ${esc(T(simple() ? "New tools to know: {tools}." : "Rising tools in your path: {tools}.", { tools: newTech.join(", ") }))}` : ""}</div>
   ${vTrackTabs(tab)}
   ${tab !== "basic" ? vTrackBoard(trackOf(tab)) : `<div class="row between">
     <div class="legend" aria-label="${T("Legend")}"><span><i class="l-done"></i>${T("Done")}</span><span><i class="l-now"></i>${T("Next step")}</span><span><i></i>${T("To do")}</span><span><i class="l-opt"></i>${T("Optional")}</span><span><b class="flag-s">${esc(flagMoved)}</b>${T("Moved up today")}</span><span><b class="flag-s">${esc(flagTool)}</b>${T("Rising tool")}</span>${info("stage")}</div>
     <label class="small row" style="gap:6px">${T("Budget")} ${info("budget")}<select id="budgetPath">${country().budgets.map(([kk, v]) => `<option value="${kk}" ${P().budget === kk ? "selected" : ""}>${esc(TS(v))}</option>`).join("")}</select></label>
   </div>
-  <div class="row" style="gap:8px"><button type="button" class="btn ghost" data-chall="1">${T("Open all chapters")}</button><button type="button" class="btn ghost" data-chall="0">${T("Fold all")}</button></div>
   <div class="map-wrap"><div class="path-board">${pw.stages.map(chapter).join("")}</div>
     <div class="sheet ${st.sheetOpen ? "open" : ""}" role="region" aria-label="${T("Step details")}">${vNodeSheet(nodes.find((n) => n.key === st.sel))}</div></div>
   ${st.sheetOpen ? `<button type="button" class="scrim" data-closesheet aria-label="${T("Close step details")}"></button>` : ""}`}
@@ -1553,8 +1889,26 @@ function vTrackTabs(tab) {
       <div class="t-foot"><span class="tiny muted">${esc(T("{c} chapters · {n} steps", { c: t.chapters.length, n: trackSteps(t).length }))}</span><button type="button" class="btn primary" data-addtrack="${t.id}">＋ ${T("Add")}</button></div></div>`).join("")}</div>` : ""}
   ${vAiCompose()}`;
 }
+// Price band from the checked price (US$), or "Free"; unknown prices point to the provider.
+function priceBand(c) {
+  if (c.cost === "free") return ["free", T("Free")];
+  const p = c.price; if (!p) return ["unknown", T("Price: see provider")];
+  const a = p.amount, per = p.per === "month" ? T("/month") : "";
+  return [a < 100 ? "low" : a <= 500 ? "mid" : "high", (a < 100 ? T("Under US$100") : a <= 500 ? T("US$100–500") : T("Over US$500")) + per];
+}
 function course(c, label, kind = "rec") {
-  return `<div class="course ${kind}"><span class="course-tag">${esc(label)}</span><b>${esc(c.title)}</b><span class="tiny muted">${esc(c.provider)} · ${c.hours} h · ${esc(TS(c.cost))}${c.hrdc && !simple() ? " · HRD Corp: " + esc(TS(c.hrdc)) : ""}</span>${c.url ? `<a class="small" href="${esc(c.url)}" target="_blank" rel="noopener">${T("Open course ↗")}</a>` : ""}</div>`;
+  const [band, bandText] = priceBand(c), p = c.price;
+  return `<div class="course ${kind}"><div class="row" style="gap:6px"><span class="course-tag">${esc(label)}</span><span class="price-band pb-${band}">${esc(bandText)}</span></div><b>${esc(c.title)}</b><span class="tiny muted">${esc(c.provider)} · ${c.hours} h${c.hrdc && !simple() ? " · HRD Corp: " + esc(TS(c.hrdc)) : ""}</span>
+    ${p ? `<span class="tiny price-line">${esc(T(p.text))} · <a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(T("checked {date}", { date: fmtDate(p.checked_on) }))}</a></span>` : ""}
+    ${c.url ? `<a class="small" href="${esc(c.url)}" target="_blank" rel="noopener">${T("Open course ↗")}</a>` : ""}</div>`;
+}
+// Free tutorials and docs for a skill. They do not complete the step; the person still ticks it.
+function selfStudy(cid) {
+  const list = (st.meta.selfstudy.resources || {})[cid] || [];
+  if (!list.length) return "";
+  return `<div class="selfstudy"><span class="label">${T("Learn on your own (free)")}</span>
+    <ul>${list.map((r) => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)} ↗</a><span class="tiny muted"> · ${esc(r.provider)}</span></li>`).join("")}</ul>
+    <p class="tiny muted">${T("Tutorials and docs to practise with. Tick the step yourself when you can do it.")}</p></div>`;
 }
 const fact = (label, value) => `<div><dt>${esc(label)}</dt><dd>${value}</dd></div>`;
 function vNodeSheet(n) {
@@ -1575,6 +1929,7 @@ function vNodeSheet(n) {
       </dl>
       ${notes.map((x) => `<p class="note warn small">${T(x)}</p>`).join("")}
       ${courses.length || n.covered_earlier ? `<div class="courses"><span class="label">${T("Courses")}</span>${courses.join("")}${n.covered_earlier ? `<p class="small muted">${T("You already covered this in an earlier course.")}</p>` : ""}</div>` : ""}
+      ${selfStudy(n.cluster)}
       ${simple() ? "" : `<p class="tiny muted sdg-row">${T("Supports")} ${n.sdg.map(sdgTag).join(" ")} ${info("sdg")}</p>`}`;
   } else if (n.type === "cert") {
     body = `<div class="courses">${course(n.item, T(n.optional ? "Optional: outside your budget" : "Certificate"), n.optional ? "alt" : "rec")}</div><p class="small muted">${T(simple() ? "A certificate shows employers your level." : "Certificates help employers trust your level. Check the provider's current fee and exam rules.")}</p>`;
@@ -1602,11 +1957,103 @@ function resumeData() {
   const summary = cv.summary || `${stage.title} candidate with skills in ${skills.slice(0, 4).join(", ").toLowerCase()}. ${u >= 0 ? "Completed" : "Following"} a structured learning path towards ${job} roles.`;
   return { stage, skills, courses, summary };
 }
+// Resume sections: the built-in ones (from the profile and the path) plus sections the person adds
+// (ready-made kinds or their own title). Each can be moved or hidden; extra ones hold one entry per line.
+const SECTION_KINDS = [["languages", "Languages", "e.g. Malay — native"], ["strengths", "Personal strengths", "e.g. Patient with customers — handled 30 calls a day"],
+  ["projects", "Projects & volunteering", "e.g. Ran social media for a food bank — grew followers"], ["awards", "Awards & activities", "e.g. Employee of the month (2024)"]];
+const BUILTIN = [["summary", "Summary"], ["skills", "Skills"], ["experience", "Experience"], ["courses", "Courses and certificates"], ["education", "Education"]];
+// Sections in display order; older profiles get their CV languages as a Languages section once.
+function resumeSections() {
+  const cv = P().cv;
+  if (!cv.sections) {
+    cv.sections = (cv.languages || []).length ? [{ id: "s-lang", kind: "languages", title: "Languages", lines: [...cv.languages] }] : [];
+    cv.order = [...BUILTIN.map(([k]) => k), ...cv.sections.map((x) => x.id)]; cv.hidden = [];
+  }
+  const ids = new Set([...BUILTIN.map(([k]) => k), ...cv.sections.map((x) => x.id)]);
+  cv.order = cv.order.filter((k) => ids.has(k)).concat([...ids].filter((k) => !cv.order.includes(k)));
+  return cv.order.map((id) => { const b = BUILTIN.find(([k]) => k === id), x = cv.sections.find((y) => y.id === id);
+    return b ? { id, builtin: true, title: b[1] } : { ...x, builtin: false }; });
+}
+const sectionTitle = (s) => (SECTION_KINDS.find(([k]) => k === s.kind) || [])[1] === s.title ? T(s.title) : s.title;
+// What the AI may use when drafting a section: only what the person entered or finished.
+function sectionContext() {
+  const cv = P().cv, R = resumeData();
+  return { about: P().about || "", experience: cv.experience.map((e) => ({ title: e.title, organisation: e.organisation, highlights: e.highlights })),
+    education: cv.education, languages: cv.languages, skills: R.skills, finished_courses: R.courses,
+    finished_track_steps: myTracks().flatMap((id) => { const t = trackOf(id); return trackSteps(t).filter((s) => done(s.key)).map((s) => tFill(s.title)); }),
+    career_goal: R.stage.title };
+}
+async function draftSection(id) {
+  const s = P().cv.sections.find((x) => x.id === id); if (!s) return;
+  st.busy["sec_" + id] = true; render();
+  try {
+    const r = await api("/api/resume/section", { kind: s.kind, title: s.title, context: sectionContext() });
+    if (r.ok) { s.lines = [...s.lines.filter(Boolean), ...r.lines.filter((l) => !s.lines.includes(l))]; s.ai = r.model; save(); }
+    (st.secNote = st.secNote || {})[id] = r.note;
+  } catch (e) { (st.secNote = st.secNote || {})[id] = T("Could not draft the section: {e}", { e: e.message }); }
+  st.busy["sec_" + id] = false; render();
+}
+// Fields for a built-in section, edited in place. Summary and the CV lists write to the profile's CV.
+function vBuiltinFields(id) {
+  const cv = P().cv, R = resumeData(), f = (path, label, val, wide) => `<div class="field ${wide ? "wide" : ""}"><label>${T(label)}</label><input type="text" data-res="${path}" value="${esc(val || "")}"></div>`;
+  const del = (k, i) => `<button type="button" class="btn ghost" data-cvrm="${k}.${i}">✕ ${T("Remove")}</button>`;
+  if (id === "summary") return `<textarea rows="4" data-res="summary">${esc(R.summary)}</textarea>`;
+  if (id === "skills") return `<p class="small">${esc(R.skills.join(" · ") || T("No skills yet."))}</p><div class="row"><button type="button" class="btn" data-wizto="skills">${T("Change my skills")}</button></div>`;
+  if (id === "experience") return `${cv.experience.map((e, i) => `<div class="cv-entry">
+      <div class="grid cols-2">${f(`experience.${i}.title`, "Job title", e.title)}${f(`experience.${i}.organisation`, "Organisation", e.organisation)}${f(`experience.${i}.start`, "Start", e.start)}${f(`experience.${i}.end`, "End", e.end)}</div>
+      <div class="field"><label>${T("What you did (one per line)")}</label><textarea rows="3" data-res="experience.${i}.highlights">${esc((e.highlights || []).join("\n"))}</textarea></div>${del("experience", i)}</div>`).join("")}
+    <button type="button" class="btn" data-cvnew="experience">＋ ${T("Add a job")}</button>`;
+  if (id === "education") return `${cv.education.map((e, i) => `<div class="cv-entry"><div class="grid cols-2">${f(`education.${i}.qualification`, "Qualification", e.qualification)}${f(`education.${i}.institution`, "Institution", e.institution)}${f(`education.${i}.year`, "Year", e.year)}</div>${del("education", i)}</div>`).join("")}
+    <button type="button" class="btn" data-cvnew="education">＋ ${T("Add education")}</button>`;
+  if (id === "courses") return `<p class="tiny muted">${T("Courses you finish on your path are added by themselves. Add other certificates here, one per line.")}</p>
+    ${R.courses.length ? `<ul class="small plain">${R.courses.map((c) => `<li>✓ ${esc(c)}</li>`).join("")}</ul>` : ""}
+    <textarea rows="3" data-res="certifications" placeholder="${T("e.g. Google Analytics certificate, 2024")}">${esc(cv.certifications.join("\n"))}</textarea>`;
+  return "";
+}
+function vSectionsEditor() {
+  const list = resumeSections(), hidden = new Set(P().cv.hidden || []), ai = st.meta.llm.available;
+  const row = (s, i) => `<li class="sec-row ${hidden.has(s.id) ? "is-hidden" : ""}">
+      <div class="sec-head"><b>${esc(s.builtin ? T(s.title) : sectionTitle(s))}</b>${s.builtin ? `<span class="tiny muted">${T("from your profile")}</span>` : ""}
+        <div class="sec-tools">
+          <button type="button" class="icon-btn" data-secmove="${s.id}:-1" ${i === 0 ? "disabled" : ""} aria-label="${T("Move up")}">↑</button>
+          <button type="button" class="icon-btn" data-secmove="${s.id}:1" ${i === list.length - 1 ? "disabled" : ""} aria-label="${T("Move down")}">↓</button>
+          <button type="button" class="icon-btn" data-sechide="${s.id}" aria-pressed="${hidden.has(s.id)}" aria-label="${T(hidden.has(s.id) ? "Show on resume" : "Hide from resume")}" title="${T(hidden.has(s.id) ? "Show on resume" : "Hide from resume")}">${hidden.has(s.id) ? "◌" : "◉"}</button>
+          ${s.builtin ? `<button type="button" class="btn ${st.secOpen === s.id ? "primary" : ""} sec-edit" data-secopen="${s.id}" aria-expanded="${st.secOpen === s.id}">${T(st.secOpen === s.id ? "Done" : "Edit")}</button>` : ""}
+          ${s.builtin ? "" : `<button type="button" class="icon-btn" data-secdel="${s.id}" aria-label="${T("Remove section")}" title="${T("Remove section")}">✕</button>`}
+        </div></div>
+      ${s.builtin && st.secOpen === s.id ? `<div class="sec-fields">${vBuiltinFields(s.id)}</div>` : ""}
+      ${s.builtin ? "" : `<textarea rows="3" data-secline="${s.id}" placeholder="${esc(T((SECTION_KINDS.find(([k]) => k === s.kind) || [, , "One entry per line"])[2]))}">${esc(s.lines.join("\n"))}</textarea>
+        <div class="row" style="gap:8px">${ai ? `<button type="button" class="btn ghost" data-secai="${s.id}" ${st.busy["sec_" + s.id] ? "disabled" : ""}>${st.busy["sec_" + s.id] ? `<span class="spin"></span> ${T("Drafting…")}` : "✦ " + T("Draft with AI")}</button>` : ""}<span class="tiny muted">${T("One entry per line.")}</span></div>
+        ${(st.secNote || {})[s.id] ? `<p class="tiny muted">${esc(TS(st.secNote[s.id]))}</p>` : ""}
+        ${s.ai ? `<p class="tiny muted">${esc(T("Drafted by {model} from your own profile. Check every line before you send it.", { model: s.ai }))}</p>` : ""}`}
+    </li>`;
+  const have = new Set(P().cv.sections.map((x) => x.kind));
+  return `<div class="card stack"><div class="row between"><h3>${T("Sections")}</h3><span class="tiny muted">${T("Move, hide or add sections.")}</span></div>
+    <ol class="sec-list">${list.map(row).join("")}</ol>
+    <div class="stack" style="gap:8px"><span class="label">${T("Add a section")}</span>
+      <div class="chips">${SECTION_KINDS.filter(([k]) => !have.has(k)).map(([k, l]) => `<button type="button" class="chip" data-secadd="${k}">＋ ${T(l)}</button>`).join("")}</div>
+      <div class="row" style="gap:8px;flex-wrap:nowrap"><input id="secCustom" maxlength="60" placeholder="${T("Your own section title, e.g. Hobbies")}" value="${esc(st.secCustom || "")}"><button type="button" class="btn" data-secadd="custom">＋ ${T("Add")}</button></div>
+    </div></div>`;
+}
+// The paper: every visible section in order. Built-in sections keep their own content.
+function resumeBlocks(R, cv, expHtml) {
+  const hidden = new Set(cv.hidden || []);
+  return resumeSections().filter((s) => !hidden.has(s.id)).map((s) => {
+    if (s.id === "summary") return `<h4>Summary</h4><p>${esc(R.summary)}</p>`;
+    if (s.id === "skills") return R.skills.length ? `<h4>Skills</h4><p>${esc(R.skills.join(" · "))}</p>` : "";
+    if (s.id === "experience") return expHtml ? `<h4>Experience</h4>${expHtml}` : "";
+    if (s.id === "courses") return R.courses.length || cv.certifications.some((c) => c.trim()) ? `<h4>Courses and certificates</h4><ul>${[...R.courses, ...cv.certifications.filter((c) => c.trim())].map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : "";
+    if (s.id === "education") return cv.education.length ? `<h4>Education</h4>${cv.education.map((e) => `<p>${esc(e.qualification)}${e.institution ? ", " + esc(e.institution) : ""} <span class="meta">${esc(e.year)}</span></p>`).join("")}` : "";
+    const lines = (s.lines || []).filter((l) => l.trim());
+    if (!lines.length) return "";
+    return `<h4>${esc(s.title)}</h4>${s.kind === "languages" ? `<p>${esc(lines.join(" · "))}</p>` : `<ul>${lines.map((l) => `<li>${esc(l)}</li>`).join("")}</ul>`}`;
+  }).join("");
+}
 function vResume() {
   if (!A().role) return `<div class="page">${intro(T("Resume"), T("Choose a career first"), "")}<button class="btn primary" type="button" data-page="careers">${T("Go to careers")}</button></div>`;
   if (!st.path || st.path.role !== A().role) { if (!st.busy.path) loadPath().then(render); return skeleton(2, T("Loading your resume…")); }
   const cv = P().cv, R = resumeData();
-  const expHtml = cv.experience.map((e) => `<p><b>${esc(e.title)}</b>${e.organisation ? ", " + esc(e.organisation) : ""} <span class="meta">${esc([e.start, e.end].filter(Boolean).join(" – "))}</span></p>${(e.highlights || []).length ? `<ul>${(e._polished || e.highlights).map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}`).join("");
+  const expHtml = cv.experience.map((e) => `<p><b>${esc(e.title)}</b>${e.organisation ? ", " + esc(e.organisation) : ""} <span class="meta">${esc([e.start, e.end].filter(Boolean).join(" – "))}</span></p>${(e.highlights || []).some((h) => h.trim()) ? `<ul>${(e._polished || e.highlights.filter((h) => h.trim())).map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}`).join("");
   return `<div class="page">
   ${intro(T("Resume"), T("Resume for {role}", { role: R.stage.title }), T("Built from your profile and the steps you finished. Check it, then save it as a PDF.") + (LANG === "en" ? "" : " " + T("The resume itself is in English, as most employers expect.")))}
   ${unlockedStage() < 0 ? `<p class="note small">${T("You can build your resume now. Each path step you finish adds its course here.")}</p>` : ""}
@@ -1614,35 +2061,34 @@ function vResume() {
     <div class="stack lg no-print">
       <div class="card stack"><h3>${T("Your details")}</h3>
         <div class="grid cols-2">${Object.keys(CONTACT).map((k) => `<div class="field"><label>${T(CONTACT[k])}</label><input type="text" data-res="contact.${k}" value="${esc(cv.contact[k] || "")}"></div>`).join("")}</div>
-        <div class="field"><label>${T("Summary")}</label><textarea data-res="summary">${esc(R.summary)}</textarea></div>
-        <p class="small muted">${T("Jobs and education come from your CV.")} <button class="btn ghost" type="button" data-page="wizard">${T("Edit about you")}</button></p></div>
+        <p class="small muted">${T("Fill each section below with Edit, or import your CV in About you.")} <button class="btn ghost" type="button" data-page="wizard">${T("Edit about you")}</button></p></div>
+      ${vSectionsEditor()}
       <div class="card stack"><h3>${T("Finish")}</h3>
         ${st.meta.llm.available ? `<button class="btn" type="button" id="polishBtn" ${st.busy.polish ? "disabled" : ""}>${st.busy.polish ? `<span class="spin"></span> ${T("Improving…")}` : T("Improve wording with AI")}</button>` : ""}
         ${st.polished ? `<p class="tiny muted">${esc(TS(st.polished.note))}</p>` : ""}
         <div class="row"><button class="btn primary" type="button" id="printBtn">${T("Save as PDF")}</button><button class="btn" type="button" id="txtBtn">${T("Download text")}</button></div>
         <p class="tiny muted">${T("Only list what you can show an employer.")}</p></div>
     </div>
-    <div class="paper" id="paper" lang="en">
+    <div class="paper" id="paper" lang="en" data-lenis-prevent>
       <h1>${esc(cv.contact.name || A().name)}</h1>
       <p class="meta">${esc([cv.contact.email, cv.contact.phone, cv.contact.location].filter(Boolean).join(" · ") || "email · phone · city")}</p>
       <p style="margin-top:6px"><b>${esc(R.stage.title)}</b></p>
-      <h4>Summary</h4><p>${esc(R.summary)}</p>
-      ${R.skills.length ? `<h4>Skills</h4><p>${esc(R.skills.join(" · "))}</p>` : ""}
-      ${expHtml ? `<h4>Experience</h4>${expHtml}` : ""}
-      ${R.courses.length || cv.certifications.length ? `<h4>Courses and certificates</h4><ul>${[...R.courses, ...cv.certifications].map((c) => `<li>${esc(c)}</li>`).join("")}</ul>` : ""}
-      ${cv.education.length ? `<h4>Education</h4>${cv.education.map((e) => `<p>${esc(e.qualification)}${e.institution ? ", " + esc(e.institution) : ""} <span class="meta">${esc(e.year)}</span></p>`).join("")}` : ""}
-      ${cv.languages.length ? `<h4>Languages</h4><p>${esc(cv.languages.join(", "))}</p>` : ""}
+      ${resumeBlocks(R, cv, expHtml)}
     </div>
   </div></div>`;
 }
 function resumeText() {
   const cv = P().cv, R = resumeData();
-  const lines = [cv.contact.name || A().name, [cv.contact.email, cv.contact.phone, cv.contact.location].filter(Boolean).join(" | "), R.stage.title, "", "SUMMARY", R.summary, ""];
-  if (R.skills.length) lines.push("SKILLS", R.skills.join(", "), "");
-  if (cv.experience.length) { lines.push("EXPERIENCE"); cv.experience.forEach((e) => { lines.push(`${e.title}${e.organisation ? ", " + e.organisation : ""} (${[e.start, e.end].filter(Boolean).join(" - ")})`); (e._polished || e.highlights || []).forEach((h) => lines.push("- " + h)); }); lines.push(""); }
-  const cs = [...R.courses, ...cv.certifications]; if (cs.length) lines.push("COURSES AND CERTIFICATES", ...cs.map((c) => "- " + c), "");
-  if (cv.education.length) lines.push("EDUCATION", ...cv.education.map((e) => `${e.qualification}, ${e.institution} ${e.year}`), "");
-  if (cv.languages.length) lines.push("LANGUAGES", cv.languages.join(", "));
+  const lines = [cv.contact.name || A().name, [cv.contact.email, cv.contact.phone, cv.contact.location].filter(Boolean).join(" | "), R.stage.title, ""];
+  const hidden = new Set(cv.hidden || []);
+  resumeSections().filter((x) => !hidden.has(x.id)).forEach((x) => {
+    if (x.id === "summary") lines.push("SUMMARY", R.summary, "");
+    else if (x.id === "skills") { if (R.skills.length) lines.push("SKILLS", R.skills.join(", "), ""); }
+    else if (x.id === "experience") { if (cv.experience.length) { lines.push("EXPERIENCE"); cv.experience.forEach((e) => { lines.push(`${e.title}${e.organisation ? ", " + e.organisation : ""} (${[e.start, e.end].filter(Boolean).join(" - ")})`); (e._polished || (e.highlights || []).filter((h) => h.trim())).forEach((h) => lines.push("- " + h)); }); lines.push(""); } }
+    else if (x.id === "courses") { const cs = [...R.courses, ...cv.certifications.filter((c) => c.trim())]; if (cs.length) lines.push("COURSES AND CERTIFICATES", ...cs.map((c) => "- " + c), ""); }
+    else if (x.id === "education") { if (cv.education.length) lines.push("EDUCATION", ...cv.education.map((e) => `${e.qualification}, ${e.institution} ${e.year}`), ""); }
+    else { const ls = (x.lines || []).filter((l) => l.trim()); if (ls.length) lines.push(x.title.toUpperCase(), ...ls.map((l) => "- " + l), ""); }
+  });
   return lines.join("\n");
 }
 
@@ -1655,6 +2101,30 @@ function parseCsv(text) {
   const people = lines.filter((l) => l[0]).map((l) => [l[0], Object.fromEntries(cols.map((c) => [c, Math.max(0, Math.min(3, parseInt(l[head.indexOf(c)], 10) || 0))]))]);
   return { id: "upload", who: "Your upload", label: "Your team", desc: T("{n} people from your file. Kept on this device; skill levels are sent only to score them, never stored.", { n: people.length }), target_role: st.meta.roles[0].id, columns: cols, people };
 }
+// Typing the group in: start with the skills the chosen career needs and three empty rows.
+function newTeam() {
+  const role = roleOf(st.teamTarget || teamData().target_role) || st.meta.roles[0];
+  return { id: "upload", who: "Your list", label: "Your list", desc: "", target_role: role.id, columns: role.req.map((q) => q.cluster), people: [1, 2, 3].map((i) => [T("Person {n}", { n: i }), {}]) };
+}
+function teamEdited(paint) {
+  const U = st.teamUpload;
+  U.desc = T("{n} people you entered. Kept on this device; skill levels are sent only to score them, never stored.", { n: U.people.length });
+  st.teamRev = (st.teamRev || 0) + 1;
+  try { localStorage.setItem("wfe.teamUpload", JSON.stringify(U)); } catch (e) { /* this visit only */ }
+  teamSaved();
+  if (paint) render();
+}
+function vTeamEditor() {
+  const U = st.teamUpload, free = st.meta.clusters.filter((c) => !U.columns.includes(c.id));
+  const lvSel = (i, k, v) => `<select data-tlv="${i}|${k}" aria-label="${esc(cl(k).label)}">${[0, 1, 2, 3].map((n) => `<option value="${n}" ${n === v ? "selected" : ""}>${esc(lv(n))}</option>`).join("")}</select>`;
+  return `<div class="card stack team-editor" id="teamEditor">
+    <div class="tablewrap"><table><thead><tr><th>${T("Name or ID")}</th><th>${T("Job title now")}</th>${U.columns.map((k) => `<th><span>${esc(cl(k).label)}</span><button type="button" class="x-btn" data-tcoldel="${k}" aria-label="${esc(T("Remove {skill}", { skill: cl(k).label }))}">×</button></th>`).join("")}<th></th></tr></thead>
+      <tbody>${U.people.map(([nm, sk], i) => `<tr><td><input type="text" data-tname="${i}" value="${esc(nm)}" maxlength="40" aria-label="${esc(T("Name or ID"))}"></td><td><input type="text" data-ttitle="${i}" value="${esc(mem(i).title)}" maxlength="60" aria-label="${esc(T("Job title now"))}" placeholder="${esc(T("Job title"))}"></td>${U.columns.map((k) => `<td>${lvSel(i, k, sk[k] || 0)}</td>`).join("")}<td><button type="button" class="x-btn" data-tdel="${i}" aria-label="${esc(T("Remove {name}", { name: nm }))}" ${U.people.length < 2 ? "disabled" : ""}>×</button></td></tr>`).join("")}</tbody></table></div>
+    <div class="row"><button type="button" class="btn" id="teamAddPerson">+ ${T("Add person")}</button>
+      ${free.length ? `<select id="teamAddSkill" aria-label="${esc(T("Add a skill column"))}"><option value="">+ ${T("Add a skill column")}</option>${free.map((c) => `<option value="${c.id}">${esc(c.label)}</option>`).join("")}</select>` : ""}</div>
+    <p class="tiny muted">${T("Levels: None, Basic, Working, Strong. Use staff or student IDs instead of full names. For training plans only, never for selection.")}</p>
+  </div>`;
+}
 // ---------- teams and cohorts: HR / L&D managers, TVET and university career centres -------------
 // Picking one of these in About you swaps the personal steps for a team step, and Home shows the
 // group's best careers, one shared learning plan and each person's best fit.
@@ -1662,7 +2132,7 @@ const TEAM_ROLES = ["hr", "tvet"];
 const isTeamUser = () => !!A() && !!A().profile && TEAM_ROLES.includes(P().situation);
 const wizSteps = () => WIZ.filter((w) => isTeamUser() ? !["experience", "skills", "interests"].includes(w.id) : w.id !== "team");
 const teamWord = () => T(P().situation === "tvet" ? "cohort" : "team");
-const teamKey = () => { const Tm = teamData(); return [st.team, st.teamTarget || Tm.target_role, P().budget, Tm.people.length].join("|"); };
+const teamKey = () => { const Tm = teamData(); return [st.team, st.teamTarget || Tm.target_role, P().budget, Tm.people.length, st.team === "upload" ? st.teamRev || 0 : 0, memDoneTotal()].join("|"); };
 const teamReady = () => st.teamReport && st.teamKey === teamKey();
 function teamSaved() {
   if (isTeamUser()) { A().team = { source: st.team, target: st.teamTarget || teamData().target_role }; save(); }
@@ -1671,18 +2141,19 @@ function setTeamTarget(role) { st.teamTarget = role; teamSaved(); render(); wind
 async function loadTeamReport() {
   const Tm = teamData(), key = teamKey();
   st.busy.team = true;
-  try { st.teamReport = await api("/api/team", { people: Tm.people, target_role: st.teamTarget || Tm.target_role, budget: P().budget || "free" }); st.teamKey = key; }
+  try { st.teamReport = await api("/api/team", { people: teamPeople(), target_role: st.teamTarget || Tm.target_role, budget: P().budget || "free" }); st.teamKey = key; }
   catch (e) { st.teamError = { key, msg: e.message === "Not Found" ? T("Team plans need the latest server. Restart the app, then press Retry.") : T("Could not score the group: {e}", { e: e.message }) }; }
   st.busy.team = false;
 }
 function vTeamStep() {
   const Tm = teamData(), target = st.teamTarget || Tm.target_role;
   const samples = st.meta.samples.teams.map((t) => `<button type="button" class="option" data-team="${t.id}" aria-pressed="${st.team === t.id}"><b>${esc(T("Sample: {label}", { label: TS(t.label) }))}</b><span class="small muted">${esc(TS(t.desc))}</span></button>`).join("");
-  const upload = `<label class="option upload-opt" aria-pressed="${st.team === "upload"}"><b>${T("Upload a CSV")}</b><span class="small muted">${st.teamUpload ? esc(T("{n} people in your file", { n: st.teamUpload.people.length })) : T("Name or ID, then one column per skill code")}</span><input type="file" id="teamCsv" accept=".csv,text/csv" hidden></label>`;
-  return `<div class="options">${samples}${upload}</div>
+  const own = `<button type="button" class="option" data-team="upload" aria-pressed="${st.team === "upload"}"><b>${T("Type your own")}</b><span class="small muted">${st.teamUpload ? esc(T("{n} people so far", { n: st.teamUpload.people.length })) : T("Enter each person and their skill levels here")}</span></button>`;
+  return `<div class="options">${samples}${own}</div>
+    ${st.team === "upload" && st.teamUpload ? vTeamEditor() : ""}
     <div class="field"><label for="teamTarget">${esc(T("Career to prepare your {group} for", { group: teamWord() }))}</label><select id="teamTarget">${st.meta.roles.map((x) => `<option value="${x.id}" ${x.id === target ? "selected" : ""}>${esc(x.title)}</option>`).join("")}</select>
       <span class="tiny muted">${T("You can change this later. Home also ranks every career for the whole group.")}</span></div>
-    <p class="tiny muted">${T("CSV format: name, then skill codes (excel, genai, customer…) with levels 0–3. For training plans only, never for selection.")} ${T("Use staff or student IDs instead of full names. The file stays on this device; skill levels are sent only to score them and are never stored.")}</p>`;
+    <p class="tiny muted">${T("Have a spreadsheet?")} <label class="text-link">${T("Import a CSV")}<input type="file" id="teamCsv" accept=".csv,text/csv" hidden></label> ${T("(name, then skill codes such as excel, genai, customer with levels 0–3).")}</p>`;
 }
 // Team Home: four guided steps. Each answers one question, says what the numbers mean and what to do.
 // Built on common reskilling practice: check current skills first, pick realistic target roles, train the
@@ -1745,12 +2216,12 @@ function vTeamHome() {
     T("Readiness for the target, the two biggest gaps, and the career each person fits best on their own."),
     T(isCohort() ? "Print a one-page plan for each advising session, and let the student choose their own goals." : "Print a one-page plan for each 1-to-1, and agree the goals with the person rather than for them."),
     `<div class="tablewrap"><table class="people-table"><thead><tr><th>${T("Person")}</th><th>${esc(T("Readiness for {role}", { role: tgtTitle }))}</th><th>${T("Biggest gaps")}</th><th>${T("Best fit")}</th><th></th></tr></thead>
-      <tbody>${ppl.map((p) => `<tr><td><b>${esc(p.name)}</b></td><td>${readyBar(p.readiness)}</td><td class="small">${p.gaps.length ? p.gaps.slice(0, 2).map((g) => `${esc(cl(g.cluster).label)} <span class="muted">${esc(lv(g.have))} → ${esc(lv(g.need))}</span>`).join("<br>") : `<span class="muted">${T("None")}</span>`}</td><td class="small">${esc(title(p.top[0].role))} <span class="mono muted">${Math.round(p.top[0].score)}</span></td><td><button type="button" class="btn ghost small" data-person="${esc(p.name)}">${T("One-page plan")}</button></td></tr>`).join("")}</tbody></table></div>`);
+      <tbody>${ppl.map((p) => `<tr><td><button type="button" class="link-btn" data-member="${Tm.people.findIndex((x) => x[0] === p.name)}"><b>${esc(p.name)}</b></button></td><td>${readyBar(p.readiness)}</td><td class="small">${p.gaps.length ? p.gaps.slice(0, 2).map((g) => `${esc(cl(g.cluster).label)} <span class="muted">${esc(lv(g.have))} → ${esc(lv(g.need))}</span>`).join("<br>") : `<span class="muted">${T("None")}</span>`}</td><td class="small">${esc(title(p.top[0].role))} <span class="mono muted">${Math.round(p.top[0].score)}</span></td><td><button type="button" class="btn ghost small" data-person="${esc(p.name)}">${T("One-page plan")}</button></td></tr>`).join("")}</tbody></table></div>`);
   return `<div class="page team-home">
   ${intro(T("For HR and career centres"), T(isCohort() ? "Your cohort: {label}" : "Your team: {label}", { label: TS(Tm.label) }), esc(T("A reskilling plan for {n} people, preparing for {role}. Work through the four steps below. Scores are group averages: estimates, not predictions.", { n: N, role: tgtTitle })))}
   <div class="row between team-tools">
-    <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>
-    <div class="row"><button type="button" class="btn" data-page="teamreport">${T("Report for leadership")}</button><button type="button" class="btn ghost" id="tourStart">${T("Show the guide")}</button><button type="button" class="btn ghost" data-page="wizard">${T("Change group or target")}</button></div>
+    <div class="row"><div class="seg" role="group" aria-label="${T("Future")}">${Object.keys(st.meta.scenarios).map((k) => `<button type="button" data-scen="${k}" aria-pressed="${st.scen === k}">${esc(scenLabel(k))}</button>`).join("")}</div>${info("scenario")}</div>${scenBrief()}
+    <div class="row"><button type="button" class="btn" data-page="teamreport">${T("Report for leadership")}</button></div>
   </div>
   ${s1}${s2}${s3}${s4}
   <p class="tiny muted">${T("For training plans only, never for hiring, promotion or selection decisions.")}</p>
@@ -1817,15 +2288,69 @@ const TEAM_TOUR = [
   { sel: ".team-tools", t: "Share it", x: "Switch futures to test the plan, and print a report for leadership. You can come back to this guide any time." },
   { sel: "#helper", t: "Ask Lambtae", x: "Lambtae answers questions about your group, such as where to start or how to fund it, using only the group's data." },
 ];
+const ME_TOUR = [
+  { sel: ".home-hero", t: "Your goal", fn: "goal" },
+  { sel: ".home-row .geo-tile:first-child", t: "Why this career suits you", fn: "why" },
+  { sel: ".next-card", t: "Your next step", fn: "next" },
+  { sel: ".home-row .geo-tile:nth-child(2)", t: "This stage", fn: "stage" },
+  { sel: ".home-row .geo-tile:nth-child(3)", t: "Your resume", x: "Your resume fills in by itself as you finish courses. Open it to edit sections, add experience or let AI draft a section, then download it." },
+  { sel: "#updates", t: "Today's brief", x: "What moved in your job market, work headlines and how AI touches your career. It flips on its own; use the arrows to go back." },
+  { sel: '#nav [data-page="mycareer"]', t: "My career", x: "The full picture of your career: how the score is calculated, which skills you have and which you still need, which tasks AI can do, and a Do I suit this job? check." },
+  { sel: '#nav [data-page="careers"]', t: "Careers overview", x: "Compare every career side by side. Switch between the three futures to see how the ranking changes, and pick a different goal at any time." },
+  { sel: '#nav [data-page="path"]', t: "Your path", x: "Every step to your goal, stage by stage. Tap a circle for the course, the hours and the UN Sustainable Development Goals it supports. Add tracks such as LinkedIn, real experience or networking." },
+  { sel: '#nav [data-page="jobcheck"]', t: "Job check", x: "Paste a real job ad to see how well you match it and what to learn before you apply." },
+  { sel: '#nav [data-page="updates"]', t: "Fresh data", x: "Open Updates to fetch the newest job posts and headlines, and see what changed in your career, the rankings, your path and the news." },
+  { sel: "#helper", t: "Ask Lambtae", x: "Ask anything about your plan, such as what to learn first or whether a job suits you. You can replay this guide or your story from the menu under your name." },
+];
+const TOUR = () => isTeamUser() ? TEAM_TOUR : ME_TOUR;
+// Text for the guide stops that explain the user's own numbers.
+function fitWhy(res, r) {
+  return {
+    skill: res.matched.length ? T("you already have {skills}", { skills: res.matched.map((m) => cl(m.cluster).label).join(", ") }) : T("you have none of its entry skills yet"),
+    outlook: T(res.components.outlook > 0.55 ? "job posts asking for its skills are rising" : res.components.outlook < 0.45 ? "job posts asking for its skills are falling" : "demand for its skills is about flat"),
+    transfer: T("your people skills carry over"), interest: T("it matches what you enjoy"), green: T("it is a low-carbon career"),
+    exposure: r.exposure ? T("points taken off because AI can already do some of its tasks ({cat}, ILO)", { cat: TS(r.exposure.category) }) : T("AI can do part of the work"),
+  };
+}
+const TOUR_FN = {
+  goal: () => { const pw = st.path, r = roleOf(A().role); return `<p class="small">${esc(T("You are working towards {role}. The line under it shows the jobs on the way: {ladder}.", { role: r.title, ladder: pw.stages.map((x) => x.title).join(" → ") }))}</p><p class="small">${esc(T("The ring shows how much of the path you have done. It fills as you mark steps done."))}</p>`; },
+  why: () => {
+    const r = roleOf(A().role), res = rows().find((x) => x.role === A().role); if (!res) return "";
+    const label = Object.fromEntries(CALC_PARTS.map(([k, l]) => [k, T(l)]));
+    const why = fitWhy(res, r);
+    const parts = Object.entries(res.points).filter(([, v]) => Math.abs(v) >= 0.05).sort((p1, p2) => p2[1] - p1[1]);
+    const best = rows()[0];
+    return `<p class="small">${esc(T("{role} scores {score} out of 100 for you ({fit}). Here is where the points come from:", { role: r.title, score: Math.round(res.score), fit: fitLabel(res.score) }))}</p>
+      <ul class="small tour-why">${parts.map(([k, v]) => `<li><b class="mono ${v < 0 ? "down" : ""}">${v > 0 ? "+" : ""}${v.toFixed(1)}</b> <span><b>${esc(label[k] || k)}</b>: ${esc(why[k] || "")}</span></li>`).join("")}</ul>
+      ${res.gaps.length ? `<p class="small">${esc(T("Still to learn for the entry job: {skills}.", { skills: res.gaps.map((g) => cl(g.cluster).label).join(", ") }))}</p>` : ""}
+      ${best && best.role !== A().role ? `<p class="small muted">${esc(T("Your highest score overall is {role} ({score}). You chose {mine}; you can change your goal in Careers overview.", { role: roleOf(best.role).title, score: Math.round(best.score), mine: r.title }))}</p>` : ""}`;
+  },
+  next: () => {
+    const n = currentNode(); if (!n) return `<p class="small">${T("You finished every step. Well done!")}</p>`;
+    const c = n.type === "skill" && n.items[0];
+    return `<p class="small">${esc(T("Your next step is {step}, in the {stage} stage.", { step: nodeLabel(n), stage: n.stage.title }))}${c ? " " + esc(T("Suggested course: {course} by {provider}, about {h} hours.", { course: c.title, provider: c.provider, h: c.hours })) : ""}</p>
+      ${n.type === "skill" ? `<p class="small">${esc(n.basis === "future" ? T("It comes early because employers increasingly ask for it in this kind of job.") : T("It comes early because it is an entry skill for {role}.", { role: n.stage.title }))}${n.demand_change != null ? " " + esc(T("Job posts asking for it: {d}.", { d: demandText(n.demand_change) })) : ""}</p>` : ""}
+      <p class="small muted">${T("Press Start this step to open it on your path.")}</p>`;
+  },
+  stage: () => { const pw = st.path, n = currentNode(), sg = pw.stages[n ? n.si : pw.stages.length - 1]; return `<p class="small">${esc(T("You are in the {stage} stage, aiming for {role}. At {h} hours a week this stage takes about {a}–{b} weeks.", { stage: TS(sg.stage), role: sg.title, h: pw.hours_per_week, a: sg.weeks[0], b: sg.weeks[1] }))}</p><p class="small">${esc(T("The first tile is your fit score. Tap the ? next to any number to see how it is worked out."))}</p>`; },
+};
+const tourKey = () => isTeamUser() ? "teamTour" : "meTour";
 let tourAt = -1;
-function tourShow(i) {
+// stop wheel and touch scrolling (and Lenis) so the page cannot slide away from the highlight
+function tourLock(on) {
+  document.documentElement.classList.toggle("tour-lock", on);
+  if (lenis) { if (on) lenis.stop(); else lenis.start(); }
+}
+function tourShow(i, dir = 1) {
   tourAt = i;
   document.querySelectorAll(".tour-layer").forEach((x) => x.remove());
-  if (i < 0 || i >= TEAM_TOUR.length) { tourAt = -1; if (A() && !A().prefs.teamTour) { A().prefs.teamTour = true; save(); } return; }
-  const step = TEAM_TOUR[i], el = document.querySelector(step.sel);
-  if (!el) { tourShow(i + 1); return; }
+  if (i < 0 || i >= TOUR().length) { tourLock(false); tourAt = -1; if (A() && !A().prefs[tourKey()]) { A().prefs[tourKey()] = true; save(); } return; }
+  const step = TOUR()[i], el = document.querySelector(step.sel);
+  if (!el || !el.getClientRects().length) { tourShow(i + dir, dir); return; }
+  tourLock(false);
   el.scrollIntoView({ block: "center" });
   setTimeout(() => {
+    tourLock(true);
     const r = el.getBoundingClientRect(), pad = 8;
     const layer = document.createElement("div");
     layer.className = "tour-layer"; layer.setAttribute("role", "dialog"); layer.setAttribute("aria-modal", "true"); layer.setAttribute("aria-labelledby", "tourTitle");
@@ -1833,9 +2358,19 @@ function tourShow(i) {
     const below = top + h + 220 < window.innerHeight, cardTop = below ? top + h + 12 : Math.max(12, top - 212);
     layer.innerHTML = `<div class="tour-spot" style="top:${top}px;left:${left}px;width:${w}px;height:${h}px"></div>
       <div class="tour-card card stack" style="top:${Math.min(cardTop, window.innerHeight - 200)}px;left:${Math.max(12, Math.min(left, window.innerWidth - 372))}px">
-        <span class="eyebrow">${esc(T("Guide · {n} of {total}", { n: i + 1, total: TEAM_TOUR.length }))}</span><h3 id="tourTitle">${esc(T(step.t))}</h3><p class="small">${esc(T(step.x))}</p>
-        <div class="row between"><button type="button" class="btn ghost small" id="tourSkip">${T("Skip guide")}</button><div class="row">${i ? `<button type="button" class="btn small" id="tourBack">${T("Back")}</button>` : ""}<button type="button" class="btn primary small" id="tourNext">${T(i === TEAM_TOUR.length - 1 ? "Done" : "Next")}</button></div></div></div>`;
+        <span class="eyebrow">${esc(T("Guide · {n} of {total}", { n: i + 1, total: TOUR().length }))}</span><h3 id="tourTitle">${esc(T(step.t))}</h3>${step.fn ? TOUR_FN[step.fn]() : `<p class="small">${esc(T(step.x))}</p>`}
+        <div class="row between"><button type="button" class="btn ghost small" id="tourSkip">${T("Skip guide")}</button><div class="row">${i ? `<button type="button" class="btn small" id="tourBack">${T("Back")}</button>` : ""}<button type="button" class="btn primary small" id="tourNext">${T(i === TOUR().length - 1 ? "Done" : "Next")}</button></div></div></div>`;
     document.body.append(layer);
+    const card = layer.querySelector(".tour-card"), ch = card.offsetHeight, vh = window.innerHeight;
+    const cw = card.offsetWidth, vw = window.innerWidth;
+    if (top + h + 12 + ch < vh) card.style.top = top + h + 12 + "px";
+    else if (top - 12 - ch > 0) card.style.top = top - 12 - ch + "px";
+    else {  // no room above or below: sit beside the highlight
+      card.style.top = Math.max(12, Math.min(top, vh - ch - 12)) + "px";
+      if (left + w + 12 + cw < vw) card.style.left = left + w + 12 + "px";
+      else if (left - 12 - cw > 0) card.style.left = left - 12 - cw + "px";
+      else card.style.top = Math.max(12, vh - ch - 12) + "px";
+    }
     layer.querySelector("#tourNext").focus();
   }, 350);
 }
@@ -1845,14 +2380,14 @@ function vTeam() {
   const best = teamReady() ? Object.fromEntries(st.teamReport.people[st.scen].map((x) => [x.name, x.top[0]])) : {};
   const need = Object.fromEntries(r.req.map((x) => [x.cluster, x.level]));
   const cols = [...new Set([...Tm.columns, ...Object.keys(need)])];
-  const cell = (v, nd) => { const c = nd ? (v >= nd ? 3 : v === nd - 1 ? 2 : v > 0 ? 1 : 0) : Math.min(v, 3); return `<span class="cell c${c}">${lv(v)}</span>`; };
+  const cell = (v, nd) => { const c = nd ? (v >= nd ? 3 : v === nd - 1 ? 2 : v > 0 ? 1 : 0) : Math.min(v, 3); return `<span class="cell c${c}">${lvlDots(v)}<span>${esc(lv(v))}</span></span>`; };
   const gaps = Object.keys(need).map((k) => ({ k, n: Tm.people.filter(([, s]) => (s[k] || 0) < need[k]).length })).sort((a, b) => b.n - a.n);
   return `<div class="page">${intro(T("For HR and career centres"), TS(Tm.label), esc(TS(Tm.desc)))}
-   <div class="row between"><div class="seg">${st.meta.samples.teams.map((t) => `<button type="button" data-team="${t.id}" aria-pressed="${st.team === t.id}">${esc(TS(t.who))}</button>`).join("")}${st.teamUpload ? `<button type="button" data-team="upload" aria-pressed="${st.team === "upload"}">${T("Your upload")}</button>` : ""}</div>
-     <div class="row"><label class="small">${T("Target")} <select id="teamTarget">${st.meta.roles.map((x) => `<option value="${x.id}" ${x.id === target ? "selected" : ""}>${esc(x.title)}</option>`).join("")}</select></label><label class="btn">${T("Upload CSV")}<input type="file" id="teamCsv" accept=".csv" hidden></label></div></div>
-   <div class="card"><div class="tablewrap"><table><thead><tr><th>${T("Person")}</th><th>${T("Best fit")}</th>${cols.map((k) => `<th>${esc(cl(k).label)}${need[k] ? `<br><span class="mono">${esc(T("needs {level}", { level: lv(need[k]) }))}</span>` : ""}</th>`).join("")}</tr></thead>
-     <tbody>${Tm.people.map(([nm, s]) => `<tr><td>${esc(nm)}</td><td class="small">${best[nm] ? `${esc(roleOf(best[nm].role).title)} <span class="mono muted">${Math.round(best[nm].score)}</span>` : "…"}</td>${cols.map((k) => `<td>${cell(s[k] || 0, need[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
-     <p class="tiny muted" style="margin-top:8px">${T("CSV format: name, then skill codes (excel, genai, customer…) with levels 0–3. For training plans only, never for selection.")}</p></div>
+   <div class="row between"><div class="seg">${st.meta.samples.teams.map((t) => `<button type="button" data-team="${t.id}" aria-pressed="${st.team === t.id}">${esc(TS(t.who))}</button>`).join("")}${st.teamUpload ? `<button type="button" data-team="upload" aria-pressed="${st.team === "upload"}">${T("Your list")}</button>` : ""}</div>
+     <div class="row"><label class="small">${T("Target")} <select id="teamTarget">${st.meta.roles.map((x) => `<option value="${x.id}" ${x.id === target ? "selected" : ""}>${esc(x.title)}</option>`).join("")}</select></label></div></div>
+   <div class="card"><div class="tablewrap"><table class="skills-tbl"><thead><tr><th>${T("Person")}</th><th>${T("Best fit")}</th>${cols.map((k) => `<th>${esc(cl(k).label)}${need[k] ? `<br><span class="mono">${esc(T("needs {level}", { level: lv(need[k]) }))}</span>` : ""}</th>`).join("")}</tr></thead>
+     <tbody>${teamPeople().map(([nm, s], i) => `<tr><td><button type="button" class="link-btn nowrap" data-member="${i}">${esc(nm)}</button></td><td class="small">${best[nm] ? `${esc(roleOf(best[nm].role).title)} <span class="mono muted">${Math.round(best[nm].score)}</span>` : "…"}</td>${cols.map((k) => `<td>${cell(s[k] || 0, need[k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+     <p class="tiny muted" style="margin-top:8px">${T("Have a spreadsheet?")} <label class="text-link">${T("Import a CSV")}<input type="file" id="teamCsv" accept=".csv,text/csv" hidden></label> ${T("(name, then skill codes such as excel, genai, customer with levels 0–3).")}</p></div>
    <div class="card stack"><h3>${T("Biggest shared gaps")}</h3><div class="list">${gaps.map((g) => `<div><span>${esc(cl(g.k).label)}</span><span class="mono">${esc(T("{n} of {total} people", { n: g.n, total: Tm.people.length }))}</span></div>`).join("")}</div></div></div>`;
 }
 function vSources() {
@@ -1984,7 +2519,7 @@ async function sendChat(text) {
   c.busy = false; renderHelper(); const inp = $("#chatInput"); if (inp) inp.focus();
 }
 
-const VIEWS = { signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
+const VIEWS = { people: vPeople, member: vMember, updates: vUpdates, signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
 // ---------- motion: GSAP + ScrollTrigger animations, Lenis smooth scrolling ------------------------
 // The landing gets the full treatment; inside the app, cards below the fold rise in once per page.
 // Everything is skipped when the device asks for reduced motion.
@@ -2165,9 +2700,9 @@ function render() {
   afterRender();
   updatesSetup();
   setTimeout(autoExplain);
-  const teamHome = st.page === "dashboard" && isTeamUser() && teamReady();
-  if (tourAt >= 0) { if (teamHome) tourShow(tourAt); else tourShow(TEAM_TOUR.length + 1); }
-  else if (teamHome && !A().prefs.teamTour) setTimeout(() => { if (tourAt < 0 && st.page === "dashboard") tourShow(0); }, 900);
+  const home = st.page === "dashboard" && (isTeamUser() ? teamReady() : !!document.querySelector(".home-hero"));
+  if (tourAt >= 0) { if (home) tourShow(tourAt); else tourShow(TOUR().length + 1); }
+  else if (home && !A().prefs[tourKey()]) setTimeout(() => { if (tourAt < 0 && !story.on && st.page === "dashboard") tourShow(0); }, 900);
 }
 
 // ---------- events ------------------------------------------------------------------------------
@@ -2201,6 +2736,7 @@ document.addEventListener("click", async (ev) => {
   const dot = ev.target.closest("[data-mapdot]"); if (dot) { if (dot.dataset.mapkind === "team") setTeamTarget(dot.dataset.mapdot); else openFromMap(dot.dataset.mapdot); return; }
   const t = ev.target.closest("button,a[data-page]"); if (!t) return;
   const d = t.dataset;
+  if (d.storynav) { if (!story.held) storyGo(story.i + +d.storynav); story.held = false; return; }
   if (d.info !== undefined) {
     const box = t.parentElement, open = !box.classList.contains("open"), pop = box.querySelector(".info-pop");
     closeInfo(box); box.classList.toggle("open", open); t.setAttribute("aria-expanded", String(open));
@@ -2245,6 +2781,21 @@ document.addEventListener("click", async (ev) => {
     const t = jobTrack(st.jc.res); A().prefs.customTracks = [...customTracks(), t]; A().prefs.tracks = [...myTracks(), t.id];
     st.pathTab = t.id; save(); go("path"); toast(T("Track added.")); return;
   }
+  if (d.secadd) {
+    const cv = P().cv; resumeSections();
+    const kind = d.secadd, title = kind === "custom" ? (st.secCustom || "").trim() : SECTION_KINDS.find(([k]) => k === kind)[1];
+    if (!title) { toast(T("Type a title for your section first.")); return; }
+    const id = "s-" + Date.now().toString(36); cv.sections.push({ id, kind, title, lines: [] }); cv.order.push(id);
+    st.secCustom = ""; save(); render(); const box = document.querySelector(`[data-secline="${id}"]`); if (box) box.focus(); return;
+  }
+  if (d.secopen) { st.secOpen = st.secOpen === d.secopen ? null : d.secopen; render(); return; }
+  if (d.cvnew) { P().cv[d.cvnew].push(d.cvnew === "experience" ? { title: "", organisation: "", start: "", end: "", highlights: [] } : { qualification: "", institution: "", year: "" }); save(); render(); return; }
+  if (d.cvrm) { const [k, i] = d.cvrm.split("."); P().cv[k].splice(+i, 1); save(); render(); return; }
+  if (d.wizto) { go("wizard"); st.wiz = Math.max(0, wizSteps().findIndex((w) => w.id === d.wizto)); render(); return; }
+  if (d.secmove) { const [id, step] = d.secmove.split(":"), o = P().cv.order, i = o.indexOf(id), j = i + +step; if (j >= 0 && j < o.length) { [o[i], o[j]] = [o[j], o[i]]; save(); render(); } return; }
+  if (d.sechide) { const h = P().cv.hidden = P().cv.hidden || []; const i = h.indexOf(d.sechide); if (i >= 0) h.splice(i, 1); else h.push(d.sechide); save(); render(); return; }
+  if (d.secdel) { const cv = P().cv; cv.sections = cv.sections.filter((x) => x.id !== d.secdel); cv.order = cv.order.filter((x) => x !== d.secdel); save(); render(); return; }
+  if (d.secai) { draftSection(d.secai); return; }
   if (d.see) { st.open = d.see; st.slide = null; go("careers"); return; }
   if (d.open) { st.open = wide() ? d.open : (st.open === d.open ? null : d.open); render(); return; }
   if (d.ctab) { st.ctab = d.ctab; render(); return; }
@@ -2269,10 +2820,13 @@ document.addEventListener("click", async (ev) => {
   if (d.tchapter !== undefined) { const o = st.tOpen[st.pathTab]; o[d.tchapter] = !o[d.tchapter]; render(); return; }
   if (d.ttoggle) { const p = progressOf(); if (p[d.ttoggle]) delete p[d.ttoggle]; else p[d.ttoggle] = true; save(); render(); return; }
   if (d.chapter !== undefined) { st.chOpen.open[d.chapter] = !st.chOpen.open[d.chapter]; render(); return; }
-  if (d.chall !== undefined) { st.chOpen.open = d.chall === "1" ? Object.fromEntries(st.path.stages.map((x, i) => [i, true])) : {}; render(); return; }
   if (d.closesheet !== undefined) { st.sheetOpen = false; render(); return; }
   if (d.goto) { st.sel = d.goto; go("path"); return; }
   if (d.toggle) { const n = flatNodes().find((x) => x.key === d.toggle); if (n) setDone(n, !done(n.key)); return; }
+  if (d.tdel) { st.teamUpload.people.splice(+d.tdel, 1); memShift(+d.tdel); teamEdited(true); return; }
+  if (d.tcoldel) { const U = st.teamUpload; U.columns = U.columns.filter((k) => k !== d.tcoldel); U.people.forEach(([, sk]) => delete sk[d.tcoldel]); teamEdited(true); return; }
+  if (d.member !== undefined) { st.member = +d.member; st.page = "member"; render(); scrollTop(); return; }
+  if (d.team === "upload" && !st.teamUpload) { st.teamUpload = newTeam(); teamEdited(); }
   if (d.team) { st.team = d.team; st.teamTarget = d.team === "upload" ? st.teamTarget : null; teamSaved(); render(); return; }
   if (d.target) { setTeamTarget(d.target); return; }
   if (d.person) { st.teamPerson = d.person; go("teamperson"); return; }
@@ -2293,14 +2847,19 @@ document.addEventListener("click", async (ev) => {
     case "teamRetry": st.teamError = null; render(); return;
     case "printPage": window.print(); return;
     case "newsSumBtn": summariseNews(); return;
+    case "updateBtn": runUpdate(); return;
+    case "teamAddPerson": st.teamUpload.people.push([T("Person {n}", { n: st.teamUpload.people.length + 1 }), {}]); teamEdited(true); return;
     case "jcRun": runJobCheck(); return;
     case "newsMore": { st.newsMore = (st.newsMore || 18) + 18; const r = $("#newsResults"); if (r) r.innerHTML = vNewsResults(); return; }
     case "slidePrev": slideMove(-1); return;
     case "slideNext": slideMove(1); return;
-    case "tourStart": tourShow(0); return;
+    case "tourStart": document.querySelector("details.menu")?.removeAttribute("open"); if (st.page !== "dashboard") { st.page = "dashboard"; tourAt = 0; render(); window.scrollTo({ top: 0 }); } else tourShow(0); return;
     case "tourNext": tourShow(tourAt + 1); return;
-    case "tourBack": tourShow(tourAt - 1); return;
-    case "tourSkip": tourShow(TEAM_TOUR.length); return;
+    case "tourBack": tourShow(tourAt - 1, -1); return;
+    case "tourSkip": tourShow(TOUR().length); return;
+    case "storyReplay": document.querySelector("details.menu")?.removeAttribute("open"); if (st.page !== "dashboard") { st.page = "dashboard"; render(); } if (!st.analysis || !st.path) { refresh({}).then(openStory); } else openStory(); return;
+    case "storySkip": case "storyDone": closeStory(); return;
+    case "storyAgain": storyGo(0); return;
     case "extractBtn": {
       const text = ($("#about") || {}).value || ""; P().about = text;
       if (text.trim().length < 15) { toast(T("Write a few sentences about your work first.")); return; }
@@ -2353,12 +2912,24 @@ document.addEventListener("change", (ev) => {
   if (d.cvskill) { st.cvDraft.skills[d.cvskill].keep = t.checked; return; }
   if (d.cvlevel) { st.cvDraft.skills[d.cvlevel].level = +t.value; return; }
   if (t.id === "teamTarget") { st.teamTarget = t.value; teamSaved(); render(); return; }
+  if (t.id === "memTarget") { mem(st.member).target = t.value || null; memSave(); render(); return; }
+  if (d.memdone) {
+    const pr = memProgress(st.member), n = pr && memNodes(pr.pw).find((x) => x.key === d.memdone); if (!n) return;
+    const m = mem(st.member);
+    if (t.checked) m.done[n.key] = n.type === "skill" ? { cluster: n.cluster, to: n.to } : {}; else delete m.done[n.key];
+    memSave(); render(); return;
+  }
+  if (d.tlv) { const [i, k] = d.tlv.split("|"); st.teamUpload.people[+i][1][k] = +t.value; teamEdited(); return; }
+  if (t.id === "teamAddSkill" && t.value) { st.teamUpload.columns.push(t.value); teamEdited(true); return; }
   if (t.id === "teamCsv" && t.files[0]) { const f = new FileReader(); f.onload = () => { try { st.teamUpload = parseCsv(String(f.result)); st.team = "upload"; st.teamTarget = st.teamTarget || st.teamUpload.target_role; try { localStorage.setItem("wfe.teamUpload", JSON.stringify(st.teamUpload)); } catch (e2) { /* this visit only */ } teamSaved(); render(); } catch (e) { toast(e.message); } }; f.readAsText(t.files[0]); }
 });
 document.addEventListener("submit", (ev) => { if (ev.target.id === "chatForm") { ev.preventDefault(); sendChat($("#chatInput").value); } });
 document.addEventListener("input", (ev) => {
   const t = ev.target, d = t.dataset;
   if (t.id === "chatInput") { st.chat.draft = t.value; return; }
+  if (d.memf) { mem(st.member)[d.memf] = t.value; memSave(); return; }
+  if (d.ttitle !== undefined) { mem(+d.ttitle).title = t.value; memSave(); return; }
+  if (d.tname) { st.teamUpload.people[+d.tname][0] = t.value.trim() || T("Person {n}", { n: +d.tname + 1 }); teamEdited(); return; }
   if (t.id === "hours") { P().hours = +t.value; const o = $("#hoursOut"); if (o) o.textContent = t.value; st.path = null; save(); return; }
   if (t.id === "about") { P().about = t.value; save(); return; }
   if (d.pick) { openPick(t); return; }
@@ -2375,10 +2946,19 @@ document.addEventListener("input", (ev) => {
     if (d.cv === "languages") v = v.split(",").map((x) => x.trim()).filter(Boolean);
     setPath(st.cvDraft, d.cv, v); return;
   }
+  if (t.id === "secCustom") { st.secCustom = t.value; return; }
+  if (d.secline) {
+    const x = P().cv.sections.find((y) => y.id === d.secline); if (!x) return;
+    x.lines = t.value.split("\n"); save();
+    $("#app").innerHTML = VIEWS[st.page]();  // redraw the paper; keep the cursor in the box
+    const again = document.querySelector(`[data-secline="${d.secline}"]`); if (again) { again.focus(); again.setSelectionRange(t.selectionStart, t.selectionStart); }
+    return;
+  }
   if (d.res) {
-    setPath(P().cv, d.res, t.value); save();
+    setPath(P().cv, d.res, d.res.endsWith(".highlights") || d.res === "certifications" ? t.value.split("\n") : t.value); save();  // blank lines are dropped on the resume
+    const pos = t.selectionStart;
     $("#app").innerHTML = VIEWS[st.page]();
-    const again = document.querySelector(`[data-res="${d.res}"]`); if (again) { again.focus(); again.setSelectionRange(again.value.length, again.value.length); }
+    const again = document.querySelector(`[data-res="${d.res}"]`); if (again) { again.focus(); again.setSelectionRange(pos, pos); }
   }
 });
 
@@ -2426,13 +3006,16 @@ function openFromMap(role) {
 
 // Esc closes the step sheet and any open popover or menu, and returns focus to its trigger.
 document.addEventListener("keydown", (ev) => {
+  if (story.on && (ev.key === "ArrowRight" || ev.key === "ArrowLeft")) { ev.preventDefault(); storyGo(story.i + (ev.key === "ArrowRight" ? 1 : -1)); return; }
+  if (story.on && ev.key === " " && !ev.target.closest("button")) { ev.preventDefault(); story.paused = !story.paused; return; }
   if (ev.target.id === "chatInput" && ev.key === "Enter" && !ev.shiftKey && !ev.isComposing) { ev.preventDefault(); sendChat(ev.target.value); return; }
   if (ev.target.dataset && ev.target.dataset.mapdot && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); if (ev.target.dataset.mapkind === "team") setTeamTarget(ev.target.dataset.mapdot); else openFromMap(ev.target.dataset.mapdot); return; }
   if (ev.target.dataset && (ev.target.dataset.pick || ev.target.dataset.picked)) { pickKey(ev); if (ev.defaultPrevented) return; }
   if ((ev.key === "ArrowLeft" || ev.key === "ArrowRight") && (st.page === "careers" || (st.page === "dashboard" && isTeamUser())) && !st.chat.open && tourAt < 0
       && !ev.target.closest("input, select, textarea, [role=tablist], [role=radiogroup]")) { ev.preventDefault(); slideMove(ev.key === "ArrowRight" ? 1 : -1); return; }
   if (ev.key !== "Escape") return;
-  if (tourAt >= 0) { tourShow(TEAM_TOUR.length); return; }
+  if (story.on) { closeStory(); return; }
+  if (tourAt >= 0) { tourShow(TOUR().length); return; }
   if (st.chat.open) { st.chat.open = false; renderHelper(); $("#caseBtn").focus(); return; }
   if (st.sheetOpen) { st.sheetOpen = false; render(); const b = document.querySelector(`[data-node="${CSS.escape(st.sel || "")}"]`); if (b) b.focus(); return; }
   const tip = document.querySelector(".info.open"); if (tip) { closeInfo(); tip.querySelector(".info-btn").focus(); return; }

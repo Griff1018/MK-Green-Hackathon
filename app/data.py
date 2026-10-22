@@ -115,4 +115,5 @@ def _build_roles() -> list[dict]:
 
 ROLES: list[dict] = _build_roles()
 TRACKS: dict = _load("tracks.json")
+SELFSTUDY: dict = _load("selfstudy.json")
 ROLE: dict[str, dict] = {r["id"]: r for r in ROLES}

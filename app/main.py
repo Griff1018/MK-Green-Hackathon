@@ -20,7 +20,7 @@ from pydantic import BaseModel, Field
 from . import accounts, advice, agent, assist, config, cv, db, engine, jobcheck, llm
 from .config import ROOT, SEED_DIR
 from .data import (CATALOGUE, CATALOGUE_META, CLUSTER, CLUSTERS, COUNTRIES, ESCO_META, ILO_META, OCCUPATIONS,
-                   ROLE, ROLES, SAMPLES, SDG_META, TRACKS, exposure)
+                   ROLE, ROLES, SAMPLES, SDG_META, SELFSTUDY, TRACKS, exposure)
 
 ESCO_API = "https://ec.europa.eu/esco/api"
 BOOTSTRAP = SEED_DIR / "snapshots_bootstrap.json"
@@ -126,6 +126,12 @@ class PolishIn(BaseModel):
     role: str
     summary: str = Field("", max_length=1200)
     bullets: list[str] = Field(default_factory=list, max_length=30)
+
+
+class SectionIn(BaseModel):
+    kind: str = Field("custom", max_length=20)
+    title: str = Field(..., min_length=1, max_length=60)
+    context: dict = Field(default_factory=dict)
 
 
 # ---------- accounts ------------------------------------------------------------------
@@ -240,6 +246,7 @@ def meta() -> dict:
         "clusters": [{k: c[k] for k in ("id", "label", "kind", "ai")} | {"sdg": c.get("sdg", []), "aliases": c.get("aliases", [])} for c in CLUSTERS],
         "roles": roles,
         "tracks": {"families": TRACKS["families"], "tracks": TRACKS["tracks"]},
+        "selfstudy": SELFSTUDY,
         "scenarios": {k: {"label": v["label"], "note": v["note"], "weights": v["w"], "amp": v["amp"]}
                       for k, v in engine.SCENARIOS.items()},
         "levels": engine.LEVELS,
@@ -499,6 +506,12 @@ def explain(body: ExplainIn) -> dict:
     return assist.explain(res, body.scenario, snap, body.lang, body.use_model)
 
 
+@app.post("/api/resume/section")
+def resume_section(body: SectionIn) -> dict:
+    """Draft one extra resume section from the person's own profile (needs the AI model)."""
+    return assist.draft_section(body.kind, body.title, body.context)
+
+
 @app.post("/api/resume/polish")
 def resume_polish(body: PolishIn) -> dict:
     if body.role not in ROLE:
@@ -507,7 +520,8 @@ def resume_polish(body: PolishIn) -> dict:
 
 
 # ---------- admin -----------------------------------------------------------------------
-_refresh_state = {"running": False, "last": None, "error": None}
+_refresh_state = {"running": False, "last": None, "error": None, "step": None, "finished_at": None}
+REFRESH_COOLDOWN_S = 15 * 60  # the public Update button fetches at most this often
 
 
 _refresh_lock = threading.Lock()
@@ -518,14 +532,39 @@ def _run_refresh() -> None:
     if not _refresh_lock.acquire(blocking=False):
         return
     from ingest import refresh
-    _refresh_state.update(running=True, error=None)
+    _refresh_state.update(running=True, error=None, step="start")
     try:
-        _refresh_state["last"] = refresh.run(date.today())
+        _refresh_state["last"] = refresh.run(date.today(), progress=lambda s: _refresh_state.update(step=s))
+        _refresh_state["finished_at"] = time.time()
+        _news_cache.clear()  # headlines now come with the new snapshot
     except Exception as e:  # keep the app running; the error shows on the Sources page
         _refresh_state["error"] = str(e)
     finally:
-        _refresh_state["running"] = False
+        _refresh_state.update(running=False, step=None)
         _refresh_lock.release()
+
+
+def _refresh_status() -> dict:
+    done = _refresh_state["finished_at"]
+    snaps = db.list_snapshots(1)
+    return {"running": _refresh_state["running"], "step": _refresh_state["step"], "error": _refresh_state["error"],
+            "snapshot": snaps[0] if snaps else None,
+            "cooldown": max(0, int(done + REFRESH_COOLDOWN_S - time.time())) if done else 0}
+
+
+@app.get("/api/refresh")
+def refresh_status() -> dict:
+    return _refresh_status()
+
+
+@app.post("/api/refresh")
+def refresh_now() -> dict:
+    """Fetch new job posts, research counts and headlines now, unless that happened in the last 15 minutes."""
+    st = _refresh_status()
+    if not st["running"] and not st["cooldown"]:
+        threading.Thread(target=_run_refresh, daemon=True).start()
+        st.update(running=True, step="start", started=True)
+    return {**st, "started": st.get("started", False)}
 
 
 def _daily_refresh() -> None:

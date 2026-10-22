@@ -151,7 +151,7 @@ FOUNDATION = {"genai", "excel", "problem", "customer", "languages", "stakeholder
 
 def _item(c: dict) -> dict:
     return {k: c.get(k) for k in ("id", "title", "provider", "url", "hours", "cost", "language", "hrdc",
-                                  "certification", "link_checked_on", "link_status")}
+                                  "certification", "link_checked_on", "link_status", "price")}
 
 
 def _pick(cid: str, need: int, allowed: set, used: set) -> dict:

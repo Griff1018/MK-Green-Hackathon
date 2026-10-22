@@ -35,6 +35,10 @@ TEMPLATES = [
     "Paste the full ad: we need at least a few sentences.",
     "No AI model is connected, so tips cannot be written right now.",
     "The tip stated figures or was empty, so it was not shown. Try again.",
+    # resume sections (app/assist.py)
+    "No AI model is connected, so sections cannot be drafted right now.",
+    "Nothing in your profile supports this section yet. Add it in your own words.",
+    "{n} suggestion(s) left out because your profile did not support them.",
     # custom action tracks (app/assist.py)
     "Model unavailable ({e}).",
     "The draft was incomplete. Please try again or reword your goal.",
@@ -102,6 +106,7 @@ def collect() -> list[str]:
         out += [link["why"] for link in engine.sdg_links(r["id"])]
     out += sorted({str(i.get("cost")) for i in data.CATALOGUE if i.get("cost")})
     out += sorted({str(i.get("hrdc")) for i in data.CATALOGUE if i.get("hrdc")})
+    out += sorted({i["price"]["text"] for i in data.CATALOGUE if i.get("price")})  # checked course prices
     for t in data.TRACKS["tracks"]:  # action tracks on the Path page
         out += [t["title"], t["about"]]
         for c in t["chapters"]:

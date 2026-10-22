@@ -185,20 +185,25 @@ def combine(hn: dict, ax: dict, az: dict | None) -> dict:
     return clusters
 
 
-def run(as_of: date) -> int:
+def run(as_of: date, progress=None) -> int:
+    """progress, if given, is called with a short step id as each source is fetched."""
+    step = progress or (lambda s: None)
     previous = None
     snaps = db.list_snapshots(1)
     if snaps:
         previous = db.get_snapshot(snaps[0]["id"])["payload"].get("raw")
     with httpx.Client(timeout=60, headers=UA) as client:
         print(f"Hacker News threads up to {as_of}…")
+        step("jobs")
         hn, hn_meta = fetch_hn(client, as_of)
         print(f"arXiv windows ending {as_of}…")
+        step("research")
         ax, ax_meta = fetch_arxiv(client, as_of)
         az_res = fetch_adzuna(client, previous) if as_of == date.today() else None
         news = None
         if as_of == date.today():
             print("Work headlines…")
+            step("news")
             try:
                 news = fetch_news(client)
             except Exception as e:  # headlines are extra; never block the trend snapshot
@@ -213,6 +218,7 @@ def run(as_of: date) -> int:
     }
     if news:
         payload["news"] = news
+    step("saving")
     sid = db.save_snapshot(as_of.isoformat(), payload)
     print(f"Saved snapshot {sid} as of {as_of}")
     return sid
