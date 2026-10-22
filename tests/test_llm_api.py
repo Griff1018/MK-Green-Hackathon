@@ -40,3 +40,16 @@ def test_api_errors_become_llm_errors(api):
     api["reply"] = Resp(401, {"error": {"message": "Authentication Fails"}})
     with pytest.raises(llm.LLMError, match="401"):
         llm.run_json("other prompt", "{}", "system")
+
+
+def test_runpod_endpoint_uses_the_openai_route(api, monkeypatch):
+    key, url, model = config.runpod_settings({"RUNPOD_API_KEY": "rp-key", "RUNPOD_ENDPOINT_ID": "abc123"})
+    assert url == "https://api.runpod.ai/v2/abc123/openai/v1" and model == "Qwen/Qwen2.5-7B-Instruct"
+    assert config.runpod_settings({"RUNPOD_API_KEY": "rp-key"}) is None
+    monkeypatch.setattr(config, "LLM_API_KEY", key)
+    monkeypatch.setattr(config, "LLM_BASE_URL", url)
+    monkeypatch.setattr(config, "LLM_MODEL", model)
+    assert llm.status()["via"] == "RunPod Serverless (vLLM)"
+    assert llm.run_json("runpod prompt", '{"text": ""}', "system") == {"text": "ok"}
+    assert api["url"] == "https://api.runpod.ai/v2/abc123/openai/v1/chat/completions"
+    assert api["headers"]["Authorization"] == "Bearer rp-key" and api["body"]["model"] == model

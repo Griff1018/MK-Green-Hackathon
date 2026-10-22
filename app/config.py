@@ -32,6 +32,19 @@ CODEBUDDY_MODEL = os.environ.get("CODEBUDDY_MODEL", "deepseek-v4.1-flash")
 LLM_API_KEY = os.environ.get("LLM_API_KEY", "")
 LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "https://api.deepseek.com")
 LLM_MODEL = os.environ.get("LLM_MODEL", "deepseek-chat")
+
+
+def runpod_settings(env) -> tuple[str, str, str] | None:
+    """A RunPod Serverless endpoint running RunPod's vLLM worker serves an OpenAI-compatible
+    route, so it plugs into the same API path. It wins over LLM_API_KEY when both are set."""
+    key, endpoint = env.get("RUNPOD_API_KEY", ""), env.get("RUNPOD_ENDPOINT_ID", "")
+    if not (key and endpoint):
+        return None
+    return key, f"https://api.runpod.ai/v2/{endpoint}/openai/v1", env.get("RUNPOD_MODEL", "Qwen/Qwen2.5-7B-Instruct")
+
+
+if (_rp := runpod_settings(os.environ)):
+    LLM_API_KEY, LLM_BASE_URL, LLM_MODEL = _rp
 LLM_TIMEOUT_S = int(os.environ.get("LLM_TIMEOUT_S", "90"))
 LLM_MAX_PARALLEL = int(os.environ.get("LLM_MAX_PARALLEL", "2"))
 

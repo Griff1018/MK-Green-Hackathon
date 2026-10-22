@@ -1,151 +1,244 @@
-# Workforce Futures Engine
+# Workforce Futures
 
-From who you are today to where you can be in the AI era.
+> A career planner for the AI era: it reads live job-market and AI-research signals, matches a person (or a whole team) to future roles they can reach, and builds a step-by-step reskilling path with every role and skill linked to the UN SDGs.
 
-A web app for the **SDC Hackathon 2026, Domain 1: Aiversecity Future-Ready Workforce**.
+---
 
-- **Sign in** to a personal account stored in the database by choosing it from a list (prototype: no password). Tester accounts, set with `TEST_ACCOUNTS`, start with an empty profile and go straight into the setup. The synthetic sample people are shared for demos.
-- **About you** is a short setup that asks one thing per screen: how you want things explained (Simple or Detailed), country, age band and situation, time and budget, your experience (import a CV, write a few lines, or skip), your skills, and your interests. You can run it again at any time from the account menu.
-- **Home** is your dashboard: your next step, your career ladder, progress, today's trend check, resume status and advice.
-- **Careers** ranks careers by fit, demand trends and AI exposure, under three possible futures.
-- **Path** is a step-by-step map from entry level to the top of the career (for example AI-enabled executive assistant → office manager → chief operating officer), rechecked against the latest trend data.
-- **Resume** unlocks when you finish a stage and lists only what you completed.
+## Team Information
 
-**Simple mode** is for first-time career planners. It turns numbers into plain words: "Great fit" instead of a score, "AI impact: high" instead of an exposure index, "more jobs want this" instead of a percentage change. Every banner has a **?** button that explains it in the chosen style. Detailed mode keeps the numbers and sources.
+| Field                  | Details                                     |
+| ---------------------- | ------------------------------------------- |
+| **Team Name**          | [Team name]                                 |
+| **Team Domain**        | Domain 1: Future-Ready Workforce            |
+| **SDG Track (1–17)**   | SDG 8 — Decent Work and Economic Growth (also SDG 4.4 and 9.5) |
+| **Team Leader**        | [Leader name]                               |
+| **University**         | [University name(s)]                        |
+| **Number of Members**  | [n]                                         |
 
-HR managers and career centres get a team or cohort view. The app supports career decisions. It never makes hiring, selection or eligibility decisions.
+## Links
 
-## What it does (Domain 1 must-haves)
+| Resource          | Link                                           |
+| ----------------- | ---------------------------------------------- |
+| GitHub Repository | https://github.com/Griff1018/MK-Green-Hackathon |
+| Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
+| Live Demo         | https://mk-green-hackathon.replit.app          |
+| RunPod Endpoint   | https://api.runpod.ai/v2/[endpoint-id]         |
+| Slide Deck        | [slide deck link]                              |
+| Demo Video        | [demo video link]                              |
 
-| Must-have | How the app delivers it |
-|---|---|
-| 1. Skills profile intake | CV import (PDF, Word, text) with an editable review form; free-text description; live ESCO job search that pre-fills typical skills; editable skill levels. An optional language model reads the CV after contact details and IC numbers are removed, and must quote the CV for every skill. |
-| 2. AI-trend signal layer | Dated snapshots from public APIs: Hacker News "Who is hiring?" job posts (skill share, last 3 months vs the 3 before), arXiv papers on AI topics, and mentions of newer tools (for example MCP, dbt, SOC 2). Adzuna job ads are added when a key is set. The app fetches a new snapshot by itself once a day while it runs (checked at start-up and every hour; set `AUTO_REFRESH=0` to turn it off), and rechecks your path against it on every visit. |
-| 3. Future-role matching | 20 careers grounded in ESCO occupations (office, data and IT, green energy, biology and lab science, farming, healthcare, manufacturing), ranked by a published formula. Each score shows its parts, the skills you have, and the gap. |
-| 4. Personalised reskilling pathway | A path map across three career stages, each a real ESCO occupation, up to the peak role. Courses and certificates come from a closed catalogue of 51 checked items and fit your budget; paid options show as optional upgrades. Steps are ordered by prerequisites and current demand, and flagged when their priority changes or a new tool is rising. |
-| 5. SDG mapping | Every career and every skill links to official UN SDG targets (text from the UN SDG API), shown with a reason. SDG links are information only: they never change rankings, except that the Green transition scenario weights low-carbon careers, because that scenario assumes demand for them grows. |
-| 6. Handling uncertainty | Three scenarios (Moderate AI, Fast disruption, Green transition), score ranges across scenarios, and "what changed" when trend data changes. |
+---
 
-Also included: local job search links, funding schemes and critical-occupation notes for Malaysia and Singapore; plain-language advice and "earn while you learn" ideas for people on a tight budget; explanations in English, Bahasa Malaysia and Chinese; a resume builder with PDF export; a team and cohort heatmap with CSV upload; a mobile-friendly layout.
+## Overview
 
-### Fairness and privacy
+### Problem
 
-- Age band and situation are optional and only shape cost and time advice. A test checks that they never change career matches.
-- Accounts, profiles, CV details and progress are stored in the database (SQLite locally, PostgreSQL on Replit). Session tokens are stored only as SHA-256 hashes.
-- Sign-in has no password, so anyone with the link can open any account. Share the link only with testers.
-- Testers should enter only information they are happy to store. For the competition demo, use the synthetic sample people and CVs.
-- A production version would use a proper identity provider and a consent and data-deletion flow under Malaysia's PDPA. The server does not store CVs; contact details are removed before any text reaches the model.
-- Demos use the synthetic sample CVs in `static/samples/`. Domain 1 forbids real CVs in the competition demo.
+AI is changing which skills employers ask for faster than workers, students and career advisers can see. In Malaysia, 600,000+ workers are expected to need reskilling within 3–5 years (Minister of Science, Technology and Innovation, January 2025, reported by Malay Mail). Our live data shows the shift: from May–Jul to Aug–Oct 2026, the share of job posts asking for spreadsheets and data handling fell from 2.3% to 1.6%, while databases and SQL rose from 13.4% to 16.4%. People such as Mei Ling, a 45-year-old office clerk (one of our synthetic personas), cannot tell which of their skills are fading, which career fits them next, or what to learn first; career advice is generic and courses are scattered.
 
-## How it works
+### Solution
+
+Workforce Futures turns public trend signals into a personal, explainable plan. It fetches job posts and AI research every day, measures which skills are rising or cooling, scores 20 future careers for the person with an open formula (skills, demand, transferable skills and interests, minus AI exposure from the ILO index), and builds an ordered reskilling path with checked courses that fit their budget and weekly hours. Every role and skill is linked to official UN SDG targets with a reason. A language model (on a RunPod GPU endpoint, or DeepSeek) only reads CVs and rewords explanations, under guardrails; it never chooses careers, courses or scores. The person stays in charge: the app explains, it never decides.
+
+### Key Features
+
+- **Skills profile intake** — CV upload (PDF, Word, text), a short form, or a few lines of free text, in English, Bahasa Malaysia or Chinese. The model must quote the person's words for every skill it suggests.
+- **AI-trend signals** — daily snapshots of Hacker News "Who is hiring?" posts and arXiv research; each skill's share of posts against the previous three months, with new tools (e.g. MCP, AI agents) tracked by name. An **Update data** button fetches live and shows what changed in every part of the plan.
+- **Future-role matching** — 20 careers grounded in ESCO occupations, each with a fit score out of 100, its parts, the skills already held and the gap.
+- **Personalised reskilling pathway** — three real ESCO jobs from entry to peak role; steps ordered by prerequisites, then demand; 71 checked courses filtered by budget and hours.
+- **SDG mapping** — goal numbers on every career card and SDG targets on every step, each with a reason, linking to the UN goal page.
+- **Handling uncertainty** — three futures (Moderate AI, Fast disruption, Green transition), a score range per career and "what changed" after each update.
+- **Onboarding story and guide** — a short animated story replays the four steps with the person's own numbers, then a guided tour of the dashboard.
+- **Teams and career centres** — several teams side by side, a skills table, one group learning plan and a profile per person whose path steps the manager ticks off. For training plans only, never for hiring or selection.
+
+### Tech Stack
+
+| Layer         | Technology                   |
+| ------------- | ---------------------------- |
+| Frontend      | HTML, CSS, vanilla JavaScript (GSAP and Lenis for motion) |
+| Backend       | Python, FastAPI, Uvicorn     |
+| Database      | PostgreSQL on Replit, SQLite locally (SQLAlchemy) |
+| AI / Compute  | RunPod Serverless vLLM endpoint (Qwen2.5-7B-Instruct); DeepSeek API as fallback |
+| Data          | ESCO v1.2, ILO GenAI exposure index (WP 140), UN SDG API, Hacker News, arXiv |
+| Hosting / Dev | Replit (Autoscale deployment, PostgreSQL, Secrets) |
+
+---
+
+## Project Structure
 
 ```
-Browser (static/)            FastAPI (app/)                       Data
-──────────────────           ─────────────────────────            ─────────────────────────────
-profile in localStorage ───▶ /api/analyze   engine.py  ◀───────── seed: ESCO roles & skills,
-                             /api/pathway   (scores,              ILO exposure, UN SDG targets,
-                             /api/explain    scenarios,           course catalogue (data/seed)
-                             /api/extract    pathways)
-                             /api/occupations/search ──▶ ESCO API (live)
-                             assist.py ──▶ llm.py ──▶ WorkBuddy CLI (optional)
-                                                              ◀── snapshots table (SQLite / Postgres)
-                                                                      ▲
-                                            ingest/refresh.py ────────┘  Hacker News, arXiv, Adzuna
+.
+├── app/                     # FastAPI backend
+│   ├── main.py              # Application entry point and HTTP API
+│   ├── engine.py            # Scoring, scenarios and pathway builder
+│   ├── llm.py               # Model connector (RunPod / DeepSeek / CLI) with guardrails
+│   ├── assist.py, agent.py  # Skill extraction, explanations, the in-app helper
+│   └── ...                  # accounts, advice, CV import, job check, config, db
+├── ingest/                  # Daily trend refresh, seed builders, checks
+├── data/seed/               # ESCO roles and skills, ILO scores, SDG targets, courses, synthetic people
+├── static/                  # Web app (index.html, app.js, styles.css, translations)
+├── runpod/                  # RunPod endpoint setup and smoke test
+├── docs/                    # Screenshots and evidence
+├── submission/              # Required submission documents
+├── scripts/                 # Replit build, start and refresh scripts
+├── tests/                   # Unit tests (pytest)
+├── .env.example             # Example environment variables
+├── .replit                  # Replit run configuration
+├── LICENSE, NOTICE
+├── requirements.txt         # Python dependencies
+└── README.md
 ```
 
-- **Scoring** (`app/engine.py`) is deterministic. Weights per scenario are in one table and shown in the app.
-- **AI exposure** comes from the ILO's 2025 GenAI exposure index, matched through the ISCO-08 code ESCO gives each occupation. Malaysia's MASCO uses the same codes.
-- **"Future skill" requirements**: ESCO predates generative AI, so the team adds requirements such as "Working with AI tools". The app labels each requirement as `ESCO` or `future skill`.
+### Architecture
 
-### Language model guardrails
+```
+Browser (static/) ──► Replit: FastAPI app (app/) ──► PostgreSQL (accounts, profiles, snapshots)
+                             │
+                             ├──► RunPod Serverless vLLM endpoint (reads CVs, rewords explanations)
+                             │      └─ fallback: DeepSeek API, then templates
+                             ├──► ESCO API (live job search)
+                             └──► ingest/refresh.py: Hacker News + arXiv ──► dated trend snapshots
+```
 
-The model is reached through the WorkBuddy (CodeBuddy) CLI, default `deepseek-v4.1-flash`, with every tool disabled and an empty working folder. It is used for two jobs only:
+---
 
-1. **Reading a description**: it may only pick skill-cluster ids from a fixed list, and each pick must quote words that appear in the user's text. Anything else is discarded.
-2. **Rewording an explanation**: it gets the computed facts; if its text contains any number not in those facts, the text is rejected and a template explanation is shown.
+## How to Run
 
-It never chooses roles, courses or scores. If the CLI is missing or fails, the app falls back to keyword matching and templates.
+### Option 1 — Run on Replit (Recommended)
 
-## Run locally
+1. Open the [Replit Project](https://replit.com/@wongyiksheng/MK-Green-Hackathon), or import this repository via **Create Repl → Import from GitHub**.
+2. In **Tools → Database**, add a PostgreSQL database (Replit sets `DATABASE_URL`).
+3. Open the **Secrets** tab (🔒) and add the variables listed in `.env.example`:
+   - `RUNPOD_API_KEY`, `RUNPOD_ENDPOINT_ID` (see [runpod/README.md](runpod/README.md))
+   - `ADMIN_TOKEN` (any long random string), `TEST_ACCOUNTS` (e.g. `alice:Alice,bob:Bob`)
+   - optional: `LLM_API_KEY` (DeepSeek fallback), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY`
+4. Click **Run**. Replit uses `.replit` to run `scripts/build.sh` and `scripts/start.sh`.
 
-Requires Python 3.11+.
+### Option 2 — Run Locally
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/Griff1018/MK-Green-Hackathon.git
+cd MK-Green-Hackathon
+
+# 2. Create and activate a virtual environment (Python 3.11+)
 python -m venv .venv
-.venv/Scripts/activate        # Windows; use .venv/bin/activate on macOS/Linux
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+
+# 3. Install dependencies
 pip install -r requirements-dev.txt
+
+# 4. Configure environment variables
+cp .env.example .env            # then fill in your values
+
+# 5. Run the app
 uvicorn app.main:app --reload
 ```
 
-Open http://localhost:8000. The first start loads the two bundled trend snapshots. To use the model locally, install the WorkBuddy CLI (`npm i -g @tencent-ai/codebuddy-code`) and log in once.
+Open http://localhost:8000. Without any model key the app still works: skills come from keyword matching and explanations from templates.
 
-Useful commands:
+### Run Tests
 
 ```bash
-python -m ingest.refresh                     # new trend snapshot as of today (the running app also does this daily)
-python -m ingest.refresh --as-of 2026-07-20  # rebuild a past snapshot
-python -m ingest.build_seed                  # re-download ESCO, ILO and SDG seed data
-python -m ingest.check_catalogue             # check every course link
-python -m ingest.make_sample_cvs             # rebuild the synthetic sample CVs
-python -m ingest.manage_accounts list        # accounts and setup status
-python -m ingest.manage_accounts reset-profile chew  # blank profile; setup runs again
-python -m pytest -q                          # tests
+python -m pytest -q
 ```
 
-## Deploy on Replit
+---
 
-1. Import this GitHub repository into Replit.
-2. In **Tools → Database**, add a PostgreSQL database. Replit sets `DATABASE_URL`.
-3. In **Secrets**, add:
-   - `ADMIN_TOKEN`: any long random string (protects `POST /api/admin/refresh`)
-   - `TEST_ACCOUNTS`: tester accounts to create, for example `alice:Alice,bob:Bob`. Kept out of the repository on purpose.
-   - `LLM_API_KEY`: a DeepSeek API key from platform.deepseek.com, to enable the model (optional). Any OpenAI-compatible service works: also set `LLM_BASE_URL` and `LLM_MODEL` (defaults `https://api.deepseek.com`, `deepseek-chat`).
-   - or `CODEBUDDY_API_KEY`: from your WorkBuddy/CodeBuddy profile page, to use the CodeBuddy CLI instead (needs a plan with API access). For the China edition also set `CODEBUDDY_INTERNET_ENVIRONMENT=internal`.
-   - `CODEBUDDY_MODEL`: optional, default `deepseek-v4.1-flash`
-   - `ADZUNA_APP_ID`, `ADZUNA_APP_KEY`: optional job-ads source
-4. **Publish → Autoscale**. Build and run commands come from `.replit` (`scripts/build.sh`, `scripts/start.sh`).
-5. **Publish → Scheduled**: command `bash scripts/refresh.sh`, daily. Each run stores a dated snapshot; the app compares the newest snapshot with the one before to re-rank path steps and flag new tools. (Hacker News hiring threads are monthly and arXiv is daily, so most days only part of the data changes.)
+## How We Use Replit *(Required)*
 
-Keep the deployment URL: it is the Replit proof for the Technical & Tools Declaration.
+- **Development:** the team imports the GitHub repository into a shared Repl and runs it there to test each change.
+- **Hosting:** the app is deployed with Replit Deployments (Autoscale) at the Live Demo link above, using `scripts/build.sh` and `scripts/start.sh` from `.replit`.
+- **Database:** Replit PostgreSQL stores accounts, profiles, progress, chats and the dated trend snapshots.
+- **Scheduled refresh:** the running app fetches a new trend snapshot once a day; a Replit Scheduled Deployment can run `bash scripts/refresh.sh` as well.
+- **Secrets:** API keys and tester accounts live in Replit Secrets, never in the code.
 
-## API
+📄 Proof of use: [`submission/SDC2026_TeamName_Replit_POU.pdf`](submission/SDC2026_TeamName_Replit_POU.pdf)
 
-| Method | Path | Purpose |
-|---|---|---|
-| GET | `/api/accounts` | Accounts for the sign-in list |
-| POST | `/api/accounts/{id}/signin` | Sign in; returns a session token |
-| GET / PUT | `/api/me` | Load or save the signed-in account's profile (Bearer token) |
-| POST | `/api/signout` | End the session |
-| GET | `/api/meta` | Roles, skill clusters, scenarios, samples, snapshots, sources, model status |
-| POST | `/api/analyze` | Rankings for all scenarios; with `compare_id`, what changed |
-| POST | `/api/pathway` | Career path across all stages (budget- and country-aware) |
-| POST | `/api/advice` | Plain-language advice, side-income ideas, funding and job-search links |
-| POST | `/api/cv` | Read a CV file into editable fields (multipart upload; nothing stored) |
-| POST | `/api/resume/polish` | Optional AI rewording of resume lines, checked against the input |
-| GET | `/api/updates` | What changed since the previous snapshot and which new tools are rising |
-| POST | `/api/extract` | Skills from free text |
-| POST | `/api/explain` | Plain-language explanation (en, ms, zh) |
-| GET | `/api/occupations/search?q=` | Live ESCO job search with ILO exposure |
-| GET | `/api/snapshots/{id}` | One trend snapshot with all signals |
-| POST | `/api/admin/refresh` | Fetch a new snapshot now (Bearer `ADMIN_TOKEN`) |
+## How We Use RunPod *(Required)*
 
-## Data and licences
+- **Workload:** the app's language model runs on a RunPod GPU: it reads CVs and free text to suggest skills (quoting the person's words) and rewords explanations, resume lines and news summaries from facts the engine computed.
+- **Setup:** a **RunPod Serverless Endpoint** using RunPod's vLLM worker with `Qwen/Qwen2.5-7B-Instruct`. Steps in [runpod/README.md](runpod/README.md).
+- **Integration:** when `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID` are set, the Replit app sends model calls to the endpoint's OpenAI-compatible route (`app/llm.py`, `app/config.py`). Output is validated; anything that fails falls back to templates.
 
-See [NOTICE](NOTICE). Code is under the [Apache License 2.0](LICENSE). Sample people and teams in `data/seed/samples.json` are synthetic. No real CVs or personal data are used. Profiles stay in the user's browser; free text sent for extraction is not stored.
+Example request:
 
-## Career helper (Lambtae)
+```bash
+curl -X POST https://api.runpod.ai/v2/$RUNPOD_ENDPOINT_ID/openai/v1/chat/completions \
+  -H "Authorization: Bearer $RUNPOD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "messages": [{"role": "user", "content": "Hello"}]}'
+```
 
-A suitcase at the bottom right of every signed-in page opens a chat with Lambtae, the in-app assistant. She answers questions about the app and the person's own plan from facts the app has already computed (top careers, chosen path, next step and its courses, advice, sources). Guardrails in `app/agent.py`: the model sees no contact details or CV text; any number not found in the facts is rejected; page buttons come from a fixed list; she cannot change anything. Without a model, a keyword fallback answers from the same facts. Chat history is saved per account in the `chats` table and cleared when a profile is reset. Artwork is original SVG drawn for this project.
+Or run `python runpod/smoke_test.py`.
 
-## Languages
+📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
 
-The interface is available in English, Bahasa Melayu and Chinese (header dropdown). The choice is saved to the account and also sets the language of AI explanations. Translations live in `static/i18n/ms.json` and `static/i18n/zh.json`, keyed by the English text; anything missing falls back to English. Job titles, skill names, course names and quoted UN/ILO text stay in English because they come from ESCO, the ILO and course providers, and the resume document stays in English. The translations were drafted with AI help and should be checked by a fluent speaker before the demo.
+---
 
-To check coverage after changing text: `python -m ingest.i18n_server` then `python -m ingest.check_i18n`.
+## Challenges & Learnings
 
-## Known limits
+- **No open Malaysian job-ad API.** We use Hacker News hiring threads (global and tech-heavy) as the main live signal, damp small samples, date every snapshot, show three futures as a range, and add Adzuna ads (Singapore, labelled as a regional proxy) when a key is set.
+- **Stopping the model from inventing things.** The model only picks from fixed lists and must quote the user; any text with a number not in our data is rejected and a template is shown. Careers, courses and scores come from code, not the model.
+- **ESCO predates generative AI.** We added "future skill" requirements such as working with AI tools and label them separately from ESCO's own.
+- **Keeping scores explainable.** Every score opens into its parts, and the weights for each future are published in the app.
+- **We learned** that a plan people trust needs sources and dates on every number, and that one concrete persona explains the product better than a feature list.
 
-- Job-post signals come from global, tech-heavy hiring threads. Malaysian job-ad data has no open API; Adzuna (Singapore, as a labelled regional proxy) is used when a key is set.
+## Future Improvements
+
+- [ ] Partner for Malaysian job-ad data (for example a national job portal) to replace the global proxy
+- [ ] Member sign-in for teams, so people can see the plan their manager keeps for them
+- [ ] Consent and data-deletion flow under Malaysia's PDPA, and a proper identity provider
+- [ ] Have fluent speakers review the Bahasa Malaysia and Chinese translations
+- [ ] Pilot with a career centre and measure first-step completion
+
+## Team
+
+| Name        | Role                | GitHub                                   |
+| ----------- | ------------------- | ---------------------------------------- |
+| [Name]      | [Role]              | [@Griff1018](https://github.com/Griff1018) |
+| [Name]      | [Role]              | [@username]                              |
+| [Name]      | [Role]              | [@username]                              |
+
+---
+
+## Submission Checklist
+
+- [ ] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
+- [ ] Slide deck link added
+- [ ] Demo video link added
+- [ ] Replit used, with proof of use in `submission/`
+- [ ] RunPod used, with proof of use in `submission/`
+- [ ] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
+- [ ] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
+- [ ] Submission files renamed with your team name (replace `TeamName`)
+- [x] "How to Run" steps verified
+- [x] No API keys or secrets committed to the repository
+
+---
+
+## More detail
+
+### Scoring
+
+Fit = skill match + demand outlook + transferable skills + interest fit (+ green bonus in the Green transition) − AI exposure, scaled to 100. Weights per future are in `app/engine.py` and shown in the app. AI exposure comes from the ILO's 2025 GenAI exposure index, matched through the ISCO-08 code ESCO gives each occupation (Malaysia's MASCO uses the same codes).
+
+### Fairness and privacy
+
+- Age band and situation are optional and only shape cost and time advice; a test checks they never change career matches. Gender and ethnicity are never asked.
+- Accounts, profiles and progress are stored in the database; session tokens only as SHA-256 hashes. CVs are not stored; contact details are removed before any text reaches a model.
+- Team lists and member profiles stay in the manager's browser; only skill levels are sent to be scored.
+- Sign-in has no password in this prototype. Demos use the synthetic sample people and CVs in `data/seed/samples.json` and `static/samples/`; no real CVs are used.
+
+### Known limits
+
+- Job-post signals come from global, tech-heavy hiring threads (see Challenges).
 - ESCO is European; some Malaysian job titles may be missing.
-- Course content, prices and HRD Corp status must be confirmed with each provider. The link checker only proves a page exists.
+- Course content, prices and HRD Corp status must be confirmed with each provider; the link checker only proves a page exists.
 - Scenario weights are the team's starting assumptions, published in the app for scrutiny.
+
+### Data and licences
+
+See [NOTICE](NOTICE) for every source and licence.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
