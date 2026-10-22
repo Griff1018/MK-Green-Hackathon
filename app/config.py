@@ -31,6 +31,9 @@ CODEBUDDY_MODEL = os.environ.get("CODEBUDDY_MODEL", "deepseek-v4.1-flash")
 LLM_TIMEOUT_S = int(os.environ.get("LLM_TIMEOUT_S", "90"))
 LLM_MAX_PARALLEL = int(os.environ.get("LLM_MAX_PARALLEL", "2"))
 
+# Fetch a fresh trend snapshot once a day while the app runs (0 turns it off, e.g. in tests).
+AUTO_REFRESH = os.environ.get("AUTO_REFRESH", "1") == "1"
+
 ADZUNA_APP_ID = os.environ.get("ADZUNA_APP_ID", "")
 ADZUNA_APP_KEY = os.environ.get("ADZUNA_APP_KEY", "")
 ADZUNA_COUNTRY = os.environ.get("ADZUNA_COUNTRY", "sg")

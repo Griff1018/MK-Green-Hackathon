@@ -114,4 +114,5 @@ def _build_roles() -> list[dict]:
 
 
 ROLES: list[dict] = _build_roles()
+TRACKS: dict = _load("tracks.json")
 ROLE: dict[str, dict] = {r["id"]: r for r in ROLES}

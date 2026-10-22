@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import threading
+import time
 from contextlib import asynccontextmanager
 from datetime import date
 
@@ -16,10 +17,10 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import accounts, advice, assist, config, cv, db, engine, llm
+from . import accounts, advice, agent, assist, config, cv, db, engine, jobcheck, llm
 from .config import ROOT, SEED_DIR
 from .data import (CATALOGUE, CATALOGUE_META, CLUSTER, CLUSTERS, COUNTRIES, ESCO_META, ILO_META, OCCUPATIONS,
-                   ROLE, ROLES, SAMPLES, SDG_META, exposure)
+                   ROLE, ROLES, SAMPLES, SDG_META, TRACKS, exposure)
 
 ESCO_API = "https://ec.europa.eu/esco/api"
 BOOTSTRAP = SEED_DIR / "snapshots_bootstrap.json"
@@ -39,6 +40,8 @@ async def lifespan(_app: FastAPI):
     db.init()
     bootstrap_snapshots()
     accounts.ensure_accounts()
+    if config.AUTO_REFRESH:
+        threading.Thread(target=_daily_refresh, daemon=True).start()
     yield
 
 
@@ -87,6 +90,14 @@ class AnalyzeIn(Profile):
     compare: bool = False
 
 
+class TeamIn(BaseModel):
+    # [name, {skill: level}] pairs; names are used only to label rows in the reply, never stored
+    people: list[tuple[str, dict[str, int]]] = Field(min_length=1, max_length=300)
+    target_role: str
+    budget: str = "free"
+    snapshot_id: int | None = None
+
+
 class PathwayIn(Profile):
     role: str
     scenario: str = "moderate"
@@ -120,6 +131,21 @@ class PolishIn(BaseModel):
 # ---------- accounts ------------------------------------------------------------------
 class SaveIn(BaseModel):
     data: dict
+
+
+class TeamChat(BaseModel):
+    # skill levels only; the browser replaces names before sending
+    people: list[tuple[str, dict[str, int]]] = Field(min_length=1, max_length=300)
+    target_role: str
+    budget: str = "free"
+    kind: str = "hr"
+
+
+class ChatIn(BaseModel):
+    message: str = Field(..., min_length=1, max_length=600)
+    lang: str = "en"
+    page: str = "dashboard"
+    team: TeamChat | None = None
 
 
 def _token(authorization: str) -> str | None:
@@ -165,6 +191,26 @@ def me_reset(authorization: str = Header("")) -> dict:
     return {"data": accounts.reset_data(_auth(authorization)["id"])}
 
 
+# ---------- assistant ---------------------------------------------------------------------
+@app.get("/api/chat")
+def chat_history(authorization: str = Header("")) -> dict:
+    return {"messages": agent.history(_auth(authorization)["id"])}
+
+
+@app.post("/api/chat")
+def chat(body: ChatIn, authorization: str = Header("")) -> dict:
+    u = _auth(authorization)
+    snap = load_snapshot(None)
+    team = body.team.model_dump() if body.team and body.team.target_role in ROLE else None
+    return agent.ask(u["id"], u["data"], body.message.strip(), body.lang, body.page, snap, previous_of(snap), team)
+
+
+@app.delete("/api/chat")
+def chat_clear(authorization: str = Header("")) -> dict:
+    agent.clear(_auth(authorization)["id"])
+    return {"ok": True}
+
+
 @app.post("/api/signout")
 def sign_out(authorization: str = Header("")) -> dict:
     accounts.sign_out(_token(authorization))
@@ -191,8 +237,9 @@ def meta() -> dict:
             "sdg": engine.sdg_links(r["id"]),
         })
     return {
-        "clusters": [{k: c[k] for k in ("id", "label", "kind", "ai")} | {"sdg": c.get("sdg", [])} for c in CLUSTERS],
+        "clusters": [{k: c[k] for k in ("id", "label", "kind", "ai")} | {"sdg": c.get("sdg", []), "aliases": c.get("aliases", [])} for c in CLUSTERS],
         "roles": roles,
+        "tracks": {"families": TRACKS["families"], "tracks": TRACKS["tracks"]},
         "scenarios": {k: {"label": v["label"], "note": v["note"], "weights": v["w"], "amp": v["amp"]}
                       for k, v in engine.SCENARIOS.items()},
         "levels": engine.LEVELS,
@@ -207,6 +254,9 @@ def meta() -> dict:
                        | {l["target"]: engine.sdg_target(l["target"]) for r in ROLES for l in engine.sdg_links(r["id"])},
         "sources": {"ilo": ILO_META, "esco": ESCO_META, "sdg": SDG_META},
         "llm": llm.status(),
+        "refresh": {"auto": config.AUTO_REFRESH, "running": _refresh_state["running"], "error": _refresh_state["error"]},
+        # the team's own artwork wins when static/art/lamb.png exists; otherwise the SVG
+        "art": {"lamb": "/static/art/lamb.png" if (ROOT / "static/art/lamb.png").exists() else "/static/art/lamb.svg"},
     }
 
 
@@ -214,6 +264,125 @@ def meta() -> dict:
 def snapshot(snapshot_id: int) -> dict:
     s = load_snapshot(snapshot_id)
     return {**snapshot_info(s), "signals": engine.signal_table(s)}
+
+
+class WhatIfIn(Profile):
+    role: str
+    scenario: str = "moderate"
+    snapshot_id: int | None = None
+
+
+@app.post("/api/whatif")
+def whatif(body: WhatIfIn) -> dict:
+    """What it takes for a career to rise, and the best next skills per hour of study."""
+    if body.role not in ROLE or body.scenario not in engine.SCENARIOS:
+        raise HTTPException(400, "Unknown role or scenario")
+    snap = load_snapshot(body.snapshot_id)
+    return {**engine.what_it_takes(body.skills, body.interests, body.role, body.scenario, snap, body.budget),
+            "next": engine.next_skills(body.skills, body.interests, body.role, body.scenario, snap, body.budget)}
+
+
+class JobCheckIn(BaseModel):
+    text: str = Field("", max_length=20000)
+    url: str = Field("", max_length=600)
+    skills: dict[str, int] = Field(default_factory=dict)
+    budget: str = "free"
+    use_model: bool = False
+
+
+@app.post("/api/jobcheck")
+def jobcheck_api(body: JobCheckIn) -> dict:
+    """Compare one real job ad with the person's skills. The ad is not stored."""
+    return jobcheck.job_check(body.text, body.url, body.skills, body.use_model, body.budget)
+
+
+@app.get("/api/tasks/{isco}")
+def tasks_api(isco: str) -> dict:
+    """ILO task scores for one occupation, most exposed first, with the human skills each relies on."""
+    res = jobcheck.task_xray(isco[:4])
+    if not res:
+        raise HTTPException(404, "No ILO task scores for this occupation")
+    return res
+
+
+class TaskTipIn(BaseModel):
+    task: str = Field(..., max_length=400)
+    band: str = Field("help", max_length=10)
+    job: str = Field("", max_length=120)
+    lang: str = "en"
+
+
+@app.post("/api/tasks/tip")
+def task_tip_api(body: TaskTipIn) -> dict:
+    return jobcheck.task_tip(body.task, body.band, body.job, body.lang)
+
+
+class TrackDraftIn(BaseModel):
+    goal: str = Field(..., min_length=3, max_length=400)
+    direction: str = Field("", max_length=300)
+    change: str = Field("", max_length=300)
+    previous: dict | None = None
+    role: str | None = None
+    country: str = ""
+    hours: int | None = None
+    budget: str = ""
+    lang: str = "en"
+
+
+@app.post("/api/tracks/draft")
+def track_draft(body: TrackDraftIn) -> dict:
+    """A custom action track from the person's own words (needs the AI model)."""
+    context = {"career": ROLE[body.role]["title"] if body.role in ROLE else None,
+               "country": COUNTRIES[body.country]["name"] if body.country in COUNTRIES else body.country or None,
+               "hours_per_week": body.hours, "budget": body.budget or None}
+    return assist.draft_track(body.goal, body.direction, body.change, body.previous, context, body.lang)
+
+
+_news_cache: dict = {}
+_news_lock = threading.Lock()
+
+
+def latest_news() -> dict:
+    """Headlines saved with the newest snapshot; fetched once a day here if that snapshot has none."""
+    try:
+        snap = load_snapshot(None)
+        if snap.get("news"):
+            return snap["news"]
+    except HTTPException:
+        pass
+    today = date.today().isoformat()
+    with _news_lock:
+        if _news_cache.get("day") != today:
+            from ingest.news import fetch_news
+            try:
+                _news_cache.update(day=today, data=fetch_news(), error=None)
+            except Exception as e:  # no internet: an empty feed with the reason, retried next day
+                _news_cache.update(day=today, data=None, error=str(e))
+    if _news_cache.get("data"):
+        return _news_cache["data"]
+    return {"fetched_at": None, "days": 0, "source": None, "topics": [], "items": [], "error": _news_cache.get("error")}
+
+
+@app.get("/api/news")
+def news() -> dict:
+    return latest_news()
+
+
+class NewsSummaryIn(BaseModel):
+    ids: list[str] = Field(default_factory=list, max_length=40)
+    lang: str = "en"
+    focus: str = Field("", max_length=120)
+    use_model: bool = False
+
+
+@app.post("/api/news/summary")
+def news_summary(body: NewsSummaryIn) -> dict:
+    feed = latest_news()
+    by_id = {x["id"]: x for x in feed["items"]}
+    items = [by_id[i] for i in body.ids if i in by_id] or feed["items"][:20]
+    topics = {t["id"]: t["label"] for t in feed["topics"]}
+    res = assist.summarise_news(items, topics, body.lang, body.focus, body.use_model)
+    return {**res, "ids": [x["id"] for x in items]}
 
 
 @app.get("/api/updates")
@@ -292,6 +461,15 @@ def pathway(body: PathwayIn) -> dict:
     return {**p, "sdg": engine.sdg_links(body.role), "snapshot": snapshot_info(snap)}
 
 
+@app.post("/api/team")
+def team(body: TeamIn) -> dict:
+    if body.target_role not in ROLE:
+        raise HTTPException(404, "Unknown role")
+    people = [(name.strip()[:60] or f"Person {i}", skills) for i, (name, skills) in enumerate(body.people, 1)]
+    snap = load_snapshot(body.snapshot_id)
+    return {**engine.team_report(people, body.target_role, snap, body.budget), "snapshot": snapshot_info(snap)}
+
+
 @app.post("/api/advice")
 def get_advice(body: AdviceIn) -> dict:
     return advice.advice(engine.clean_skills(body.skills), body.country, body.age_band, body.situation,
@@ -332,24 +510,41 @@ def resume_polish(body: PolishIn) -> dict:
 _refresh_state = {"running": False, "last": None, "error": None}
 
 
+_refresh_lock = threading.Lock()
+
+
+def _run_refresh() -> None:
+    """Fetch today's trend snapshot. Only one refresh runs at a time."""
+    if not _refresh_lock.acquire(blocking=False):
+        return
+    from ingest import refresh
+    _refresh_state.update(running=True, error=None)
+    try:
+        _refresh_state["last"] = refresh.run(date.today())
+    except Exception as e:  # keep the app running; the error shows on the Sources page
+        _refresh_state["error"] = str(e)
+    finally:
+        _refresh_state["running"] = False
+        _refresh_lock.release()
+
+
+def _daily_refresh() -> None:
+    """Background job: at start-up and then every hour, fetch a snapshot if today's is missing.
+    So the trend data updates once a day, and a failed fetch (e.g. no internet) is retried."""
+    while True:
+        snaps = db.list_snapshots(1)
+        if not snaps or snaps[0]["as_of"] < date.today().isoformat():
+            _run_refresh()
+        time.sleep(3600)
+
+
 @app.post("/api/admin/refresh")
 def admin_refresh(authorization: str = Header("")) -> dict:
     if not config.ADMIN_TOKEN or authorization != f"Bearer {config.ADMIN_TOKEN}":
         raise HTTPException(401, "Admin token required")
     if _refresh_state["running"]:
         return {"started": False, "message": "A refresh is already running"}
-
-    def work() -> None:
-        from ingest import refresh
-        _refresh_state.update(running=True, error=None)
-        try:
-            _refresh_state["last"] = refresh.run(date.today())
-        except Exception as e:  # report any failure to the admin
-            _refresh_state["error"] = str(e)
-        finally:
-            _refresh_state["running"] = False
-
-    threading.Thread(target=work, daemon=True).start()
+    threading.Thread(target=_run_refresh, daemon=True).start()
     return {"started": True}
 
 

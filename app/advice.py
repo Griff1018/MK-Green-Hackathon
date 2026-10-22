@@ -17,7 +17,11 @@ SITUATIONS = {
     "between": "Between jobs",
     "switcher": "Changing career on a tight budget",
     "returning": "Returning to work after a break",
+    # planning for others: these open the team flow instead of a personal plan
+    "hr": "HR or L&D manager planning for a team",
+    "tvet": "TVET or university career centre advising students",
 }
+TEAM = {"hr", "tvet"}
 TIGHT = {"student", "graduate", "between", "switcher", "returning"}
 
 

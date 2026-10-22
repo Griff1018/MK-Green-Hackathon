@@ -224,3 +224,18 @@ def test_sample_accounts_start_with_sample_data(client):
     r = client.post("/api/accounts/sample-meiling/signin").json()
     me = client.get("/api/me", headers={"Authorization": f"Bearer {r['token']}"}).json()
     assert me["kind"] == "sample" and me["data"]["profile"]["skills"]
+
+
+def test_team_report_ranks_all_careers_and_orders_the_plan_by_shared_gaps():
+    team = next(t for t in SAMPLES["teams"] if t["id"] == "hr")
+    rep = engine.team_report(team["people"], team["target_role"], NEW, budget="free")
+    ids = {c["id"] for c in CATALOGUE}
+    assert rep["size"] == len(team["people"])
+    for rows in rep["careers"].values():
+        assert len(rows) == len(ROLES) and [x["rank"] for x in rows] == list(range(1, len(ROLES) + 1))
+        assert all(x["min"] <= x["score"] <= x["max"] for x in rows)
+    assert all(len(p["top"]) == 3 for p in rep["people"]["moderate"])
+    steps = rep["plan"]["steps"]
+    assert [s["n"] for s in steps] == sorted((s["n"] for s in steps), reverse=True)
+    for s in steps:
+        assert all(i["id"] in ids and i["cost"] == "free" for i in s["items"])

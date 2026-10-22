@@ -147,6 +147,112 @@ def explain(result: dict, scenario: str, snapshot: dict, lang: str, use_llm: boo
         return base
 
 
+
+# ---------- headline summary ------------------------------------------------------
+NEWS_SYSTEM = (
+    "You summarise work and jobs headlines for a job seeker. You only see headlines, not the articles, so describe "
+    "what the headlines are about and never claim details beyond them. Do not add numbers, companies or facts that are "
+    "not in the headlines. Group related headlines into 3 to 5 short points; each point lists the numbers of the "
+    "headlines it draws on. Plain, calm language. Return JSON only."
+)
+NEWS_SHAPE = '{"points": [{"text": "<one short point>", "refs": [1, 2]}]}'
+
+
+def summarise_news(items: list[dict], topics: dict, lang: str, focus: str, use_llm: bool) -> dict:
+    """3-5 points about a set of headlines. The model may only use numbers found in the titles."""
+    count: dict[str, list[int]] = {}
+    for i, x in enumerate(items, 1):
+        for t in x["topics"]:
+            count.setdefault(t, []).append(i)
+    top = sorted(count.items(), key=lambda kv: -len(kv[1]))[:4]
+    base = {"method": "template", "model": None, "note": "", "points": [
+        {"text": f"{len(refs)} headline{'s' if len(refs) > 1 else ''} about {topics.get(t, t).lower()}.", "refs": refs[:6],
+         "topic": t, "n": len(refs)}
+        for t, refs in top]}
+    if not use_llm or not items:
+        return base
+    lines = "\n".join(f"{i}. {x['title']} ({x['date']})" for i, x in enumerate(items, 1))
+    try:
+        out = llm.run_json(f"Write in {LANG.get(lang, 'English')}." + (f" The reader is interested in: {focus}." if focus else "") +
+                           f"\n\nHeadlines:\n{lines}", NEWS_SHAPE, NEWS_SYSTEM)
+        pts = [{"text": str(p.get("text", "")).strip(), "refs": [int(r) for r in p.get("refs", []) if str(r).isdigit() and 1 <= int(r) <= len(items)]}
+               for p in out.get("points", []) if isinstance(p, dict)]
+        pts = [p for p in pts if p["text"]][:5]
+        allowed = _numbers(lines) | {str(i) for i in range(0, 11)}
+        extra = _numbers(" ".join(p["text"] for p in pts)) - allowed
+        if not pts or extra:
+            base["note"] = "Model summary rejected (numbers not in the headlines); showing a simple count instead."
+            return base
+        return {**base, "points": pts, "method": "llm", "model": llm.status()["model"]}
+    except llm.LLMError as e:
+        base["note"] = f"Model unavailable ({e}); showing a simple count instead."
+        return base
+
+
+
+# ---------- custom action track ----------------------------------------------------
+TRACK_SYSTEM = (
+    "You plan practical next steps for a working adult who wants to reach a goal in their career. Build an action "
+    "track: 2 to 4 chapters in order, each with 2 to 4 concrete steps a person can actually do (not courses: their "
+    "learning path already covers courses). Each step has a short title, why it helps, and 1 to 4 'how' actions. "
+    "Use plain, warm language. Do not state statistics, percentages, salaries, prices or claims about the job market. "
+    "Only add a link when you are confident the page exists (official sites, well-known platforms); at most 2 per step. "
+    "Return JSON only."
+)
+TRACK_SHAPE = ('{"title": "<short track name>", "about": "<one sentence>", "chapters": [{"title": "<chapter>", "steps": '
+               '[{"title": "<step>", "why": "<why it helps>", "how": ["<action>"], "links": [{"label": "<site name>", "url": "https://..."}]}]}]}')
+STAT = re.compile(r"\d\s*%|%\s*\d|\b(?:RM|USD|SGD|S\$|US\$)\s*\d|\$\s*\d", re.I)
+
+
+class TrackRejected(Exception):
+    pass
+
+
+def _clip(x, n: int) -> str:
+    return re.sub(r"\s+", " ", str(x or "")).strip()[:n]
+
+
+def _check_track(out: dict) -> dict:
+    chapters = []
+    for ci, c in enumerate(out.get("chapters", [])[:4]):
+        steps = []
+        for si, st in enumerate((c.get("steps") or [])[:4]):
+            how = [_clip(h, 220) for h in (st.get("how") or [])[:4] if _clip(h, 220)]
+            links = [{"label": _clip(l.get("label"), 60) or "Link", "url": str(l.get("url", "")).strip()}
+                     for l in (st.get("links") or [])[:2] if isinstance(l, dict)]
+            links = [l for l in links if re.match(r"^https://[\w.-]+\.[a-z]{2,}(/\S*)?$", l["url"], re.I)]
+            step = {"id": f"c{ci}s{si}", "title": _clip(st.get("title"), 120), "why": _clip(st.get("why"), 240), "how": how, "links": links}
+            if step["title"] and step["why"] and how:
+                steps.append(step)
+        if len(steps) >= 2 and _clip(c.get("title"), 80):
+            chapters.append({"title": _clip(c.get("title"), 80), "steps": steps})
+    track = {"title": _clip(out.get("title"), 60), "about": _clip(out.get("about"), 200), "chapters": chapters}
+    if not track["title"] or len(chapters) < 2:
+        raise TrackRejected("The draft was incomplete.")
+    text = json.dumps(track, ensure_ascii=False)
+    if STAT.search(re.sub(r"https://\S+", "", text)):
+        raise TrackRejected("The draft stated figures or prices, which we do not allow.")
+    return track
+
+
+def draft_track(goal: str, direction: str, change: str, previous: dict | None, context: dict, lang: str) -> dict:
+    """A custom action track written by the model from the person's own words, checked before it is shown."""
+    if not llm.status()["available"]:
+        return {"ok": False, "note": "No AI model is connected, so custom tracks cannot be drafted right now."}
+    prompt = (f"Write in {LANG.get(lang, 'English')}.\n\nGoal in their words: {goal}\n"
+              + (f"Direction they gave: {direction}\n" if direction else "")
+              + f"About them: {json.dumps(context, ensure_ascii=False)}\n")
+    if previous and change:
+        prompt += f"\nThis is the previous draft:\n{json.dumps(previous, ensure_ascii=False)}\nChange it like this: {change}\n"
+    try:
+        track = _check_track(llm.run_json(prompt, TRACK_SHAPE, TRACK_SYSTEM))
+    except llm.LLMError as e:
+        return {"ok": False, "note": f"Model unavailable ({e})."}
+    except TrackRejected as e:
+        return {"ok": False, "note": f"{e} Please try again or reword your goal."}
+    return {"ok": True, "track": track, "model": llm.status()["model"]}
+
+
 # ---------- resume wording ------------------------------------------------------
 POLISH_SYSTEM = (
     "You improve the wording of a resume for a job seeker. Keep every fact exactly as given: do not add "

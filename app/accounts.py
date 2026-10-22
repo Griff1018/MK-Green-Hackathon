@@ -42,7 +42,7 @@ def _iso(t: datetime) -> str:
 
 
 def blank_data(persona: dict | None = None) -> dict:
-    profile = {"skills": {}, "pathSkills": {}, "evidence": {}, "interests": [], "hours": 5, "country": "MY",
+    profile = {"skills": {}, "ratings": {}, "pathSkills": {}, "evidence": {}, "interests": [], "hours": 5, "country": "MY", "home_country": "", "custom_skills": [],
                "budget": "free", "age_band": "", "situation": "", "current": None, "about": "", "useModel": False,
                "cv": {"contact": {"name": "", "email": "", "phone": "", "location": ""}, "headline": "", "summary": "",
                       "experience": [], "education": [], "certifications": [], "languages": []}}
@@ -122,6 +122,8 @@ def reset_data(uid: str) -> dict:
         persona = next((p for p in SAMPLES["personas"] if f"sample-{p['id']}" == uid), None)
     data = blank_data(persona)
     save_data(uid, data)
+    from . import agent  # late import: agent imports the data layer
+    agent.clear(uid)
     return data
 
 

@@ -27,6 +27,7 @@ SCENARIOS = {
 ORDER = ["genai", "excel", "problem", "customer", "languages", "stakeholder", "correspondence", "scheduling",
          "coaching", "leadership", "strategy", "dataentry", "bookkeeping", "processmap", "sql", "python", "dataquality", "dataviz", "mlds",
          "networking", "helpdesk", "cyber", "digimarketing", "content", "design", "esg", "ghg", "fieldwork",
+         "agronomy", "precisionag", "labwork", "clinical", "healthdata", "bioinfo", "quality", "automation",
          "electrical", "solar", "energyaudit"]
 assert set(ORDER) == set(CLUSTER), "ORDER must list every cluster"
 
@@ -244,6 +245,121 @@ def career_path(skills: dict, role_id: str, hours_per_week: int, snapshot: dict,
     return {"role": role_id, "stages": stages, "hours": total_hours, "hours_per_week": hours_per_week,
             "budget": budget, "score_now": ev["score"], "priorities_changed": moved,
             "local_demand_source": local["local_demand_source"]}
+
+
+# ---------- what it takes (counterfactual simulator) --------------------------------------
+def upgrade_hours(cid: str, need: int, budget: str = "free") -> int | None:
+    """Hours of the checked course the budget allows for this skill and level; None when there is none."""
+    pick = _pick(cid, need, BUDGET_COSTS.get(budget, BUDGET_COSTS["free"]), set())
+    return sum(i["hours"] for i in pick["items"]) or None
+
+
+def what_it_takes(skills: dict, interests: list[str], role_id: str, scenario: str, snapshot: dict,
+                  budget: str = "free") -> dict:
+    """The skills to learn, in the order that raises this career's rank fastest per hour of study.
+    Only skills change: interests, demand and AI exposure stay as they are, so the result says
+    when even every skill would not make the career the top match."""
+    role = ROLE[role_id]
+    have = clean_skills(skills)
+    place = lambda sk: next(x for x in rank(sk, interests, scenario, snapshot) if x["role"] == role_id)  # noqa: E731
+    start = place(have)
+    todo = [(i["cluster"], i["level"]) for i in role["req_list"] if have.get(i["cluster"], 0) < i["level"]]
+    hours = {cid: upgrade_hours(cid, need, budget) for cid, need in todo}
+    steps, cur = [], start
+    while todo:
+        best = None
+        for cid, need in todo:
+            res = place({**have, cid: need})
+            gain = res["score"] - cur["score"]
+            per_hour = gain / hours[cid] if hours[cid] else -1  # no checked course: learn it last
+            key = (per_hour, gain)
+            if best is None or key > best[0]:
+                best = (key, cid, need, res)
+        _, cid, need, res = best
+        steps.append({"cluster": cid, "from": have.get(cid, 0), "to": need, "hours": hours[cid],
+                      "score": res["score"], "rank": res["rank"], "gain": round(res["score"] - cur["score"], 1)})
+        have[cid] = need
+        cur = res
+        todo = [t for t in todo if t[0] != cid]
+    top = rank(have, interests, scenario, snapshot)[0]
+    held_back = None
+    if cur["rank"] > 1:  # which part keeps another career ahead even with every skill learned
+        diff = {k: top["points"][k] - cur["points"][k] for k in ("outlook", "transfer", "interest", "green", "exposure")}
+        held_back = {"by": top["role"], "part": max(diff, key=diff.get)}
+    first_top = next((i for i, s in enumerate(steps) if s["rank"] == 1), None)
+    return {"role": role_id, "scenario": scenario, "start": {"rank": start["rank"], "score": start["score"]},
+            "steps": steps, "end": {"rank": cur["rank"], "score": cur["score"]},
+            "hours": sum(s["hours"] or 0 for s in steps), "unknown_hours": sum(1 for s in steps if not s["hours"]),
+            "top_after": first_top, "held_back": held_back}
+
+
+def next_skills(skills: dict, interests: list[str], role_id: str, scenario: str, snapshot: dict,
+                budget: str = "free") -> list[dict]:
+    """Each missing skill on its own: how many fit points it adds to this career per hour of study."""
+    have = clean_skills(skills)
+    base = evaluate(ROLE[role_id], have, interests, scenario, snapshot)["score"]
+    out = []
+    for i in ROLE[role_id]["req_list"]:
+        cid, need = i["cluster"], i["level"]
+        if have.get(cid, 0) >= need:
+            continue
+        gain = evaluate(ROLE[role_id], {**have, cid: need}, interests, scenario, snapshot)["score"] - base
+        h = upgrade_hours(cid, need, budget)
+        out.append({"cluster": cid, "from": have.get(cid, 0), "to": need, "gain": round(gain, 1), "hours": h,
+                    "per_hour": round(gain / h, 2) if h else None})
+    return sorted(out, key=lambda x: (x["per_hour"] is None, -(x["per_hour"] or 0), -x["gain"]))
+
+
+# ---------- teams and cohorts (HR / L&D, TVET and university career centres) -------------
+def team_report(people: list, target: str, snapshot: dict, budget: str = "free") -> dict:
+    """Matches for a group: careers ranked by the group's average fit, each person's best fit,
+    and one learning plan for the target career that closes the most shared gaps first."""
+    people = [(name, clean_skills(skills)) for name, skills in people]
+    careers, persons = {}, {}
+    for s in SCENARIOS:
+        rows = []
+        for r in ROLES:
+            ev = [evaluate(r, sk, [], s, snapshot) for _, sk in people]
+            scores = [e["score"] for e in ev]
+            rows.append({"role": r["id"], "score": round(sum(scores) / len(scores), 1),
+                         "min": min(scores), "max": max(scores),
+                         "components": {k: round(sum(e["components"][k] for e in ev) / len(ev), 3) for k in ev[0]["components"]}})
+        rows.sort(key=lambda x: (-x["score"], x["role"]))
+        for i, x in enumerate(rows, 1):
+            x["rank"] = i
+        careers[s] = rows
+        persons[s] = []
+        for name, sk in people:
+            top = rank(sk, [], s, snapshot)[:3]
+            ev = evaluate(ROLE[target], sk, [], s, snapshot)
+            gaps = sorted(ev["gaps"], key=lambda g: (-(g["need"] - g["have"]), ORDER.index(g["cluster"])))
+            persons[s].append({"name": name, "top": [{"role": x["role"], "score": x["score"]} for x in top],
+                               "target_score": ev["score"], "readiness": ev["components"]["skill"],
+                               "gaps": [{"cluster": g["cluster"], "have": g["have"], "need": g["need"]} for g in gaps]})
+
+    allowed = BUDGET_COSTS.get(budget, BUDGET_COSTS["free"])
+    need = {i["cluster"]: i["level"] for i in ROLE[target]["stages"][0]["req_list"]}
+    gaps = []
+    for cid, lv in need.items():
+        short = [name for name, sk in people if sk.get(cid, 0) < lv]
+        if short:
+            gaps.append((cid, lv, short))
+    gaps.sort(key=lambda g: (-len(g[2]), g[0] not in FOUNDATION, ORDER.index(g[0])))
+    used: set = set()
+    steps = []
+    for cid, lv, short in gaps:
+        steps.append({"cluster": cid, "to": lv, "people": short, "n": len(short),
+                      "sdg": CLUSTER[cid].get("sdg", []), **_pick(cid, lv, allowed, used)})
+    hours = {name: sum(i["hours"] for st in steps if name in st["people"] for i in st["items"]) for name, _ in people}
+    ready = [p["name"] for p in persons["moderate"] if p["readiness"] >= READY]
+    return {"size": len(people), "careers": careers, "people": persons,
+            "summary": {"target": target, "ready": ready, "ready_at": READY,
+                        "readiness_avg": round(sum(p["readiness"] for p in persons["moderate"]) / len(people), 3),
+                        "target_exposure": ROLE[target]["exposure"]},
+            "plan": {"role": target, "steps": steps, "hours": hours}}
+
+
+READY = 0.8  # share of the target career's entry skills a person already has to count as nearly ready
 
 
 # ---------- SDG -------------------------------------------------------------------
