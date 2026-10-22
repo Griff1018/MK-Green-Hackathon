@@ -435,7 +435,6 @@
  "We only pick courses you can afford. Paid ones show as optional.": "我们只挑选您负担得起的课程。付费课程显示为可选。",
  "Courses are filtered by cost tier for your budget; stronger paid options appear as upgrades.": "课程按费用等级根据您的预算筛选；更好的付费选项作为升级显示。",
  "The UN's 17 goals for a better world. This shows how the work helps them.": "联合国为建设更美好世界提出的 17 个目标。这里显示这份工作如何作出贡献。",
- "Links to official UN SDG targets with a reason. They do not change rankings, except in the Green transition scenario.": "附理由链接到联合国官方 SDG 具体目标。除“绿色转型”情景外，不影响排名。",
  "The EU's official list of jobs and skills. We use it so careers are real.": "欧盟官方的职业与技能清单。我们用它确保职业真实存在。",
  "ESCO v1.2 occupations and essential skills, linked to ISCO-08 codes.": "ESCO v1.2 职业及其必备技能，与 ISCO-08 代码对应。",
  "A skill employers now want because of AI. Official job lists don't include it yet.": "因为 AI 而被雇主新需要的技能。官方职业清单尚未收录。",
@@ -1665,5 +1664,8 @@
  "Path steps done": "已完成路径步骤",
  "{skill} ({n} of {total})": "{skill}（{n}/{total}）",
  "Open team": "打开团队",
- "Every team you look after, side by side. Each team has its own people, target career and profiles.": "你负责的所有团队并排显示。每个团队都有自己的成员、目标职业和档案。"
+ "Every team you look after, side by side. Each team has its own people, target career and profiles.": "你负责的所有团队并排显示。每个团队都有自己的成员、目标职业和档案。",
+ "Opens the UN page for this goal": "打开联合国该目标的页面",
+ "Links to official UN SDG targets with a reason; tap a goal to open its UN page. The small numbers on each career are the goals it serves. They do not change your fit score, except in the Green transition scenario.": "附理由链接到联合国官方 SDG 具体目标；点击目标可打开联合国页面。每个职业上的小数字是它支持的目标。除“绿色转型”情景外，不影响你的匹配分。",
+ "Serves UN goals: {list}": "支持的联合国目标：{list}"
 }

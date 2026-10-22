@@ -182,7 +182,16 @@ async function api(path, body, isForm, method) {
 const lvlDots = (n) => `<span class="lvl" aria-hidden="true">${[1, 2, 3].map((i) => `<i class="${i <= n ? "on" : ""}"></i>`).join("")}</span>`;
 const SDG_COL = { 1: "#E5243B", 2: "#DDA63A", 3: "#4C9F38", 4: "#C5192D", 5: "#FF3A21", 6: "#26BDE2", 7: "#FCC30B", 8: "#A21942", 9: "#FD6925", 10: "#DD1367", 11: "#FD9D24", 12: "#BF8B2E", 13: "#3F7E44", 14: "#0A97D9", 15: "#56C02B", 16: "#00689D", 17: "#19486A" };
 // UN target text is quoted in English, as published.
-const sdgTag = (t) => { const g = parseInt(t, 10); const d = st.meta.sdg_targets[t]; return `<span class="sdg ${g === 7 ? "y" : ""}" style="background:${SDG_COL[g]}" title="${esc(d ? "SDG " + t + ": " + d.text : "SDG " + t)}">SDG ${esc(t)}</span>`; };
+const sdgUrl = (g) => `https://sdgs.un.org/goals/goal${g}#targets_and_indicators`;
+const sdgTag = (t) => { const g = parseInt(t, 10); const d = st.meta.sdg_targets[t]; return `<a class="sdg ${g === 7 ? "y" : ""}" style="background:${SDG_COL[g]}" href="${sdgUrl(g)}" target="_blank" rel="noopener" title="${esc((d ? "SDG " + t + ": " + d.text : "SDG " + t) + " · " + T("Opens the UN page for this goal"))}">SDG ${esc(t)}</a>`; };
+// SDG impact of a career: the targets it serves directly plus those of the skills it needs.
+// Shown as small goal numbers on each career card; it never changes the fit score.
+function sdgImpact(roleId) {
+  const r = roleOf(roleId), own = r.sdg.map((l) => l.target);
+  const targets = [...new Set([...own, ...r.req.flatMap((q) => cl(q.cluster).sdg || [])])];
+  const goals = [...new Set(targets.map((t) => parseInt(t, 10)))].sort((a, b) => a - b);
+  return { targets, goals, own: r.sdg };
+}
 
 // ---------- plain-language layer ---------------------------------------------------
 // "Simple" mode turns numbers and jargon into short, direct words. "Detailed" keeps the
@@ -196,7 +205,7 @@ const GLOSSARY = {
   priority: ["We put the skills employers want most right now first.", "Within each stage, steps are ordered by prerequisites, then by gap × demand momentum. When new trend data changes that order, the step is flagged."],
   newtech: ["A newer tool that more job ads mention than before.", "Watch-list terms whose share of job posts rose versus the previous three months, with at least five mentions."],
   budget: ["We only pick courses you can afford. Paid ones show as optional.", "Courses are filtered by cost tier for your budget; stronger paid options appear as upgrades."],
-  sdg: ["The UN's 17 goals for a better world. This shows how the work helps them.", "Links to official UN SDG targets with a reason. They do not change rankings, except in the Green transition scenario."],
+  sdg: ["The UN's 17 goals for a better world. This shows how the work helps them.", "Links to official UN SDG targets with a reason; tap a goal to open its UN page. The small numbers on each career are the goals it serves. They do not change your fit score, except in the Green transition scenario."],
   esco: ["The EU's official list of jobs and skills. We use it so careers are real.", "ESCO v1.2 occupations and essential skills, linked to ISCO-08 codes."],
   future: ["A skill employers now want because of AI. Official job lists don't include it yet.", "Requirement added by the team because ESCO predates generative AI."],
   resume: ["Your resume is ready any time. It grows as you finish path steps, so it only shows what you can really do.", "The resume lists skills at working level or above and only courses marked done."],
@@ -336,7 +345,7 @@ function renderChrome() {
   const navBtn = ([k, l, icon]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon}</svg><span>${T(l)}</span></button>`;
   const more = NAV2.some(([k]) => st.page === k);
   $("#nav").setAttribute("aria-label", T("Main"));
-  const teamNav = [NAV[0], ["people", isCohort() ? "Students" : "People", '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.9-3.8 3.4-5.8 6.5-5.8s5.6 2 6.5 5.8"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.6c1.6.8 2.6 2.6 3 5.4"/>'], ["team", "Skills table", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>']];
+  const teamNav = [NAV[0], ["people", A() && A().profile && isCohort() ? "Students" : "People", '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.9-3.8 3.4-5.8 6.5-5.8s5.6 2 6.5 5.8"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.6c1.6.8 2.6 2.6 3 5.4"/>'], ["team", "Skills table", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>']];
   $("#nav").innerHTML = showNav ? (isTeamUser() ? `<div class="nav-group">${T("Plan")}</div>${teamNav.map(navBtn).join("")}` : `<div class="nav-group">${T("Plan")}</div>${NAV.slice(0, 3).map(navBtn).join("")}<div class="nav-group">${T("Act")}</div>${NAV.slice(3).map(navBtn).join("")}${navBtn(NAV_JOB).replace("<button ", '<button class="nav-info" ')}<div class="nav-group nav-info">${T("Stay informed")}</div>${navBtn(NAV_NEWS).replace("<button ", '<button class="nav-info" ')}${navBtn(NAV_UPD).replace("<button ", '<button class="nav-info" ').replace("</span></button>", `</span>${updChanges() ? `<i class="nav-dot" title="${esc(T("{n} changes", { n: updChanges() }))}"></i>` : ""}</button>`)}`)
     + `<button type="button" class="nav-more" id="navMore" ${more ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>${T("More")}</span></button>`
     + `<div class="nav-2"><div class="nav-group">${T("Trust and teams")}</div>${NAV2.map(([k, l]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><span>${T(l)}</span></button>`).join("")}</div>` : "";
@@ -1070,7 +1079,7 @@ function zoneCard(x, team, mine) {
   const me = x.role === mine, sel = !team && x.role === st.open;
   return `<button type="button" class="zone-card ${x.rank <= 6 ? "top" : ""} ${me ? "mine" : ""} ${sel ? "sel" : ""}" data-mapdot="${x.role}" ${team ? 'data-mapkind="team"' : ""}>
     <span class="z-icon" aria-hidden="true">${careerIcon(x.role)}</span>
-    <span class="z-text"><b>${esc(roleOf(x.role).title)}</b><span class="tiny muted">${esc(T("#{rank} · fit {score}", { rank: x.rank, score: Math.round(x.score) }))}</span></span>
+    <span class="z-text"><b>${esc(roleOf(x.role).title)}</b><span class="z-meta"><span class="tiny muted">${esc(T("#{rank} · fit {score}", { rank: x.rank, score: Math.round(x.score) }))}</span>${team ? "" : (() => { const g = sdgImpact(x.role).goals; return `<span class="z-sdg" title="${esc(T("Serves UN goals: {list}", { list: g.map((n) => "SDG " + n).join(", ") }))}">${g.map((n) => `<i class="${n === 7 ? "y" : ""}" style="background:${SDG_COL[n]}">${n}</i>`).join("")}</span>`; })()}</span></span>
     ${me ? `<span class="z-tag">${T(team ? "Target" : "My career")}</span>` : ""}</button>`;
 }
 function dotsSvg(list, team, mine, W) {
@@ -1629,7 +1638,7 @@ function memProgress(i) {
   return { pw, req, n: req.filter((x) => d[x.key]).length, next: req.find((x) => !d[x.key]) || null };
 }
 function vTeamTabs() {
-  const tab = (id) => `<button type="button" data-team="${id}" aria-pressed="${st.team === id}">${esc(teamName(id))}${isOwn(id) ? "" : ` <span class="tiny muted">${T("sample")}</span>`}</button>`;
+  const tab = (id) => `<button type="button" data-team="${id}" aria-pressed="${st.page !== "teams" && st.team === id}">${esc(teamName(id))}${isOwn(id) ? "" : ` <span class="tiny muted">${T("sample")}</span>`}</button>`;
   return `<div class="row between team-tabs-row"><div class="seg team-tabs" role="group" aria-label="${T("Teams")}"><button type="button" data-page="teams" aria-pressed="${st.page === "teams"}">${T("All teams")}</button>${allTeamIds().map(tab).join("")}</div>
     <div class="row">${ownTeam() ? `<button type="button" class="btn ghost small" id="teamEdit">${T("Edit this team")}</button>` : ""}<button type="button" class="btn small" id="teamNew">+ ${T("New team")}</button></div></div>`;
 }
@@ -1645,12 +1654,13 @@ function teamRepFor(id) {
 }
 function vTeams() {
   if (!isTeamUser()) { st.page = "dashboard"; return vDashboard(); }
+  const cur = st.team;  // withTeam swaps st.team while each card is built
   const cards = allTeamIds().map((id) => withTeam(id, () => {
     const Tm = teamData(), target = st.teamTarget || Tm.target_role, rep = teamRepFor(id);
     const prs = Tm.people.map((_, i) => memProgress(i)), loaded = prs.every(Boolean);
     const doneN = loaded ? prs.reduce((a, x) => a + x.n, 0) : 0, totalN = loaded ? prs.reduce((a, x) => a + x.req.length, 0) : 0;
     const ppl = rep ? rep.people[st.scen] : [], avg = ppl.length ? ppl.reduce((a, x) => a + x.readiness, 0) / ppl.length : null, gap = rep && rep.plan.steps[0];
-    return `<section class="card stack team-card ${st.team === id ? "current" : ""}">
+    return `<section class="card stack team-card ${cur === id ? "current" : ""}">
       <div class="row between" style="flex-wrap:nowrap"><h3>${esc(teamName(id))}</h3>${isOwn(id) ? "" : `<span class="badge">${T("sample")}</span>`}</div>
       <p class="small muted">${esc(T("{n} people · preparing for {role}", { n: Tm.people.length, role: roleOf(target).title }))}</p>
       <div class="list">

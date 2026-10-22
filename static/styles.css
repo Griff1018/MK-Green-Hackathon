@@ -125,7 +125,9 @@ button.chip:hover { border-color: var(--accent); }
 .badge { display: inline-flex; align-items: center; gap: 5px; font-size: .74rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--chip); color: var(--muted); white-space: nowrap; }
 .badge.accent { background: var(--accent-soft); color: var(--accent); }
 .badge.warn { background: var(--warn-soft); color: var(--warn); }
-.sdg { font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; color: #fff; white-space: nowrap; }
+.sdg { font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; color: #fff; white-space: nowrap; text-decoration: none; }
+a.sdg:hover { text-decoration: underline; text-underline-offset: 2px; }
+a.sdg:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .sdg.y { color: #222; }
 
 /* notices */
@@ -1741,3 +1743,9 @@ html.tour-lock, html.tour-lock body { overflow: hidden; overscroll-behavior: non
 .team-card { display: flex; flex-direction: column; }
 .team-card > .row:last-child { margin-top: auto; }
 .team-card.current { border-color: var(--accent); }
+
+/* ---- small SDG goal numbers on career cards ---- */
+.z-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.z-sdg { display: inline-flex; gap: 2px; }
+.z-sdg i { font-style: normal; min-width: 16px; height: 16px; padding: 0 2px; border-radius: 3px; color: #fff; font-size: .6rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
+.z-sdg i.y { color: #222; }

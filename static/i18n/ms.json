@@ -435,7 +435,6 @@
  "We only pick courses you can afford. Paid ones show as optional.": "Kami hanya memilih kursus yang mampu anda bayar. Kursus berbayar ditunjukkan sebagai pilihan.",
  "Courses are filtered by cost tier for your budget; stronger paid options appear as upgrades.": "Kursus ditapis mengikut tahap kos untuk bajet anda; pilihan berbayar yang lebih kukuh dipaparkan sebagai naik taraf.",
  "The UN's 17 goals for a better world. This shows how the work helps them.": "17 matlamat PBB untuk dunia yang lebih baik. Ini menunjukkan bagaimana kerja ini membantunya.",
- "Links to official UN SDG targets with a reason. They do not change rankings, except in the Green transition scenario.": "Pautan kepada sasaran SDG rasmi PBB beserta sebab. Ia tidak mengubah kedudukan, kecuali dalam senario Peralihan hijau.",
  "The EU's official list of jobs and skills. We use it so careers are real.": "Senarai rasmi EU bagi pekerjaan dan kemahiran. Kami menggunakannya supaya kerjaya adalah benar.",
  "ESCO v1.2 occupations and essential skills, linked to ISCO-08 codes.": "Pekerjaan dan kemahiran penting ESCO v1.2, dipautkan kepada kod ISCO-08.",
  "A skill employers now want because of AI. Official job lists don't include it yet.": "Kemahiran yang kini dikehendaki majikan kerana AI. Senarai pekerjaan rasmi belum memasukkannya.",
@@ -1665,5 +1664,8 @@
  "Path steps done": "Langkah laluan selesai",
  "{skill} ({n} of {total})": "{skill} ({n} daripada {total})",
  "Open team": "Buka pasukan",
- "Every team you look after, side by side. Each team has its own people, target career and profiles.": "Setiap pasukan yang anda jaga, bersebelahan. Setiap pasukan ada orang, kerjaya sasaran dan profilnya sendiri."
+ "Every team you look after, side by side. Each team has its own people, target career and profiles.": "Setiap pasukan yang anda jaga, bersebelahan. Setiap pasukan ada orang, kerjaya sasaran dan profilnya sendiri.",
+ "Opens the UN page for this goal": "Membuka halaman PBB untuk matlamat ini",
+ "Links to official UN SDG targets with a reason; tap a goal to open its UN page. The small numbers on each career are the goals it serves. They do not change your fit score, except in the Green transition scenario.": "Pautan kepada sasaran SDG rasmi PBB beserta sebab; ketik satu matlamat untuk membuka halaman PBB. Nombor kecil pada setiap kerjaya ialah matlamat yang disokongnya. Ia tidak mengubah skor kesesuaian anda, kecuali dalam senario Peralihan hijau.",
+ "Serves UN goals: {list}": "Menyokong matlamat PBB: {list}"
 }

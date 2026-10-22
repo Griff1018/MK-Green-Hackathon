@@ -6,3 +6,8 @@ data/*.db
 data/cache/
 .pytest_cache/
 .codebuddy-cli/
+.claude/settings.local.json
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
