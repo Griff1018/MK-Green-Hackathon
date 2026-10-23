@@ -36,6 +36,7 @@ function useAccount(u) {
     const t = st.acct.team, src = t.source === "upload" ? (st.ownTeams[0] || {}).id : t.source;
     st.teamTargets = t.targets || (t.target && src ? { [src]: t.target } : {});
     st.team = src && (isOwn(src) ? st.ownTeams.some((x) => x.id === src) : st.meta.samples.teams.some((x) => x.id === src)) ? src : (st.acct.profile && st.acct.profile.situation === "tvet" ? "tvet" : "hr");
+    if (!shownTeamIds().includes(st.team)) st.team = shownTeamIds()[0];
   }
   st.teamReport = null; st.openAreas = null; st.slide = null; st.teamSlide = null;
 }
@@ -1685,8 +1686,8 @@ function memProgress(i) {
 }
 function vTeamTabs() {
   const tab = (id) => `<button type="button" data-team="${id}" aria-pressed="${st.page !== "teams" && st.team === id}">${esc(teamName(id))}${isOwn(id) ? "" : ` <span class="tiny muted">${T("sample")}</span>`}</button>`;
-  return `<div class="row between team-tabs-row"><div class="seg team-tabs" role="group" aria-label="${T("Teams")}"><button type="button" data-page="teams" aria-pressed="${st.page === "teams"}">${T("All teams")}</button>${allTeamIds().map(tab).join("")}</div>
-    <div class="row">${ownTeam() ? `<button type="button" class="btn ghost small" id="teamEdit">${T("Edit this team")}</button>` : ""}<button type="button" class="btn small" id="teamNew">+ ${T("New team")}</button></div></div>`;
+  return `<div class="row between team-tabs-row"><div class="seg team-tabs" role="group" aria-label="${T("Teams")}"><button type="button" data-page="teams" aria-pressed="${st.page === "teams"}">${T("All teams")}</button>${shownTeamIds().map(tab).join("")}</div>
+    <div class="row">${st.ownTeams.length ? `<button type="button" class="btn ghost small" id="sampleToggle" aria-pressed="${!samplesHidden()}">${T(samplesHidden() ? "Show sample teams" : "Hide sample teams")}</button>` : ""}${ownTeam() ? `<button type="button" class="btn ghost small" id="teamEdit">${T("Edit this team")}</button>` : ""}<button type="button" class="btn small" id="teamNew">+ ${T("New team")}</button></div></div>`;
 }
 // One card per team: size, target, readiness, path progress and the gap most people share.
 function teamRepFor(id) {
@@ -1701,7 +1702,7 @@ function teamRepFor(id) {
 function vTeams() {
   if (!isTeamUser()) { st.page = "dashboard"; return vDashboard(); }
   const cur = st.team;  // withTeam swaps st.team while each card is built
-  const cards = allTeamIds().map((id) => withTeam(id, () => {
+  const cards = shownTeamIds().map((id) => withTeam(id, () => {
     const Tm = teamData(), target = st.teamTarget || Tm.target_role, rep = teamRepFor(id);
     const prs = Tm.people.map((_, i) => memProgress(i)), loaded = prs.every(Boolean);
     const doneN = loaded ? prs.reduce((a, x) => a + x.n, 0) : 0, totalN = loaded ? prs.reduce((a, x) => a + x.req.length, 0) : 0;
@@ -2057,7 +2058,8 @@ function vNodeSheet(n) {
   const isDone = done(n.key), s = st.path.stages[n.si];
   let body = "";
   if (n.type === "skill") {
-    const dir = n.demand_change == null ? "" : n.demand_change >= 0.005 ? "up" : n.demand_change <= -0.005 ? "down" : "";
+    // colour follows what the text says: in Simple mode only a change of 5% or more counts as up or down
+    const cut = simple() ? 0.05 : 0.005, dir = n.demand_change == null ? "" : n.demand_change >= cut ? "up" : n.demand_change <= -cut ? "down" : "";
     const was = !simple() && n.demand_change_before != null ? ` <span class="muted small">${esc(T("(was {value})", { value: demandText(n.demand_change_before) }))}</span>` : "";
     const moved = n.moved > 0 ? T(simple() ? "More jobs need this now, so we moved it earlier." : "Moved earlier because demand rose.") : n.moved < 0 && !simple() ? T("Moved later because other skills became more urgent.") : "";
     const tools = n.new_tech && n.new_tech.length ? n.new_tech.map((w) => simple() ? `<b>${esc(w.term)}</b>` : `<b>${esc(w.term)}</b> <span class="muted small">${esc(T("{before} → {after} posts", { before: w.prev, after: w.cur }))}</span>`).join(", ") : "";
@@ -2250,6 +2252,10 @@ function loadOwnTeams() {
 }
 function saveOwnTeams() { try { localStorage.setItem(OWN_KEY(), JSON.stringify(st.ownTeams)); } catch (e) { /* this visit only */ } }
 const allTeamIds = () => [...st.meta.samples.teams.map((t) => t.id), ...st.ownTeams.map((t) => t.id)];
+// Sample teams are for trying the app out; once there is a team of one's own they are hidden
+// until "Show sample teams" is switched on.
+const samplesHidden = () => st.ownTeams.length > 0 && !(A() && A().prefs.showSampleTeams);
+const shownTeamIds = () => (samplesHidden() ? st.ownTeams.map((t) => t.id) : allTeamIds());
 const teamName = (id) => { const o = st.ownTeams.find((t) => t.id === id); return o ? o.label : TS(st.meta.samples.teams.find((t) => t.id === id).label); };
 function withTeam(id, fn) { const was = st.team; st.team = id; try { return fn(); } finally { st.team = was; } }
 function teamData() { return ownTeam() || st.meta.samples.teams.find((t) => t.id === st.team) || st.meta.samples.teams[0]; }
@@ -3271,6 +3277,11 @@ document.addEventListener("click", async (ev) => {
   if (d.explain) { explainRole(d.explain, false); return; }
   switch (t.id) {
     case "caseBtn": if (!A().prefs.helperSeen) { A().prefs.helperSeen = true; save(); } openChat(); return;
+    case "sampleToggle": {
+      A().prefs.showSampleTeams = samplesHidden(); save();
+      if (!shownTeamIds().includes(st.team)) { st.team = shownTeamIds()[0]; teamSaved(); }
+      render(); return;
+    }
     case "chatClose": st.chat.open = false; st.chat.quote = null; selClear(); renderHelper(); $("#caseBtn").focus(); return;
     case "selTipX": selTipDone(); return;
     case "quoteDrop": st.chat.quote = null; selClear(); renderHelper(); { const inp = $("#chatInput"); if (inp) inp.focus(); } return;

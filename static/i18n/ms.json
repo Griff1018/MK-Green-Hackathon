@@ -1789,5 +1789,7 @@
  "Your top job is now {job}. The earlier steps stay as they were.": "Jawatan tertinggi anda kini {job}. Langkah awal kekal seperti sebelum ini.",
  "Back to your career's own top job.": "Kembali kepada jawatan tertinggi asal kerjaya anda.",
  "Your top job is {job}, swapped from {original}.": "Jawatan tertinggi anda ialah {job}, ditukar daripada {original}.",
- "Undo": "Buat asal"
+ "Undo": "Buat asal",
+ "Show sample teams": "Tunjukkan pasukan contoh",
+ "Hide sample teams": "Sembunyikan pasukan contoh"
 }

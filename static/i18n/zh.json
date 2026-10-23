@@ -1789,5 +1789,7 @@
  "Your top job is now {job}. The earlier steps stay as they were.": "你的最高职位现在是{job}。前面的步骤保持不变。",
  "Back to your career's own top job.": "已恢复为该职业原本的最高职位。",
  "Your top job is {job}, swapped from {original}.": "你的最高职位是{job}，由{original}更换而来。",
- "Undo": "撤销"
+ "Undo": "撤销",
+ "Show sample teams": "显示示例团队",
+ "Hide sample teams": "隐藏示例团队"
 }
