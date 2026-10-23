@@ -1731,7 +1731,7 @@ body.story-open { overflow: hidden; }
 .menu-mode { display: none; }
 @media (max-width: 640px) { #modePick { display: none; } .menu-mode { display: flex; } }
 /* reminder that any text can be highlighted and asked about (left of Simple / Detailed) */
-#modePick { display: flex; align-items: center; gap: 10px; }
+@media (min-width: 640.02px) { #modePick { display: flex; align-items: center; gap: 10px; } }  /* phones keep it hidden (rule above) */
 .sel-tip { display: inline-flex; align-items: center; gap: 7px; margin: 0; padding: 4px 4px 4px 4px; font-size: .78rem; color: var(--muted);
   border: 1px dashed var(--line); border-radius: var(--r-sm); white-space: nowrap; }
 .sel-tip-mark { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 3px; background: var(--accent); color: var(--accent-ink); }
@@ -1809,3 +1809,51 @@ html.tour-lock, html.tour-lock body { overflow: hidden; overscroll-behavior: non
 .chat-quote { display: flex; gap: 8px; align-items: flex-start; margin: 0 12px; padding: 8px 4px 8px 10px; border-left: 3px solid var(--accent); background: var(--chip); border-radius: 0 var(--r-sm) var(--r-sm) 0; }
 .chat-quote blockquote { margin: 0; flex: 1; min-width: 0; font-size: .8rem; line-height: 1.45; color: var(--muted); font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .chat-quote .icon-btn { width: 28px; height: 28px; font-size: .8rem; flex: none; }
+
+/* ---- mock interview with Lambtae ---- */
+.iv-lamb { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--accent-soft); display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); }
+.iv-lamb img { width: 54px; height: 54px; object-fit: contain; }
+.iv-start { display: flex; gap: 20px; align-items: flex-start; }
+.iv-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.iv-list li { display: flex; gap: 10px; align-items: center; font-size: .9rem; }
+.iv-list .n { width: 22px; height: 22px; border-radius: 50%; border: 1.2px solid var(--ink); display: grid; place-items: center; font-size: .72rem; font-weight: 600; flex: none; }
+.iv-progress { display: flex; gap: 6px; }
+.iv-progress i { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
+.iv-progress i.done { background: var(--ink); } .iv-progress i.now { background: var(--accent); }
+.iv-q { display: grid; gap: 16px; }
+.iv-ask { display: flex; gap: 16px; align-items: flex-start; }
+.iv-text { font-family: var(--display); font-weight: 500; font-size: 1.35rem; line-height: 1.3; }
+.iv-listen { justify-self: start; padding: 4px 8px; font-size: .8rem; width: fit-content; }
+.iv-answer { position: relative; }
+.iv-answer textarea { width: 100%; min-height: 150px; resize: vertical; padding: 12px 48px 12px 14px; font: inherit; line-height: 1.55; }
+.iv-answer textarea[readonly] { opacity: .8; }
+.iv-answer .mic-btn { position: absolute; right: 8px; bottom: 10px; }
+.iv-q [data-iv="check"][disabled] { opacity: 1; cursor: progress; }  /* waiting for feedback, not unavailable */
+.iv-fb { display: grid; gap: 10px; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--chip); border-radius: 0 var(--r) var(--r) 0; }
+.iv-fb p { font-size: .92rem; line-height: 1.55; }
+.iv-checks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.iv-checks li { display: inline-flex; gap: 5px; align-items: center; font-size: .78rem; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.iv-checks li.ok { border-color: var(--good); color: var(--ink); } .iv-checks li.ok span { color: var(--good); }
+.iv-tips { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: .9rem; }
+.iv-better { font-style: italic; } .iv-better .label { display: block; font-style: normal; margin-bottom: 2px; }
+.iv-sum { display: grid; gap: 16px; }
+.iv-sum .progress-geo { flex: none; width: 110px; }
+.iv-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.iv-bars li { display: grid; grid-template-columns: minmax(110px, 160px) 1fr auto; gap: 12px; align-items: center; font-size: .88rem; }
+.iv-bars .track { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; } .iv-bars .fill { height: 100%; background: var(--accent); }
+@media (max-width: 640px) {
+  .iv-start, .iv-ask { gap: 12px; } .iv-lamb { width: 48px; height: 48px; } .iv-lamb img { width: 40px; height: 40px; }
+  .iv-text { font-size: 1.15rem; } .iv-sum .progress-geo { width: 84px; } .iv-bars li { grid-template-columns: 1fr auto; } .iv-bars .track { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ---- learning plan in the calendar ---- */
+.cal-panel { display: grid; gap: 14px; border-left: 3px solid var(--accent); }
+.cal-grid { display: grid; grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr)); gap: 12px; align-items: end; }
+.cal-days { display: flex; flex-wrap: wrap; gap: 6px; }
+.cal-days .chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.cal-grid input, .cal-grid select { width: 100%; }
+.cal-sum { font-size: .9rem; }
+.cal-preview { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.cal-preview li { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+@media (max-width: 860px) { .cal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cal-grid > .field:first-child { grid-column: 1 / -1; } }
+@media (max-width: 480px) { .cal-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .cal-grid > .field:nth-child(4) { grid-column: 1 / -1; } }

@@ -336,6 +336,7 @@ const NAV = [["dashboard", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6
   ["resume", "Resume", '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>']];
 const NAV2 = [["sources", "Data and sources"], ["team", "For HR teams"]];
 const NAV_JOB = ["jobcheck", "Job check", '<path d="M4 7h16v12H4z"/><path d="M9 7V4h6v3"/><path d="M8 13l3 3 5-6"/>'];
+const NAV_IV = ["interview", "Interview practice", '<path d="M4 5h11v8H8l-4 3z"/><path d="M15 9h5v8l-3-2h-6v-2"/>'];
 const NAV_UPD = ["updates", "Updates", '<path d="M20 11a8 8 0 0 0-14.6-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.6 4.5L20 16"/><path d="M20 20v-4h-4"/>'];
 const NAV_NEWS = ["news", "News", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>'];
 function renderChrome() {
@@ -348,7 +349,7 @@ function renderChrome() {
   const more = NAV2.some(([k]) => st.page === k);
   $("#nav").setAttribute("aria-label", T("Main"));
   const teamNav = [NAV[0], ["people", A() && A().profile && isCohort() ? "Students" : "People", '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.9-3.8 3.4-5.8 6.5-5.8s5.6 2 6.5 5.8"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.6c1.6.8 2.6 2.6 3 5.4"/>'], ["team", "Skills table", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>']];
-  $("#nav").innerHTML = showNav ? (isTeamUser() ? `<div class="nav-group">${T("Plan")}</div>${teamNav.map(navBtn).join("")}` : `<div class="nav-group">${T("Plan")}</div>${NAV.slice(0, 3).map(navBtn).join("")}<div class="nav-group">${T("Act")}</div>${NAV.slice(3).map(navBtn).join("")}${navBtn(NAV_JOB).replace("<button ", '<button class="nav-info" ')}<div class="nav-group nav-info">${T("Stay informed")}</div>${navBtn(NAV_NEWS).replace("<button ", '<button class="nav-info" ')}${navBtn(NAV_UPD).replace("<button ", '<button class="nav-info" ').replace("</span></button>", `</span>${updChanges() ? `<i class="nav-dot" title="${esc(T("{n} changes", { n: updChanges() }))}"></i>` : ""}</button>`)}`)
+  $("#nav").innerHTML = showNav ? (isTeamUser() ? `<div class="nav-group">${T("Plan")}</div>${teamNav.map(navBtn).join("")}` : `<div class="nav-group">${T("Plan")}</div>${NAV.slice(0, 3).map(navBtn).join("")}<div class="nav-group">${T("Act")}</div>${NAV.slice(3).map(navBtn).join("")}${navBtn(NAV_JOB).replace("<button ", '<button class="nav-info" ')}${navBtn(NAV_IV).replace("<button ", '<button class="nav-info" ')}<div class="nav-group nav-info">${T("Stay informed")}</div>${navBtn(NAV_NEWS).replace("<button ", '<button class="nav-info" ')}${navBtn(NAV_UPD).replace("<button ", '<button class="nav-info" ').replace("</span></button>", `</span>${updChanges() ? `<i class="nav-dot" title="${esc(T("{n} changes", { n: updChanges() }))}"></i>` : ""}</button>`)}`)
     + `<button type="button" class="nav-more" id="navMore" ${more ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>${T("More")}</span></button>`
     + `<div class="nav-2"><div class="nav-group">${T("Trust and teams")}</div>${NAV2.map(([k, l]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><span>${T(l)}</span></button>`).join("")}</div>` : "";
   renderThemeBtn();
@@ -360,7 +361,7 @@ function renderChrome() {
       <div class="seg menu-mode" role="group" aria-label="${T("Explanations")}"><button type="button" data-mode="simple" aria-pressed="${simple()}">${T("Simple")}</button><button type="button" data-mode="detailed" aria-pressed="${!simple()}">${T("Detailed")}</button></div>
       ${A().onboarded ? `<button type="button" class="btn" data-page="wizard">${T("Edit about you")}</button>` : ""}
       ${A().onboarded ? `<button type="button" class="btn" id="tourStart">${T("Show the guide")}</button>${isTeamUser() ? "" : `<button type="button" class="btn" id="storyReplay">▶ ${T("Replay my story")}</button>`}` : ""}
-      <div class="menu-nav">${isTeamUser() ? "" : `<button type="button" class="btn" data-page="updates">${T("Updates")}</button><button type="button" class="btn" data-page="news">${T("News")}</button><button type="button" class="btn" data-page="jobcheck">${T("Job check")}</button>`}<button type="button" class="btn" data-page="team">${T("Teams")}</button><button type="button" class="btn" data-page="sources">${T("Sources")}</button></div>
+      <div class="menu-nav">${isTeamUser() ? "" : `<button type="button" class="btn" data-page="updates">${T("Updates")}</button><button type="button" class="btn" data-page="news">${T("News")}</button><button type="button" class="btn" data-page="jobcheck">${T("Job check")}</button><button type="button" class="btn" data-page="interview">${T("Interview practice")}</button>`}<button type="button" class="btn" data-page="team">${T("Teams")}</button><button type="button" class="btn" data-page="sources">${T("Sources")}</button></div>
       <button type="button" class="btn" id="signOut">${T("Sign out")}</button>
     </div></details>` : "";
   document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = T(el.dataset.i18n); });
@@ -878,7 +879,7 @@ function vDashboard() {
     <div class="card next-card">
       ${cur ? `<span class="disc-mini">${nodeIcon(cur, false)}</span>
         <div class="stack" style="gap:4px"><span class="eyebrow">${T("Your next step")}</span><h3>${esc(nodeLabel(cur))}</h3><p class="small muted">${esc(TS(cur.stage.stage))} · ${esc(cur.stage.title)}${cur.type === "skill" && cur.items[0] ? " · " + esc(cur.items[0].title) + ` (${cur.items[0].hours} h)` : ""}</p></div>
-        <div class="act"><button class="btn primary big" type="button" data-goto="${esc(cur.key)}">${T("Start this step")}</button></div>`
+        <div class="act">${cur.type === "checkpoint" ? `<button class="btn big" type="button" data-interview="${cur.si}">${T("Practise the interview")}</button>` : ""}<button class="btn primary big" type="button" data-goto="${esc(cur.key)}">${T("Start this step")}</button></div>`
         : `<span class="done-mark">${I.check}</span><div class="stack" style="gap:4px"><span class="eyebrow">${T("Your path")}</span><h3>${T("You finished every step. Well done!")}</h3></div>`}
     </div>
     ${quickTasks(r, res, cur, b)}
@@ -1867,7 +1868,8 @@ function vPath() {
     </section>`;
   };
   return `<div class="page">
-  ${intro(T("My path"), T("Your path to {role}", { role: peak }), simple() ? T("Follow the road from the top. Tap a circle to see what to do. Dashed circles are optional.") : esc(T("Start as {role}. Steps are ordered by prerequisites and current demand. Paid certificates outside your budget are dashed and optional.", { role: pw.stages[0].title })))}
+  ${intro(T("My path"), T("Your path to {role}", { role: peak }), simple() ? T("Follow the road from the top. Tap a circle to see what to do. Dashed circles are optional.") : esc(T("Start as {role}. Steps are ordered by prerequisites and current demand. Paid certificates outside your budget are dashed and optional.", { role: pw.stages[0].title })), `<button class="btn" type="button" data-cal="toggle" aria-expanded="${calState().open}">📅 ${T("Add to my calendar")}</button>`)}
+  ${vCalPanel()}
   ${vTrackTabs(tab)}
   ${tab !== "basic" ? vTrackBoard(trackOf(tab)) : `<div class="row between">
     <div class="legend" aria-label="${T("Legend")}"><span><i class="l-done"></i>${T("Done")}</span><span><i class="l-now"></i>${T("Next step")}</span><span><i></i>${T("To do")}</span><span><i class="l-opt"></i>${T("Optional")}</span><span><b class="flag-s">${esc(flagMoved)}</b>${T("Moved up today")}</span><span><b class="flag-s">${esc(flagTool)}</b>${T("Rising tool")}</span>${info("stage")}</div>
@@ -2041,7 +2043,7 @@ function vNodeSheet(n) {
     body = `<p class="small">${esc(TS(n.text))}</p>
       ${s.local_demand ? `<p class="note accent small">${esc(simple() ? T("Employers in {country} are short of these people.", { country: countryName() }) : T("{group} are listed as critical occupations in {country}.", { group: TS(s.local_demand), country: countryName() }) + " " + TS(st.path.local_demand_source))}</p>` : ""}
       <div class="stack"><span class="label">${esc(T("Look for jobs in {country}", { country: countryName() }))}</span>${(st.advice ? st.advice.job_search : []).map((j) => `<a class="btn" href="${esc(j.url.replace("{q}", q).replace("{q_dash}", qd))}" target="_blank" rel="noopener">${esc(j.name)} ↗</a>`).join("")}</div>
-      <button class="btn primary" type="button" data-page="resume">${T("Build my resume →")}</button>`;
+      <div class="row"><button class="btn primary" type="button" data-interview="${n.si}">${T("Practise the interview")}</button><button class="btn" type="button" data-page="resume">${T("Build my resume →")}</button></div>`;
   }
   return `<div class="card stack"><div class="row between"><span class="eyebrow">${esc(TS(s.stage))} · ${esc(s.title)}</span><button type="button" class="btn ghost sheet-close" data-closesheet aria-label="${T("Close")}">✕</button></div><h3>${esc(nodeLabel(n))}</h3>${body}
     ${n.type !== "checkpoint" ? `<button class="btn ${isDone ? "" : "primary"}" type="button" data-toggle="${esc(n.key)}">${T(isDone ? "Mark as not done" : "Mark as done")}</button>` : ""}</div>`;
@@ -2590,7 +2592,7 @@ function chatMsg(m) {
   const how = m.method === "llm" ? T("AI answer from your plan ({model}). Check before you act.", { model: m.model }) : T("Quick answer from your plan.");
   return `<div class="msg bot"><p>${esc(TS(m.text))}</p>${links ? `<div class="chat-links">${links}</div>` : ""}${srcs ? `<div class="chat-srcs">${srcs}</div>` : ""}<span class="chat-how">${esc(how)}</span></div>`;
 }
-const PAGE_NAME = { dashboard: "Home", jobcheck: "Job check", news: "News", mycareer: "My career", careers: "Compare careers", path: "My path", resume: "Resume", wizard: "Edit about you", sources: "Data and sources", team: "For HR teams" };
+const PAGE_NAME = { dashboard: "Home", interview: "Interview practice", jobcheck: "Job check", news: "News", mycareer: "My career", careers: "Compare careers", path: "My path", resume: "Resume", wizard: "Edit about you", sources: "Data and sources", team: "For HR teams" };
 function renderHelper() {
   const root = $("#helper"); if (!root) return;
   if (!helperVisible()) { root.innerHTML = ""; root.className = ""; return; }
@@ -2723,7 +2725,190 @@ document.addEventListener("selectionchange", () => { clearTimeout(tSel); tSel = 
 window.addEventListener("scroll", () => requestAnimationFrame(selPlace), { passive: true });
 window.addEventListener("resize", () => requestAnimationFrame(selPlace));
 
-const VIEWS = { teams: vTeams, people: vPeople, member: vMember, updates: vUpdates, signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
+// ---------- mock interview with Lambtae ------------------------------------------------------------
+// Five questions for the job the person is about to apply for (from /api/interview): who they are,
+// two skills they already have, one they are still building, and working with AI. Each answer gets
+// a checklist from simple rules and, when the model is switched on, a few kind sentences and a
+// stronger first line. Answers stay in this browser tab; the server checks them and keeps nothing.
+const IV_CHECKS = [["example", "A real example"], ["action", "What you did"], ["result", "The result"], ["skill", "Skill named"], ["length", "Good length"]];
+const ivState = () => (st.iv = st.iv || { stage: null, data: null, i: 0, answers: {}, fb: {}, busy: false, started: false, loading: false });
+const ivQ = (q) => T(q.text, Object.fromEntries(Object.entries(q.params || {}).map(([k, v]) => [k, k === "skill" && q.skill ? cl(q.skill).label : v])));
+async function ivLoad() {
+  const v = ivState(); if (v.loading) return; v.loading = true;
+  const stage = v.stage != null ? v.stage : (currentNode() ? currentNode().si : 0);
+  try { v.data = await api(`/api/interview?stage=${stage}`); v.stage = v.data.stage; } catch (e) { v.data = { job: null, questions: [], error: e.message }; }
+  v.loading = false; render();
+}
+function ivSpeak(text) {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text); u.lang = SPEECH_LANG[LANG] || "en-MY"; u.rate = 0.95;
+  speechSynthesis.speak(u);
+}
+function vInterview() {
+  if (!A().role) return `<div class="page">${intro(T("Interview practice"), T("Choose a career first"), "")}<button class="btn primary" type="button" data-page="careers">${T("Go to careers")}</button></div>`;
+  const v = ivState();
+  if (!v.data || v.data.job === undefined) { ivLoad(); return skeleton(2, T("Lambtae is preparing your questions…")); }
+  const qs = v.data.questions || [], job = v.data.job;
+  const head = intro(T("Interview practice"), T("Practise for {job}", { job: job || "" }),
+    T("Lambtae asks five questions for this job and gives feedback on each answer. Your answers are not saved."),
+    `<button class="btn" type="button" data-page="path">${T("Back to my path")}</button>`);
+  if (!qs.length) return `<div class="page">${head}<p class="note warn small">${esc(v.data.error || T("No questions for this career yet."))}</p></div>`;
+  const lamb = `<span class="iv-lamb" aria-hidden="true">${lambImg("lamb-art")}</span>`;
+  if (!v.started) {
+    return `<div class="page iv">${head}
+      <section class="card iv-start">${lamb}
+        <div class="stack" style="gap:10px;min-width:0"><h3>${T("Ready when you are")}</h3>
+          <ul class="iv-list">${qs.map((q, k) => `<li><span class="n">${k + 1}</span>${esc(T(IV_KIND[q.kind] || q.kind))}</li>`).join("")}</ul>
+          <p class="small muted">${T("Answer as you would in a real interview: a real example, what you did, and the result. Type or tap the microphone to speak.")}</p>
+          <div class="row"><button class="btn primary big" type="button" data-iv="start">${T("Start the interview")}</button></div></div>
+      </section></div>`;
+  }
+  if (v.i >= qs.length) return `<div class="page iv">${head}${ivSummary(qs)}</div>`;
+  const q = qs[v.i], fb = v.fb[v.i], text = ivQ(q), ans = v.answers[v.i] || "";
+  const checks = fb ? `<ul class="iv-checks">${IV_CHECKS.filter(([k]) => fb.checks[k] !== null && fb.checks[k] !== undefined).map(([k, l]) => `<li class="${fb.checks[k] ? "ok" : ""}"><span aria-hidden="true">${fb.checks[k] ? "✓" : "○"}</span>${T(l)}</li>`).join("")}</ul>` : "";
+  return `<div class="page iv">${head}
+    <div class="iv-progress" role="img" aria-label="${esc(T("Question {n} of {total}", { n: v.i + 1, total: qs.length }))}">${qs.map((_, k) => `<i class="${k < v.i ? "done" : k === v.i ? "now" : ""}"></i>`).join("")}</div>
+    <section class="card iv-q">
+      <div class="iv-ask">${lamb}<div class="stack" style="gap:6px;min-width:0"><span class="eyebrow">${esc(T("Question {n} of {total}", { n: v.i + 1, total: qs.length }))} · ${esc(T(IV_KIND[q.kind] || q.kind))}</span>
+        <h3 class="iv-text">${esc(text)}</h3>
+        ${window.speechSynthesis ? `<button type="button" class="btn ghost iv-listen" data-iv="listen">🔊 ${T("Listen")}</button>` : ""}</div></div>
+      <label class="sr-only" for="ivAnswer">${T("Your answer")}</label>
+      <div class="iv-answer"><textarea id="ivAnswer" rows="6" maxlength="2000" placeholder="${T("Type your answer, or tap the microphone and speak…")}" ${fb || v.busy ? "readonly" : ""}>${esc(ans)}</textarea>${fb ? "" : micBtn("ivAnswer")}</div>
+      ${fb ? `<div class="iv-fb" aria-live="polite">
+          ${checks}
+          ${fb.text ? `<p>${esc(fb.text)}</p>` : `<ul class="iv-tips">${fb.tips.map((t) => `<li>${esc(T(t))}</li>`).join("")}</ul>`}
+          ${fb.better_start ? `<p class="iv-better"><span class="label">${T("A stronger first line")}</span>“${esc(fb.better_start)}”</p>` : ""}
+          <span class="chat-how">${esc(fb.method === "llm" ? T("Feedback from {model}, checked against your answer.", { model: fb.model }) : T("Feedback from a simple checklist."))}</span>
+        </div>
+        <div class="row between"><button class="btn ghost" type="button" data-iv="retry">${T("Try this one again")}</button><button class="btn primary" type="button" data-iv="next">${T(v.i + 1 < qs.length ? "Next question →" : "See my summary →")}</button></div>`
+      : `<div class="row between"><button class="btn ghost" type="button" data-iv="skip">${T("Skip")}</button><button class="btn primary" type="button" data-iv="check" ${v.busy ? "disabled" : ""}>${v.busy ? `<span class="spin"></span> ${T("Lambtae is listening…")}` : T("Get feedback")}</button></div>`}
+    </section></div>`;
+}
+const IV_KIND = { intro: "About you", skill: "A skill you have", gap: "A skill you are building", ai: "Working with AI", close: "Why you" };
+function ivSummary(qs) {
+  const v = st.iv, got = qs.map((_, k) => v.fb[k]).filter(Boolean);
+  const tot = IV_CHECKS.map(([k, l]) => { const rel = got.filter((f) => f.checks[k] !== null && f.checks[k] !== undefined); return [k, l, rel.filter((f) => f.checks[k]).length, rel.length]; }).filter((x) => x[3]);
+  const score = got.reduce((s, f) => s + f.score, 0), of = got.reduce((s, f) => s + f.of, 0), pct = of ? Math.round(score / of * 100) : 0;
+  const weak = tot.filter((x) => x[2] < x[3]).sort((a, b) => a[2] / a[3] - b[2] / b[3])[0];
+  return `<section class="card iv-sum">
+    <div class="row" style="gap:18px;flex-wrap:nowrap">${progressGeo(pct, T("{pct}% of the checklist covered", { pct }))}<div class="stack" style="gap:6px;min-width:0">
+      <span class="eyebrow">${T("Your practice")}</span><h3>${T(pct >= 80 ? "Strong answers. You are ready to apply." : pct >= 50 ? "Good base. One habit will make it stronger." : "A good first try. Practise once more.")}</h3>
+      <p class="small muted">${esc(T("{n} of {total} questions answered", { n: got.length, total: qs.length }))}</p></div></div>
+    <ul class="iv-bars">${tot.map(([k, l, a, b]) => `<li><span>${T(l)}</span><span class="track"><span class="fill" style="display:block;width:${Math.round(a / b * 100)}%"></span></span><span class="mono small">${a}/${b}</span></li>`).join("")}</ul>
+    ${weak ? `<p class="note accent small"><b>${T("Practise next:")}</b> ${esc(T(TIPS_IV[weak[0]]))}</p>` : ""}
+    <div class="row"><button class="btn primary" type="button" data-iv="restart">${T("Practise again")}</button><button class="btn" type="button" data-page="resume">${T("Open my resume")}</button></div>
+  </section>`;
+}
+const TIPS_IV = {
+  example: "Start with a real example: where you were and what was happening.",
+  action: "Say what you did yourself, with words like \"I set up\" or \"I checked\".",
+  result: "End with the result: what changed, how much time it saved, or what you learned.",
+  skill: "Name the skill they asked about, so the interviewer hears it clearly.",
+  length: "Aim for about 4 to 8 sentences: long enough for an example, short enough to keep attention.",
+};
+async function ivAction(a) {
+  const v = ivState(), qs = (v.data && v.data.questions) || [];
+  if (a === "start") { v.started = true; v.i = 0; render(); scrollTop(); return; }
+  if (a === "listen") { if (qs[v.i]) ivSpeak(ivQ(qs[v.i])); return; }
+  if (a === "skip" || a === "next") { if (window.speechSynthesis) speechSynthesis.cancel(); v.i += 1; render(); scrollTop(); if (v.i < qs.length) setTimeout(() => $("#ivAnswer")?.focus(), 50); return; }
+  if (a === "retry") { delete v.fb[v.i]; render(); setTimeout(() => $("#ivAnswer")?.focus(), 50); return; }
+  if (a === "restart") { Object.assign(v, { i: 0, answers: {}, fb: {}, started: true }); render(); scrollTop(); return; }
+  if (a === "check") {
+    const ans = (v.answers[v.i] || "").trim(); if (!ans) { $("#ivAnswer")?.focus(); toast(T("Write or say your answer first.")); return; }
+    v.busy = true; render();
+    try { v.fb[v.i] = await api("/api/interview/feedback", { question: qs[v.i], answer: ans, lang: LANG, use_model: !!st.meta.llm.available }); }
+    catch (e) { toast(T("Sorry, I could not answer just now: {e}", { e: e.message })); }
+    v.busy = false; render();
+  }
+}
+
+// ---------- learning plan in the calendar ------------------------------------------------------------
+// Turns the steps still to do into study sessions on the days and time the person picks, sized
+// from each course's hours, and downloads them as one .ics file that Google Calendar, Outlook and
+// phone calendars can import. Times are local ("floating"), so they stay at 8 pm wherever the
+// phone is. Built in the browser; nothing is sent anywhere.
+const CAL_DAYS = [[1, "Mon"], [2, "Tue"], [3, "Wed"], [4, "Thu"], [5, "Fri"], [6, "Sat"], [0, "Sun"]];
+const CAL_SPREAD = [2, 4, 6, 1, 3, 5, 0];  // default days: Tue, Thu, Sat, then the rest
+const CAL_MAX = 150;
+const isoDay = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+function calState() {
+  if (!st.cal) {
+    const per = Math.min(7, Math.max(1, Math.round((P().hours || 5) / 1)));
+    const t = new Date(); t.setDate(t.getDate() + 1);
+    st.cal = { open: false, days: CAL_SPREAD.slice(0, Math.min(per, 4)), time: "20:00", len: per > 4 ? 90 : 60, start: isoDay(t) };
+  }
+  return st.cal;
+}
+function calSteps() {
+  return flatNodes().filter((n) => !done(n.key) && (n.type === "skill" || (n.type === "cert" && !n.optional))).map((n, i) => {
+    const c = n.type === "cert" ? n.item : (n.items || [])[0];
+    return { n, no: i + 1, label: nodeLabel(n), course: c || null, hours: c && c.hours ? c.hours : 2 };
+  });
+}
+function calPlan() {
+  const c = calState(), out = [];
+  if (!c.days.length) return out;
+  const [hh, mm] = c.time.split(":").map(Number), len = c.len;
+  const day = new Date(`${c.start}T00:00:00`);
+  for (const s of calSteps()) {
+    const n = Math.max(1, Math.ceil(s.hours * 60 / len));
+    for (let k = 1; k <= n && out.length < CAL_MAX; k++) {
+      while (!c.days.includes(day.getDay())) day.setDate(day.getDate() + 1);
+      const a = new Date(day); a.setHours(hh, mm, 0, 0);
+      out.push({ step: s, k, n, start: a, end: new Date(a.getTime() + len * 60000) });
+      day.setDate(day.getDate() + 1);
+    }
+  }
+  return out;
+}
+const icsTime = (d) => `${isoDay(d).replace(/-/g, "")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
+const icsText = (s) => String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+function icsFold(line) {  // lines longer than 75 bytes continue on the next line after a space
+  const enc = new TextEncoder(), out = []; let cur = "", n = 0;
+  for (const ch of line) { const b = enc.encode(ch).length; if (n + b > (out.length ? 74 : 75)) { out.push(cur); cur = ""; n = 0; } cur += ch; n += b; }
+  out.push(cur); return out.join("\r\n ");
+}
+function calDownload() {
+  const plan = calPlan(); if (!plan.length) { toast(T("Pick at least one day.")); return; }
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z"), uid = Date.now().toString(36), role = roleOf(A().role).title;
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Workforce Futures//Learning plan//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+    `X-WR-CALNAME:${icsText(T("Learning plan: {role}", { role }))}`];
+  plan.forEach((p, i) => {
+    const c = p.step.course, desc = [T("Step {n} on your path to {role}.", { n: p.step.no, role }),
+      c ? T("Course: {course} by {provider}, about {h} hours.", { course: c.title, provider: c.provider, h: c.hours }) : T("No course for this step: practise it on real tasks."),
+      c && c.url ? c.url : "", T("Mark the step done in Workforce Futures when you finish.")].filter(Boolean).join("\n");
+    lines.push("BEGIN:VEVENT", `UID:wf-${uid}-${i}@workforce-futures`, `DTSTAMP:${stamp}`, `DTSTART:${icsTime(p.start)}`, `DTEND:${icsTime(p.end)}`,
+      `SUMMARY:${icsText(`${p.step.label} · ${p.k}/${p.n}`)}`, `DESCRIPTION:${icsText(desc)}`, ...(c && c.url ? [`URL:${c.url}`] : []),
+      "BEGIN:VALARM", "TRIGGER:-PT10M", "ACTION:DISPLAY", `DESCRIPTION:${icsText(p.step.label)}`, "END:VALARM", "END:VEVENT");
+  });
+  lines.push("END:VCALENDAR");
+  const blob = new Blob([lines.map(icsFold).join("\r\n") + "\r\n"], { type: "text/calendar;charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "learning-plan.ics"; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  toast(T("Saved {n} study sessions. Open the file to add them to your calendar.", { n: plan.length }));
+}
+function vCalPanel() {
+  const c = calState(); if (!c.open) return "";
+  const plan = calPlan(), steps = calSteps(), last = plan[plan.length - 1];
+  const capped = plan.length >= CAL_MAX;
+  return `<section class="card cal-panel" aria-labelledby="calH">
+    <div class="row between"><h3 id="calH">${T("Put your plan in your calendar")}</h3><button type="button" class="icon-btn" data-cal="close" aria-label="${T("Close")}">✕</button></div>
+    <p class="small muted">${esc(T("Study sessions for the {n} steps still to do, sized from each course's hours. Works with Google Calendar, Outlook and phone calendars.", { n: steps.length }))}</p>
+    <div class="cal-grid">
+      <div class="field"><span class="label">${T("Days")}</span><div class="cal-days" role="group" aria-label="${T("Days")}">${CAL_DAYS.map(([d, l]) => `<button type="button" class="chip" data-calday="${d}" aria-pressed="${c.days.includes(d)}">${T(l)}</button>`).join("")}</div></div>
+      <div class="field"><label for="calTime">${T("Time")}</label><input type="time" id="calTime" value="${esc(c.time)}"></div>
+      <div class="field"><label for="calLen">${T("Each session")}</label><select id="calLen">${[30, 45, 60, 90, 120].map((m) => `<option value="${m}" ${c.len === m ? "selected" : ""}>${esc(T("{n} min", { n: m }))}</option>`).join("")}</select></div>
+      <div class="field"><label for="calStart">${T("Start on")}</label><input type="date" id="calStart" value="${esc(c.start)}"></div>
+    </div>
+    ${plan.length ? `<p class="cal-sum"><b>${esc(T("{n} sessions", { n: plan.length }))}</b> · ${esc(T("{d} days a week", { d: c.days.length }))} · ${esc(T("last one on {date}", { date: fmtDate(isoDay(last.start), { day: "numeric", month: "short", year: "numeric" }) }))}${capped ? ` · ${esc(T("first {n} sessions only", { n: CAL_MAX }))}` : ""}</p>
+      <ol class="cal-preview">${plan.slice(0, 3).map((p) => `<li><span class="mono small">${esc(fmtDate(isoDay(p.start), { weekday: "short", day: "numeric", month: "short" }))} ${esc(c.time)}</span><span class="small">${esc(p.step.label)} · ${p.k}/${p.n}</span></li>`).join("")}${plan.length > 3 ? `<li class="tiny muted">${esc(T("and {n} more", { n: plan.length - 3 }))}</li>` : ""}</ol>`
+      : `<p class="note warn small">${T(steps.length ? "Pick at least one day." : "Every step is done. Nothing left to plan.")}</p>`}
+    <div class="row"><button class="btn primary" type="button" data-cal="download" ${plan.length ? "" : "disabled"}>${T("Download calendar file (.ics)")}</button><span class="tiny muted">${T("Made in your browser. Nothing is sent anywhere.")}</span></div>
+  </section>`;
+}
+
+const VIEWS = { interview: vInterview, teams: vTeams, people: vPeople, member: vMember, updates: vUpdates, signin: vSignin, wizard: vWizard, dashboard: vDashboard, mycareer: vMyCareer, careers: vCareers, news: vNews, jobcheck: vJobCheck, path: vPath, resume: vResume, team: vTeam, sources: vSources, teamperson: vTeamPerson, teamreport: vTeamReport };
 // ---------- motion: GSAP + ScrollTrigger animations, Lenis smooth scrolling ------------------------
 // The landing gets the full treatment; inside the app, cards below the fold rise in once per page.
 // Everything is skipped when the device asks for reduced motion.
@@ -2954,6 +3139,10 @@ document.addEventListener("click", async (ev) => {
     }
     return;
   }
+  if (d.iv) { ivAction(d.iv); return; }
+  if (d.interview !== undefined) { const v = ivState(); if (v.stage !== +d.interview) Object.assign(v, { stage: +d.interview, data: null, started: false, i: 0, answers: {}, fb: {} }); go("interview"); return; }
+  if (d.cal) { const c = calState(); if (d.cal === "download") calDownload(); else { c.open = d.cal === "toggle" ? !c.open : false; render(); } return; }
+  if (d.calday !== undefined) { const c = calState(), k = +d.calday; c.days = c.days.includes(k) ? c.days.filter((x) => x !== k) : [...c.days, k]; render(); return; }
   if (d.page) { if (!t.disabled) { if (t.closest(".chat") && !wide()) st.chat.open = false; go(d.page); } return; }
   if (d.ask) { sendChat(T(d.ask)); return; }
   if (d.mode) { A().prefs.mode = d.mode; save(); render(); return; }
@@ -3114,6 +3303,7 @@ document.addEventListener("change", (ev) => {
   const t = ev.target, d = t.dataset;
   if (t.id === "uiLang" || t.id === "langSel") { setLang(t.value); return; }
   if (t.id === "cvFile" && t.files[0]) { importCv(t.files[0]); return; }
+  if (t.id === "calTime" || t.id === "calLen" || t.id === "calStart") { const c = calState(); if (t.id === "calLen") c.len = +t.value; else if (t.value) c[t.id === "calTime" ? "time" : "start"] = t.value; render(); return; }
   if (t.id === "useModel") { P().useModel = t.checked; save(); return; }
   if (t.id === "careerPick" && t.value) { openFromMap(t.value); return; }
   if (t.id === "newsRole" || t.id === "newsKind" || t.id === "newsTopic" || t.id === "newsSort") {
@@ -3142,6 +3332,7 @@ document.addEventListener("submit", (ev) => { if (ev.target.id === "chatForm") {
 document.addEventListener("input", (ev) => {
   const t = ev.target, d = t.dataset;
   if (t.id === "chatInput") { st.chat.draft = t.value; return; }
+  if (t.id === "ivAnswer") { ivState().answers[st.iv.i] = t.value; return; }
   if (d.memf) { mem(st.member)[d.memf] = t.value; memSave(); return; }
   if (d.ttitle !== undefined) { mem(+d.ttitle).title = t.value; memSave(); return; }
   if (t.id === "teamName") { ownTeam().label = t.value.trim() || T("Team {n}", { n: st.ownTeams.indexOf(ownTeam()) + 1 }); saveOwnTeams(); const b = document.querySelector(`.options [data-team="${st.team}"] b`); if (b) b.textContent = ownTeam().label; return; }

@@ -17,7 +17,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import accounts, advice, agent, assist, config, cv, db, engine, jobcheck, llm
+from . import accounts, advice, agent, assist, config, cv, db, engine, interview, jobcheck, llm
 from .config import ROOT, SEED_DIR
 from .data import (CATALOGUE, CATALOGUE_META, CLUSTER, CLUSTERS, COUNTRIES, ESCO_META, ILO_META, OCCUPATIONS,
                    ROLE, ROLES, SAMPLES, SDG_META, SELFSTUDY, TRACKS, exposure)
@@ -485,6 +485,32 @@ def team(body: TeamIn) -> dict:
 def get_advice(body: AdviceIn) -> dict:
     return advice.advice(engine.clean_skills(body.skills), body.country, body.age_band, body.situation,
                          body.budget, body.hours, body.role if body.role in ROLE else None, body.path_hours)
+
+
+class InterviewQ(BaseModel):
+    kind: str = Field(..., max_length=20)
+    text: str = Field(..., max_length=300)
+    params: dict[str, str] = {}
+    skill: str | None = None
+
+
+class InterviewIn(BaseModel):
+    question: InterviewQ
+    answer: str = Field(..., min_length=1, max_length=interview.MAX_ANSWER)
+    lang: str = "en"
+    use_model: bool = False
+
+
+# ---------- mock interview (answers are checked, never stored) ------------------------------
+@app.get("/api/interview")
+def interview_questions(stage: int | None = None, authorization: str = Header("")) -> dict:
+    return interview.questions(_auth(authorization)["data"], stage)
+
+
+@app.post("/api/interview/feedback")
+def interview_feedback(body: InterviewIn, authorization: str = Header("")) -> dict:
+    _auth(authorization)
+    return interview.feedback(body.question.model_dump(), body.answer, body.lang, body.use_model)
 
 
 @app.post("/api/extract")

@@ -35,6 +35,7 @@ PAGES = {
     "news": "News: real work and jobs headlines from Hacker News (titles and links), our own trend signals, a career filter and an AI summary of the headlines shown.",
     "careers": "Careers overview: every career ranked for you in three possible futures, grouped into zones by demand and AI impact, with details for any career, including how the fit score is calculated and a What it takes tab (the skills that would raise a career's rank, in order, with hours).",
     "path": "Path: your step-by-step road from entry to the top role, with courses that fit your budget, plus optional action tracks you can add (LinkedIn & personal brand, real experience, networking, job hunting). Mark steps done here.",
+    "interview": "Interview practice: Lambtae asks five questions for the job the person is about to apply for (about them, two skills they have, one they are building, working with AI) and gives feedback on each answer with a checklist (a real example, what they did, the result, the skill named, a good length). Answers are not saved. Open it from the Ready to apply step.",
     "resume": "Resume: open any time; built from your profile and the path steps you finish; save as PDF.",
     "wizard": "Edit about you: change explanation style, language, country, age and situation, time, budget, CV, skills and interests.",
     "sources": "Data and sources: where every number comes from, how the score is calculated, and what the AI model may do.",
@@ -46,6 +47,7 @@ GUIDE = [
     "Scores are estimates, not predictions. Age, gender and ethnicity never change scores.",
     "Paid courses outside the budget are shown as optional; the path recommends only courses from a checked list.",
     "Trend data is refreshed daily from job posts; the dashboard shows what changed.",
+    "On Path, Add to my calendar turns the steps still to do into study sessions on the days and time the person picks, saved as a calendar file for Google Calendar, Outlook or a phone.",
     "For a personal goal (freelancing, moving country, a side project), the person can tap Make this a track under their chat message, or go to Path, Add a track, Create with AI: the AI drafts an action track they check before adding.",
 ]
 # For HR / L&D managers and career centres planning for a group.
