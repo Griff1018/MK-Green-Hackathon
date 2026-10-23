@@ -8,12 +8,12 @@
 
 | Field                  | Details                                     |
 | ---------------------- | ------------------------------------------- |
-| **Team Name**          | [MK GreenCode]                                 |
+| **Team Name**          | MK GreenCode                                   |
 | **Team Domain**        | Domain 1: Future-Ready Workforce            |
 | **SDG Track (1–17)**   | SDG 8 — Decent Work and Economic Growth (also SDG 4.4 and 9.5) |
-| **Team Leader**        | [Wong Yik Sheng]                               |
-| **University**         | [University Malaya]                        |
-| **Number of Members**  | [5]                                         |
+| **Team Leader**        | Wong Yik Sheng                                 |
+| **University**         | University Malaya                         |
+| **Number of Members**  | 5                                           |
 
 ## Links
 
@@ -22,9 +22,8 @@
 | GitHub Repository | https://github.com/Griff1018/MK-Green-Hackathon |
 | Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
 | Live Demo         | https://mk-green-hackathon.replit.app          |
-| RunPod Endpoint   | https://api.runpod.ai/v2/[endpoint-id]         |
-| Slide Deck        | [https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing]                              |
-| Demo Video        | [demo video link]                              |
+| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing                                |
+| Demo Video        | demo video link                                |
 
 ---
 
