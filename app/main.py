@@ -102,6 +102,14 @@ class PathwayIn(Profile):
     role: str
     scenario: str = "moderate"
     snapshot_id: int | None = None
+    peak: str | None = Field(None, max_length=60)   # "role_id:stage" to swap the top job
+
+
+class AlternativesIn(Profile):
+    role: str
+    cluster: str
+    scenario: str = "moderate"
+    peak: str | None = Field(None, max_length=60)
 
 
 class ExtractIn(BaseModel):
@@ -468,8 +476,19 @@ def pathway(body: PathwayIn) -> dict:
         raise HTTPException(400, "Unknown scenario")
     snap = load_snapshot(body.snapshot_id)
     p = engine.career_path(body.skills, body.role, body.hours, snap, previous_of(snap), body.scenario,
-                           body.budget, body.country)
+                           body.budget, body.country, body.peak)
     return {**p, "sdg": engine.sdg_links(body.role), "snapshot": snapshot_info(snap)}
+
+
+@app.post("/api/alternatives")
+def alternatives(body: AlternativesIn) -> dict:
+    """Other routes when a skill on the path loses demand: careers and top jobs that need less of it."""
+    if body.role not in ROLE or body.cluster not in CLUSTER:
+        raise HTTPException(404, "Unknown career or skill")
+    if body.scenario not in engine.SCENARIOS:
+        raise HTTPException(400, "Unknown scenario")
+    return engine.alternatives(body.skills, body.interests, body.role, body.cluster, load_snapshot(None),
+                               body.scenario, body.peak)
 
 
 @app.post("/api/team")

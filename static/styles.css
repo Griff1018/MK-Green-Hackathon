@@ -1857,3 +1857,14 @@ html.tour-lock, html.tour-lock body { overflow: hidden; overscroll-behavior: non
 .cal-preview li { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
 @media (max-width: 860px) { .cal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cal-grid > .field:first-child { grid-column: 1 / -1; } }
 @media (max-width: 480px) { .cal-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .cal-grid > .field:nth-child(4) { grid-column: 1 / -1; } }
+
+/* ---- other routes when a skill loses demand ---- */
+.repath { display: grid; gap: 10px; }
+.repath-btn { justify-self: start; padding: 6px 10px; font-size: .85rem; color: var(--accent); border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.repath.open .repath-btn { border-style: solid; }
+.repath-body { display: grid; gap: 14px; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--chip); border-radius: 0 var(--r-sm) var(--r-sm) 0; }
+.repath-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.repath-list li { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); }
+.repath-list li .btn { flex: none; padding: 6px 10px; font-size: .82rem; }
+.peak-note { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.peak-note .btn { padding: 4px 10px; }

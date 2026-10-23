@@ -1774,5 +1774,20 @@
  "{n} sessions": "{n} 次",
  "{pct}% of the checklist covered": "清单完成 {pct}%",
  "Tell me about yourself, and why you want this role: {job}.": "介绍一下你自己，以及你为什么想做这个职位：{job}。",
- "AI tools are changing this work. How would you use them in this job, and what would you still check yourself?": "AI 工具正在改变这份工作。你会怎样在这份工作中使用它们？哪些地方你仍会自己检查？"
+ "AI tools are changing this work. How would you use them in this job, and what would you still check yourself?": "AI 工具正在改变这份工作。你会怎样在这份工作中使用它们？哪些地方你仍会自己检查？",
+ "Fewer jobs want this. See other routes": "需要这项技能的职位在减少。看看其他路线",
+ "Looking for routes that need less of this skill…": "正在寻找较少需要这项技能的路线…",
+ "Top job of {career}": "{career}的最高职位",
+ "{n} new skills to learn": "需学习 {n} 项新技能",
+ "No new skills to learn": "无需学习新技能",
+ "Use this top job": "使用这个最高职位",
+ "Fit {score} · needs it at {level} level": "匹配度 {score} · 需要{level}水平",
+ "This trend comes from tech job posts, so treat it as a hint for non-tech skills. You can also keep your path as it is.": "这个趋势来自科技类招聘帖，对非技术技能只能作参考。你也可以保持原有路径。",
+ "Keep your first stages, swap only the top job ({job})": "保留前面的阶段，只更换最高职位（{job}）",
+ "No other top job fits without this skill.": "没有不需要这项技能的其他最高职位。",
+ "Or choose a career that needs less of it": "或者选择较少需要它的职业",
+ "Your top job is now {job}. The earlier steps stay as they were.": "你的最高职位现在是{job}。前面的步骤保持不变。",
+ "Back to your career's own top job.": "已恢复为该职业原本的最高职位。",
+ "Your top job is {job}, swapped from {original}.": "你的最高职位是{job}，由{original}更换而来。",
+ "Undo": "撤销"
 }

@@ -190,10 +190,11 @@ def new_tech(cid: str, snapshot: dict) -> list:
 
 
 def career_path(skills: dict, role_id: str, hours_per_week: int, snapshot: dict, previous: dict | None = None,
-                scenario: str = "moderate", budget: str = "free", country: str = "MY") -> dict:
-    """Ordered steps from where the person is now to the top of the career ladder."""
+                scenario: str = "moderate", budget: str = "free", country: str = "MY", peak: str | None = None) -> dict:
+    """Ordered steps from where the person is now to the top of the career ladder. `peak` swaps the
+    top job for another career's stage (see with_peak)."""
     skills = clean_skills(skills)
-    role = ROLE[role_id]
+    role = with_peak(role_id, peak)
     allowed = BUDGET_COSTS.get(budget, BUDGET_COSTS["free"])
     local = COUNTRIES.get(country, COUNTRIES["OTHER"])
     have = dict(skills)
@@ -242,9 +243,69 @@ def career_path(skills: dict, role_id: str, hours_per_week: int, snapshot: dict,
                        "local_demand": local["local_demand"].get(f"{role_id}@{idx}")})
     ev = evaluate(role, skills, [], scenario, snapshot)
     moved = sum(1 for s in stages for n in s["nodes"] if n.get("moved"))
-    return {"role": role_id, "stages": stages, "hours": total_hours, "hours_per_week": hours_per_week,
+    return {"role": role_id, "peak": peak if role is not ROLE[role_id] else None, "stages": stages, "hours": total_hours, "hours_per_week": hours_per_week,
             "budget": budget, "score_now": ev["score"], "priorities_changed": moved,
             "local_demand_source": local["local_demand_source"]}
+
+
+# ---------- other routes when a skill loses demand -------------------------------------
+# A person can keep the first stages of their path and swap only the top job for another
+# career's experienced or top stage. The choice is a string "role_id:stage_index".
+def with_peak(role_id: str, peak: str | None) -> dict:
+    """The career with its last stage replaced by another career's stage, or unchanged."""
+    role = ROLE[role_id]
+    if not peak:
+        return role
+    other, _, idx = peak.partition(":")
+    if other not in ROLE or other == role_id or not idx.isdigit() or not 1 <= int(idx) < len(ROLE[other]["stages"]):
+        return role
+    top = dict(ROLE[other]["stages"][int(idx)], stage=role["stages"][-1]["stage"])
+    return {**role, "stages": role["stages"][:-1] + [top]}
+
+
+def _needs(stage: dict, cid: str) -> int:
+    return next((r["level"] for r in stage["req_list"] if r["cluster"] == cid), 0)
+
+
+def alternatives(skills: dict, interests: list[str], role_id: str, cluster: str, snapshot: dict,
+                 scenario: str = "moderate", peak: str | None = None, top: int = 3) -> dict:
+    """Other routes when `cluster` loses demand. Careers: ranked by fit, needing less of it than this
+    path does (`needs` is the highest level any of their stages asks for). Top jobs: stages of other
+    careers that could replace this path's last stage, keeping the earlier stages, and needing no more
+    of it than the person will already have. Top jobs in the same area (shared interest tags) come first."""
+    skills = clean_skills(skills)
+    current = with_peak(role_id, peak)
+    tags, need = set(ROLE[role_id]["tags"]), max(_needs(s, cluster) for s in current["stages"])
+    careers = []
+    for x in rank(skills, interests, scenario, snapshot):
+        most = max(_needs(s, cluster) for s in ROLE[x["role"]]["stages"])
+        if x["role"] != role_id and most < need and len(careers) < top:
+            careers.append({"role": x["role"], "title": ROLE[x["role"]]["title"], "score": round(x["score"]),
+                            "rank": x["rank"], "top_role": ROLE[x["role"]]["stages"][-1]["title"], "needs": most})
+    # skills the person will have after the stages they keep
+    kept = dict(skills)
+    for s in current["stages"][:-1]:
+        for r in s["req_list"]:
+            kept[r["cluster"]] = max(kept.get(r["cluster"], 0), r["level"])
+    seen, peaks = {current["stages"][-1]["title"].lower()}, []
+    for r in ROLES:
+        if r["id"] == role_id:
+            continue
+        for i in range(len(r["stages"]) - 1, 0, -1):
+            s = r["stages"][i]
+            if s["title"].lower() in seen or _needs(s, cluster) > kept.get(cluster, 0):
+                continue
+            new = [q["cluster"] for q in s["req_list"] if kept.get(q["cluster"], 0) < q["level"]]
+            shared = sum(1 for q in s["req_list"] if kept.get(q["cluster"], 0) > 0)
+            outlook = sum(momentum(q["cluster"], snapshot, scenario) for q in s["req_list"]) / max(1, len(s["req_list"]))
+            peaks.append({"peak": f"{r['id']}:{i}", "title": s["title"], "from": r["title"], "stage": s["stage"],
+                          "same_area": len(tags & set(r["tags"])),
+                          "new_skills": [CLUSTER[c]["label"] for c in new], "shared": shared, "outlook": round(outlook, 3),
+                          "exposure": s["exposure"]["category"] if s.get("exposure") else None})
+            seen.add(s["title"].lower())
+    peaks.sort(key=lambda p: (-p["same_area"], -p["shared"], len(p["new_skills"]), -p["outlook"]))
+    return {"cluster": cluster, "label": CLUSTER[cluster]["label"], "careers": careers, "peaks": peaks[:top],
+            "current_top": current["stages"][-1]["title"], "original_top": ROLE[role_id]["stages"][-1]["title"]}
 
 
 # ---------- what it takes (counterfactual simulator) --------------------------------------

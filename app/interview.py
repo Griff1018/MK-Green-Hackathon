@@ -74,6 +74,7 @@ def questions(data: dict, stage: int | None = None) -> dict:
     role = ROLE.get(data.get("role") or "")
     if not role:
         return {"job": None, "questions": []}
+    role = engine.with_peak(role["id"], (data.get("prefs", {}).get("peak") or {}).get(role["id"]))
     stages = role["stages"]
     si = min(max(int(stage or 0), 0), len(stages) - 1)
     st = stages[si]

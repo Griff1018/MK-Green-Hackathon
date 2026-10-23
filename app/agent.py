@@ -157,7 +157,7 @@ def facts(data: dict, snap: dict, prev: dict | None) -> dict:
     role_id = data.get("role")
     if role_id in ROLE:
         path = engine.career_path(skills, role_id, p.get("hours", 5), snap, prev, "moderate",
-                                  p.get("budget", "free"), country)
+                                  p.get("budget", "free"), country, (data.get("prefs", {}).get("peak") or {}).get(role_id))
         done = (data.get("progress") or {}).get(role_id, {})
         stages, nxt = [], None
         for si, s in enumerate(path["stages"]):

@@ -288,7 +288,7 @@ async function refresh(opts) {
 async function loadPath() {
   if (!A().role) return;
   st.busy.path = true;
-  try { st.path = await api("/api/pathway", { ...profileBody(), skills: P().skills, role: A().role, scenario: st.scen }); }
+  try { st.path = await api("/api/pathway", { ...profileBody(), skills: P().skills, role: A().role, scenario: st.scen, peak: myPeak() }); }
   catch (e) { toast(T("Could not build the path: {e}", { e: e.message })); }
   st.busy.path = false;
 }
@@ -1870,6 +1870,7 @@ function vPath() {
   return `<div class="page">
   ${intro(T("My path"), T("Your path to {role}", { role: peak }), simple() ? T("Follow the road from the top. Tap a circle to see what to do. Dashed circles are optional.") : esc(T("Start as {role}. Steps are ordered by prerequisites and current demand. Paid certificates outside your budget are dashed and optional.", { role: pw.stages[0].title })), `<button class="btn" type="button" data-cal="toggle" aria-expanded="${calState().open}">📅 ${T("Add to my calendar")}</button>`)}
   ${vCalPanel()}
+  ${pw.peak ? `<p class="note accent small peak-note">${esc(T("Your top job is {job}, swapped from {original}.", { job: peak, original: roleOf(A().role).ladder[roleOf(A().role).ladder.length - 1].title }))} <button type="button" class="btn ghost" data-setpeak="">${T("Undo")}</button></p>` : ""}
   ${vTrackTabs(tab)}
   ${tab !== "basic" ? vTrackBoard(trackOf(tab)) : `<div class="row between">
     <div class="legend" aria-label="${T("Legend")}"><span><i class="l-done"></i>${T("Done")}</span><span><i class="l-now"></i>${T("Next step")}</span><span><i></i>${T("To do")}</span><span><i class="l-opt"></i>${T("Optional")}</span><span><b class="flag-s">${esc(flagMoved)}</b>${T("Moved up today")}</span><span><b class="flag-s">${esc(flagTool)}</b>${T("Rising tool")}</span>${info("stage")}</div>
@@ -2014,6 +2015,43 @@ function selfStudy(cid) {
     <p class="tiny muted">${T("Tutorials and docs to practise with. Tick the step yourself when you can do it.")}</p></div>`;
 }
 const fact = (label, value) => `<div><dt>${esc(label)}</dt><dd>${value}</dd></div>`;
+// ---------- other routes when a skill loses demand ----------------------------------------------
+// On a step whose skill has fewer job posts, "see options" asks /api/alternatives for top jobs that
+// could replace the path's last stage (the earlier stages stay) and other careers that need less of
+// the skill. A swapped top job is saved per career in prefs.peak as "role_id:stage".
+const myPeak = () => ((A().prefs.peak || {})[A().role]) || null;
+async function repathLoad(cluster) {
+  st.repath = { cluster, data: null, busy: true }; render();
+  try { st.repath.data = await api("/api/alternatives", { ...profileBody(), role: A().role, cluster, scenario: st.scen, peak: myPeak() }); }
+  catch (e) { st.repath.data = { error: e.message }; }
+  st.repath.busy = false; render();
+}
+async function setPeak(peak, title) {
+  const all = A().prefs.peak = A().prefs.peak || {};
+  if (peak) all[A().role] = peak; else delete all[A().role];
+  save(); st.repath = null; st.path = null; st.sel = null; render();
+  await loadPath(); render();
+  toast(peak ? T("Your top job is now {job}. The earlier steps stay as they were.", { job: title }) : T("Back to your career's own top job."));
+}
+function vRepath(n) {
+  const open = st.repath && st.repath.cluster === n.cluster, r = open ? st.repath.data : null;
+  const btn = `<button type="button" class="btn ghost repath-btn" data-repath="${esc(n.cluster)}" aria-expanded="${open}">↪ ${T("Fewer jobs want this. See other routes")}</button>`;
+  if (!open) return `<div class="repath">${btn}</div>`;
+  if (!r) return `<div class="repath">${btn}<p class="small muted"><span class="spin"></span> ${T("Looking for routes that need less of this skill…")}</p></div>`;
+  if (r.error) return `<div class="repath">${btn}<p class="note warn small">${esc(r.error)}</p></div>`;
+  const peaks = r.peaks.map((p) => `<li><div class="stack" style="gap:2px;min-width:0"><b>${esc(p.title)}</b>
+      <span class="tiny muted">${esc(T("Top job of {career}", { career: p.from }))} · ${esc(p.new_skills.length ? T("{n} new skills to learn", { n: p.new_skills.length }) : T("No new skills to learn"))}${p.exposure ? " · " + esc(T("AI impact: {level}", { level: p.exposure.replace("Exposed: ", "") })) : ""}</span></div>
+      <button type="button" class="btn" data-setpeak="${esc(p.peak)}" data-peaktitle="${esc(p.title)}">${T("Use this top job")}</button></li>`).join("");
+  const careers = r.careers.map((c) => `<li><div class="stack" style="gap:2px;min-width:0"><b>${esc(c.title)}</b>
+      <span class="tiny muted">${esc(T("Fit {score} · needs it at {level} level", { score: c.score, level: lv(c.needs) }))}</span></div>
+      <button type="button" class="btn ghost" data-choose="${esc(c.role)}">${T("Choose")}</button></li>`).join("");
+  return `<div class="repath open">${btn}
+    <div class="repath-body">
+      <p class="small muted">${T("This trend comes from tech job posts, so treat it as a hint for non-tech skills. You can also keep your path as it is.")}</p>
+      ${peaks ? `<div class="stack" style="gap:6px"><span class="label">${esc(T("Keep your first stages, swap only the top job ({job})", { job: r.current_top }))}</span><ul class="repath-list">${peaks}</ul></div>` : `<p class="small muted">${T("No other top job fits without this skill.")}</p>`}
+      ${careers ? `<div class="stack" style="gap:6px"><span class="label">${T("Or choose a career that needs less of it")}</span><ul class="repath-list">${careers}</ul></div>` : ""}
+    </div></div>`;
+}
 function vNodeSheet(n) {
   if (!n) return "";
   const isDone = done(n.key), s = st.path.stages[n.si];
@@ -2030,6 +2068,7 @@ function vNodeSheet(n) {
         ${fact(T("Job demand"), `<b class="fig ${simple() ? "word" : ""} ${dir}">${esc(demandText(n.demand_change))}</b>${was} ${info(n.moved ? "priority" : "demand")}${moved ? `<span class="small muted fact-sub">${esc(moved)}</span>` : ""}`)}
         ${tools ? fact(T(simple() ? "New tool" : "Rising tools"), `${tools} ${info("newtech")}`) : ""}
       </dl>
+      ${n.demand_change != null && n.demand_change <= -0.05 ? vRepath(n) : ""}
       ${notes.map((x) => `<p class="note warn small">${T(x)}</p>`).join("")}
       ${courses.length || n.covered_earlier ? `<div class="courses"><span class="label">${T("Courses")}</span>${courses.join("")}${n.covered_earlier ? `<p class="small muted">${T("You already covered this in an earlier course.")}</p>` : ""}</div>` : ""}
       ${selfStudy(n.cluster)}
@@ -3140,6 +3179,8 @@ document.addEventListener("click", async (ev) => {
     return;
   }
   if (d.iv) { ivAction(d.iv); return; }
+  if (d.repath) { if (st.repath && st.repath.cluster === d.repath) { st.repath = null; render(); } else repathLoad(d.repath); return; }
+  if (d.setpeak !== undefined) { setPeak(d.setpeak || null, d.peaktitle || ""); return; }
   if (d.interview !== undefined) { const v = ivState(); if (v.stage !== +d.interview) Object.assign(v, { stage: +d.interview, data: null, started: false, i: 0, answers: {}, fb: {} }); go("interview"); return; }
   if (d.cal) { const c = calState(); if (d.cal === "download") calDownload(); else { c.open = d.cal === "toggle" ? !c.open : false; render(); } return; }
   if (d.calday !== undefined) { const c = calState(), k = +d.calday; c.days = c.days.includes(k) ? c.days.filter((x) => x !== k) : [...c.days, k]; render(); return; }

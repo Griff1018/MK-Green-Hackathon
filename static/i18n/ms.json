@@ -1774,5 +1774,20 @@
  "{n} sessions": "{n} sesi",
  "{pct}% of the checklist covered": "{pct}% senarai semak dipenuhi",
  "Tell me about yourself, and why you want this role: {job}.": "Ceritakan tentang diri anda, dan mengapa anda mahukan jawatan ini: {job}.",
- "AI tools are changing this work. How would you use them in this job, and what would you still check yourself?": "Alat AI sedang mengubah kerja ini. Bagaimana anda akan menggunakannya dalam kerja ini, dan apa yang masih akan anda semak sendiri?"
+ "AI tools are changing this work. How would you use them in this job, and what would you still check yourself?": "Alat AI sedang mengubah kerja ini. Bagaimana anda akan menggunakannya dalam kerja ini, dan apa yang masih akan anda semak sendiri?",
+ "Fewer jobs want this. See other routes": "Kurang kerja memerlukan ini. Lihat laluan lain",
+ "Looking for routes that need less of this skill…": "Mencari laluan yang kurang memerlukan kemahiran ini…",
+ "Top job of {career}": "Jawatan tertinggi bagi {career}",
+ "{n} new skills to learn": "{n} kemahiran baharu untuk dipelajari",
+ "No new skills to learn": "Tiada kemahiran baharu untuk dipelajari",
+ "Use this top job": "Guna jawatan tertinggi ini",
+ "Fit {score} · needs it at {level} level": "Kesesuaian {score} · perlukannya di tahap {level}",
+ "This trend comes from tech job posts, so treat it as a hint for non-tech skills. You can also keep your path as it is.": "Trend ini datang daripada iklan kerja teknologi, jadi anggap ia sebagai petunjuk untuk kemahiran bukan teknologi. Anda juga boleh kekalkan laluan anda.",
+ "Keep your first stages, swap only the top job ({job})": "Kekalkan peringkat awal, tukar jawatan tertinggi sahaja ({job})",
+ "No other top job fits without this skill.": "Tiada jawatan tertinggi lain yang sesuai tanpa kemahiran ini.",
+ "Or choose a career that needs less of it": "Atau pilih kerjaya yang kurang memerlukannya",
+ "Your top job is now {job}. The earlier steps stay as they were.": "Jawatan tertinggi anda kini {job}. Langkah awal kekal seperti sebelum ini.",
+ "Back to your career's own top job.": "Kembali kepada jawatan tertinggi asal kerjaya anda.",
+ "Your top job is {job}, swapped from {original}.": "Jawatan tertinggi anda ialah {job}, ditukar daripada {original}.",
+ "Undo": "Buat asal"
 }
