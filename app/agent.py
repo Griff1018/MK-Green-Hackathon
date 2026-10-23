@@ -39,7 +39,6 @@ PAGES = {
     "resume": "Resume: open any time; built from your profile and the path steps you finish; save as PDF.",
     "wizard": "Edit about you: change explanation style, language, country, age and situation, time, budget, CV, skills and interests.",
     "sources": "Data and sources: where every number comes from, how the score is calculated, and what the AI model may do.",
-    "team": "For HR teams: a team skills heatmap and shared gaps for training plans, never for selection.",
 }
 GUIDE = [
     "The language switch is in the top bar; the light or dark switch is next to it.",

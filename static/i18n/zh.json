@@ -1791,5 +1791,6 @@
  "Your top job is {job}, swapped from {original}.": "你的最高职位是{job}，由{original}更换而来。",
  "Undo": "撤销",
  "Show sample teams": "显示示例团队",
- "Hide sample teams": "隐藏示例团队"
+ "Hide sample teams": "隐藏示例团队",
+ "Trust": "可信度"
 }
