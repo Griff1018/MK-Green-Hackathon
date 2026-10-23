@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Command for the Replit Scheduled Deployment: fetch fresh trend signals.
 set -euo pipefail
-python -m pip install --quiet -r requirements.txt
-exec python -m ingest.refresh
+[ -x .venv/bin/python ] || python -m venv .venv
+.venv/bin/python -m pip install --quiet -r requirements.txt
+exec .venv/bin/python -m ingest.refresh
