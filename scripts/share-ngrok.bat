@@ -14,7 +14,7 @@ if /i "%~1"=="noai" (
 if not exist ".venv\Scripts\python.exe" (
   echo Python environment not found. Run these once in this folder:
   echo   python -m venv .venv
-  echo   .venv\Scripts\python -m pip install -r requirements.txt
+  echo   .venv\Scripts\python -m pip install -r requirements-app.txt
   pause
   exit /b 1
 )
