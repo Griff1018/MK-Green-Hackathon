@@ -1730,6 +1730,16 @@ body.story-open { overflow: hidden; }
 .mode-seg button { padding: 6px 10px; font-size: .8rem; }
 .menu-mode { display: none; }
 @media (max-width: 640px) { #modePick { display: none; } .menu-mode { display: flex; } }
+/* reminder that any text can be highlighted and asked about (left of Simple / Detailed) */
+#modePick { display: flex; align-items: center; gap: 10px; }
+.sel-tip { display: inline-flex; align-items: center; gap: 7px; margin: 0; padding: 4px 4px 4px 4px; font-size: .78rem; color: var(--muted);
+  border: 1px dashed var(--line); border-radius: var(--r-sm); white-space: nowrap; }
+.sel-tip-mark { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 3px; background: var(--accent); color: var(--accent-ink); }
+.sel-tip-mark svg { width: 14px; height: 14px; }
+.sel-tip button { width: 22px; height: 22px; display: grid; place-items: center; border: 0; background: none; color: var(--faint); border-radius: 3px; font-size: .7rem; cursor: pointer; }
+.sel-tip button:hover { color: var(--ink); background: var(--chip); }
+@media (max-width: 1100px) { .sel-tip { display: none; } }
+.chat-hint { font-size: .78rem !important; color: var(--muted); padding-top: 6px; border-top: 1px dashed var(--line); }
 /* ---- guide: page held still ---- */
 html.tour-lock, html.tour-lock body { overflow: hidden; overscroll-behavior: none; }
 /* ---- Updates page: equal cards ---- */

@@ -1689,5 +1689,9 @@
  "Explain this in simple words.": "请用简单的话解释一下。",
  "What does this mean for me?": "这对我意味着什么？",
  "What do you want to know about it?": "你想了解它的什么？",
- "Remove highlighted text": "移除选中的文字"
+ "Remove highlighted text": "移除选中的文字",
+ "Tip: highlight any text to ask {name} about it": "提示：选中任何文字，就能问 {name}",
+ "Hide tip": "隐藏提示",
+ "New account": "新账户",
+ "starts fresh every time": "每次都从头开始"
 }

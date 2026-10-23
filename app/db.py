@@ -35,7 +35,7 @@ users = Table(
     "users", meta,
     Column("id", String(40), primary_key=True),
     Column("name", String(80), nullable=False),
-    Column("kind", String(10), nullable=False),          # "tester" or "sample"
+    Column("kind", String(10), nullable=False),          # "tester", "sample" or "fresh" (the New account)
     Column("data", Text, nullable=False),                 # profile, progress and settings (JSON)
     Column("created_at", String(32), nullable=False),
     Column("updated_at", String(32), nullable=False),

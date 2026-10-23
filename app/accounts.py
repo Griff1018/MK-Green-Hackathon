@@ -1,9 +1,11 @@
 """User accounts stored in the database.
 
-Two kinds of account:
+Three kinds of account:
   tester  real people testing the app. New testers start with an empty profile, so the
           app shows the "About you" setup first.
   sample  the synthetic sample people, shared by everyone for demos.
+  fresh   one shared "New account" for trying the setup from the start. It is wiped back to
+          an empty profile (and its chat cleared) on every sign-in and sign-out.
 
 Sign-in has no password or PIN (prototype). It returns a random session token; only a
 SHA-256 hash of the token is kept.
@@ -22,6 +24,7 @@ from .data import SAMPLES
 
 SESSION_DAYS = 30
 MAX_DATA_BYTES = 300_000
+FRESH_ID, FRESH_NAME = "new", "New account"
 PERSONA_EXTRA = {"meiling": {"age_band": "45-54", "situation": "employed"},
                  "aisha": {"age_band": "18-24", "situation": "student"},
                  "hafiz": {"age_band": "18-24", "situation": "student"}}
@@ -59,6 +62,7 @@ def ensure_accounts() -> None:
     db.init()
     wanted = [(f"sample-{p['id']}", p["name"].split(",")[0], "sample", blank_data(p)) for p in SAMPLES["personas"]]
     wanted += [(uid, name, "tester", blank_data()) for uid, name in config.TEST_ACCOUNTS]
+    wanted.append((FRESH_ID, FRESH_NAME, "fresh", blank_data()))
     now = _iso(_now())
     with db.engine.begin() as conn:
         have = {r[0] for r in conn.execute(select(db.users.c.id))}
@@ -85,8 +89,14 @@ def _new_session(conn, uid: str) -> str:
 
 def sign_in(uid: str) -> dict:
     with db.engine.begin() as conn:
-        if not conn.execute(select(db.users.c.id).where(db.users.c.id == uid)).first():
+        u = conn.execute(select(db.users.c.kind).where(db.users.c.id == uid)).first()
+        if not u:
             raise AuthError(404, "Account not found")
+        if u.kind == "fresh":  # starts from an empty profile every time, even if the last visit never signed out
+            conn.execute(delete(db.sessions).where(db.sessions.c.user_id == uid))
+    if u.kind == "fresh":
+        reset_data(uid)
+    with db.engine.begin() as conn:
         return {"token": _new_session(conn, uid)}
 
 
@@ -130,5 +140,10 @@ def reset_data(uid: str) -> dict:
 def sign_out(token: str | None) -> None:
     if not token:
         return
+    th = hashlib.sha256(token.encode()).hexdigest()
     with db.engine.begin() as conn:
-        conn.execute(delete(db.sessions).where(db.sessions.c.token_hash == hashlib.sha256(token.encode()).hexdigest()))
+        s = conn.execute(select(db.sessions.c.user_id).where(db.sessions.c.token_hash == th)).first()
+        kind = s and conn.execute(select(db.users.c.kind).where(db.users.c.id == s.user_id)).scalar()
+        conn.execute(delete(db.sessions).where(db.sessions.c.token_hash == th))
+    if kind == "fresh":
+        reset_data(s.user_id)

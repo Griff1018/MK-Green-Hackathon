@@ -40,6 +40,8 @@ function useAccount(u) {
   st.teamReport = null; st.openAreas = null; st.slide = null; st.teamSlide = null;
 }
 function signedOut() {
+  if (A() && A().kind === "fresh") { try { localStorage.removeItem(`wfe.members.${A().id}`); localStorage.removeItem(`wfe.teams.${A().id}`); } catch (e) { /* ignore */ } }
+  st.members = null;
   st.acct = null; st.token = null; st.chat = { open: false, opening: false, loaded: false, busy: false, messages: [], draft: "", quote: null };
   try { localStorage.removeItem(TOKEN); } catch (e) { /* ignore */ }
   st.page = "signin"; st.signin = { error: "" }; loadAccounts();
@@ -350,7 +352,7 @@ function renderChrome() {
     + `<button type="button" class="nav-more" id="navMore" ${more ? 'aria-current="page"' : ""}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>${T("More")}</span></button>`
     + `<div class="nav-2"><div class="nav-group">${T("Trust and teams")}</div>${NAV2.map(([k, l]) => `<button type="button" data-page="${k}" ${st.page === k ? 'aria-current="page"' : ""}><span>${T(l)}</span></button>`).join("")}</div>` : "";
   renderThemeBtn();
-  $("#modePick").innerHTML = signed && A().onboarded ? `<div class="seg mode-seg" role="group" aria-label="${T("Explanations")}" title="${T("How much detail to show")}"><button type="button" data-mode="simple" aria-pressed="${simple()}">${T("Simple")}</button><button type="button" data-mode="detailed" aria-pressed="${!simple()}">${T("Detailed")}</button></div>` : "";
+  $("#modePick").innerHTML = signed && A().onboarded ? `${selTip()}<div class="seg mode-seg" role="group" aria-label="${T("Explanations")}" title="${T("How much detail to show")}"><button type="button" data-mode="simple" aria-pressed="${simple()}">${T("Simple")}</button><button type="button" data-mode="detailed" aria-pressed="${!simple()}">${T("Detailed")}</button></div>` : "";
   $("#langPick").innerHTML = `<label class="lang-pick" title="${T("Language")}">${I.globe}<span class="sr-only">${T("Language")}</span><select id="uiLang">${LANGS.map(([k, short, full]) => `<option value="${k}" ${LANG === k ? "selected" : ""} title="${full}">${short}</option>`).join("")}</select></label>`;
   $("#account").innerHTML = signed ? `<details class="menu"><summary><span class="avatar">${esc(firstName()[0] || "?")}</span><span class="acct-name">${esc(firstName())}</span></summary>
     <div class="menu-body">
@@ -372,6 +374,7 @@ const intro = (eyebrow, title, text, action) => `<div class="page-head"><div cla
 // ---------- sign in ----------------------------------------------------------------------------
 function vSignin() {
   const testers = st.accounts.filter((a) => a.kind === "tester"), samples = st.accounts.filter((a) => a.kind === "sample");
+  const fresh = st.accounts.find((a) => a.kind === "fresh");
   const m = st.meta, s = snap(), hn = s ? s.sources.hn || {} : {};
   const demo = samples.find((a) => a.onboarded) || samples[0];
   const checked = m.catalogue.items.map((c) => c.link_checked_on).filter(Boolean).sort().pop();
@@ -388,6 +391,7 @@ function vSignin() {
     <aside class="signin-card" aria-labelledby="signinTitle">
       <div class="stack" style="gap:4px"><h3 id="signinTitle">${T("Start your plan")}</h3><p class="muted small">${T("Choose your account. Your profile, career plan and resume are saved to it.")}</p></div>
       <div class="field"><label for="acctSel">${T("Account")}</label><select id="acctSel">
+        ${fresh ? `<option value="${esc(fresh.id)}">${T("New account")} · ${T("starts fresh every time")}</option>` : ""}
         ${testers.length ? `<optgroup label="${T("Testers")}">${testers.map((a) => `<option value="${esc(a.id)}">${esc(a.name)}${a.onboarded ? "" : " · " + T("new")}</option>`).join("")}</optgroup>` : ""}
         <optgroup label="${T("Sample people (synthetic, shared)")}">${samples.map((a) => `<option value="${esc(a.id)}">${esc(a.name)}</option>`).join("")}</optgroup>
       </select></div>
@@ -2599,7 +2603,7 @@ function renderHelper() {
         <button type="button" class="icon-btn" id="chatClose" title="${T("Close")}" aria-label="${T("Close")}">✕</button></div></header>
       <div class="chat-log" id="chatLog" aria-live="polite">
         ${!c.loaded ? `<p class="chat-note"><span class="spin"></span> ${T("Opening…")}</p>` : ""}
-        ${c.loaded && !c.messages.length ? `<div class="msg bot"><p>${esc(T("Hi {name}! I can explain your plan, your next step, the careers that fit you and how this app works. What would you like to know?", { name: firstName() }))}</p></div>
+        ${c.loaded && !c.messages.length ? `<div class="msg bot"><p>${esc(T("Hi {name}! I can explain your plan, your next step, the careers that fit you and how this app works. What would you like to know?", { name: firstName() }))}</p><p class="chat-hint">${esc(T("Tip: highlight any text to ask {name} about it", { name: HELPER_NAME }))}</p></div>
           <div class="chat-suggest">${(isTeamUser() ? TEAM_SUGGEST : SUGGEST).map((q) => `<button type="button" class="chip" data-ask="${esc(q)}">${esc(T(q))}</button>`).join("")}</div>` : ""}
         ${c.messages.map(chatMsg).join("")}
         ${c.busy ? `<div class="msg bot typing" aria-label="${esc(T("{name} is thinking", { name: HELPER_NAME }))}"><span></span><span></span><span></span></div>` : ""}
@@ -2689,12 +2693,16 @@ async function askAbout(kind) {
   if (text.length > SEL_MAX) text = text.slice(0, SEL_MAX - 1) + "…";
   const section = selSection(selRange.commonAncestorContainer), hl = selHL();
   if (hl) hl.set("lambtae", new Highlight(selRange.cloneRange()));
-  window.getSelection().removeAllRanges(); selHide();
+  window.getSelection().removeAllRanges(); selHide(); selTipDone();
   const c = st.chat; c.quote = { text, section };
   if (!c.open) await openChat(); else renderHelper();
   if (kind === "own") { const inp = $("#chatInput"); if (inp) inp.focus(); return; }
   sendChat(T(kind === "me" ? "What does this mean for me?" : "Explain this in simple words."));
 }
+// A reminder in the top bar that any text can be highlighted and asked about. It goes away when the
+// person closes it or uses the feature once.
+const selTip = () => (A().prefs.selTipSeen ? "" : `<p class="sel-tip"><span class="sel-tip-mark" aria-hidden="true">${LAMB_FACE}</span><span>${esc(T("Tip: highlight any text to ask {name} about it", { name: HELPER_NAME }))}</span><button type="button" id="selTipX" aria-label="${T("Hide tip")}" title="${T("Hide tip")}">✕</button></p>`);
+function selTipDone() { if (A() && !A().prefs.selTipSeen) { A().prefs.selTipSeen = true; save(); } document.querySelector(".sel-tip")?.remove(); }
 const selClear = () => { const hl = selHL(); if (hl) hl.delete("lambtae"); };
 const LAMB_FACE = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9.5a2.5 2.5 0 1 1 1.8-4.3A3 3 0 0 1 15.2 5.2 2.5 2.5 0 1 1 17 9.5"/><path d="M7.5 9.5c0 5 2 9 4.5 9s4.5-4 4.5-9"/><circle cx="10.2" cy="12" r=".6" fill="currentColor"/><circle cx="13.8" cy="12" r=".6" fill="currentColor"/></svg>`;
 function renderAskSel() {
@@ -3034,6 +3042,7 @@ document.addEventListener("click", async (ev) => {
   switch (t.id) {
     case "caseBtn": if (!A().prefs.helperSeen) { A().prefs.helperSeen = true; save(); } openChat(); return;
     case "chatClose": st.chat.open = false; st.chat.quote = null; selClear(); renderHelper(); $("#caseBtn").focus(); return;
+    case "selTipX": selTipDone(); return;
     case "quoteDrop": st.chat.quote = null; selClear(); renderHelper(); { const inp = $("#chatInput"); if (inp) inp.focus(); } return;
     case "chatClear": try { await api("/api/chat", null, false, "DELETE"); } catch (e) { /* nothing to clear */ } st.chat.messages = []; renderHelper(); return;
     case "themeBtn": { const nx = theme() === "dark" ? "light" : "dark"; document.documentElement.dataset.theme = nx; try { localStorage.setItem("wfe.theme", nx); } catch (e) { /* this visit only */ } renderThemeBtn(); return; }
