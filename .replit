@@ -2,6 +2,16 @@
 modules = ["python-3.12", "nodejs-20", "postgresql-16"]
 run = ["bash", "scripts/start.sh"]
 
+# Packages are installed by scripts/build.sh. Replit's own automatic install runs
+# "pip install --user", which fails inside its Python environment, so it is turned off here.
+[packager]
+language = "python3"
+
+[packager.features]
+enabledForHosting = false
+packageSearch = true
+guessImports = false
+
 [deployment]
 deploymentTarget = "autoscale"
 build = ["bash", "scripts/build.sh"]
