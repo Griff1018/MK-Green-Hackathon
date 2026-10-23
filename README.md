@@ -173,9 +173,9 @@ python -m pytest -q
 | Name        | Role                | GitHub                                   |
 | ----------- | ------------------- | ---------------------------------------- |
 | Wong Yik Sheng    | Team Leader              | [@tms-tm](https://github.com/tms-tm)                           |
-| Chew Chee Kin     | Core Architect              | [@Griff1018](https://github.com/Griff1018) |
+| Chew Chee Kin     | Core Architect, Video Presenter              | [@Griff1018](https://github.com/Griff1018) |
 | Adam Go Zi Yang     | Video Editor             | [@ADGGG](https://github.com/ADGGG)                             |
-| Wee Kuan Xun    | Video Presenter             | [@Duskxw](https://github.com/Duskxw)                            |
+| Wee Kuan Xun    | Video Presenters             | [@Duskxw](https://github.com/Duskxw)                            |
 | Tan Yong Sheng     | Documentation  | [@Ystan35](https://github.com/Ystan35)  |
 
 ---
