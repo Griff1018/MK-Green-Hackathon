@@ -8,12 +8,12 @@
 
 | Field                  | Details                                     |
 | ---------------------- | ------------------------------------------- |
-| **Team Name**          | MK GreenCode                                   |
+| **Team Name**          | MK GreenCode                                 |
 | **Team Domain**        | Domain 1: Future-Ready Workforce            |
 | **SDG Track (1–17)**   | SDG 8 — Decent Work and Economic Growth (also SDG 4.4 and 9.5) |
-| **Team Leader**        | Wong Yik Sheng                                 |
-| **University**         | University Malaya                         |
-| **Number of Members**  | 5                                           |
+| **Team Leader**        | Wong Yik Sheng                              |
+| **University**         | University Malaya                       |
+| **Number of Members**  | 5                                         |
 
 ## Links
 
@@ -22,8 +22,8 @@
 | GitHub Repository | https://github.com/Griff1018/MK-Green-Hackathon |
 | Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
 | Live Demo         | https://mk-green-hackathon.replit.app          |
-| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing                                |
-| Demo Video        | demo video link                                |
+| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing]                              |
+| Demo Video        | [demo video link]                              |
 
 ---
 
@@ -31,7 +31,7 @@
 
 ### Problem
 
-AI is changing which skills employers ask for faster than workers, students and career advisers can see. In Malaysia, 600,000+ workers are expected to need reskilling within 3–5 years (Minister of Science, Technology and Innovation, January 2025, reported by Malay Mail). Our live data shows the shift: from May–Jul to Aug–Oct 2026, the share of job posts asking for spreadsheets and data handling fell from 2.3% to 1.6%, while databases and SQL rose from 13.4% to 16.4%. People such as Mei Ling, a 45-year-old office clerk (one of our synthetic personas), cannot tell which of their skills are fading, which career fits them next, or what to learn first; career advice is generic and courses are scattered.
+AI is changing which skills employers ask for faster than workers, students and career advisers can see. In Malaysia, 600,000+ workers are expected to need reskilling within 3–5 years (Minister of Science, Technology and Innovation, January 2025, reported by Malay Mail). Our live data shows the shift: from May–Jul to Aug–Oct 2026, the share of job posts asking for spreadsheets and data handling fell from 2.3% to 1.6%, while databases and SQL rose from 13.4% to 16.4%. Jobs like office clerk (one of our synthetic personas), cannot tell which of their skills are fading, which career fits them next, or what to learn first, career advice is generic and courses are scattered.
 
 ### Solution
 
@@ -150,28 +150,8 @@ python -m pytest -q
 - **Scheduled refresh:** the running app fetches a new trend snapshot once a day; a Replit Scheduled Deployment can run `bash scripts/refresh.sh` as well.
 - **Secrets:** API keys and tester accounts live in Replit Secrets, never in the code.
 
-📄 Proof of use: [`submission/SDC2026_TeamName_Replit_POU.pdf`](submission/SDC2026_TeamName_Replit_POU.pdf)
-
-## How We Use RunPod *(Required)*
-
-- **Workload:** the app's language model runs on a RunPod GPU: it reads CVs and free text to suggest skills (quoting the person's words) and rewords explanations, resume lines and news summaries from facts the engine computed.
-- **Setup:** a **RunPod Serverless Endpoint** using RunPod's vLLM worker with `Qwen/Qwen2.5-7B-Instruct`. Steps in [runpod/README.md](runpod/README.md).
-- **Integration:** when `RUNPOD_API_KEY` and `RUNPOD_ENDPOINT_ID` are set, the Replit app sends model calls to the endpoint's OpenAI-compatible route (`app/llm.py`, `app/config.py`). Output is validated; anything that fails falls back to templates.
-
-Example request:
-
-```bash
-curl -X POST https://api.runpod.ai/v2/$RUNPOD_ENDPOINT_ID/openai/v1/chat/completions \
-  -H "Authorization: Bearer $RUNPOD_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"model": "Qwen/Qwen2.5-7B-Instruct", "messages": [{"role": "user", "content": "Hello"}]}'
-```
-
-Or run `python runpod/smoke_test.py`.
-
-📄 Proof of use: [`submission/SDC2026_TeamName_Runpod_POU.pdf`](submission/SDC2026_TeamName_Runpod_POU.pdf)
-
----
+📄 Proof of use: [`submission/SDC2026_MKGreenCode_Replit_POU.pdf`](submission/SDC2026_MKGreenCode_Replit_POU.pdf)
+--
 
 ## Challenges & Learnings
 
@@ -193,22 +173,23 @@ Or run `python runpod/smoke_test.py`.
 
 | Name        | Role                | GitHub                                   |
 | ----------- | ------------------- | ---------------------------------------- |
-| [Name]      | [Role]              | [@Griff1018](https://github.com/Griff1018) |
-| [Name]      | [Role]              | [@username]                              |
-| [Name]      | [Role]              | [@username]                              |
+| Wong Yik Sheng    | Team Leader              | [@tms-tm](https://github.com/tms-tm)                           |
+| Chew Chee Kin     | Core Architect              | [@Griff1018](https://github.com/Griff1018) |
+| Adam Go Zi Yang     | Video Editor             | [@ADGGG](https://github.com/ADGGG)                             |
+| Wee Kuan Xun    | Video Presenter             | [@Duskxw](https://github.com/Duskxw)                            |
+| Tan Yong Sheng     | Documentation  | [@Ystan35](https://github.com/Ystan35)  |
 
 ---
 
 ## Submission Checklist
 
-- [ ] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
-- [ ] Slide deck link added
+- [x] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
+- [x] Slide deck link added
 - [ ] Demo video link added
-- [ ] Replit used, with proof of use in `submission/`
-- [ ] RunPod used, with proof of use in `submission/`
-- [ ] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
-- [ ] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
-- [ ] Submission files renamed with your team name (replace `TeamName`)
+- [x] Replit used, with proof of use in `submission/`
+- [x] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
+- [x] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
+- [x] Submission files renamed with your team name (replace `TeamName`)
 - [x] "How to Run" steps verified
 - [x] No API keys or secrets committed to the repository
 
