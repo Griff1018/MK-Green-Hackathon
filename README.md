@@ -22,7 +22,7 @@
 | GitHub Repository | https://github.com/Griff1018/MK-Green-Hackathon |
 | Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
 | Live Demo         | https://mk-green-hackathon.replit.app          |
-| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing]                              |
+| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing|
 | Demo Video        | [demo video link]                              |
 
 ---
@@ -106,7 +106,6 @@ Browser (static/) ──► Replit: FastAPI app (app/) ──► PostgreSQL (acc
 1. Open the [Replit Project](https://replit.com/@wongyiksheng/MK-Green-Hackathon), or import this repository via **Create Repl → Import from GitHub**.
 2. In **Tools → Database**, add a PostgreSQL database (Replit sets `DATABASE_URL`).
 3. Open the **Secrets** tab (🔒) and add the variables listed in `.env.example`:
-   - `RUNPOD_API_KEY`, `RUNPOD_ENDPOINT_ID` (see [runpod/README.md](runpod/README.md))
    - `ADMIN_TOKEN` (any long random string), `TEST_ACCOUNTS` (e.g. `alice:Alice,bob:Bob`)
    - optional: `LLM_API_KEY` (DeepSeek fallback), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY`
 4. Click **Run**. Replit uses `.replit` to run `scripts/build.sh` and `scripts/start.sh`.
