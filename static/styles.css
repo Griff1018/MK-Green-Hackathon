@@ -357,7 +357,7 @@ ul.plain { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 .sheet .card > .row.between:first-child .eyebrow { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* ======================================================================================
-   Design system pass (ui-instructions.md): tokens, shell, shared components.
+   Design system pass: tokens, shell, shared components.
    Rules: one hero per screen, answer first and evidence on demand, trust labels visible,
    colour never the only cue, 44px touch targets on phones, reduced motion respected.
    ====================================================================================== */

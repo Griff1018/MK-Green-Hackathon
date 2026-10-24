@@ -98,8 +98,6 @@ Workforce Futures turns public trend signals into a personal, explainable plan. 
 ├── .replit                  # Replit run configuration
 ├── requirements-app.txt     # Runtime dependencies
 ├── requirements-dev.txt     # Development and test dependencies
-├── ui-instructions.md       # UI design instructions
-├── ui_ux_research.md        # UI/UX research notes
 ├── LICENSE                  # Apache License 2.0
 ├── NOTICE                   # Data sources and licences
 └── README.md
