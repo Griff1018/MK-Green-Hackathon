@@ -23,7 +23,7 @@
 | Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
 | Live Demo         | https://mk-green-hackathon.replit.app          |
 | Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing|
-| Demo Video        | https://drive.google.com/file/d/1RItAk2ZSZWqDUEbi-gB-ble2uMeq1Bip/view?usp=sharing   |
+| Demo Video        | https://www.youtube.com/watch?v=AdGutqiT2iY   |
 
 ---
 
