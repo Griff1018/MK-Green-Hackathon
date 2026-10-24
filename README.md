@@ -207,10 +207,6 @@ python -m pytest -q
 
 📄 Proof of use: [`submission/SDC2026_MKGreenCode_Replit_POU.pdf`](submission/SDC2026_MKGreenCode_Replit_POU.pdf)
 
-## How We Use RunPod *(Required)*
-
-- **Not used.** The prototype has no GPU workload: it trains no model and runs no model itself. Its language features (reading CVs, rewording explanations) call the DeepSeek API directly, as declared in the Technical & Tools Declaration, so there is no RunPod proof of use in `submission/`.
-
 ---
 
 ## Challenges & Learnings
