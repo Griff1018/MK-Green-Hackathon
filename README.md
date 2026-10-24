@@ -6,25 +6,25 @@
 
 ## Team Information
 
-| Field                  | Details                                     |
-| ---------------------- | ------------------------------------------- |
-| **Team Name**          | MK GreenCode                                 |
-| **Team Domain**        | Domain 1: Future-Ready Workforce            |
+| Field                  | Details                                                        |
+| ---------------------- | -------------------------------------------------------------- |
+| **Team Name**          | MK GreenCode                                                   |
+| **Team Domain**        | Domain 1: Future-Ready Workforce                               |
 | **SDG Track (1–17)**   | SDG 8 — Decent Work and Economic Growth (also SDG 4.4 and 9.5) |
-| **Team Leader**        | Wong Yik Sheng                              |
-| **University**         | Universiti Malaya                           |
-| **Number of Members**  | 5                                           |
+| **Team Leader**        | Wong Yik Sheng                                                 |
+| **University**         | Universiti Malaya                                              |
+| **Number of Members**  | 5                                                              |
 
 ## Links
 
-| Resource          | Link                                           |
-| ----------------- | ---------------------------------------------- |
-| Live Demo         | https://workforce-future.replit.app/         |
+| Resource          | Link                                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------- |
+| GitHub Repository | https://github.com/Griff1018/MK-GreenCode-WorkFuture                                                 |
+| Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon                                                  |
+| Live Demo         | https://workforce-future.replit.app/                                                                 |
 | Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing |
-| GitHub Repository | https://github.com/Griff1018/MK-GreenCode-WorkFuture |
-| Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
-| Demo Video        | https://www.youtube.com/watch?v=AdGutqiT2iY  |
-| Pitching Video    | *(to be added)*                              |
+| Demo Video        | https://www.youtube.com/watch?v=AdGutqiT2iY                                                          |
+| Pitching Video    | *(to be added)*                                                                                      |
 
 ---
 
@@ -51,14 +51,14 @@ Workforce Futures turns public trend signals into a personal, explainable plan. 
 
 ### Tech Stack
 
-| Layer         | Technology                   |
-| ------------- | ---------------------------- |
-| Frontend      | HTML, CSS, vanilla JavaScript (GSAP and Lenis for motion) |
-| Backend       | Python, FastAPI, Uvicorn     |
-| Database      | PostgreSQL on Replit, SQLite locally (SQLAlchemy) |
+| Layer         | Technology                                                                      |
+| ------------- | ------------------------------------------------------------------------------- |
+| Frontend      | HTML, CSS, vanilla JavaScript (GSAP and Lenis for motion)                       |
+| Backend       | Python, FastAPI, Uvicorn                                                        |
+| Database      | PostgreSQL on Replit, SQLite locally (SQLAlchemy)                               |
 | AI / Compute  | RunPod Serverless vLLM endpoint (Qwen2.5-7B-Instruct); DeepSeek API as fallback |
-| Data          | ESCO v1.2, ILO GenAI exposure index (WP 140), UN SDG API, Hacker News, arXiv |
-| Hosting / Dev | Replit (Autoscale deployment, PostgreSQL, Secrets) |
+| Data          | ESCO v1.2, ILO GenAI exposure index (WP 140), UN SDG API, Hacker News, arXiv    |
+| Hosting / Dev | Replit (Autoscale deployment, PostgreSQL, Secrets)                              |
 
 ---
 
@@ -138,10 +138,10 @@ To let others try your local instance over the internet without deploying, use t
 **One-time setup:**
 
 1. Get the code — either is fine:
-   - **Download as ZIP (no Git needed):** on the [GitHub page](https://github.com/Griff1018/MK-GreenCode-WorkFuture), click **Code → Download ZIP**, then extract it to a folder.
+   - **Download as ZIP (no Git needed):** on the [GitHub page](https://github.com/Griff1018/MK-GreenCode-WorkFuture), click **Code → Download ZIP**, then extract it to a folder (e.g. `C:\MK-GreenCode-WorkFuture`).
    - **Or clone:** `git clone https://github.com/Griff1018/MK-GreenCode-WorkFuture.git`
-2. Install ngrok: `winget install ngrok.ngrok`, then authenticate once with `ngrok config add-authtoken <your-token>` (free token from [ngrok.com](https://dashboard.ngrok.com/get-started/your-authtoken)).
-3. In the project folder, set up Python once (Python 3.11+ must be installed):
+2. Install ngrok: open **Command Prompt** (press Start, type `cmd`) and run `winget install ngrok.ngrok`, then authenticate once with `ngrok config add-authtoken <your-token>` (free token from [ngrok.com](https://dashboard.ngrok.com/get-started/your-authtoken)).
+3. In the project folder (open it in File Explorer, click the address bar, type `cmd` and press Enter to get a terminal in the right place), set up Python once (Python 3.11+ must be installed — see [python.org/downloads](https://www.python.org/downloads/)):
    ```
    python -m venv .venv
    .venv\Scripts\python -m pip install -r requirements-app.txt
@@ -149,33 +149,58 @@ To let others try your local instance over the internet without deploying, use t
 
 **Every time you want to share the app:**
 
-4. Double-click `scripts\share-ngrok.bat`. It starts the app on port 8001 in its own window, waits for it to be healthy, then opens an ngrok tunnel.
-5. Share the `https://...ngrok-free.app` address ngrok prints. Anyone with the link can use the app while the two windows stay open; press Ctrl+C in the ngrok window to stop sharing.
+4. In **File Explorer**, double-click `scripts\share-ngrok.bat`. It starts the app on port 8001 in its own window, waits for it to be healthy, then opens an ngrok tunnel.
+5. Share the `https://...ngrok-free.app` address ngrok prints. Anyone with the link can use the app in their browser while the two windows stay open; press Ctrl+C in the ngrok window to stop sharing.
 
 Add `noai` to turn off the language model for the run: `scripts\share-ngrok.bat noai`. You can also use a different ngrok binary by setting the `NGROK` environment variable.
 
 ### Run Local
 
-```bash
-# 1. Clone the repository
+**What you need:** Python 3.11+ ([python.org/downloads](https://www.python.org/downloads/) — on Windows, tick "Add Python to PATH" during install).
+
+**Open a terminal in the project folder:**
+- **Windows:** Command Prompt or PowerShell (press Start, type `cmd`)
+- **macOS/Linux:** Terminal
+
+No IDE is required. If you use VS Code, open the project folder there and run the same commands in its terminal (Terminal → New Terminal).
+
+**What you'll see:** the app running at http://localhost:8000 — open that address in any web browser (Chrome, Edge, Firefox).
+
+**Windows (Command Prompt) — copy and paste the whole block:**
+
+```bat
 git clone https://github.com/Griff1018/MK-GreenCode-WorkFuture.git
 cd MK-GreenCode-WorkFuture
 
-# 2. Create and activate a virtual environment (Python 3.11+)
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+.venv\Scripts\activate
 
-# 3. Install dependencies
-pip install -r requirements-dev.txt   # includes requirements-app.txt
+pip install -r requirements-dev.txt
 
-# 4. Configure environment variables
-cp .env.example .env            # then fill in your values
+copy .env.example .env
 
-# 5. Run the app
 uvicorn app.main:app --reload
 ```
 
-Open http://localhost:8000. Without any model key the app still works: skills come from keyword matching and explanations from templates.
+**macOS / Linux (Terminal) — copy and paste the whole block:**
+
+```bash
+git clone https://github.com/Griff1018/MK-GreenCode-WorkFuture.git
+cd MK-GreenCode-WorkFuture
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements-dev.txt
+
+cp .env.example .env
+
+uvicorn app.main:app --reload
+```
+
+(Or skip the clone and download the ZIP from GitHub, extract it, then start from the `python -m venv` step inside the extracted folder.)
+
+Open http://localhost:8000 in your browser. Without any model key the app still works: skills come from keyword matching and explanations from templates.
 
 **Python version:** Replit uses Python 3.12 (see `.replit`); 3.11+ is recommended locally. The run scripts (`scripts/build.sh`, `scripts/start.sh`) create a `.venv` and install `requirements-app.txt` automatically, which is how Replit runs the app.
 
@@ -184,7 +209,8 @@ Open http://localhost:8000. Without any model key the app still works: skills co
 The app fetches a new trend snapshot once a day while running. To run it manually or from a Replit Scheduled Deployment:
 
 ```bash
-bash scripts/refresh.sh     # runs python -m ingest.refresh
+# runs: python -m ingest.refresh
+bash scripts/refresh.sh
 ```
 
 `ADMIN_TOKEN` protects the `POST /api/admin/refresh` endpoint.
@@ -227,13 +253,13 @@ python -m pytest -q
 
 ## Team
 
-| Name            | Role                                          | GitHub                                    |
-| --------------- | --------------------------------------------- | ----------------------------------------- |
-| Wong Yik Sheng  | Team Lead          | [@tms-tm](https://github.com/tms-tm)      |
-| Chew Chee Kin   | Architect & Presenter          | [@Griff1018](https://github.com/Griff1018)|
-| Adam Go Zi Yang | Video Editor           | [@ADGGG](https://github.com/ADGGG)        |
-| Wee Kuan Xun    | Presenter          | [@Duskxw](https://github.com/Duskxw)      |
-| Tan Yong Sheng  | Documentation         | [@Ystan35](https://github.com/Ystan35)    |
+| Name            | Role                                          | GitHub                                     |
+| --------------- | --------------------------------------------- | ------------------------------------------ |
+| Wong Yik Sheng  | Team Lead                                     | [@tms-tm](https://github.com/tms-tm)       |
+| Chew Chee Kin   | Architect & Presenter                         | [@Griff1018](https://github.com/Griff1018) |
+| Adam Go Zi Yang | Video Editor                                  | [@ADGGG](https://github.com/ADGGG)         |
+| Wee Kuan Xun    | Presenter                                     | [@Duskxw](https://github.com/Duskxw)       |
+| Tan Yong Sheng  | Documentation                                 | [@Ystan35](https://github.com/Ystan35)     |
 
 ---
 
