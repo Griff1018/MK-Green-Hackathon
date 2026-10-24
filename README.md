@@ -12,18 +12,19 @@
 | **Team Domain**        | Domain 1: Future-Ready Workforce            |
 | **SDG Track (1–17)**   | SDG 8 — Decent Work and Economic Growth (also SDG 4.4 and 9.5) |
 | **Team Leader**        | Wong Yik Sheng                              |
-| **University**         | University Malaya                       |
-| **Number of Members**  | 5                                         |
+| **University**         | Universiti Malaya                           |
+| **Number of Members**  | 5                                           |
 
 ## Links
 
 | Resource          | Link                                           |
 | ----------------- | ---------------------------------------------- |
-| GitHub Repository | https://github.com/Griff1018/MK-Green-Hackathon |
+| Live Demo         | https://workforce-future.replit.app/         |
+| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing |
+| GitHub Repository | https://github.com/Griff1018/MK-GreenCode-WorkFuture |
 | Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
-| Live Demo         | https://mk-green-hackathon.replit.app          |
-| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing|
-| Demo Video        | https://www.youtube.com/watch?v=AdGutqiT2iY   |
+| Demo Video        | https://www.youtube.com/watch?v=AdGutqiT2iY  |
+| Pitching Video    | *(to be added)*                              |
 
 ---
 
@@ -69,20 +70,38 @@ Workforce Futures turns public trend signals into a personal, explainable plan. 
 │   ├── main.py              # Application entry point and HTTP API
 │   ├── engine.py            # Scoring, scenarios and pathway builder
 │   ├── llm.py               # Model connector (RunPod / DeepSeek / CLI) with guardrails
-│   ├── assist.py, agent.py  # Skill extraction, explanations, the in-app helper
-│   └── ...                  # accounts, advice, CV import, job check, config, db
-├── ingest/                  # Daily trend refresh, seed builders, checks
+│   ├── accounts.py          # Sign-in, sessions, tester accounts
+│   ├── advice.py            # Cost and weekly-hours advice
+│   ├── agent.py             # In-app helper
+│   ├── assist.py            # Skill extraction and explanations
+│   ├── config.py            # Environment and app configuration
+│   ├── cv.py                # CV import (PDF, Word, text)
+│   ├── data.py              # Seed data loading
+│   ├── db.py                # Database models and session storage
+│   ├── interview.py         # Guided intake interview
+│   └── jobcheck.py          # Live job checks (ESCO API)
+├── ingest/                  # Data tooling: daily trend refresh (refresh.py, news.py),
+│   │                        # seed builders (build_seed.py, draft_role.py), checks
+│   │                        # (check_catalogue.py, check_i18n.py), i18n tooling,
+│   │                        # sample-CV generator, account manager
 ├── data/seed/               # ESCO roles and skills, ILO scores, SDG targets, courses, synthetic people
-├── static/                  # Web app (index.html, app.js, styles.css, translations)
-├── runpod/                  # RunPod endpoint setup and smoke test
-├── docs/                    # Screenshots and evidence
+├── static/                  # Web app (index.html, app.js, styles.css) plus
+│   │                        # i18n/ translations, samples/, vendor/ and art assets
+├── docs/                    # Art assets and evidence (screenshots)
 ├── submission/              # Required submission documents
-├── scripts/                 # Replit build, start and refresh scripts
+│   ├── SDC2026_MKGreenCode_Preliminary.pdf      # Preliminary submission
+│   ├── SDC2026_MKGreenCode_TechDeclaration.pdf  # Technology declaration
+│   └── SDC2026_MKGreenCode_Replit_POU.pdf       # Replit proof of use
+├── scripts/                 # Replit build.sh, start.sh, refresh.sh, share-ngrok.bat
 ├── tests/                   # Unit tests (pytest)
 ├── .env.example             # Example environment variables
 ├── .replit                  # Replit run configuration
-├── LICENSE, NOTICE
-├── requirements.txt         # Python dependencies
+├── requirements-app.txt     # Runtime dependencies
+├── requirements-dev.txt     # Development and test dependencies
+├── ui-instructions.md       # UI design instructions
+├── ui_ux_research.md        # UI/UX research notes
+├── LICENSE                  # Apache License 2.0
+├── NOTICE                   # Data sources and licences
 └── README.md
 ```
 
@@ -101,28 +120,53 @@ Browser (static/) ──► Replit: FastAPI app (app/) ──► PostgreSQL (acc
 
 ## How to Run
 
-### Option 1 — Run on Replit (Recommended)
+### Run Online — Replit (Recommended)
 
 1. Open the [Replit Project](https://replit.com/@wongyiksheng/MK-Green-Hackathon), or import this repository via **Create Repl → Import from GitHub**.
 2. In **Tools → Database**, add a PostgreSQL database (Replit sets `DATABASE_URL`).
 3. Open the **Secrets** tab (🔒) and add the variables listed in `.env.example`:
    - `ADMIN_TOKEN` (any long random string), `TEST_ACCOUNTS` (e.g. `alice:Alice,bob:Bob`)
-   - optional: `LLM_API_KEY` (DeepSeek fallback), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY`
+   - optional: `RUNPOD_API_KEY` / `RUNPOD_ENDPOINT_ID` (GPU model endpoint), `LLM_API_KEY` (DeepSeek fallback), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY`
 4. Click **Run**. Replit uses `.replit` to run `scripts/build.sh` and `scripts/start.sh`.
 
-### Option 2 — Run Locally
+A deployed version is always available at the [Live Demo](https://workforce-future.replit.app/) link above.
+
+### Run Online — Share a Local Run with ngrok (Windows)
+
+To let others try your local instance over the internet without deploying, use the bundled `scripts/share-ngrok.bat`. No Git knowledge is needed — downloading the repository as a ZIP is enough.
+
+**One-time setup:**
+
+1. Get the code — either is fine:
+   - **Download as ZIP (no Git needed):** on the [GitHub page](https://github.com/Griff1018/MK-GreenCode-WorkFuture), click **Code → Download ZIP**, then extract it to a folder.
+   - **Or clone:** `git clone https://github.com/Griff1018/MK-GreenCode-WorkFuture.git`
+2. Install ngrok: `winget install ngrok.ngrok`, then authenticate once with `ngrok config add-authtoken <your-token>` (free token from [ngrok.com](https://dashboard.ngrok.com/get-started/your-authtoken)).
+3. In the project folder, set up Python once (Python 3.11+ must be installed):
+   ```
+   python -m venv .venv
+   .venv\Scripts\python -m pip install -r requirements-app.txt
+   ```
+
+**Every time you want to share the app:**
+
+4. Double-click `scripts\share-ngrok.bat`. It starts the app on port 8001 in its own window, waits for it to be healthy, then opens an ngrok tunnel.
+5. Share the `https://...ngrok-free.app` address ngrok prints. Anyone with the link can use the app while the two windows stay open; press Ctrl+C in the ngrok window to stop sharing.
+
+Add `noai` to turn off the language model for the run: `scripts\share-ngrok.bat noai`. You can also use a different ngrok binary by setting the `NGROK` environment variable.
+
+### Run Local
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Griff1018/MK-Green-Hackathon.git
-cd MK-Green-Hackathon
+git clone https://github.com/Griff1018/MK-GreenCode-WorkFuture.git
+cd MK-GreenCode-WorkFuture
 
 # 2. Create and activate a virtual environment (Python 3.11+)
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
 # 3. Install dependencies
-pip install -r requirements-dev.txt
+pip install -r requirements-dev.txt   # includes requirements-app.txt
 
 # 4. Configure environment variables
 cp .env.example .env            # then fill in your values
@@ -132,6 +176,18 @@ uvicorn app.main:app --reload
 ```
 
 Open http://localhost:8000. Without any model key the app still works: skills come from keyword matching and explanations from templates.
+
+**Python version:** Replit uses Python 3.12 (see `.replit`); 3.11+ is recommended locally. The run scripts (`scripts/build.sh`, `scripts/start.sh`) create a `.venv` and install `requirements-app.txt` automatically, which is how Replit runs the app.
+
+### Scheduled trend refresh
+
+The app fetches a new trend snapshot once a day while running. To run it manually or from a Replit Scheduled Deployment:
+
+```bash
+bash scripts/refresh.sh     # runs python -m ingest.refresh
+```
+
+`ADMIN_TOKEN` protects the `POST /api/admin/refresh` endpoint.
 
 ### Run Tests
 
@@ -150,7 +206,8 @@ python -m pytest -q
 - **Secrets:** API keys and tester accounts live in Replit Secrets, never in the code.
 
 📄 Proof of use: [`submission/SDC2026_MKGreenCode_Replit_POU.pdf`](submission/SDC2026_MKGreenCode_Replit_POU.pdf)
---
+
+---
 
 ## Challenges & Learnings
 
@@ -170,13 +227,13 @@ python -m pytest -q
 
 ## Team
 
-| Name        | Role                | GitHub                                   |
-| ----------- | ------------------- | ---------------------------------------- |
-| Wong Yik Sheng    | Team Leader              | [@tms-tm](https://github.com/tms-tm)                           |
-| Chew Chee Kin     | Core Architect, Video Presenter              | [@Griff1018](https://github.com/Griff1018) |
-| Adam Go Zi Yang     | Video Editor             | [@ADGGG](https://github.com/ADGGG)                             |
-| Wee Kuan Xun    | Video Presenter             | [@Duskxw](https://github.com/Duskxw)                            |
-| Tan Yong Sheng     | Documentation  | [@Ystan35](https://github.com/Ystan35)  |
+| Name            | Role                                          | GitHub                                    |
+| --------------- | --------------------------------------------- | ----------------------------------------- |
+| Wong Yik Sheng  | Team Lead          | [@tms-tm](https://github.com/tms-tm)      |
+| Chew Chee Kin   | Architect & Presenter          | [@Griff1018](https://github.com/Griff1018)|
+| Adam Go Zi Yang | Video Editor           | [@ADGGG](https://github.com/ADGGG)        |
+| Wee Kuan Xun    | Presenter          | [@Duskxw](https://github.com/Duskxw)      |
+| Tan Yong Sheng  | Documentation         | [@Ystan35](https://github.com/Ystan35)    |
 
 ---
 
@@ -186,15 +243,13 @@ python -m pytest -q
 - [x] Slide deck link added
 - [x] Demo video link added
 - [x] Replit used, with proof of use in `submission/`
-- [x] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
-- [x] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
-- [x] Submission files renamed with your team name (replace `TeamName`)
+- [x] All required submission documents (preliminary, technology declaration, Replit proof of use) completed, uploaded to `submission/` and renamed with the team name
 - [x] "How to Run" steps verified
 - [x] No API keys or secrets committed to the repository
 
 ---
 
-## More detail
+## More Detail
 
 ### Scoring
 
