@@ -1,5 +1,5 @@
-"""Connection to a language model: an OpenAI-compatible API (a RunPod Serverless vLLM
-endpoint, or DeepSeek) when a key is set, otherwise the WorkBuddy (CodeBuddy) CLI.
+"""Connection to a language model: an OpenAI-compatible API (DeepSeek by default)
+when a key is set, otherwise the WorkBuddy (CodeBuddy) CLI.
 
 The model is only ever asked to (a) pick skill clusters from a fixed list, quoting
 the user's own words as evidence, and (b) explain results we already computed.
@@ -42,8 +42,6 @@ def _api() -> bool:
 
 def _api_name() -> str:
     host = urlparse(config.LLM_BASE_URL).hostname or "API"
-    if host == "api.runpod.ai":
-        return "RunPod Serverless (vLLM)"
     known = {"api.deepseek.com": "DeepSeek API", "api.openai.com": "OpenAI API", "api.groq.com": "Groq API",
              "generativelanguage.googleapis.com": "Google Gemini API"}
     return known.get(host, host)

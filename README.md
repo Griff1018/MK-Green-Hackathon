@@ -36,7 +36,7 @@ AI is changing which skills employers ask for faster than workers, students and 
 
 ### Solution
 
-Workforce Futures turns public trend signals into a personal, explainable plan. It fetches job posts and AI research every day, measures which skills are rising or cooling, scores 20 future careers for the person with an open formula (skills, demand, transferable skills and interests, minus AI exposure from the ILO index), and builds an ordered reskilling path with checked courses that fit their budget and weekly hours. Every role and skill is linked to official UN SDG targets with a reason. A language model (on a RunPod GPU endpoint, or DeepSeek) only reads CVs and rewords explanations, under guardrails; it never chooses careers, courses or scores. The person stays in charge: the app explains, it never decides.
+Workforce Futures turns public trend signals into a personal, explainable plan. It fetches job posts and AI research every day, measures which skills are rising or cooling, scores 20 future careers for the person with an open formula (skills, demand, transferable skills and interests, minus AI exposure from the ILO index), and builds an ordered reskilling path with checked courses that fit their budget and weekly hours. Every role and skill is linked to official UN SDG targets with a reason. A language model (the DeepSeek API) only reads CVs and rewords explanations, under guardrails; it never chooses careers, courses or scores. The person stays in charge: the app explains, it never decides.
 
 ### Key Features
 
@@ -51,14 +51,14 @@ Workforce Futures turns public trend signals into a personal, explainable plan. 
 
 ### Tech Stack
 
-| Layer         | Technology                                                                      |
-| ------------- | ------------------------------------------------------------------------------- |
-| Frontend      | HTML, CSS, vanilla JavaScript (GSAP and Lenis for motion)                       |
-| Backend       | Python, FastAPI, Uvicorn                                                        |
-| Database      | PostgreSQL on Replit, SQLite locally (SQLAlchemy)                               |
-| AI / Compute  | RunPod Serverless vLLM endpoint (Qwen2.5-7B-Instruct); DeepSeek API as fallback |
-| Data          | ESCO v1.2, ILO GenAI exposure index (WP 140), UN SDG API, Hacker News, arXiv    |
-| Hosting / Dev | Replit (Autoscale deployment, PostgreSQL, Secrets)                              |
+| Layer         | Technology                   |
+| ------------- | ---------------------------- |
+| Frontend      | HTML, CSS, vanilla JavaScript (GSAP and Lenis for motion) |
+| Backend       | Python, FastAPI, Uvicorn     |
+| Database      | PostgreSQL on Replit, SQLite locally (SQLAlchemy) |
+| AI / Compute  | DeepSeek API (deepseek-chat) through its OpenAI-compatible route; WorkBuddy (CodeBuddy) CLI for local runs; templates when no model is available |
+| Data          | ESCO v1.2, ILO GenAI exposure index (WP 140), UN SDG API, Hacker News, arXiv |
+| Hosting / Dev | Replit (Autoscale deployment, PostgreSQL, Secrets) |
 
 ---
 
@@ -69,7 +69,7 @@ Workforce Futures turns public trend signals into a personal, explainable plan. 
 ├── app/                     # FastAPI backend
 │   ├── main.py              # Application entry point and HTTP API
 │   ├── engine.py            # Scoring, scenarios and pathway builder
-│   ├── llm.py               # Model connector (RunPod / DeepSeek / CLI) with guardrails
+│   ├── llm.py               # Model connector (DeepSeek API / local CLI) with guardrails
 │   ├── accounts.py          # Sign-in, sessions, tester accounts
 │   ├── advice.py            # Cost and weekly-hours advice
 │   ├── agent.py             # In-app helper
@@ -110,8 +110,8 @@ Workforce Futures turns public trend signals into a personal, explainable plan. 
 ```
 Browser (static/) ──► Replit: FastAPI app (app/) ──► PostgreSQL (accounts, profiles, snapshots)
                              │
-                             ├──► RunPod Serverless vLLM endpoint (reads CVs, rewords explanations)
-                             │      └─ fallback: DeepSeek API, then templates
+                             ├──► DeepSeek API (reads CVs, rewords explanations)
+                             │      └─ local runs: WorkBuddy CLI; no model: templates
                              ├──► ESCO API (live job search)
                              └──► ingest/refresh.py: Hacker News + arXiv ──► dated trend snapshots
 ```
@@ -126,7 +126,7 @@ Browser (static/) ──► Replit: FastAPI app (app/) ──► PostgreSQL (acc
 2. In **Tools → Database**, add a PostgreSQL database (Replit sets `DATABASE_URL`).
 3. Open the **Secrets** tab (🔒) and add the variables listed in `.env.example`:
    - `ADMIN_TOKEN` (any long random string), `TEST_ACCOUNTS` (e.g. `alice:Alice,bob:Bob`)
-   - optional: `RUNPOD_API_KEY` / `RUNPOD_ENDPOINT_ID` (GPU model endpoint), `LLM_API_KEY` (DeepSeek fallback), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY`
+   - optional: `LLM_API_KEY` (DeepSeek API, for the language features), `ADZUNA_APP_ID` / `ADZUNA_APP_KEY`
 4. Click **Run**. Replit uses `.replit` to run `scripts/build.sh` and `scripts/start.sh`.
 
 A deployed version is always available at the [Live Demo](https://workforce-future.replit.app/) link above.
