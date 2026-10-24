@@ -23,7 +23,7 @@
 | Replit Project    | https://replit.com/@wongyiksheng/MK-Green-Hackathon |
 | Live Demo         | https://mk-green-hackathon.replit.app          |
 | Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing|
-| Demo Video        | [demo video link]                              |
+| Demo Video        | https://drive.google.com/file/d/1RItAk2ZSZWqDUEbi-gB-ble2uMeq1Bip/view?usp=sharing   |
 
 ---
 
@@ -184,7 +184,7 @@ python -m pytest -q
 
 - [x] Team name, domain (Domain 1 / Domain 2) and SDG track filled in
 - [x] Slide deck link added
-- [ ] Demo video link added
+- [x] Demo video link added
 - [x] Replit used, with proof of use in `submission/`
 - [x] Preliminary submission completed (`SDC2026_TeamName_Preliminary.pdf`)
 - [x] Technology declaration completed (`SDC2026_TeamName_TechDeclaration.pdf`)
