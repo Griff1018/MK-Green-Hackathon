@@ -22,7 +22,7 @@
 | GitHub Repository | https://github.com/Griff1018/MK-GreenCode-WorkFuture                                                 |
 | Replit Project    | https://replit.com/@wongyiksheng/WorkForce-Future-1                                                  |
 | Live Demo         | https://workforce-future.replit.app/                                                                 |
-| Slide Deck        | https://docs.google.com/presentation/d/1uMcbffadX3EHKjX_2TqMDCnALSO22dPwjIWN5dp7Pmg/edit?usp=sharing |
+| Slide Deck        | https://drive.google.com/file/d/1tG7CpmVL7ZWIOymMkycgat_Ojg1U6wtT/view?usp=sharing                   |
 | Demo Video        | https://www.youtube.com/watch?v=AdGutqiT2iY                                                          |
 | Pitching Video    | *(to be added)*                                                                                      |
 
